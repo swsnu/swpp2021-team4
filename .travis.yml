@@ -14,7 +14,7 @@ jobs:
         - cd backend
         - pip install -r requirements.txt
       script:
-        - pylint **/*.py --load-plugins pylint_django
+        - pylint **/*.py --load-plugins pylint_django --django-settings-module=tripick.settings
         - coverage run --source="." manage.py test
         - coverage xml
         - cd .. && sonar-scanner
