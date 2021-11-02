@@ -49,7 +49,7 @@ class Post(models.Model):
     def __str__(self):
         return self.title
 
-class Places(models.Model):
+class Place(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
     place = models.ForeignKey(PlaceInfo, on_delete=models.CASCADE)
     description = models.TextField()
