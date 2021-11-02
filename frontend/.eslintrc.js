@@ -3,12 +3,12 @@ module.exports = {
     browser: true,
     es2021: true,
     node: true,
-    jest: true,
   },
   extends: [
     'plugin:react/recommended',
     'airbnb',
   ],
+  parser: '@typescript-eslint/parser',
   parserOptions: {
     ecmaFeatures: {
       jsx: true,
@@ -18,6 +18,7 @@ module.exports = {
   },
   plugins: [
     'react',
+    '@typescript-eslint',
   ],
   rules: {
   },
