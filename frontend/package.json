@@ -2,6 +2,7 @@
   "name": "frontend",
   "version": "0.1.0",
   "private": true,
+  "main": "src/index.js",
   "proxy": "http://127.0.0.1:8000",
   "dependencies": {
     "@testing-library/jest-dom": "^5.11.4",
