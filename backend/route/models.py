@@ -1,7 +1,7 @@
 import os
 from uuid import uuid4
 from django.db import models
-from django.contrib.auth.models import User
+from account.models import User
 from django.utils import timezone
 
 class PlaceInfo(models.Model):
@@ -48,15 +48,26 @@ class Post(models.Model):
     created_at = models.DateTimeField(default=timezone.now)
     updated_at = models.DateTimeField(blank=True, null=True)
     folder = models.ForeignKey(Folder, on_delete=models.CASCADE)
-    def date_upload_to(self, filename):
+    def header_date_upload_to(self, filename):
         ymd_path = timezone.now().strftime('%Y/%m/%d') 
         uuid_name = uuid4().hex
         extension = os.path.splitext(filename)[-1].lower()
         return '/'.join([
+            'header_image',
+            ymd_path,
             uuid_name + extension,
         ])
-    header_image = models.ImageField(upload_to=date_upload_to, null=True)
-    thumbnail_image = models.ImageField(upload_to=date_upload_to, null=True)
+    def thumbnail_date_upload_to(self, filename):
+        ymd_path = timezone.now().strftime('%Y/%m/%d') 
+        uuid_name = uuid4().hex
+        extension = os.path.splitext(filename)[-1].lower()
+        return '/'.join([
+            'thumbnail_image',
+            ymd_path,
+            uuid_name + extension,
+        ])
+    header_image = models.ImageField(upload_to=header_date_upload_to, null=True)
+    thumbnail_image = models.ImageField(upload_to=thumbnail_date_upload_to, null=True)
     days= models.IntegerField(default=1)
     like_users = models.ManyToManyField(User, related_name='like_users', blank=True)
     is_shared = models.BooleanField(blank=True)

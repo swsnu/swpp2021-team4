@@ -11,12 +11,13 @@ class User(AbstractUser):
         uuid_name = uuid4().hex
         extension = os.path.splitext(filename)[-1].lower()
         return '/'.join([
-            'profileImage',
+            'profile_image',
             ymd_path,
             uuid_name + extension,
         ])
 
-    profileImage = models.ImageField(upload_to=date_upload_to, null=True)
+    profile_image = models.ImageField(upload_to=date_upload_to, null=True)
+    created_at = models.DateTimeField(default=timezone.now)
 
     def __str__(self):
         return self.username
