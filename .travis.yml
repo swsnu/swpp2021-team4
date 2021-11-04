@@ -3,7 +3,8 @@ dist: bionic
 
 jobs:
   include:
-    - language: python
+    - language: node_js
+      node_js: 14
       python: "3.7.9"
       addons:
         sonalcloud:
@@ -12,18 +13,20 @@ jobs:
             secure: "GwHEs9yykF137sR1vpmTpTnfMhADlr9erkpsRKjIWAUs8Hp4rvIzEe+r07FcxkN8jW/j3MyumC4tLJYlKE/9tD+Z9UsXvQNJEUg1ITkYZKvQH0chBDNH40pbBW11rm/cZupZ1P7ZjQM/t9M3XLCzuh7jhard7YDVv9r7nRo2QNqDjjNDiICHvJUGip1ppP7q6O4KL/Gy1+Snzz72eazFlu41mfo5APbqsyKWkxtJObsOLGXJxIMDtB5wxoHEb4jMfbhgrHb/XR105VSWsETbp9Pv9jo44FchE5oVXajnXUaVgXhI3imAZeK+f0iSSyYrVvpTPYceB9f9epZUYXkceV7RMfEzuQvGG1QFmxZfcCN2zpw/2FAICjH3UlPRQOx+G8+A55ACEAfh/xmoYphQLYV8XoFayEmtSjKzXKrx8ZMoIVIK/d7LhNVjtvAd02ZKyq+4TBYzSEEv5FXA+lLZzXWBIjqBcCs/YrRbXkDAoq0x0PdA63XmxTZ0Kux2/sz6ScGY23SHIi+ta+a1XgzqCKY0qZ4EKDZaQgTexuop3Hw+k8V0OPpriTk4ECGi364Oh6OaxghEOoPOVCYneO1mcvZoTgQMaMw0XTNqqZH559r419MJjvXvqdbKQNSPgavX4llnMuf5vNxd739GdG8lImI0yqtju//1qeLi9uH0UPE="
       install:
         - cd backend
+        - source ~/virtualenv/python3.7/bin/activate
         - pip install -r requirements.txt
-      script:
-        - pylint --disable=R,C **/*.py --load-plugins pylint_django --django-settings-module=tripick.settings
-        - coverage run --source="." manage.py test
-        - coverage xml
-        - cd .. && sonar-scanner
-
-    - language: node_js
-      node_js: 14
-      install:
-        - cd frontend
+        - pip install coveralls
+        - cd ../frontend
         - yarn install
+        - yarn global add coveralls
+        - gem install coveralls-lcov
       script:
         - ./node_modules/.bin/eslint src
         - yarn test --coverage --watchAll=false --passWithNoTests
+        - coveralls-lcov -v -n coverage/lcov.info > coverage.json
+        - cd ../backend
+        - pylint --disable=R,C **/*.py --load-plugins pylint_django --django-settings-module=tripick.settings
+        - coverage run --source='.' manage.py test
+        - coverage xml
+        - sonar-scanner
+        - coveralls --merge=../frontend/coverage.json
