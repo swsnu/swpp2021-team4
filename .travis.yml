@@ -28,5 +28,6 @@ jobs:
         - pylint --disable=R,C **/*.py --load-plugins pylint_django --django-settings-module=tripick.settings
         - coverage run --source='.' manage.py test
         - coverage xml
+        - cd ..
         - sonar-scanner
-        - coveralls --merge=../frontend/coverage.json
+        - coveralls --merge=./frontend/coverage.json
