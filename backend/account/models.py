@@ -18,6 +18,11 @@ class User(AbstractUser):
 
     profile_image = models.ImageField(upload_to=date_upload_to, null=True)
     created_at = models.DateTimeField(default=timezone.now)
+    updated_at = models.DateTimeField(default=timezone.now)
+
+    def update_date(self): 
+        self.updated_at = timezone.now()
+        self.save()
 
     def __str__(self):
         return self.username
