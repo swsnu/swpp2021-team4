@@ -47,7 +47,7 @@ class Post(models.Model):
     author = models.ForeignKey(User, null=True, on_delete= models.CASCADE)
     created_at = models.DateTimeField(default=timezone.now)
     updated_at = models.DateTimeField(blank=True, null=True)
-    folder = models.ForeignKey(Folder, on_delete=models.CASCADE)
+    folder = models.ForeignKey(Folder, null=True, on_delete=models.CASCADE)
     def header_date_upload_to(self, filename):
         ymd_path = timezone.now().strftime('%Y/%m/%d') 
         uuid_name = uuid4().hex
