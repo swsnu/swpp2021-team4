@@ -47,7 +47,7 @@ def signin(request):
             profile_image = None
 
         response_dict = {
-            'loggedUser': {
+            'logged_user': {
                 'id': user.id,
                 'email': user.email,
                 'username': user.username,
