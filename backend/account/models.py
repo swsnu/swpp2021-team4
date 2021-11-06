@@ -6,6 +6,8 @@ from django.utils import timezone
 
 # Create your models here.
 class User(AbstractUser):
+    email = models.EmailField(unique=True)
+    
     def date_upload_to(self, filename):
         ymd_path = timezone.now().strftime('%Y/%m/%d')
         uuid_name = uuid4().hex
