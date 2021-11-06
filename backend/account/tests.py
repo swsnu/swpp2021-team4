@@ -93,3 +93,17 @@ class AccountTestCase(TestCase):
             }), content_type='application/json')
         self.assertEqual(response.status_code, 201)
         self.assertIn(user.profile_image.url, response.content.decode())
+
+    def test_signout(self):
+        client = Client()
+
+        response = client.post('/user/signout/')
+        self.assertEqual(response.status_code, 401)
+
+        response = client.post('/user/signin/', json.dumps({
+            'email': 'swpp@swpp.com',
+            'password': 'swpp'
+            }), content_type='application/json')
+        
+        response = client.post('/user/signout/')
+        self.assertEqual(response.status_code, 204)
