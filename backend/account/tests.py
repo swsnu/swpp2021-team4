@@ -1,14 +1,12 @@
 from django.test import TestCase, Client
-from django.core.files.uploadedfile import SimpleUploadedFile
 from django.core.files import File
-import tempfile
+from django.utils import timezone
+
 import json
 from .models import User
 
-
 class AccountTestCase(TestCase):
     def setUp(self):
-        # Create two users
         user = User.objects.create_user(email="swpp@swpp.com", username="swpp")
         user.set_password("swpp")
         user.save()
@@ -26,7 +24,7 @@ class AccountTestCase(TestCase):
         user.save()
 
         path = user.profile_image.path
-        self.failUnless(open(path), 'file not found')
+        self.assertIn(timezone.now().strftime('%Y/%m/%d'), path)
 
     def test_signup(self):
         client = Client()
