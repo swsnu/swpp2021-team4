@@ -15,13 +15,11 @@ def signup(request):
         email = json.loads(body)['email']
         username = json.loads(body)['username']
         password = json.loads(body)['password']
+
+        user = User.objects.create_user(email=email, username=username)
     except (KeyError, JSONDecodeError):
         return HttpResponseBadRequest()
     
-    if User.objects.filter(email=email) or User.objects.filter(username=username):
-        return HttpResponseBadRequest()
-
-    user = User.objects.create_user(email=email, username=username)
     user.set_password(password)
     user.save()
     return HttpResponse(status=201)

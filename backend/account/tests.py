@@ -37,9 +37,14 @@ class AccountTestCase(TestCase):
         self.assertEqual(response.status_code, 400)
 
         response = client.post('/user/signup/', json.dumps({
+            'email': "swpp@swpp.com",
+            'username': "swpp"
+            }), content_type='application/json')
+        self.assertEqual(response.status_code, 400)
+
+        response = client.post('/user/signup/', json.dumps({
             'email': 'new@email.com',
             'username': 'new_username',
             'password': 'new_password'
             }), content_type='application/json')
         self.assertEqual(response.status_code, 201)
-        self.assertIn('new_username', response.content.decode())
