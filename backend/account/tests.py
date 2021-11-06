@@ -37,9 +37,73 @@ class AccountTestCase(TestCase):
         self.assertEqual(response.status_code, 400)
 
         response = client.post('/user/signup/', json.dumps({
+            'email': "swpp@swpp.com",
+            'username': "swpp"
+            }), content_type='application/json')
+        self.assertEqual(response.status_code, 400)
+
+        response = client.post('/user/signup/', json.dumps({
             'email': 'new@email.com',
             'username': 'new_username',
             'password': 'new_password'
             }), content_type='application/json')
         self.assertEqual(response.status_code, 201)
-        self.assertIn('new_username', response.content.decode())
+
+    def test_signin(self):
+        client = Client()
+        response = client.get('/user/signin/')
+        self.assertEqual(response.status_code, 405)
+
+        response = client.post('/user/signin/', json.dumps({
+            'wrong_key': 'wrong_value'
+            }), content_type='application/json')
+        self.assertEqual(response.status_code, 400)
+
+        response = client.post('/user/signin/', json.dumps({
+            'email': 'sp@sp.com',
+            'password': 'swpp'
+            }), content_type='application/json')
+        self.assertEqual(response.status_code, 401)
+
+        response = client.post('/user/signin/', json.dumps({
+            'email': 'swpp@swpp.com',
+            'password': 'sp'
+            }), content_type='application/json')
+        self.assertEqual(response.status_code, 401)
+
+        response = client.post('/user/signin/', json.dumps({
+            'email': 'swpp@swpp.com',
+            'password': 'swpp'
+            }), content_type='application/json')
+        self.assertEqual(response.status_code, 201)
+        self.assertIn('1', response.content.decode())
+        self.assertIn('swpp@swpp.com', response.content.decode())
+        self.assertIn('swpp', response.content.decode())
+        self.assertIn('null', response.content.decode())
+
+        client = Client()
+
+        user = User.objects.get(email="swpp@swpp.com")
+        user.profile_image = File(open("./test_img.jpeg", "rb"))
+        user.save()
+
+        response = client.post('/user/signin/', json.dumps({
+            'email': 'swpp@swpp.com',
+            'password': 'swpp'
+            }), content_type='application/json')
+        self.assertEqual(response.status_code, 201)
+        self.assertIn(user.profile_image.url, response.content.decode())
+
+    def test_signout(self):
+        client = Client()
+
+        response = client.post('/user/signout/')
+        self.assertEqual(response.status_code, 401)
+
+        response = client.post('/user/signin/', json.dumps({
+            'email': 'swpp@swpp.com',
+            'password': 'swpp'
+            }), content_type='application/json')
+        
+        response = client.post('/user/signout/')
+        self.assertEqual(response.status_code, 204)
