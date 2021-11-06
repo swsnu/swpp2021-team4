@@ -8,8 +8,11 @@ import {
 import thunk from "redux-thunk";
 
 import userReducer from './User/userReducer';
+import postReducer from './Post/postReducer';
+
 const rootReducer: Redux.Reducer = combineReducers({
   user: userReducer,
+  post: postReducer,
 });
 
 const store: Redux.Store = createStore(
