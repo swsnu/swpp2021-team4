@@ -4,7 +4,6 @@ from django.views.decorators.csrf import ensure_csrf_cookie
 import json
 from .models import *
 from json.decoder import JSONDecodeError
-from .serializers import *
 
 def posts(request):
     if request.method!='GET' and request.method!='POST':
@@ -191,3 +190,77 @@ def post_comment_spec(request, id, cid):
     else: #delete
         Comment.objects.get(id=cid).delete() 
         return HttpResponse(status=200)
+
+def place_create(request):
+    if not logged_user_id:
+        return HttpResponse(status=405)
+    elif request.method!='POST':
+        return HttpResponseNotAllowed(['POST', 'DELETE'])
+    else: #POST
+        try:
+            body = request.body.decode()
+            post_id = json.loads(body)['post_id']
+            place_id = json.loads(body)['place_id']
+            description = json.loads(body)['description']
+            day = json.loads(body)['day']
+        except (KeyError, JSONDecodeError) as e:
+            return HttpResponseBadRequest()
+        place=Place(post_id=post_id, place_id=place_id, description=descriptoin, day=day)
+        place.save()
+        response_dict = {'post': place.post.id, 'place':place.place.id, 'description': place.description, 'day': place.day}
+        return JsonResponse(response_dict, status=201)
+
+def place_spec(request, id):
+    if request.method!='GET' and request.method!='PUT' and request.method!='DELETE':
+        return HttpResponseNotAllowed(['GET', 'PUT', 'DELETE'])
+    elif request.method=="GET":
+        place = Place.objects.get(id=id)
+        response_dict = {'post_id': place.post.id, 'place_id': place.place.id, 'description': place.description, 'day':place.day, 'folder_id': place.folder.id}
+        return JsonResponse(response_dict, safe=False)
+    elif request.method=='PUT':
+        logged_user_id=request.session.get('user', None)
+        if not logged_user_id:
+            return HttpResponse(status=405)
+        post = Post.objects.get(id=id)
+        try:
+            body = request.body.decode()
+            post_id = json.loads(body)['post_id']
+            place_id = json.loads(body)['place_id']
+            description = json.loads(body)['description']
+            day = json.loads(body)['day']
+            folder_id = json.loads(body)['folder_id']
+        except (KeyError, JSONDecodeError) as e:
+            return HttpResponseBadRequest()
+        place = Place( post_id = post_id, place_id = place_id, folder_id = folder_id, description= description, day= day)
+        place.save()
+        response_dict = {'post_id': place.post.id, 'place_id': place.place.id, 'folder_id': place.folder.id, 'description': place.description, 'day':place.day}
+        return JsonResponse(response_dict, status=201)
+    else: #delete
+        logged_user_id=request.session.get('user', None)
+        if not logged_user_id:
+            return HttpResponse(status=405)
+        Place.objects.get(id=id).delete()
+        return HttpResponse(status=200)    
+
+def place_cart(request,id, fid):
+    if request.method!='POST' and request.method!='DELETE':
+        return HttpResponseNotAllowed(['POST', 'DELETE'])
+    else:
+        place = Place.objects.get(id=id)
+        try:
+            body = request.body.decode()
+            post_id = json.loads(body)['post_id']
+            place_id = json.loads(body)['place_id']
+            description = json.loads(body)['description']
+            day = json.loads(body)['day']
+            folder_id = json.loads(body)['folder_id']
+        except (KeyError, JSONDecodeError) as e:
+            return HttpResponseBadRequest()
+        if request.method=='POST':
+            place = Place(post_id=post_id, place_id=place_id, description=description, folder_id=folder_id, day=day)
+            place.save()
+            response_dict = {'post_id': place.post.id, 'place_id': place.place.id, 'folder_id': place.folder.id, 'description': place.description, 'day':place.day}
+            return JsonResponse(response_dict, status=201)
+        elif request.method=='DELETE':
+            place = Place(post_id=post_id, place_id=place_id, description=description, folder=None, day=day)
+            return HttpResponse(status=200) 

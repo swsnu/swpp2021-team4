@@ -100,7 +100,7 @@ class Place(models.Model):
     place = models.ForeignKey(PlaceInfo, on_delete=models.CASCADE)
     description = models.TextField()
     day = models.IntegerField()
-
+    folder = models.ForeignKey(Folder, null=True, blank=True,on_delete=models.CASCADE)
 
 class Comment(models.Model):
     content = models.TextField()
