@@ -12,29 +12,22 @@ import {
   Switch
 } from "react-router-dom";
 
-
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
-    setIsLoggedIn(false);
+    if (!isLoggedIn && sessionStorage.getItem('isAuthorized') === 'true') {
+      setIsLoggedIn(true);
+    }
   }, []);
 
   const unAuthorized = () => {
-    return (
-      <>
-        <Redirect to="/signin/" />
-      </>
-    )
+    return <Redirect to="/signin/" />;
   }
 
   const authorized = () => {
     return (
       <>
-        <Route exact path="/main/">
-          <MainPage />
-        </Route>
-
         <Route exact path={["post/create/", "post/:id/edit/"]}>
           <CreateEditPostPage />
         </Route>
@@ -49,6 +42,10 @@ function App() {
 
         <Route exact path="/edit_profile/">
           <EditProfilePage />
+        </Route>
+
+        <Route path="/main/">
+          <MainPage />
         </Route>
       </>
     );

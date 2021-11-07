@@ -9,14 +9,20 @@ import {
 import { UserDispatchType, UserType } from './userInterfaces';
 
 interface SigninFormType {
-  username: string,
+  email: string,
   password: string
 }
 
+axios.defaults.xsrfCookieName = 'csrftoken';
+axios.defaults.xsrfHeaderName = 'X-CSRFTOKEN';
+
 export const signinAction = (formData: SigninFormType) => {
   return (dispatch: Redux.Dispatch<UserDispatchType>) => {
-    return axios.post<UserType>('/user/signin/', formData)
-      .then(res => dispatch({ type: SIGNIN_SUCCESS, payload: res.data }))
+    return axios.post<{ logged_user: UserType}>('/user/signin/', formData)
+      .then(res => {
+        dispatch({ type: SIGNIN_SUCCESS, payload: res.data.logged_user });
+        sessionStorage.setItem('isAuthorized', 'true');
+      })
       .catch(() => dispatch({ type: SIGNIN_FAIL }));
   }
 }
