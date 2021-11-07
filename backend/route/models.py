@@ -77,7 +77,7 @@ class Post(models.Model):
         ('aut', 'autumn'),
         ('win', 'winter')
     )
-    season = models.CharField(max_length=10, choices=SEASONS, blank=True, null=True, verbose_name="category")
+    season = models.CharField(max_length=10, choices=SEASONS, blank=True, null=True)
     THEMES = (
         ('friends', 'withFriends'),
         ('family', 'withFamily'),

@@ -39,7 +39,8 @@ def posts(request):
             post_availableWithOutCar=json.loads(body)['availableWithOutCar']
         except (KeyError, JSONDecodeError) as e:
             return HttpResponseBadRequest()
-        post = Post(title=post_title, author=request.user, folder__id=post_folder, header_image=post_header_img, thumbnail_image=post_thumbnail_img,days=post_days, 
+        folder=Folder.objects.get(id=post_folder_id)
+        post = Post(title=post_title, author=request.user, folder=folder, header_image=post_header_img, thumbnail_image=post_thumbnail_img,days=post_days, 
         is_shared=post_is_shared,location=post_location, theme=post_theme, season=post_season, availableWithoutCar=post_availableWithOutCar)
         post.save()
         folder_id=''
