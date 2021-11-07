@@ -66,8 +66,8 @@ class Post(models.Model):
             ymd_path,
             uuid_name + extension,
         ])
-    header_image = models.ImageField(upload_to=header_date_upload_to, null=True)
-    thumbnail_image = models.ImageField(upload_to=thumbnail_date_upload_to, null=True)
+    header_image = models.ImageField(upload_to=header_date_upload_to, null=True, blank=True)
+    thumbnail_image = models.ImageField(upload_to=thumbnail_date_upload_to, null=True, blank=True)
     days= models.IntegerField(default=1)
     like_users = models.ManyToManyField(User, related_name='like_users', blank=True)
     is_shared = models.BooleanField(blank=True)
