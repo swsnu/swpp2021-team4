@@ -1,59 +1,78 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import SignupPage from "./pages/SignupPage";
 import SigninPage from "./pages/SigninPage";
 import MainPage from "./pages/MainPage";
 import PostDetailPage from "./pages/PostDetailPage";
 import UserInfoPage from "./pages/UserInfoPage";
-import { Routes, Route, Navigate } from "react-router-dom";
 import EditProfilePage from "./pages/EditProfilePage";
 import CreateEditPostPage from "./pages/CreateEditPostPage";
+import {
+  Redirect,
+  Route,
+  Switch
+} from "react-router-dom";
 
-interface Props {
-  element: any;
-  path?: string;
-  loggedIn?: boolean;
-}
-const Privateroute: React.FC<Props> = (props) => {
-  if (props.loggedIn === true) {
-    return <Route path={props.path} element={props.element} />;
-  } else {
-    return <Navigate to="/signin" />;
-  }
-};
 
 function App() {
-  const loggedIn: boolean = false;
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(() => {
+    setIsLoggedIn(false);
+  }, []);
+
+  const unAuthorized = () => {
+    return (
+      <>
+        <Redirect to="/signin/" />
+      </>
+    )
+  }
+
+  const authorized = () => {
+    return (
+      <>
+        <Route exact path="/main/">
+          <MainPage />
+        </Route>
+
+        <Route exact path={["post/create/", "post/:id/edit/"]}>
+          <CreateEditPostPage />
+        </Route>
+
+        <Route exact path="/post/:id/">
+          <PostDetailPage />
+        </Route>
+
+        <Route exact path="/user_info/:id/">
+          <UserInfoPage />
+        </Route>
+
+        <Route exact path="/edit_profile/">
+          <EditProfilePage />
+        </Route>
+      </>
+    );
+  }
+
   return (
-    <Routes>
-      <Route path="/main" element={<MainPage />} />
-      <Route path="/signup" element={<SignupPage />} />
-      <Route path="/signin" element={<SigninPage />} />
-      <Privateroute
-        path="/post/create"
-        loggedIn={loggedIn}
-        element={<CreateEditPostPage />}
-      />
-      <Privateroute
-        path="/post/:id"
-        loggedIn={loggedIn}
-        element={<PostDetailPage />}
-      />
-      <Privateroute
-        path="/post/:id/edit"
-        loggedIn={loggedIn}
-        element={<CreateEditPostPage />}
-      />
-      <Privateroute
-        path="/user_info/:id"
-        loggedIn={loggedIn}
-        element={<UserInfoPage />}
-      />
-      <Privateroute
-        path="/edit_profile"
-        loggedIn={loggedIn}
-        element={<EditProfilePage />}
-      />
-    </Routes>
+    <div className="App">
+      <Switch>
+        <Route exact path="/signup/">
+          <SignupPage />
+        </Route>
+
+        <Route exact path="/signin/">
+          <SigninPage />
+        </Route>
+
+        {
+          isLoggedIn
+            ? authorized()
+            : unAuthorized()
+        }
+
+      </Switch>
+    </div>
   );
 }
 
