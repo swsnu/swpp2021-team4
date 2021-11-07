@@ -4,44 +4,11 @@ from django.db import models
 from account.models import User
 from django.utils import timezone
 
-class PlaceInfo(models.Model):
-    name = models.CharField(max_length=256)
-    address = models.TextField()
-    latitude = models.CharField(max_length=50)
-    longitude = models.CharField(max_length=50)
-    description = models.TextField()
 
 class Folder(models.Model):
     name = models.CharField(max_length=256)
     user = models.ForeignKey(User, null=True, on_delete= models.CASCADE)
 
-class Theme(models.Model):
-    themes = [
-        ('friends', 'withFriends'),
-        ('family', 'withFamily'),
-        ('lover', 'withLovers'),
-        ('alone', 'alone'),
-    ]
-    theme = models.CharField(max_length=7, choices=themes)
-
-
-class Transportation(models.Model):
-    transportations=[
-        ('car', 'car'),
-        ('pub', 'publicTransportation'),
-        ('wal', 'walk'),
-        ('etc', 'others')
-    ]
-    transportation = models.CharField(max_length=3, choices=transportations)
-
-class Season(models.Model):
-    seasons=[
-        ('spr', 'spring'),
-        ('sum', 'summer'),
-        ('aut', 'autumn'),
-        ('win', 'winter')
-    ]
-    season = models.CharField(max_length=3, choices=seasons)
 class Post(models.Model):
     title = models.CharField(max_length=256)
     author = models.ForeignKey(User, null=True, on_delete= models.CASCADE)
@@ -97,10 +64,10 @@ class Post(models.Model):
 
 class Place(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
-    place = models.ForeignKey(PlaceInfo, on_delete=models.CASCADE)
     description = models.TextField()
     day = models.IntegerField()
     folder = models.ForeignKey(Folder, null=True, blank=True,on_delete=models.CASCADE)
+    info = models.TextField(null=True, blank=True)
 
 class Comment(models.Model):
     content = models.TextField()

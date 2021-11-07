@@ -206,11 +206,12 @@ def place_create(request):
             place_id = body['place_id']
             description = body['description']
             day = body['day']
+            info= body['info']
         except (KeyError, JSONDecodeError) as e:
             return HttpResponseBadRequest()
-        place=Place(post_id=post_id, place_id=place_id, description=descriptoin, day=day)
+        place=Place(post_id=post_id, place_id=place_id, description=descriptoin, day=day, info=info)
         place.save()
-        response_dict = {'post': place.post.id, 'place':place.place.id, 'description': place.description, 'day': place.day}
+        response_dict = {'post': place.post.id, 'place':place.place.id, 'description': place.description, 'day': place.day, 'info':place.info}
         return JsonResponse(response_dict, status=201)
 
 @require_http_methods(["GET", "PUT", "DELETE"])
@@ -225,17 +226,18 @@ def place_spec(request, id):
             return HttpResponse(status=405)
         post = Post.objects.get(id=id)
         try:
-            body = request.body.decode()
-            post_id = json.loads(body)['post_id']
-            place_id = json.loads(body)['place_id']
-            description = json.loads(body)['description']
-            day = json.loads(body)['day']
-            folder_id = json.loads(body)['folder_id']
+            body = json.loads(request.body.decode())
+            post_id = body['post_id']
+            place_id = body['place_id']
+            description = body['description']
+            day = body['day']
+            folder_id = body['folder_id']
+            info = body['info']
         except (KeyError, JSONDecodeError) as e:
             return HttpResponseBadRequest()
-        place = Place( post_id = post_id, place_id = place_id, folder_id = folder_id, description= description, day= day)
+        place = Place( post_id = post_id, place_id = place_id, folder_id = folder_id, description= description, day= day, info=info)
         place.save()
-        response_dict = {'post_id': place.post.id, 'place_id': place.place.id, 'folder_id': place.folder.id, 'description': place.description, 'day':place.day}
+        response_dict = {'post_id': place.post.id, 'place_id': place.place.id, 'folder_id': place.folder.id, 'description': place.description, 'day':place.day, 'info':place.info}
         return JsonResponse(response_dict, status=201)
     else: #delete
         logged_user_id=request.session.get('user', None)
@@ -254,13 +256,14 @@ def place_cart(request,id, fid):
         description = body['description']
         day = body['day']
         folder_id = body['folder_id']
+        info=body['info']
     except (KeyError, JSONDecodeError) as e:
         return HttpResponseBadRequest()
     if request.method=='POST':
-        place = Place(post_id=post_id, place_id=place_id, description=description, folder_id=folder_id, day=day)
+        place = Place(post_id=post_id, place_id=place_id, description=description, folder_id=folder_id, day=day, info=info)
         place.save()
-        response_dict = {'post_id': place.post.id, 'place_id': place.place.id, 'folder_id': place.folder.id, 'description': place.description, 'day':place.day}
+        response_dict = {'post_id': place.post.id, 'place_id': place.place.id, 'folder_id': place.folder.id, 'description': place.description, 'day':place.day, 'info':place.info}
         return JsonResponse(response_dict, status=201)
     elif request.method=='DELETE':
-        place = Place(post_id=post_id, place_id=place_id, description=description, folder=None, day=day)
+        place = Place(post_id=post_id, place_id=place_id, description=description, folder=None, day=day, info=info)
         return HttpResponse(status=200)
