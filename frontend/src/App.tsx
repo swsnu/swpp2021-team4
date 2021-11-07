@@ -11,7 +11,7 @@ import CreateEditPostPage from "./pages/CreateEditPostPage";
 interface Props {
   element: any;
   path?: string;
-  loggedIn?: boolean | undefined;
+  loggedIn?: boolean;
 }
 const PrivateRoute: React.FC<Props> = (props) => {
   console.log("hi");
@@ -34,10 +34,26 @@ function App() {
         loggedIn={loggedIn}
         element={<CreateEditPostPage />}
       />
-      <Route path="/post/:id" element={<PostDetailPage />} />
-      <Route path="/post/:id/edit" element={<CreateEditPostPage />} />
-      <Route path="/user_info/:id" element={<UserInfoPage />} />
-      <Route path="/edit_profile" element={<EditProfilePage />} />
+      <PrivateRoute
+        path="/post/:id"
+        loggedIn={loggedIn}
+        element={<PostDetailPage />}
+      />
+      <PrivateRoute
+        path="/post/:id/edit"
+        loggedIn={loggedIn}
+        element={<CreateEditPostPage />}
+      />
+      <PrivateRoute
+        path="/user_info/:id"
+        loggedIn={loggedIn}
+        element={<UserInfoPage />}
+      />
+      <PrivateRoute
+        path="/edit_profile"
+        loggedIn={loggedIn}
+        element={<EditProfilePage />}
+      />
     </Routes>
   );
 }
