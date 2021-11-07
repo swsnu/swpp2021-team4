@@ -11,7 +11,7 @@ class RouteTestCase(TestCase):
     def setUp(self):
         pass
         
-
+    
     def test_get_post(self):
         user = User.objects.create_user(email="swpp@swpp.com", username="swpp")
         user.set_password("swpp")
