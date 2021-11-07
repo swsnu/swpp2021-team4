@@ -19,7 +19,7 @@ def posts(request):
                 folder_id=post.folder_id
             postlist.append({'title': post.title, 'author_id': post.author_id, 'header_img': post.header_image.url, 'thumbnail_image': post.thumbnail_image.url, 
             'days': post.days, 'folder_id': folder_id, 'is_shared':post.is_shared, 'theme':post.theme, 'comment': comments, 'season': post.season, 
-            'location': post.location, 'availableWithOutCar': post.availableWithoutCar})
+            'location': post.location, 'availableWithoutCar': post.availableWithoutCar})
         if len(postlist)==0:
             return HttpResponse(status=404)
         return JsonResponse(postlist, safe=False)
@@ -38,19 +38,19 @@ def posts(request):
             post_theme=body['theme']
             post_season=body['season']
             post_location=body['location']
-            post_availableWithOutCar=body['availableWithOutCar']
+            post_availableWithoutCar=body['availableWithoutCar']
         except (KeyError, JSONDecodeError) as e:
             return HttpResponseBadRequest()
         folder=Folder.objects.get(id=post_folder_id)
         post = Post(title=post_title, author=request.user, folder=folder, header_image=post_header_image, thumbnail_image=post_thumbnail_image,days=post_days, 
-        is_shared=post_is_shared,location=post_location, theme=post_theme, season=post_season, availableWithoutCar=post_availableWithOutCar)
+        is_shared=post_is_shared,location=post_location, theme=post_theme, season=post_season, availableWithoutCar=post_availableWithoutCar)
         post.save()
         folder_id=''
         if post.folder:
             folder_id=post.folder_id
         response_dict = {'title': post.title, 'author_id': post.author_id, 'header_img': post.header_image, 'thumbnail_image': post.thumbnail_image, 
             'days': post.days, 'folder_id': folder_id, 'is_shared':post.is_shared, 'theme':post.theme, 'season': post.season, 
-            'location': post.location, 'availableWithOutCar': post.availableWithoutCar}
+            'location': post.location, 'availableWithoutCar': post.availableWithoutCar}
         return JsonResponse(response_dict, status=201)
 
 @require_http_methods(["GET", "PUT", "DELETE"])
@@ -60,9 +60,9 @@ def post_spec(request, id):
         comments=[]
         for comment in post.comment_set.all():
             comments.append({'content': comment.content, 'author_id':comment.author_id})
-        response_dict = {'title': post.title, 'author_id': post.author_id, 'header_img': post.header_image, 'thumbnail_image': post.thumbnail_image, 
+        response_dict = {'title': post.title, 'author_id': post.author_id, 'header_img': "https://file.mk.co.kr/meet/neds/2017/03/image_readtop_2017_220132_14909518722831365.jpg", 'thumbnail_image': "https://file.mk.co.kr/meet/neds/2017/03/image_readtop_2017_220132_14909518722831365.jpg", 
             'days': post.days, 'folder_id': post.folder_id, 'is_shared':post.is_shared, 'theme':post.theme, 'comment': comments, 'season': post.season, 
-            'location': post.location, 'availableWithOutCar': post.availableWithoutCar}
+            'location': post.location, 'availableWithoutCar': post.availableWithoutCar}
         return JsonResponse(response_dict, safe=False)
     elif request.method=='PUT':
         logged_user_id=request.session.get('user', None)
@@ -80,15 +80,15 @@ def post_spec(request, id):
             post_theme=body['theme']
             post_season=body['season']
             post_location=body['location']
-            post_availableWithOutCar=body['availableWithOutCar']
+            post_availableWithoutCar=body['availableWithoutCar']
         except (KeyError, JSONDecodeError) as e:
             return HttpResponseBadRequest()
         post = Post(title=post_title, author=request.user, folder_id=post_folder_id, header_image=post_header_image, thumbnail_image=post_thumbnail_image,days=post_days, 
-        is_shared=post_is_shared, location=post_location, theme=post_theme, season=post_season, availableWithoutCar=post_availableWithOutCar)
+        is_shared=post_is_shared, location=post_location, theme=post_theme, season=post_season, availableWithoutCar=post_availableWithoutCar)
         post.save()
         response_dict = {'title': post.title, 'author_id': post.author_id, 'header_img': post.header_image, 'thumbnail_image': post.thumbnail_image, 
             'days': post.days, 'folder_id': post.folder_id, 'is_shared':post.is_shared, 'theme':post.theme, 'season': post.season, 
-            'location': post.location, 'availableWithOutCar': post.availableWithoutCar}
+            'location': post.location, 'availableWithoutCar': post.availableWithoutCar}
         return JsonResponse(response_dict, status=201)
     else: #delete
         logged_user_id=request.session.get('user', None)
@@ -111,20 +111,20 @@ def post_cart(request,id, fid):
         post_theme=body['theme']
         post_season=body['season']
         post_location=body['location']
-        post_availableWithOutCar=body['availableWithOutCar']
+        post_availableWithoutCar=body['availableWithoutCar']
     except (KeyError, JSONDecodeError) as e:
         return HttpResponseBadRequest()
     if request.method=='POST':
         post = Post(title=post_title, author=request.user, folder_id=fid, header_image=post_header_image, thumbnail_image=post_thumbnail_image,days=post_days, 
-        is_shared=post_is_shared, theme=post_theme, season=post_season, location=post_location, availableWithoutCar=post_availableWithOutCar)
+        is_shared=post_is_shared, theme=post_theme, season=post_season, location=post_location, availableWithoutCar=post_availableWithoutCar)
         post.save()
         response_dict = {'title': post.title, 'author_id': post.author_id, 'header_img': post.header_image, 'thumbnail_image': post.thumbnail_image, 
         'days': post.days, 'folder_id': post.folder_id, 'is_shared':post.is_shared, 'theme':post.theme, 'season': post.season, 
-        'location': post.location, 'availableWithOutCar': post.availableWithoutCar}
+        'location': post.location, 'availableWithoutCar': post.availableWithoutCar}
         return JsonResponse(response_dict, status=201)
     elif request.method=='DELETE':
         post = Post(title=post_title, author=request.user, folder=None, header_image=post_header_image, thumbnail_image=post_thumbnail_image,days=post_days, 
-        is_shared=post_is_shared, theme=post_theme, season=post_season, location=post_location, availableWithoutCar=post_availableWithOutCar)
+        is_shared=post_is_shared, theme=post_theme, season=post_season, location=post_location, availableWithoutCar=post_availableWithoutCar)
 
 @require_http_methods(["POST", "DELETE"])
 def post_like(request, id):
