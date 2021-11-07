@@ -53,7 +53,7 @@ class RouteTestCase(TestCase):
         client = Client()
         response = client.get('/user/signup/')
         response = client.post('/post/', {
-            'username': 'swpp',
-            'password': 'iluvswpp'
+            'title': 'testTitle',
         })
-        
+        self.assertEqual(response.status_code, 405)
+

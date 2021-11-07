@@ -58,7 +58,7 @@ def post_spec(request, id):
     if request.method=="GET":
         post = Post.objects.get(id=id)
         comments=[]
-        for comment in post.comment_set.all:
+        for comment in post.comment_set.all():
             comments.append({'content': comment.content, 'author_id':comment.author.id})
         folder_id=''
         if post.folder:
