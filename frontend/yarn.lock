@@ -1166,7 +1166,7 @@
 
 "@babel/runtime@^7.7.6":
   version "7.16.0"
-  resolved "https://registry.npmjs.org/@babel/runtime/-/runtime-7.16.0.tgz"
+  resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.16.0.tgz#e27b977f2e2088ba24748bf99b5e1dece64e4f0b"
   integrity sha512-Nht8L0O8YCktmsDV6FqFue7vQLRx3Hb0B37lS5y0jDRqRxlBG4wIJHnf9/bgSE2UyipKFA01YtS+npRdTWBUyw==
   dependencies:
     regenerator-runtime "^0.13.4"
@@ -1821,7 +1821,7 @@
 
 "@types/history@*":
   version "4.7.9"
-  resolved "https://registry.npmjs.org/@types/history/-/history-4.7.9.tgz"
+  resolved "https://registry.yarnpkg.com/@types/history/-/history-4.7.9.tgz#1cfb6d60ef3822c589f18e70f8b12f9a28ce8724"
   integrity sha512-MUc6zSmU3tEVnkQ78q0peeEjKWPUADMlC/t++2bI8WnAG2tvYRPIgHG8lWkXwqc8MsUF6Z2MOf+Mh5sazOmhiQ==
 
 "@types/hoist-non-react-statics@^3.3.0":
@@ -1928,7 +1928,7 @@
 
 "@types/react-router-dom@^5.3.2":
   version "5.3.2"
-  resolved "https://registry.npmjs.org/@types/react-router-dom/-/react-router-dom-5.3.2.tgz"
+  resolved "https://registry.yarnpkg.com/@types/react-router-dom/-/react-router-dom-5.3.2.tgz#ebd8e145cf056db5c66eb1dac63c72f52e8542ee"
   integrity sha512-ELEYRUie2czuJzaZ5+ziIp9Hhw+juEw8b7C11YNA4QdLCVbQ3qLi2l4aq8XnlqM7V31LZX8dxUuFUCrzHm6sqQ==
   dependencies:
     "@types/history" "*"
@@ -1937,7 +1937,7 @@
 
 "@types/react-router@*":
   version "5.1.17"
-  resolved "https://registry.npmjs.org/@types/react-router/-/react-router-5.1.17.tgz"
+  resolved "https://registry.yarnpkg.com/@types/react-router/-/react-router-5.1.17.tgz#087091006213b11042f39570e5cd414863693968"
   integrity sha512-RNSXOyb3VyRs/EOGmjBhhGKTbnN6fHWvy5FNLzWfOWOGjgVUKqJZXfpKzLmgoU8h6Hj8mpALj/mbXQASOb92wQ==
   dependencies:
     "@types/history" "*"
@@ -4804,7 +4804,7 @@ escodegen@^2.0.0:
 
 eslint-config-airbnb-base@^14.2.1:
   version "14.2.1"
-  resolved "https://registry.npmjs.org/eslint-config-airbnb-base/-/eslint-config-airbnb-base-14.2.1.tgz"
+  resolved "https://registry.yarnpkg.com/eslint-config-airbnb-base/-/eslint-config-airbnb-base-14.2.1.tgz#8a2eb38455dc5a312550193b319cdaeef042cd1e"
   integrity sha512-GOrQyDtVEc1Xy20U7vsB2yAoB4nBlfH5HZJeatRXHleO+OS5Ot+MWij4Dpltw4/DyIkqUfqz1epfhVR5XWWQPA==
   dependencies:
     confusing-browser-globals "^1.0.10"
@@ -4813,7 +4813,7 @@ eslint-config-airbnb-base@^14.2.1:
 
 eslint-config-airbnb-typescript@^14.0.2:
   version "14.0.2"
-  resolved "https://registry.npmjs.org/eslint-config-airbnb-typescript/-/eslint-config-airbnb-typescript-14.0.2.tgz"
+  resolved "https://registry.yarnpkg.com/eslint-config-airbnb-typescript/-/eslint-config-airbnb-typescript-14.0.2.tgz#4dc1583b9eab671bb011dea7d4ff1fc0d88e6e09"
   integrity sha512-oaVR63DqpRUiOOeSVxIzhD3FXbqJRH+7Lt9GCMsS9SKgrRW3XpZINN2FO4JEsnaHEGkktumd0AHE9K7KQNuXSQ==
   dependencies:
     eslint-config-airbnb-base "^14.2.1"
@@ -5849,7 +5849,7 @@ history@^4.9.0:
 
 history@^5.0.3:
   version "5.1.0"
-  resolved "https://registry.npmjs.org/history/-/history-5.1.0.tgz"
+  resolved "https://registry.yarnpkg.com/history/-/history-5.1.0.tgz#2e93c09c064194d38d52ed62afd0afc9d9b01ece"
   integrity sha512-zPuQgPacm2vH2xdORvGGz1wQMuHSIB56yNAy5FnLuwOwgSYyPKptJtcMm6Ev+hRGeS+GzhbmRacHzvlESbFwDg==
   dependencies:
     "@babel/runtime" "^7.7.6"
@@ -9598,14 +9598,14 @@ react-refresh@^0.8.3:
 
 react-router-dom@^6.0.0:
   version "6.0.0"
-  resolved "https://registry.npmjs.org/react-router-dom/-/react-router-dom-6.0.0.tgz"
+  resolved "https://registry.yarnpkg.com/react-router-dom/-/react-router-dom-6.0.0.tgz#8a55a9ab3cc12f7eb06472f6c8001515af651c6a"
   integrity sha512-bPXyYipf0zu6K7mHSEmNO5YqLKq2q9N+Dsahw9Xh3oq1IirsI3vbnIYcVWin6A0zWyHmKhMGoV7Gr0j0kcuVFg==
   dependencies:
     react-router "6.0.0"
 
 react-router@6.0.0:
   version "6.0.0"
-  resolved "https://registry.npmjs.org/react-router/-/react-router-6.0.0.tgz"
+  resolved "https://registry.yarnpkg.com/react-router/-/react-router-6.0.0.tgz#a8803ac7b612c2a2d31cc466ceda656cf31fdfb9"
   integrity sha512-FcTRCihYZvERMNbG54D9+Wkv2cj/OtoxNlA/87D7vxKYlmSmbF9J9XChI9Is44j/behEiOhbovgVZBhKQn+wgA==
   dependencies:
     history "^5.0.3"
