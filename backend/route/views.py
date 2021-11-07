@@ -124,8 +124,9 @@ def post_cart(request,id, fid):
 def post_like(reqeust, id):
     if request.method!='POST' and request.method!='DELETE':
         return HttpResponseNotAllowed(['POST', 'DELETE'])
-    elif not request.user.is_authenticated:
-        return HttpResponse(status=405)
+    logged_user_id=request.session.get('user', None)
+    if not logged_user_id:
+            return HttpResponse(status=405)
     if request.method=='POST':
         post = Post.objects.get(id=id)
         like_list = post.like_set.filter(user_id=request.user.id)
@@ -145,7 +146,8 @@ def post_comment(request, id):
             comments.append({'content': comment.content, 'author_id':comment.author.id})
         return JsonResponse(comments, safe=False)
     else: #POST  
-        if not request.user.is_authenticated:
+        logged_user_id=request.session.get('user', None)
+        if not logged_user_id:
             return HttpResponse(status=405)
         try:
             body = request.body.decode()
@@ -167,8 +169,9 @@ def post_comment(request, id):
 def post_comment_spec(request, id, cid):
     if request.method!="PUT" and request.method!="DELETE":
         return HttpResponseNotAllowed(['PUT', 'DELETE'])
-    elif not request.user.is_authenticated:
-        return HttpResponse(status=405)
+    logged_user_id=request.session.get('user', None)
+    if not logged_user_id:
+            return HttpResponse(status=405)
     elif request.method=="PUT":
         search_comment = Comment.objects.get(id=cid)
         try:
