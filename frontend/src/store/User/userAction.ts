@@ -23,7 +23,7 @@ export const signinAction = (formData: SigninFormType) => {
 
 export const signoutAction = () => {
   return (dispatch: Redux.Dispatch<UserDispatchType>) => {
-    return axios.post('/user/signuout/')
+    return axios.post('/user/signout/')
       .then(() => dispatch({ type: SIGNOUT_SUCCESS }))
       .catch(() => dispatch({ type: SIGNOUT_FAIL }));
   }
