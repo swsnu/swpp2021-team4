@@ -21,7 +21,8 @@ def posts(request):
             return HttpResponse(status=404)
         return JsonResponse(postlist, safe=False)
     else: #POST
-        if not request.user.is_authenticated:
+        logged_user_id=request.session.get('user', None)
+        if not logged_user_id:
             return HttpResponse(status=405)
         try:
             body = request.body.decode()
@@ -58,7 +59,8 @@ def post_spec(request, id):
             'location': post.location, 'availableWithOutCar': post.availableWithoutCar}
         return JsonResponse(response_dict, safe=False)
     elif request.method=='PUT':
-        if not request.user.is_authenticated:
+        logged_user_id=request.session.get('user', None)
+        if not logged_user_id:
             return HttpResponse(status=405)
         post = Post.objects.get(id=id)
         try:
@@ -83,7 +85,8 @@ def post_spec(request, id):
             'location': post.location, 'availableWithOutCar': post.availableWithoutCar}
         return JsonResponse(response_dict, status=201)
     else: #delete
-        if not request.user.is_authenticated:
+        logged_user_id=request.session.get('user', None)
+        if not logged_user_id:
             return HttpResponse(status=405)
         Post.objects.get(id=id).delete()
         return HttpResponse(status=200)
