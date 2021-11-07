@@ -46,8 +46,8 @@ class Post(models.Model):
     title = models.CharField(max_length=256)
     author = models.ForeignKey(User, null=True, on_delete= models.CASCADE)
     created_at = models.DateTimeField(default=timezone.now)
-    updated_at = models.DateTimeField(blank=True, null=True)
-    folder = models.ForeignKey(Folder, null=True, on_delete=models.CASCADE)
+    updated_at = models.DateTimeField(default=timezone.now, blank=True, null=True)
+    folder = models.ForeignKey(Folder, null=True, blank=True,on_delete=models.CASCADE)
     def header_date_upload_to(self, filename):
         ymd_path = timezone.now().strftime('%Y/%m/%d') 
         uuid_name = uuid4().hex
@@ -71,8 +71,20 @@ class Post(models.Model):
     days= models.IntegerField(default=1)
     like_users = models.ManyToManyField(User, related_name='like_users', blank=True)
     is_shared = models.BooleanField(blank=True)
-    theme = models.ManyToManyField(Theme, blank=True)
-    season = models.ManyToManyField(Season, blank=True)
+    themes = [
+        ('friends', 'withFriends'),
+        ('family', 'withFamily'),
+        ('lover', 'withLovers'),
+        ('alone', 'alone'),
+    ]
+    theme = models.CharField(max_length=7, choices=themes)
+    seasons=[
+        ('spr', 'spring'),
+        ('sum', 'summer'),
+        ('aut', 'autumn'),
+        ('win', 'winter')
+    ]
+    season = models.CharField(max_length=3, choices=seasons)
     location = models.CharField(max_length=256, blank=True)
     availableWithoutCar = models.BooleanField(blank=True)
 

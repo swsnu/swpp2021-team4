@@ -4,7 +4,7 @@ from django.views.decorators.csrf import ensure_csrf_cookie
 import json
 from .models import *
 from json.decoder import JSONDecodeError
-from .forms import *
+from .serializers import *
 
 def posts(request):
     if request.method!='GET' and request.method!='POST':
