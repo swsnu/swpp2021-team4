@@ -71,20 +71,20 @@ class Post(models.Model):
     days= models.IntegerField(default=1)
     like_users = models.ManyToManyField(User, related_name='like_users', blank=True)
     is_shared = models.BooleanField(blank=True)
-    themes = [
-        ('friends', 'withFriends'),
-        ('family', 'withFamily'),
-        ('lover', 'withLovers'),
-        ('alone', 'alone'),
-    ]
-    theme = models.CharField(max_length=7, choices=themes)
-    seasons=[
+    SEASONS=(
         ('spr', 'spring'),
         ('sum', 'summer'),
         ('aut', 'autumn'),
         ('win', 'winter')
-    ]
-    season = models.CharField(max_length=3, choices=seasons)
+    )
+    season = models.CharField(max_length=10, choices=SEASONS, blank=True, null=True, verbose_name="category")
+    THEMES = (
+        ('friends', 'withFriends'),
+        ('family', 'withFamily'),
+        ('lover', 'withLovers'),
+        ('alone', 'alone'),
+    )
+    theme = models.CharField(max_length=10, blank=True, null=True, choices=THEMES)
     location = models.CharField(max_length=256, blank=True)
     availableWithoutCar = models.BooleanField(blank=True)
 
