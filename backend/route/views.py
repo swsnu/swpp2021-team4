@@ -60,8 +60,11 @@ def post_spec(request, id):
         comments=[]
         for comment in post.comment_set.all:
             comments.append({'content': comment.content, 'author_id':comment.author.id})
+        folder_id=''
+        if post.folder:
+            folder_id=post.folder.id
         response_dict = {'title': post.title, 'author_id': post.author.id, 'header_img': post.header_image, 'thumbnail_image': post.thumbnail_image, 
-            'days': post.days, 'folder_id': post.folder.id, 'is_shared':post.is_shared, 'theme':post.theme, 'comment': comments, 'season': post.season, 
+            'days': post.days, 'folder_id': folder_id, 'is_shared':post.is_shared, 'theme':post.theme, 'comment': comments, 'season': post.season, 
             'location': post.location, 'availableWithOutCar': post.availableWithoutCar}
         return JsonResponse(response_dict, safe=False)
     elif request.method=='PUT':
@@ -86,8 +89,11 @@ def post_spec(request, id):
         post = Post(title=post_title, author=request.user, folder_id=post_folder, header_image=post_header_img, thumbnail_image=post_thumbnail_img,days=post_days, 
         is_shared=post_is_shared, location=post_location, theme=post_theme, season=post_season, availableWithoutCar=post_availableWithOutCar)
         post.save()
+        folder_id=''
+        if post.folder:
+            folder_id=post.folder.id
         response_dict = {'title': post.title, 'author_id': post.author.id, 'header_img': post.header_image, 'thumbnail_image': post.thumbnail_image, 
-            'days': post.days, 'folder_id': post.folder.id, 'is_shared':post.is_shared, 'theme':post.theme, 'season': post.season, 
+            'days': post.days, 'folder_id': folder_id, 'is_shared':post.is_shared, 'theme':post.theme, 'season': post.season, 
             'location': post.location, 'availableWithOutCar': post.availableWithoutCar}
         return JsonResponse(response_dict, status=201)
     else: #delete

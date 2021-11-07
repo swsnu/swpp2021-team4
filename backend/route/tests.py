@@ -46,5 +46,14 @@ class RouteTestCase(TestCase):
         response = client.put('/post/')
         self.assertEqual(response.status_code, 405)
     
-
+    def test_post_posting(self):
+        user = User.objects.create_user(email="swpp@swpp.com", username="swpp")
+        user.set_password("swpp")
+        user.save()
+        client = Client()
+        response = client.get('/user/signup/')
+        response = client.post('/post/', {
+            'username': 'swpp',
+            'password': 'iluvswpp'
+        })
         
