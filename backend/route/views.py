@@ -12,10 +12,13 @@ def posts(request):
         postlist=[]
         for post in Post.objects.all():
             comments=[]
-            for comment in post.comment_set.all:
+            for comment in post.comment_set.all():
                 comments.append({'content': comment.content, 'author_id':comment.author.id})
+            folder_id=''
+            if post.folder:
+                folder_id=post.folder.id
             postlist.append({'title': post.title, 'author_id': post.author.id, 'header_img': post.header_image.url, 'thumbnail_image': post.thumbnail_image.url, 
-            'days': post.days, 'folder_id': post.folder.id, 'is_shared':post.is_shared, 'theme':post.theme, 'comment': comments, 'season': post.season, 
+            'days': post.days, 'folder_id': folder_id, 'is_shared':post.is_shared, 'theme':post.theme, 'comment': comments, 'season': post.season, 
             'location': post.location, 'availableWithOutCar': post.availableWithoutCar})
         if len(postlist)==0:
             return HttpResponse(status=404)

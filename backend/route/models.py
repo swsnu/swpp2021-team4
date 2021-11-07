@@ -116,4 +116,10 @@ class Like(models.Model):
 class Path(models.Model):
     from_place=models.ForeignKey(Place, related_name='from_place_path', on_delete=models.CASCADE)
     to_place=models.ForeignKey(Place,related_name='to_place_path', on_delete=models.CASCADE)
-    transportation=models.ForeignKey(Transportation, on_delete=models.CASCADE)
+    transportations=[
+        ('car', 'car'),
+        ('pub', 'publicTransportation'),
+        ('wal', 'walk'),
+        ('etc', 'others')
+    ]
+    transportation = models.CharField(max_length=3, choices=transportations)
