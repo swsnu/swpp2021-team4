@@ -13,8 +13,7 @@ interface Props {
   path?: string;
   loggedIn?: boolean;
 }
-const PrivateRoute: React.FC<Props> = (props) => {
-  console.log("hi");
+const Privateroute: React.FC<Props> = (props) => {
   if (props.loggedIn === true) {
     return <Route path={props.path} element={props.element} />;
   } else {
@@ -29,27 +28,27 @@ function App() {
       <Route path="/main" element={<MainPage />} />
       <Route path="/signup" element={<SignupPage />} />
       <Route path="/signin" element={<SigninPage />} />
-      <PrivateRoute
+      <Privateroute
         path="/post/create"
         loggedIn={loggedIn}
         element={<CreateEditPostPage />}
       />
-      <PrivateRoute
+      <Privateroute
         path="/post/:id"
         loggedIn={loggedIn}
         element={<PostDetailPage />}
       />
-      <PrivateRoute
+      <Privateroute
         path="/post/:id/edit"
         loggedIn={loggedIn}
         element={<CreateEditPostPage />}
       />
-      <PrivateRoute
+      <Privateroute
         path="/user_info/:id"
         loggedIn={loggedIn}
         element={<UserInfoPage />}
       />
-      <PrivateRoute
+      <Privateroute
         path="/edit_profile"
         loggedIn={loggedIn}
         element={<EditProfilePage />}
