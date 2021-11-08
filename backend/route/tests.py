@@ -1,6 +1,4 @@
-#from django.test import TestCase
-
-#import json
+from django.test import TestCase, Client
 from account.models import User
 from route.models import Place, Folder
 
