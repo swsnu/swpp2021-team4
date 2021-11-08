@@ -1,10 +1,4 @@
-from django.http import HttpResponse, HttpResponseNotAllowed, JsonResponse,HttpResponseBadRequest
-from django.contrib.auth.models import User
-from django.views.decorators.csrf import ensure_csrf_cookie
-import json
-from .models import *
-from json.decoder import JSONDecodeError
-from django.views.decorators.http import require_http_methods
+#from django.shortcuts import render
 
 @require_http_methods(["GET", "POST"])
 def posts(request):

@@ -1,6 +1,4 @@
-from django.test import TestCase, Client
-from django.core.files import File
-from django.utils import timezone
+#from django.test import TestCase
 
 import json
 from account.models import User
