@@ -54,8 +54,8 @@ def create(request):
     return JsonResponse(response_dict, status=201)
 
 @require_GET
-def post_spec_get(request, id):
-    post = Post.objects.get(id=id)
+def post_spec_get(request, id_):
+    post = Post.objects.get(id=id_)
     comments=[]
     for comment in post.comment_set.all():
         comments.append({'content': comment.content, 'author_id':comment.author_id})
@@ -65,12 +65,12 @@ def post_spec_get(request, id):
     return JsonResponse(response_dict, safe=False)
     
 @require_http_methods(["PUT", "DELETE"])
-def post_spec_edit(request, id):
+def post_spec_edit(request, id_):
     if request.method=='PUT':
         logged_user_id=request.session.get('user', None)
         if not logged_user_id:
             return HttpResponse(status=405)
-        post = Post.objects.get(id=id)
+        post = Post.objects.get(id=id_)
         try:
             body = json.loads(request.body.decode())
             post_title = body['title']
@@ -96,12 +96,12 @@ def post_spec_edit(request, id):
         logged_user_id=request.session.get('user', None)
         if not logged_user_id:
             return HttpResponse(status=405)
-        Post.objects.get(id=id).delete()
+        Post.objects.get(id=id_).delete()
         return HttpResponse(status=200)
 
 @require_http_methods(["POST", "DELETE"])
-def post_cart(request,id, fid):
-    post = Post.objects.get(id=id)
+def post_cart(request,id_, fid):
+    post = Post.objects.get(id=id_)
     try:
         body = json.loads(request.body.decode())
         post_title = body['title']
@@ -128,30 +128,30 @@ def post_cart(request,id, fid):
         is_shared=post_is_shared, theme=post_theme, season=post_season, location=post_location, availableWithoutCar=post_available_without_car)
 
 @require_http_methods(["POST", "DELETE"])
-def post_like(request, id):
+def post_like(request, id_):
     logged_user_id=request.session.get('user', None)
     if not logged_user_id:
         return HttpResponse(status=405)
     if request.method=='POST':
-        post = Post.objects.get(id=id)
+        post = Post.objects.get(id=id_)
         like_list = post.like_set.filter(user_id=request.user.id)
         Like.objects.create(user=request.user, post=post)
         return JsonResponse({'postLikeUserCount': like_list.count()}, status=201)
     elif request.method=='DELETE':
-        post = Post.objects.get(id=id)
+        post = Post.objects.get(id=id_)
         post.like_set.get(user=request.user).delete()
         return HttpResponse(status=200)
 
 @require_GET
-def post_comment_get(request, id):
-    post=Post.objects.get(id=id)
+def post_comment_get(request, id_):
+    post=Post.objects.get(id=id_)
     comments=[]
     for comment in post.comment_set.all():
         comments.append({'content': comment.content, 'author_id':comment.author_id})
     return JsonResponse(comments, safe=False)
 
 @require_POST
-def post_comment_post(request, id):
+def post_comment_post(request, id_):
     logged_user_id=request.session.get('user', None)
     if not logged_user_id:
         return HttpResponse(status=405)
@@ -160,7 +160,7 @@ def post_comment_post(request, id):
         content = json.loads(body)['content']
     except (KeyError, JSONDecodeError):
         return HttpResponseBadRequest()
-    comment=Comment.objects.create(post_id=id, content=content,  author=request.user)
+    comment=Comment.objects.create(post_id=id_, content=content,  author=request.user)
     Comment.save(comment)
 
     return JsonResponse(
@@ -173,7 +173,7 @@ def post_comment_post(request, id):
         )      
 
 @require_http_methods(["PUT", "DELETE"])
-def post_comment_spec(request, id, cid):
+def post_comment_spec(request, id_, cid):
     logged_user_id=request.session.get('user', None)
     if not logged_user_id:
         return HttpResponse(status=405)
@@ -186,7 +186,7 @@ def post_comment_spec(request, id, cid):
             return HttpResponseBadRequest()
         search_comment.content=comment_content
         search_comment.save()
-        response_dict = {'id': search_comment.id, 'post_id': id, 'content':search_comment.content, 'author':search_comment.author_id}
+        response_dict = {'id': search_comment.id, 'post_id': id_, 'content':search_comment.content, 'author':search_comment.author_id}
         return JsonResponse(response_dict, status=200)
     else: #delete
         Comment.objects.get(id=cid).delete() 
@@ -212,17 +212,18 @@ def place_create(request):
         return JsonResponse(response_dict, status=201)
 
 @require_GET
-def place_spec(request, id):
-    place = Place.objects.get(id=id)
+def place_spec(request, id_):
+    place = Place.objects.get(id=id_)
     response_dict = {'post_id': place.post_id, 'place_id': place.place_id, 'description': place.description, 'day':place.day, 'folder_id': place.folder_id}
     return JsonResponse(response_dict, safe=False)
 
 @require_http_methods(["PUT", "DELETE"])
-def place_spec_edit(request, id):
+def place_spec_edit(request, id_):
     if request.method=="PUT":
         logged_user_id=request.session.get('user', None)
         if not logged_user_id:
             return HttpResponse(status=405)
+        place = Place.objects.get(id=id_)
         try:
             body = request.body.decode()
             post_id = json.loads(body)['post_id']
@@ -244,8 +245,8 @@ def place_spec_edit(request, id):
         return HttpResponse(status=200)    
 
 @require_http_methods(["POST", "DELETE"])
-def place_cart(request,id, fid):
-    place = Place.objects.get(id=id)
+def place_cart(request,id_, fid):
+    place = Place.objects.get(id=id_)
     try:
         body = json.loads(request.body.decode())
         post_id = body['post_id']
