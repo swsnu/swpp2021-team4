@@ -1,0 +1,58 @@
+@import "../Variables/Variable.scss";
+.post-detail-header {
+  width: 80%;
+  border-radius: 6px;
+  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
+  height: 130px;
+  //   display: flex;
+  margin: 0px auto;
+  .header-top {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    margin-top: 15px;
+    .post-folder-name {
+      font-family: $mainFont;
+      font-size: 24px;
+      margin-left: 2vh;
+    }
+    .without-car-checkbox-true {
+      font-family: $mainFont;
+      font-size: 18px;
+      position: relative;
+      margin-right: 2vh;
+    }
+  }
+}
+.header-middle {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  margin-top: 20px;
+  .post-title-name {
+    font-family: $mainFont;
+    font-weight: bold;
+    font-size: 35px;
+    color: $darkMintColor;
+    margin-left: 2vh;
+    margin-right: 30vh;
+  }
+  .post-info-container {
+    display: flex;
+    justify-content: space-evenly;
+    width: 50%;
+    .info-button {
+      background-color: $whiteColor;
+      border-radius: 6px;
+      width: 15vh;
+      height: 30px;
+      display: inline-block;
+      text-align: center;
+      line-height: 170%;
+      .post-info {
+        font-family: $mainFont;
+      }
+    }
+  }
+}

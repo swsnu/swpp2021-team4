@@ -1,0 +1,82 @@
+.post-detail-header {
+  width: 80%;
+  border-radius: 6px;
+  -webkit-box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
+          box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
+  height: 130px;
+  margin: 0px auto;
+}
+
+.post-detail-header .header-top {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  margin-top: 15px;
+}
+
+.post-detail-header .header-top .post-folder-name {
+  font-family: "Montserrat";
+  font-size: 24px;
+  margin-left: 2vh;
+}
+
+.post-detail-header .header-top .without-car-checkbox-true {
+  font-family: "Montserrat";
+  font-size: 18px;
+  position: relative;
+  margin-right: 2vh;
+}
+
+.header-middle {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  margin-top: 20px;
+}
+
+.header-middle .post-title-name {
+  font-family: "Montserrat";
+  font-weight: bold;
+  font-size: 35px;
+  color: #57ceb9;
+  margin-left: 2vh;
+  margin-right: 30vh;
+}
+
+.header-middle .post-info-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: space-evenly;
+      -ms-flex-pack: space-evenly;
+          justify-content: space-evenly;
+  width: 50%;
+}
+
+.header-middle .post-info-container .info-button {
+  background-color: #f6f6f9;
+  border-radius: 6px;
+  width: 15vh;
+  height: 30px;
+  display: inline-block;
+  text-align: center;
+  line-height: 170%;
+}
+
+.header-middle .post-info-container .info-button .post-info {
+  font-family: "Montserrat";
+}
+/*# sourceMappingURL=PostDetail.css.map */
