@@ -15,7 +15,7 @@ const rootReducer: Redux.Reducer = combineReducers({
   post: postReducer,
 });
 
-const store: Redux.Store = createStore(
+export const store: Redux.Store = createStore(
   rootReducer,
   {},
   compose(applyMiddleware(thunk))
