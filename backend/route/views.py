@@ -149,7 +149,7 @@ def post_comment(request, id):
     for comment in post.comment_set.all():
         comments.append({'content': comment.content, 'author_id':comment.author_id})
     return JsonResponse(comments, safe=False)
-    
+
 @require_POST
 def post_comment(request, id):
     logged_user_id=request.session.get('user', None)
@@ -176,7 +176,7 @@ def post_comment(request, id):
 def post_comment_spec(request, id, cid):
     logged_user_id=request.session.get('user', None)
     if not logged_user_id:
-            return HttpResponse(status=405)
+        return HttpResponse(status=405)
     elif request.method=="PUT":
         search_comment = Comment.objects.get(id=cid)
         try:
