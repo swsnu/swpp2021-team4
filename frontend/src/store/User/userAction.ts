@@ -30,7 +30,10 @@ export const signinAction = (formData: SigninFormType) => {
 export const signoutAction = () => {
   return (dispatch: Redux.Dispatch<UserDispatchType>) => {
     return axios.post('/user/signout/')
-      .then(() => dispatch({ type: SIGNOUT_SUCCESS }))
+      .then(() => {
+        dispatch({ type: SIGNOUT_SUCCESS });
+        sessionStorage.removeItem('isAuthorized');
+      })
       .catch(() => dispatch({ type: SIGNOUT_FAIL }));
   }
 }

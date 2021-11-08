@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import SignupPage from "./pages/SignupPage";
 import SigninPage from "./pages/SigninPage";
 import MainPage from "./pages/MainPage";
@@ -13,14 +13,6 @@ import {
 } from "react-router-dom";
 
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-
-  useEffect(() => {
-    if (!isLoggedIn && sessionStorage.getItem('isAuthorized') === 'true') {
-      setIsLoggedIn(true);
-    }
-  }, []);
-
   const unAuthorized = () => {
     return <Redirect to="/signin/" />;
   }
@@ -63,7 +55,7 @@ function App() {
         </Route>
 
         {
-          isLoggedIn
+          sessionStorage.getItem('isAuthorized') === 'true'
             ? authorized()
             : unAuthorized()
         }
