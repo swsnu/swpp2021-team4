@@ -1,6 +1,4 @@
-from django.http import HttpResponse, HttpResponseNotAllowed, JsonResponse,HttpResponseBadRequest
-from django.contrib.auth.models import User
-from django.views.decorators.csrf import ensure_csrf_cookie
+from django.http import HttpResponse, JsonResponse,HttpResponseBadRequest
 import json
 from .models import Folder, Post, Comment, Place, Like, Path
 from json.decoder import JSONDecodeError
@@ -41,7 +39,7 @@ def posts(request):
         post_season=body['season']
         post_location=body['location']
         post_availableWithOutCar=body['availableWithOutCar']
-    except (KeyError, JSONDecodeError) as e:
+    except (KeyError, JSONDecodeError):
         return HttpResponseBadRequest()
     folder=Folder.objects.get(id=post_folder_id)
     post = Post(title=post_title, author=request.user, folder=folder, header_image=post_header_image, thumbnail_image=post_thumbnail_image,days=post_days, 
@@ -85,7 +83,7 @@ def post_spec(request, id):
             post_season=body['season']
             post_location=body['location']
             post_availableWithOutCar=body['availableWithOutCar']
-        except (KeyError, JSONDecodeError) as e:
+        except (KeyError, JSONDecodeError):
             return HttpResponseBadRequest()
         post = Post(title=post_title, author=request.user, folder_id=post_folder_id, header_image=post_header_image, thumbnail_image=post_thumbnail_image,days=post_days, 
         is_shared=post_is_shared, location=post_location, theme=post_theme, season=post_season, availableWithoutCar=post_availableWithOutCar)
@@ -115,7 +113,7 @@ def post_cart(request,id, fid):
         post_season=body['season']
         post_location=body['location']
         post_availableWithOutCar=body['availableWithOutCar']
-    except (KeyError, JSONDecodeError) as e:
+    except (KeyError, JSONDecodeError):
         return HttpResponseBadRequest()
     if request.method=='POST':
         post = Post(title=post_title, author=request.user, folder_id=fid, header_image=post_header_image, thumbnail_image=post_thumbnail_image,days=post_days, 
@@ -133,7 +131,7 @@ def post_cart(request,id, fid):
 def post_like(request, id):
     logged_user_id=request.session.get('user', None)
     if not logged_user_id:
-            return HttpResponse(status=405)
+        return HttpResponse(status=405)
     if request.method=='POST':
         post = Post.objects.get(id=id)
         like_list = post.like_set.filter(user_id=request.user.id)
@@ -151,6 +149,7 @@ def post_comment(request, id):
     for comment in post.comment_set.all():
         comments.append({'content': comment.content, 'author_id':comment.author_id})
     return JsonResponse(comments, safe=False)
+    
 @require_POST
 def post_comment(request, id):
     logged_user_id=request.session.get('user', None)
@@ -183,7 +182,7 @@ def post_comment_spec(request, id, cid):
         try:
             body = request.body.decode()
             comment_content=json.loads(body)['content']
-        except (KeyError, JSONDecodeError) as e:
+        except (KeyError, JSONDecodeError):
             return HttpResponseBadRequest()
         search_comment.content=comment_content
         search_comment.save()
@@ -205,7 +204,7 @@ def place_create(request):
             place_id = body['place_id']
             description = body['description']
             day = body['day']
-        except (KeyError, JSONDecodeError) as e:
+        except (KeyError, JSONDecodeError):
             return HttpResponseBadRequest()
         place=Place(post_id=post_id, place_id=place_id, description=description, day=day)
         place.save()
@@ -224,7 +223,6 @@ def place_spec(request, id):
         logged_user_id=request.session.get('user', None)
         if not logged_user_id:
             return HttpResponse(status=405)
-        post = Post.objects.get(id=id)
         try:
             body = request.body.decode()
             post_id = json.loads(body)['post_id']
@@ -232,7 +230,7 @@ def place_spec(request, id):
             description = json.loads(body)['description']
             day = json.loads(body)['day']
             folder_id = json.loads(body)['folder_id']
-        except (KeyError, JSONDecodeError) as e:
+        except (KeyError, JSONDecodeError):
             return HttpResponseBadRequest()
         place = Place( post_id = post_id, place_id = place_id, folder_id = folder_id, description= description, day= day)
         place.save()
@@ -255,7 +253,7 @@ def place_cart(request,id, fid):
         description = body['description']
         day = body['day']
         folder_id = body['folder_id']
-    except (KeyError, JSONDecodeError) as e:
+    except (KeyError, JSONDecodeError):
         return HttpResponseBadRequest()
     if request.method=='POST':
         place = Place(post_id=post_id, place_id=place_id, description=description, folder_id=folder_id, day=day)
