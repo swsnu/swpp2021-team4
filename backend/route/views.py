@@ -125,7 +125,7 @@ def post_cart(request,id, fid):
         return JsonResponse(response_dict, status=201)
     elif request.method=='DELETE':
         post = Post(title=post_title, author=request.user, folder=None, header_image=post_header_image, thumbnail_image=post_thumbnail_image,days=post_days, 
-        is_shared=post_is_shared, theme=post_theme, season=post_season, location=post_location, availableWithoutCar=post_availableWithOutCar)
+        is_shared=post_is_shared, theme=post_theme, season=post_season, location=post_location, availableWithoutCar=post_available_without_car)
 
 @require_http_methods(["POST", "DELETE"])
 def post_like(request, id):
