@@ -6,9 +6,10 @@ from .models import Folder, Post, Comment, Place, Like, Path
 from json.decoder import JSONDecodeError
 from django.views.decorators.http import require_http_methods
 
-@require_http_methods(["GET", "POST"])
 def posts(request):
-    if request.method=="GET":
+    if request.method!="GET" and request.method!="POST":
+        return HttpResponseNotAllowed(['GET', 'POST'])
+    elif request.method=="GET":
         postlist=[]
         for post in Post.objects.all():
             comments=[]
@@ -53,9 +54,10 @@ def posts(request):
             'location': post.location, 'availableWithOutCar': post.availableWithoutCar}
         return JsonResponse(response_dict, status=201)
 
-@require_http_methods(["GET", "PUT", "DELETE"])
 def post_spec(request, id):
-    if request.method=="GET":
+    if request.method!="GET" and request.method!="PUT" and request.method!="DELETE":
+        return HttpResponseNotAllowed(['GET', 'PUT', 'DELETE'])
+    elif request.method=="GET":
         post = Post.objects.get(id=id)
         comments=[]
         for comment in post.comment_set.all():
@@ -99,7 +101,6 @@ def post_spec(request, id):
 
 @require_http_methods(["POST", "DELETE"])
 def post_cart(request,id, fid):
-
     post = Post.objects.get(id=id)
     try:
         body = json.loads(request.body.decode())
@@ -141,9 +142,11 @@ def post_like(request, id):
         post.like_set.get(user=request.user).delete()
         return HttpResponse(status=200)
 
-@require_http_methods(["GET", "POST"])
+
 def post_comment(request, id):
-    if request.method=='GET':
+    if request.method!="GET" and request.method!="POST":
+        return HttpResponseNotAllowed(['GET', 'POST'])
+    elif request.method=='GET':
         post=Post.objects.get(id=id)
         comments=[]
         for comment in post.comment_set.all():
@@ -209,9 +212,11 @@ def place_create(request):
         response_dict = {'post': place.post_id, 'place':place.place_id, 'description': place.description, 'day': place.day}
         return JsonResponse(response_dict, status=201)
 
-@require_http_methods(["GET", "PUT", "DELETE"])
+
 def place_spec(request, id):
-    if request.method=="GET":
+    if request.method!="GET" and request.method!="PUT" and request.method!="DELETE":
+        return HttpResponseNotAllowed(['GET', 'PUT', 'DELETE'])
+    elif request.method=="GET":
         place = Place.objects.get(id=id)
         response_dict = {'post_id': place.post_id, 'place_id': place.place_id, 'description': place.description, 'day':place.day, 'folder_id': place.folder_id}
         return JsonResponse(response_dict, safe=False)
