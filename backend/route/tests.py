@@ -1,6 +1,6 @@
 from django.test import TestCase, Client
 from account.models import User
-from route.models import Place, Folder
+from route.models import Place, Folder, Post
 
 
 class RouteTestCase(TestCase):
@@ -41,15 +41,5 @@ class RouteTestCase(TestCase):
         new_post.save()
         response = client.put('/post/')
         self.assertEqual(response.status_code, 405)
-    
-    def test_post_posting(self):
-        user = User.objects.create_user(email="swpp@swpp.com", username="swpp")
-        user.set_password("swpp")
-        user.save()
-        client = Client()
-        response = client.get('/user/signup/')
-        response = client.post('/post/', {
-            'title': 'testTitle',
-        })
-        self.assertEqual(response.status_code, 405)
+
 
