@@ -2,10 +2,16 @@ import React from "react";
 import NavBar from "../components/NavBar";
 import Signup from "../containers/SIgnup";
 
-function SignupPage() {
+interface PropType {
+  location: any
+  match: any
+  history: any
+}
+
+function SignupPage(props: PropType) {
   return (
     <>
-      <NavBar />
+      <NavBar location={props.location} />
       <Signup />
     </>
   );
