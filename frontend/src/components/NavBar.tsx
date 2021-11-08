@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
-import './NavBar.css';
+import '../styles/components/NavBar.scss';
 import logo from '../static/nav_logo.svg';
 import { useDispatch, useSelector } from "react-redux";
 import { RootReducerType } from "../store/store";
