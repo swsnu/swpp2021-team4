@@ -21,4 +21,6 @@ const store: Redux.Store = createStore(
   compose(applyMiddleware(thunk))
 );
 
+export type RootReducerType = ReturnType<typeof rootReducer>;
+
 export default store;
