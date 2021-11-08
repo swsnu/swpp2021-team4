@@ -22,14 +22,17 @@ const initialState: PostStateType = {
       profileImage: '',
       folders: []
     },
-    folderId: 0,
+    folderId: 0, // folderName 바로 알려줄 수는 없는지?
+    //location은 어디서 받아오는지?
     days: 0,
     headerImage: '',
     thumbnailImage: '',
     createdAt: '',
     updatedAt: '',
-    theme: '',
+    theme: '',// lover로 렌더됨
     season: '',
+    //Season여러 개 받도록 해야 하지 않는지?
+    //sum으로 렌더됨
     isShared: false,
     availableWithoutCar: false,
   }
