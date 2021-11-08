@@ -1,11 +1,6 @@
-from django.http import HttpResponse, HttpResponseNotAllowed, JsonResponse,HttpResponseBadRequest
-from django.contrib.auth.models import User
-from django.views.decorators.csrf import ensure_csrf_cookie
-import json
-from .models import *
-from json.decoder import JSONDecodeError
-from django.views.decorators.http import require_http_methods
+#from django.shortcuts import render
 
+<<<<<<< HEAD
 @require_http_methods(["GET", "POST"])
 def posts(request):
     if request.method=="GET":
@@ -260,3 +255,6 @@ def place_cart(request,id, fid):
     elif request.method=='DELETE':
         place = Place(post_id=post_id, place_id=place_id, description=description, folder=None, day=day)
         return HttpResponse(status=200)
+=======
+# Create your views here.
+>>>>>>> 22d9fb8de629feee2e5aef9acaa7060874599066
