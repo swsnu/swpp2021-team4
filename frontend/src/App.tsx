@@ -25,31 +25,31 @@ function App() {
   const loggedIn: boolean = false;
   return (
     <Routes>
-      <Route path="/main" element={<MainPage />} />
-      <Route path="/signup" element={<SignupPage />} />
-      <Route path="/signin" element={<SigninPage />} />
+      <Route path="/main/" element={<MainPage />} />
+      <Route path="/signup/" element={<SignupPage />} />
+      <Route path="/signin/" element={<SigninPage />} />
       <Privateroute
-        path="/post/create"
+        path="/post/create/"
         loggedIn={loggedIn}
         element={<CreateEditPostPage />}
       />
       <Privateroute
-        path="/post/:id"
+        path="/post/:id/"
         loggedIn={loggedIn}
         element={<PostDetailPage />}
       />
       <Privateroute
-        path="/post/:id/edit"
+        path="/post/:id/edit/"
         loggedIn={loggedIn}
         element={<CreateEditPostPage />}
       />
       <Privateroute
-        path="/user_info/:id"
+        path="/user_info/:id/"
         loggedIn={loggedIn}
         element={<UserInfoPage />}
       />
       <Privateroute
-        path="/edit_profile"
+        path="/edit_profile/"
         loggedIn={loggedIn}
         element={<EditProfilePage />}
       />
