@@ -46,8 +46,8 @@ class Post(models.Model):
     title = models.CharField(max_length=256)
     author = models.ForeignKey(User, null=True, on_delete= models.CASCADE)
     created_at = models.DateTimeField(default=timezone.now)
-    updated_at = models.DateTimeField(default=timezone.now, blank=True, null=True)
-    folder = models.ForeignKey(Folder, null=True, blank=True,on_delete=models.CASCADE)
+    updated_at = models.DateTimeField(blank=True, null=True)
+    folder = models.ForeignKey(Folder, on_delete=models.CASCADE)
     def header_date_upload_to(self, filename):
         ymd_path = timezone.now().strftime('%Y/%m/%d') 
         uuid_name = uuid4().hex
@@ -66,25 +66,13 @@ class Post(models.Model):
             ymd_path,
             uuid_name + extension,
         ])
-    header_image = models.ImageField(upload_to=header_date_upload_to, null=True, blank=True)
-    thumbnail_image = models.ImageField(upload_to=thumbnail_date_upload_to, null=True, blank=True)
+    header_image = models.ImageField(upload_to=header_date_upload_to, null=True)
+    thumbnail_image = models.ImageField(upload_to=thumbnail_date_upload_to, null=True)
     days= models.IntegerField(default=1)
     like_users = models.ManyToManyField(User, related_name='like_users', blank=True)
     is_shared = models.BooleanField(blank=True)
-    SEASONS=(
-        ('spr', 'spring'),
-        ('sum', 'summer'),
-        ('aut', 'autumn'),
-        ('win', 'winter')
-    )
-    season = models.CharField(max_length=10, choices=SEASONS, blank=True, null=True)
-    THEMES = (
-        ('friends', 'withFriends'),
-        ('family', 'withFamily'),
-        ('lover', 'withLovers'),
-        ('alone', 'alone'),
-    )
-    theme = models.CharField(max_length=10, blank=True, null=True, choices=THEMES)
+    theme = models.ManyToManyField(Theme, blank=True)
+    season = models.ManyToManyField(Season, blank=True)
     location = models.CharField(max_length=256, blank=True)
     availableWithoutCar = models.BooleanField(blank=True)
 
@@ -100,7 +88,7 @@ class Place(models.Model):
     place = models.ForeignKey(PlaceInfo, on_delete=models.CASCADE)
     description = models.TextField()
     day = models.IntegerField()
-    folder = models.ForeignKey(Folder, null=True, blank=True,on_delete=models.CASCADE)
+
 
 class Comment(models.Model):
     content = models.TextField()
@@ -116,10 +104,4 @@ class Like(models.Model):
 class Path(models.Model):
     from_place=models.ForeignKey(Place, related_name='from_place_path', on_delete=models.CASCADE)
     to_place=models.ForeignKey(Place,related_name='to_place_path', on_delete=models.CASCADE)
-    transportations=[
-        ('car', 'car'),
-        ('pub', 'publicTransportation'),
-        ('wal', 'walk'),
-        ('etc', 'others')
-    ]
-    transportation = models.CharField(max_length=3, choices=transportations)
+    transportation=models.ForeignKey(Transportation, on_delete=models.CASCADE)
