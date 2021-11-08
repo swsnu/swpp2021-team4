@@ -1,8 +1,8 @@
 #from django.test import TestCase
 
-import json
+#import json
 from account.models import User
-from route.models import *
+from route.models import Place, Folder
 
 
 class RouteTestCase(TestCase):
@@ -27,8 +27,8 @@ class RouteTestCase(TestCase):
         comment.save()
         response = client.get('/post/')
         self.assertEqual(response.status_code, 200)
-        path = new_post.header_image.path
-        self.assertEqual(response.status_code, 200)
+        #path = new_post.header_image.path
+        #self.assertEqual(response.status_code, 200)
 
     def test_get_post_other(self):
         user = User.objects.create_user(email="swpp@swpp.com", username="swpp")
