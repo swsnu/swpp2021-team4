@@ -19,43 +19,24 @@ function App() {
 
   const authorized = () => {
     return (
-      <>
-        <Route exact path={["post/create/", "post/:id/edit/"]}>
-          <CreateEditPostPage />
-        </Route>
-
-        <Route exact path="/post/:id/">
-          <PostDetailPage />
-        </Route>
-
-        <Route exact path="/user_info/:id/">
-          <UserInfoPage />
-        </Route>
-
-        <Route exact path="/edit_profile/">
-          <EditProfilePage />
-        </Route>
-
-        <Route path="/main/">
-          <MainPage />
-        </Route>
-      </>
+      <Switch>
+        <Route exact path={["post/create/", "post/:id/edit/"]} component={CreateEditPostPage} />
+        <Route exact path="/post/:id/" component={PostDetailPage} />
+        <Route exact path="/user_info/:id/" component={UserInfoPage} />
+        <Route exact path="/edit_profile/" component={EditProfilePage} />
+        <Route path="/main/" component={MainPage} />
+      </Switch>
     );
   }
 
   return (
     <div className="App">
       <Switch>
-        <Route exact path="/signup/">
-          <SignupPage />
-        </Route>
-
-        <Route exact path="/signin/">
-          <SigninPage />
-        </Route>
+        <Route exact path="/signup/" component={SignupPage} />
+        <Route exact path="/signin/" component={SigninPage} />
 
         {
-          sessionStorage.getItem('isAuthorized') === 'true'
+          true
             ? authorized()
             : unAuthorized()
         }
