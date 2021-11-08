@@ -1,6 +1,6 @@
 from django.http import HttpResponse, JsonResponse,HttpResponseBadRequest
 import json
-from .models import Folder, Post, Comment, Place, Like, Path
+from .models import Folder, Post, Comment, Place, Like
 from json.decoder import JSONDecodeError
 from django.views.decorators.http import require_http_methods
 from django.views.decorators.http import require_POST, require_GET
@@ -38,12 +38,12 @@ def create(request):
         post_theme=body['theme']
         post_season=body['season']
         post_location=body['location']
-        post_availableWithOutCar=body['availableWithOutCar']
+        post_available_without_car=body['availableWithOutCar']
     except (KeyError, JSONDecodeError):
         return HttpResponseBadRequest()
     folder=Folder.objects.get(id=post_folder_id)
     post = Post(title=post_title, author=request.user, folder=folder, header_image=post_header_image, thumbnail_image=post_thumbnail_image,days=post_days, 
-    is_shared=post_is_shared,location=post_location, theme=post_theme, season=post_season, availableWithoutCar=post_availableWithOutCar)
+    is_shared=post_is_shared,location=post_location, theme=post_theme, season=post_season, availableWithoutCar=post_available_without_car)
     post.save()
     folder_id=''
     if post.folder:
@@ -82,11 +82,11 @@ def post_spec_edit(request, id):
             post_theme=body['theme']
             post_season=body['season']
             post_location=body['location']
-            post_availableWithOutCar=body['availableWithOutCar']
+            post_available_without_car=body['availableWithOutCar']
         except (KeyError, JSONDecodeError):
             return HttpResponseBadRequest()
         post = Post(title=post_title, author=request.user, folder_id=post_folder_id, header_image=post_header_image, thumbnail_image=post_thumbnail_image,days=post_days, 
-        is_shared=post_is_shared, location=post_location, theme=post_theme, season=post_season, availableWithoutCar=post_availableWithOutCar)
+        is_shared=post_is_shared, location=post_location, theme=post_theme, season=post_season, availableWithoutCar=post_available_without_car)
         post.save()
         response_dict = {'title': post.title, 'author_id': post.author_id, 'header_img': post.header_image, 'thumbnail_image': post.thumbnail_image, 
         'days': post.days, 'folder_id': post.folder_id, 'is_shared':post.is_shared, 'theme':post.theme, 'season': post.season, 
@@ -112,12 +112,12 @@ def post_cart(request,id, fid):
         post_theme=body['theme']
         post_season=body['season']
         post_location=body['location']
-        post_availableWithOutCar=body['availableWithOutCar']
+        post_available_without_car=body['availableWithOutCar']
     except (KeyError, JSONDecodeError):
         return HttpResponseBadRequest()
     if request.method=='POST':
         post = Post(title=post_title, author=request.user, folder_id=fid, header_image=post_header_image, thumbnail_image=post_thumbnail_image,days=post_days, 
-        is_shared=post_is_shared, theme=post_theme, season=post_season, location=post_location, availableWithoutCar=post_availableWithOutCar)
+        is_shared=post_is_shared, theme=post_theme, season=post_season, location=post_location, availableWithoutCar=post_available_without_car)
         post.save()
         response_dict = {'title': post.title, 'author_id': post.author_id, 'header_img': post.header_image, 'thumbnail_image': post.thumbnail_image, 
         'days': post.days, 'folder_id': post.folder_id, 'is_shared':post.is_shared, 'theme':post.theme, 'season': post.season, 
@@ -158,7 +158,7 @@ def post_comment_post(request, id):
     try:
         body = request.body.decode()
         content = json.loads(body)['content']
-    except (KeyError, JSONDecodeError) as e:
+    except (KeyError, JSONDecodeError):
         return HttpResponseBadRequest()
     comment=Comment.objects.create(post_id=id, content=content,  author=request.user)
     Comment.save(comment)
@@ -252,11 +252,10 @@ def place_cart(request,id, fid):
         place_id = body['place_id']
         description = body['description']
         day = body['day']
-        folder_id = body['folder_id']
     except (KeyError, JSONDecodeError):
         return HttpResponseBadRequest()
     if request.method=='POST':
-        place = Place(post_id=post_id, place_id=place_id, description=description, folder_id=folder_id, day=day)
+        place = Place(post_id=post_id, place_id=place_id, description=description, folder_id=fid, day=day)
         place.save()
         response_dict = {'post_id': place.post_id, 'place_id': place.place_id, 'folder_id': place.folder_id, 'description': place.description, 'day':place.day}
         return JsonResponse(response_dict, status=201)
