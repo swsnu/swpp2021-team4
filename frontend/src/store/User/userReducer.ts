@@ -27,7 +27,7 @@ const initialState: UserStateType = {
 export default (state: UserStateType = initialState, action: UserDispatchType): UserStateType => {
   switch (action.type) {
     case SIGNIN_SUCCESS:
-      return { ...state, loggedUser: action.payload };
+      return { ...state, loggedUser: { ...action.payload } };
     case SIGNIN_FAIL:
       return { ...state };
     case SIGNOUT_SUCCESS:
