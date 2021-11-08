@@ -23,7 +23,7 @@ def posts(request):
     return JsonResponse(postlist, safe=False)
 
 @require_POST
-def posts(request):
+def create(request):
     logged_user_id=request.session.get('user', None)
     if not logged_user_id:
         return HttpResponse(status=405)
@@ -54,7 +54,7 @@ def posts(request):
     return JsonResponse(response_dict, status=201)
 
 @require_GET
-def post_spec(request, id):
+def post_spec_get(request, id):
     post = Post.objects.get(id=id)
     comments=[]
     for comment in post.comment_set.all():
@@ -65,7 +65,7 @@ def post_spec(request, id):
     return JsonResponse(response_dict, safe=False)
     
 @require_http_methods(["PUT", "DELETE"])
-def post_spec(request, id):
+def post_spec_edit(request, id):
     if request.method=='PUT':
         logged_user_id=request.session.get('user', None)
         if not logged_user_id:
@@ -143,7 +143,7 @@ def post_like(request, id):
         return HttpResponse(status=200)
 
 @require_GET
-def post_comment(request, id):
+def post_comment_get(request, id):
     post=Post.objects.get(id=id)
     comments=[]
     for comment in post.comment_set.all():
@@ -151,7 +151,7 @@ def post_comment(request, id):
     return JsonResponse(comments, safe=False)
 
 @require_POST
-def post_comment(request, id):
+def post_comment_post(request, id):
     logged_user_id=request.session.get('user', None)
     if not logged_user_id:
         return HttpResponse(status=405)
@@ -218,7 +218,7 @@ def place_spec(request, id):
     return JsonResponse(response_dict, safe=False)
 
 @require_http_methods(["PUT", "DELETE"])
-def place_spec(request, id):
+def place_spec_edit(request, id):
     if request.method=="PUT":
         logged_user_id=request.session.get('user', None)
         if not logged_user_id:
