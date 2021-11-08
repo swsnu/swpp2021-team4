@@ -1,7 +1,7 @@
 from django.test import TestCase, Client
 from account.models import User
-from route.models import Place, Folder, Post
-
+from route.models import Place, Folder, Post, Comment
+from django.core.files import File
 
 class RouteTestCase(TestCase):
     def setUp(self):
