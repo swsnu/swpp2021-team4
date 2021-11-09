@@ -15,6 +15,7 @@ function NavBar(props: PropType) {
   const dispatch = useDispatch();
   const { loggedUser } = useSelector((state: RootReducerType) => state.user);
   const [isLogged, setIsLogged] = useState(false);
+  const [isLoggedOut, setIsLoggedOut] = useState(false);
 
   useEffect(() => {
     if (!isLogged && sessionStorage.getItem('isAuthorized') === 'true') {
@@ -22,12 +23,24 @@ function NavBar(props: PropType) {
     }
   }, []);
 
+  useEffect(() => {
+    if (isLoggedOut) {
+      sessionStorage.removeItem('isAuthorized');
+      setIsLogged(false);
+    }
+  }, [isLoggedOut])
+
+  const onClickSignoutButton = () => {
+    dispatch(signoutAction());
+    setIsLoggedOut(true);
+  }
+
   const renderSignBtn = () => {
     if (isLogged) {
       return (
         <div
           className="nav-sign-btn nav-sign-font"
-          onClick={() => dispatch(signoutAction())}
+          onClick={onClickSignoutButton}
         >
           Sign Out
         </div>

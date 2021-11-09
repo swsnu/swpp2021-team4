@@ -69,7 +69,10 @@ class Place(models.Model):
     day = models.IntegerField()
     folder = models.ForeignKey(Folder, null=True, blank=True,on_delete=models.CASCADE)
     info = models.JSONField(default=dict)
+<<<<<<< HEAD
 
+=======
+>>>>>>> 10431f29a6fccbb67daca2b0c1a7d99bac7ab853
 
 class Comment(models.Model):
     content = models.TextField()
