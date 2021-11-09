@@ -11,6 +11,7 @@ interface PropType {
 }
 
 function NavBar(props: PropType) {
+  const { location } = props;
   const dispatch = useDispatch();
   const { loggedUser } = useSelector((state: RootReducerType) => state.user);
   const [isLogged, setIsLogged] = useState(false);
@@ -59,7 +60,11 @@ function NavBar(props: PropType) {
   }
 
   return (
-    <div className="nav-container">
+    <div
+      className={
+        "nav-container" + (location?.pathname === '/signin/' || location?.pathname === '/signup/' ? ' vague' : '')
+      }
+    >
       <NavLink to="/main/">
         <img src={logo} />
       </NavLink>

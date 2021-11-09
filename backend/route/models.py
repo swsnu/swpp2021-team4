@@ -63,11 +63,12 @@ class Post(models.Model):
         return self.title
 
 class Place(models.Model):
+    name = models.CharField(max_length=256, blank=True)
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
     description = models.TextField()
     day = models.IntegerField()
     folder = models.ForeignKey(Folder, null=True, blank=True,on_delete=models.CASCADE)
-    info = models.TextField(null=True, blank=True)
+    info = models.JSONField(default=dict)
 
 class Comment(models.Model):
     content = models.TextField()
