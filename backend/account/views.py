@@ -1,4 +1,4 @@
-from django.http import HttpResponse, JsonResponse, HttpResponseBadRequest, response
+from django.http import HttpResponse, JsonResponse, HttpResponseBadRequest
 from django.views.decorators.http import require_http_methods
 from django.contrib.auth import logout
 from django.contrib.auth.hashers import check_password
@@ -92,7 +92,31 @@ def user_folders(request, user_id):
 
     return JsonResponse(response_dict, safe=False)
 
-def user_folder_detail(request, user_id, fid):
+@require_http_methods(["POST"])
+def create_user_folder(request, user_id):
+    logged_user_id = request.session.get('user', None)
+    if not logged_user_id or logged_user_id != user_id:
+        return HttpResponse(status=401)
+    
+    try:
+        body = request.body.decode()
+        folder_name = json.loads(body)['folder_name']
+    except (KeyError, JSONDecodeError):
+        return HttpResponseBadRequest()
+    
+    folder = Folder.objects.create(name=folder_name, user_id=logged_user_id)
+
+    response_dict = {
+        'folder': {
+            'id': folder.id,
+            'name': folder.name
+        }
+    }
+
+    return JsonResponse(response_dict, safe=False)
+
+@require_http_methods(["GET"])
+def user_folder(request, user_id, fid):
     logged_user_id = request.session.get('user', None)
     if not logged_user_id or logged_user_id != user_id:
         return HttpResponse(status=401)
@@ -116,16 +140,56 @@ def user_folder_detail(request, user_id, fid):
 
     return JsonResponse(response_dict, safe=False)
 
-def user_likes(request, user_id):
+@require_http_methods(["PUT"])
+def edit_user_folder(request, user_id, fid):
     logged_user_id = request.session.get('user', None)
     if not logged_user_id or logged_user_id != user_id:
         return HttpResponse(status=401)
 
     try:
-        user = User.objects.get(id=user_id)
-    except User.DoesNotExist:   # Wrong id
+        folder = Folder.objects.get(id=fid)
+    except Folder.DoesNotExist:   # Wrong id
         return HttpResponse(status=401)
     
+    try:
+        body = request.body.decode()
+        folder_name = json.loads(body)['folder_name']
+    except (KeyError, JSONDecodeError):
+        return HttpResponseBadRequest()
+
+    folder.name = folder_name
+    folder.save()
+
+    response_dict = {
+        'folder': {
+            'id': folder.id,
+            'name': folder.name
+        }
+    }
+    return JsonResponse(response_dict, safe=False)
+
+@require_http_methods(["DELETE"])
+def delete_user_folder(request, user_id, fid):
+    logged_user_id = request.session.get('user', None)
+    if not logged_user_id or logged_user_id != user_id:
+        return HttpResponse(status=401)
+
+    try:
+        folder = Folder.objects.get(id=fid)
+    except Folder.DoesNotExist:   # Wrong id
+        return HttpResponse(status=401)
+    
+    folder.delete()
+
+    return HttpResponse(status=204)
+
+@require_http_methods(["GET"])
+def user_likes(request, user_id):
+    logged_user_id = request.session.get('user', None)
+    if not logged_user_id or logged_user_id != user_id:
+        return HttpResponse(status=401)
+
+    user = User.objects.get(id=user_id)
     like_post_ids = Like.objects.filter(user=user).values_list('post_id', flat=True)
     like_posts = Post.objects.filter(id__in=list(like_post_ids))
 
@@ -143,12 +207,14 @@ def user_likes(request, user_id):
     
     return JsonResponse(response_dict, safe=False)
 
+@require_http_methods(["GET"])
 def user_shares(request, user_id):
-    logged_user_id = request.session.get('user', None)
-    if not logged_user_id or logged_user_id != user_id:
+    try:
+        user = User.objects.get(id=user_id)
+    except User.DoesNotExist:
         return HttpResponse(status=401)
 
-    share_posts = Post.objects.filter(author_id=user_id, is_shared=True)
+    share_posts = Post.objects.filter(author=user, is_shared=True)
 
     response_dict = {
         'shared_posts': [ {
