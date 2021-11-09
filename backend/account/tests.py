@@ -5,7 +5,6 @@ from django.utils import timezone
 import json
 from .models import User
 from .forms import UserForm
-from django.test.client import encode_multipart
 
 class AccountTestCase(TestCase):
     def setUp(self):
