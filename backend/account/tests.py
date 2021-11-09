@@ -128,13 +128,13 @@ class AccountTestCase(TestCase):
 
         response = client.delete(f'/user/{user.id}/')
         self.assertEqual(response.status_code, 405)
-
+        
         response = client.post('/user/signin/', json.dumps({
             'email': 'swpp@swpp.com',
             'password': 'swpp'
             }), content_type='application/json')
         self.assertEqual(response.status_code, 201)
-
+        
         response = client.post(f'/user/{user.id}/')
         self.assertEqual(response.status_code, 405)
 
@@ -169,3 +169,110 @@ class AccountTestCase(TestCase):
         # self.assertNotEqual(response.status_code, 400)
         # self.assertIn("edited_username", response.content.decode())
 
+    def test_user_folders(self):
+        client = Client()
+
+        response = client.get('/user/1/folder/')
+        self.assertEqual(response.status_code, 401)
+
+        response = client.post('/user/1/folder/new/', json.dumps({
+            'folder_name': 'new_folder'
+            }), content_type='application/json')
+        self.assertEqual(response.status_code, 401)
+
+        response = client.post('/user/signin/', json.dumps({
+            'email': 'swpp@swpp.com',
+            'password': 'swpp'
+            }), content_type='application/json')
+        self.assertEqual(response.status_code, 201)
+
+        response = client.post('/user/1/folder/new/', json.dumps({
+            'wrong_key': 'wrong_value'
+            }), content_type='application/json')
+        self.assertEqual(response.status_code, 400)
+
+        response = client.post('/user/1/folder/new/', json.dumps({
+            'folder_name': 'new_folder'
+            }), content_type='application/json')
+        self.assertIn("new_folder", response.content.decode())
+
+        response = client.get('/user/1/folder/')
+        self.assertIn("new_folder", response.content.decode())
+
+    def test_user_folder(self):
+        client = Client()
+
+        response = client.get('/user/1/folder/1/')
+        self.assertEqual(response.status_code, 401)
+
+        response = client.put('/user/1/folder/1/edit/')
+        self.assertEqual(response.status_code, 401)
+
+        response = client.delete('/user/1/folder/1/delete/')
+        self.assertEqual(response.status_code, 401)
+
+        response = client.post('/user/signin/', json.dumps({
+            'email': 'swpp@swpp.com',
+            'password': 'swpp'
+            }), content_type='application/json')
+        self.assertEqual(response.status_code, 201)
+
+        response = client.post('/user/1/folder/new/', json.dumps({
+            'folder_name': 'folder1'
+            }), content_type='application/json')
+        self.assertIn("folder1", response.content.decode())
+
+        response = client.get('/user/1/folder/23434/')
+        self.assertEqual(response.status_code, 401)
+
+        response = client.put('/user/1/folder/23434/edit/')
+        self.assertEqual(response.status_code, 401)
+
+        response = client.delete('/user/1/folder/23434/delete/')
+        self.assertEqual(response.status_code, 401)
+
+        response = client.get('/user/1/folder/1/')
+        self.assertIn("posts", response.content.decode())
+
+        response = client.put('/user/1/folder/1/edit/', json.dumps({
+            'wrong_key': 'wrong_value'
+            }), content_type='application/json')
+        self.assertEqual(response.status_code, 400)
+
+        response = client.put('/user/1/folder/1/edit/', json.dumps({
+            'folder_name': 'edited_folder'
+            }), content_type='application/json')
+        self.assertIn("edited_folder", response.content.decode())
+
+        response = client.delete('/user/1/folder/1/delete/')
+        self.assertEqual(response.status_code, 204)
+
+    def test_user_likes(self):
+        client = Client()
+
+        response = client.get('/user/1/like/')
+        self.assertEqual(response.status_code, 401)
+
+        response = client.post('/user/signin/', json.dumps({
+            'email': 'swpp@swpp.com',
+            'password': 'swpp'
+            }), content_type='application/json')
+        self.assertEqual(response.status_code, 201)\
+        
+        response = client.get('/user/1/like/')
+        self.assertIn("liked_posts", response.content.decode())
+
+    def test_user_shares(self):
+        client = Client()
+
+        response = client.get('/user/23423/share/')
+        self.assertEqual(response.status_code, 401)
+
+        response = client.post('/user/signin/', json.dumps({
+            'email': 'swpp@swpp.com',
+            'password': 'swpp'
+            }), content_type='application/json')
+        self.assertEqual(response.status_code, 201)
+
+        response = client.get('/user/1/share/')
+        self.assertIn("shared_posts", response.content.decode())
