@@ -15,11 +15,11 @@ def posts(request):
     for post in Post.objects.all():
         comments=[]
         for comment in post.comment_set.all():
-            comments.append({'content': comment.content, 'author_id':comment.author_id})
+            comments.append({'content': comment.content, 'usernmae':comment.author.username})
         folder_id=''
         if post.folder:
             folder_id=post.folder_id
-        postlist.append({'title': post.title, 'author_id': post.author_id, 'header_img': post.header_image.url, 'thumbnail_image': post.thumbnail_image.url, 
+        postlist.append({'title': post.title, 'username': post.author.username, 'header_image': post.header_image.url, 'thumbnail_image': post.thumbnail_image.url, 
         'days': post.days, 'folder_id': folder_id, 'is_shared':post.is_shared, 'theme':post.theme, 'comment': comments, 'season': post.season, 
         'location': post.location, 'availableWithOutCar': post.availableWithoutCar})
     if len(postlist)==0:
@@ -42,8 +42,8 @@ def post_spec_get(request, ID):
     post = Post.objects.get(id=ID)
     comments=[]
     for comment in post.comment_set.all():
-        comments.append({'content': comment.content, 'author_id':comment.author_id})
-    response_dict = {'title': post.title, 'author_id': post.author_id, 'header_img': post.header_image.url, 'thumbnail_image': post.thumbnail_image.url, 
+        comments.append({'content': comment.content, 'usernmae':comment.author.username})
+    response_dict = {'title': post.title, 'username': post.author.username, 'header_image': post.header_image.url, 'thumbnail_image': post.thumbnail_image.url, 
         'days': post.days, 'folder_id': post.folder_id, 'is_shared':post.is_shared, 'theme':post.theme, 'comment': comments, 'season': post.season, 
         'location': post.location, 'availableWithOutCar': post.availableWithoutCar}
     return JsonResponse(response_dict, safe=False)
@@ -73,7 +73,7 @@ def post_spec_edit(request, ID):
         post = Post(title=post_title, author=user, folder_id=post_folder_id, header_image=post_header_image, thumbnail_image=post_thumbnail_image,days=post_days, 
         is_shared=post_is_shared, location=post_location, theme=post_theme, season=post_season, availableWithoutCar=post_available_without_car)
         post.save()
-        response_dict = {'title': post.title, 'author_id': post.author_id, 'header_img': post.header_image.url, 'thumbnail_image': post.thumbnail_image.url, 
+        response_dict = {'title': post.title, 'username': post.author.username, 'header_image': post.header_image.url, 'thumbnail_image': post.thumbnail_image.url, 
         'days': post.days, 'folder_id': post.folder_id, 'is_shared':post.is_shared, 'theme':post.theme, 'season': post.season, 
         'location': post.location, 'availableWithOutCar': post.availableWithoutCar}
         return JsonResponse(response_dict, status=201)
@@ -105,7 +105,7 @@ def post_cart(request,ID, fid):
         post = Post(title=post_title, author=user, folder_id=fid, header_image=post_header_image, thumbnail_image=post_thumbnail_image,days=post_days, 
         is_shared=post_is_shared, theme=post_theme, season=post_season, location=post_location, availableWithoutCar=post_available_without_car)
         post.save()
-        response_dict = {'title': post.title, 'author_id': post.author_id, 'header_img': post.header_image.url, 'thumbnail_image': post.thumbnail_image.url, 
+        response_dict = {'title': post.title, 'username': post.author.username, 'header_image': post.header_image.url, 'thumbnail_image': post.thumbnail_image.url, 
         'days': post.days, 'folder_id': post.folder_id, 'is_shared':post.is_shared, 'theme':post.theme, 'season': post.season, 
         'location': post.location, 'availableWithOutCar': post.availableWithoutCar}
         return JsonResponse(response_dict, status=201)
@@ -134,7 +134,7 @@ def post_comment_get(request, ID):
     post=Post.objects.get(id=ID)
     comments=[]
     for comment in post.comment_set.all():
-        comments.append({'content': comment.content, 'author_id':comment.author_id})
+        comments.append({'content': comment.content, 'username':comment.author.username})
     return JsonResponse(comments, safe=False)
 
 @require_POST
@@ -155,7 +155,7 @@ def post_comment_post(request, ID):
             {
                 'id': comment.id,
                 'content':comment.content,
-                'author_id': comment.author_id,
+                'username': comment.author.username,
                 'created_at': comment.created_at.strftime("%Y. %m. %d. %H:%M")                
             }, status=201
         )      
@@ -174,7 +174,7 @@ def post_comment_spec(request, ID, cid):
             return HttpResponseBadRequest()
         search_comment.content=comment_content
         search_comment.save()
-        response_dict = {'id': search_comment.id, 'post_id': ID, 'content':search_comment.content, 'author':search_comment.author_id}
+        response_dict = {'id': search_comment.id, 'post_id': ID, 'content':search_comment.content, 'username':search_comment.author.username}
         return JsonResponse(response_dict, status=200)
     else: #delete
         Comment.objects.get(id=cid).delete() 
