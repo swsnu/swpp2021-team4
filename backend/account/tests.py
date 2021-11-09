@@ -5,6 +5,7 @@ from django.utils import timezone
 import json
 from .models import User
 from .forms import UserForm
+from django.test.client import encode_multipart
 
 class AccountTestCase(TestCase):
     def setUp(self):
@@ -135,11 +136,18 @@ class AccountTestCase(TestCase):
         form = UserForm(data=form_data)
         self.assertFalse(form.is_valid())
 
-        # upload_file = open("./test_img.jpeg", "rb")
-        # post_dict = {
-        #     'username': 'edited_username',
-        #     'password': 'edited_password',
-        # }
-        # file_dict = {'file': SimpleUploadedFile(upload_file.name, upload_file.read())}
-        # form = UserForm(post_dict, file_dict)
-        # self.assertTrue(form.is_valid())
+        upload_file = open("./test_img.jpeg", "rb")
+        post_dict = {
+            'username': 'edited_username',
+            'password': 'edited_password',
+        }
+        file_dict = {'profile_image': SimpleUploadedFile(upload_file.name, upload_file.read())}
+        form = UserForm(post_dict, file_dict)
+        self.assertTrue(form.is_valid())
+
+        # response = client.put(f'/user/{user.id}/', {
+        #     'profile_image': SimpleUploadedFile(upload_file.name, upload_file.read(), content_type="image/*")
+        # }, format="multipart")
+        # self.assertNotEqual(response.status_code, 400)
+        # self.assertIn("edited_username", response.content.decode())
+

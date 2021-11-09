@@ -89,6 +89,7 @@ def user_info(request, user_id):
         }
         return JsonResponse(response_dict, safe=False)
     if request.method == 'PUT':
+        # TODO : logged in user check
         form = UserForm(request.POST, request.FILES)
         if form.is_valid():
             user.username = form.cleaned_data['username']
@@ -103,4 +104,5 @@ def user_info(request, user_id):
             }
             return JsonResponse(response_dict, safe=False)
         else:
+            print('invalid form')
             return HttpResponse(status=400)
