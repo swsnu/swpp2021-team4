@@ -68,11 +68,13 @@ class Place(models.Model):
     description = models.TextField()
     day = models.IntegerField()
     folder = models.ForeignKey(Folder, null=True, blank=True,on_delete=models.CASCADE)
-    info = models.JSONField(default=dict)
-<<<<<<< HEAD
+    latitude = models.CharField(max_length=256, null=True, blank=True)
+    longitude = models.CharField(max_length=256, null=True, blank=True)
+    homepage = models.CharField(max_length=256, null=True, blank=True)
+    phone_number = models.CharField(max_length=256, null=True, blank=True)
+    address = models.CharField(max_length=256, null=True, blank=True)
+    category = models.CharField(max_length=256, null=True, blank=True)
 
-=======
->>>>>>> 10431f29a6fccbb67daca2b0c1a7d99bac7ab853
 
 class Comment(models.Model):
     content = models.TextField()
