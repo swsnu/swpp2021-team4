@@ -50,7 +50,7 @@ function Signup() {
     <div className="signup-container">
       <div className="signup-title">Sign Up</div>
 
-      <div className="divider" />
+      <div className="divider-horizontal" />
 
       <div className="signup-form-container">
         <input

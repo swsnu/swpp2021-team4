@@ -16,14 +16,17 @@ interface SigninFormType {
 axios.defaults.xsrfCookieName = 'csrftoken';
 axios.defaults.xsrfHeaderName = 'X-CSRFTOKEN';
 
-export const signinAction = (formData: SigninFormType) => {
+export const signinAction = (formData: SigninFormType, callbackFunc: (value: boolean) => void) => {
   return (dispatch: Redux.Dispatch<UserDispatchType>) => {
     return axios.post<{ logged_user: UserType}>('/user/signin/', formData)
       .then(res => {
         dispatch({ type: SIGNIN_SUCCESS, payload: res.data.logged_user });
         sessionStorage.setItem('isAuthorized', 'true');
+        callbackFunc(true);
       })
-      .catch(() => dispatch({ type: SIGNIN_FAIL }));
+      .catch(() => {
+        dispatch({ type: SIGNIN_FAIL });
+      });
   }
 }
 
