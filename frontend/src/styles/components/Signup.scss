@@ -28,7 +28,7 @@
   color: #000000;
 }
 
-.divider {
+.divider-horizontal {
   margin-top: 0.885vw;
   margin-bottom: 2.65vw;
   width: 100%;
@@ -51,6 +51,7 @@ input {
   font-weight: 500;
   font-size: 1.125rem;
   line-height: 1.625rem;
+  border-radius: 6px;
   color: #000000;
 }
 

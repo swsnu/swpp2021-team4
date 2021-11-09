@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Folder, Post, Place, Comment, Like, Path
+from .models import Post, Folder, Place, Comment, Like, Path
 # Register your models here.
 
 admin.site.register(Folder)
