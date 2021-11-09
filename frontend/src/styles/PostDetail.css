@@ -7,7 +7,21 @@
   margin: 0px auto;
 }
 
-.post-detail-header .header-top {
+.post-detail-header .header-image {
+  display: inline-block;
+}
+
+.post-detail-header .header-image img {
+  width: 130px;
+  height: 130px;
+}
+
+.post-detail-header .header-content {
+  display: inline-block;
+  width: calc(100%-130px);
+}
+
+.post-detail-header .header-content .header-top {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -19,20 +33,35 @@
   margin-top: 15px;
 }
 
-.post-detail-header .header-top .post-folder-name {
-  font-family: "Montserrat";
+.post-detail-header .header-content .header-top .post-folder-name {
+  font-family: "Noto Sans CJK KR";
   font-size: 24px;
   margin-left: 2vh;
 }
 
-.post-detail-header .header-top .without-car-checkbox-true {
+.post-detail-header .header-content .header-top .without-car-checkbox-true {
   font-family: "Montserrat";
   font-size: 18px;
   position: relative;
   margin-right: 2vh;
 }
 
-.header-middle {
+.post-detail-header .header-content .header-middle .post-title-name {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  margin-top: 15px;
+  font-family: "Noto Sans CJK KR";
+  font-weight: bold;
+  color: #57ceb9;
+  font-size: 35px;
+  margin-left: 2vh;
+}
+
+.post-detail-header .header-content .header-bottom {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -44,19 +73,19 @@
           justify-content: flex-start;
   -ms-flex-wrap: wrap;
       flex-wrap: wrap;
-  margin-top: 20px;
+  margin-top: 5px;
 }
 
-.header-middle .post-title-name {
-  font-family: "Montserrat";
+.post-detail-header .header-content .header-bottom .post-author {
+  font-family: "Noto Sans CJK KR";
   font-weight: bold;
-  font-size: 35px;
-  color: #57ceb9;
+  font-size: 20px;
+  color: #95ecdc;
   margin-left: 2vh;
   margin-right: 30vh;
 }
 
-.header-middle .post-info-container {
+.post-detail-header .header-content .header-bottom .post-info-container {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -66,7 +95,7 @@
   width: 50%;
 }
 
-.header-middle .post-info-container .info-button {
+.post-detail-header .header-content .header-bottom .post-info-container .info-button {
   background-color: #f6f6f9;
   border-radius: 6px;
   width: 15vh;
@@ -76,7 +105,8 @@
   line-height: 170%;
 }
 
-.header-middle .post-info-container .info-button .post-info {
-  font-family: "Montserrat";
+.post-detail-header .header-content .header-bottom .post-info-container .post-info {
+  font-family: "Noto Sans CJK KR";
+  font-weight: 500;
 }
 /*# sourceMappingURL=PostDetail.css.map */
