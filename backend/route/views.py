@@ -4,7 +4,7 @@ from .models import Folder, Post, Comment, Place, Like
 from json.decoder import JSONDecodeError
 from django.views.decorators.http import require_http_methods
 from django.views.decorators.http import require_POST, require_GET
-
+from account.models import User
 @require_GET
 def posts(request):
     postlist=[]
@@ -42,7 +42,8 @@ def create(request):
     except (KeyError, JSONDecodeError):
         return HttpResponseBadRequest()
     folder=Folder.objects.get(id=post_folder_id)
-    post = Post(title=post_title, author=request.user, folder=folder, header_image=post_header_image, thumbnail_image=post_thumbnail_image,days=post_days, 
+    user=User.objects.get(id=logged_user_id)
+    post = Post(title=post_title, author=user, folder=folder, header_image=post_header_image, thumbnail_image=post_thumbnail_image,days=post_days, 
     is_shared=post_is_shared,location=post_location, theme=post_theme, season=post_season, availableWithoutCar=post_available_without_car)
     post.save()
     folder_id=''
@@ -66,11 +67,12 @@ def post_spec_get(request, id_):
     
 @require_http_methods(["PUT", "DELETE"])
 def post_spec_edit(request, id_):
+    logged_user_id=request.session.get('user', None)
+    if not logged_user_id:
+        return HttpResponse(status=405)
     if request.method=='PUT':
-        logged_user_id=request.session.get('user', None)
-        if not logged_user_id:
-            return HttpResponse(status=405)
         post = Post.objects.get(id=id_)
+        user=User.objects.get(id=logged_user_id)
         try:
             body = json.loads(request.body.decode())
             post_title = body['title']
@@ -85,7 +87,7 @@ def post_spec_edit(request, id_):
             post_available_without_car=body['availableWithOutCar']
         except (KeyError, JSONDecodeError):
             return HttpResponseBadRequest()
-        post = Post(title=post_title, author=request.user, folder_id=post_folder_id, header_image=post_header_image, thumbnail_image=post_thumbnail_image,days=post_days, 
+        post = Post(title=post_title, author=user, folder_id=post_folder_id, header_image=post_header_image, thumbnail_image=post_thumbnail_image,days=post_days, 
         is_shared=post_is_shared, location=post_location, theme=post_theme, season=post_season, availableWithoutCar=post_available_without_car)
         post.save()
         response_dict = {'title': post.title, 'author_id': post.author_id, 'header_img': post.header_image, 'thumbnail_image': post.thumbnail_image, 
@@ -93,15 +95,16 @@ def post_spec_edit(request, id_):
         'location': post.location, 'availableWithOutCar': post.availableWithoutCar}
         return JsonResponse(response_dict, status=201)
     elif request.method=='DELETE':
-        logged_user_id=request.session.get('user', None)
-        if not logged_user_id:
-            return HttpResponse(status=405)
         Post.objects.get(id=id_).delete()
         return HttpResponse(status=200)
 
 @require_http_methods(["POST", "DELETE"])
 def post_cart(request,id_, fid):
+    logged_user_id=request.session.get('user', None)
+    if not logged_user_id:
+        return HttpResponse(status=405)
     post = Post.objects.get(id=id_)
+    user=User.objects.get(id=logged_user_id)
     try:
         body = json.loads(request.body.decode())
         post_title = body['title']
@@ -116,7 +119,7 @@ def post_cart(request,id_, fid):
     except (KeyError, JSONDecodeError):
         return HttpResponseBadRequest()
     if request.method=='POST':
-        post = Post(title=post_title, author=request.user, folder_id=fid, header_image=post_header_image, thumbnail_image=post_thumbnail_image,days=post_days, 
+        post = Post(title=post_title, author=user, folder_id=fid, header_image=post_header_image, thumbnail_image=post_thumbnail_image,days=post_days, 
         is_shared=post_is_shared, theme=post_theme, season=post_season, location=post_location, availableWithoutCar=post_available_without_car)
         post.save()
         response_dict = {'title': post.title, 'author_id': post.author_id, 'header_img': post.header_image, 'thumbnail_image': post.thumbnail_image, 
@@ -124,7 +127,7 @@ def post_cart(request,id_, fid):
         'location': post.location, 'availableWithOutCar': post.availableWithoutCar}
         return JsonResponse(response_dict, status=201)
     elif request.method=='DELETE':
-        post = Post(title=post_title, author=request.user, folder=None, header_image=post_header_image, thumbnail_image=post_thumbnail_image,days=post_days, 
+        post = Post(title=post_title, author=user, folder=None, header_image=post_header_image, thumbnail_image=post_thumbnail_image,days=post_days, 
         is_shared=post_is_shared, theme=post_theme, season=post_season, location=post_location, availableWithoutCar=post_available_without_car)
 
 @require_http_methods(["POST", "DELETE"])
@@ -132,14 +135,15 @@ def post_like(request, id_):
     logged_user_id=request.session.get('user', None)
     if not logged_user_id:
         return HttpResponse(status=405)
+    user=User.objects.get(id=logged_user_id)
     if request.method=='POST':
         post = Post.objects.get(id=id_)
-        like_list = post.like_set.filter(user_id=request.user.id)
-        Like.objects.create(user=request.user, post=post)
+        like_list = post.like_set.filter(user_id=user.id)
+        Like.objects.create(user=user, post=post)
         return JsonResponse({'postLikeUserCount': like_list.count()}, status=201)
     elif request.method=='DELETE':
         post = Post.objects.get(id=id_)
-        post.like_set.get(user=request.user).delete()
+        post.like_set.get(user=user).delete()
         return HttpResponse(status=200)
 
 @require_GET
@@ -160,7 +164,8 @@ def post_comment_post(request, id_):
         content = json.loads(body)['content']
     except (KeyError, JSONDecodeError):
         return HttpResponseBadRequest()
-    comment=Comment.objects.create(post_id=id_, content=content,  author=request.user)
+    user=User.objects.get(id=logged_user_id)
+    comment=Comment.objects.create(post_id=id_, content=content,  author=user)
     Comment.save(comment)
 
     return JsonResponse(
