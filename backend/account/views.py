@@ -2,7 +2,6 @@ from django.http import HttpResponse, JsonResponse, HttpResponseBadRequest
 from django.views.decorators.http import require_http_methods
 from django.contrib.auth import logout
 from django.contrib.auth.hashers import check_password
-from django.views.decorators.csrf import csrf_exempt
 
 import json
 from json.decoder import JSONDecodeError
@@ -69,40 +68,51 @@ def signout(request):
     logout(request)
     return HttpResponse(status=204)
 
-@csrf_exempt
-@require_http_methods(["GET", "PUT"])
+@require_http_methods(["GET"])
 def user_info(request, user_id):
+    logged_user_id = request.session.get('user', None)
+    if not logged_user_id or logged_user_id != user_id:
+        return HttpResponse(status=401)
+        
     try:
         user = User.objects.get(id=user_id)
     except User.DoesNotExist:   # Wrong id
         return HttpResponse(status=401)
 
-    if request.method == 'GET':
-        if user.profile_image:
-            profile_image = user.profile_image.url
-        else:
-            profile_image = None
+    if user.profile_image:
+        profile_image = user.profile_image.url
+    else:
+        profile_image = None
+    response_dict = {
+        'email': user.email,
+        'username': user.username,
+        'profile_image': profile_image
+    }
+    return JsonResponse(response_dict, safe=False)
+
+@require_http_methods(["PUT"])
+def edit_user_info(request, user_id):
+    logged_user_id = request.session.get('user', None)
+    if not logged_user_id or logged_user_id != user_id:
+        return HttpResponse(status=401)
+        
+    try:
+        user = User.objects.get(id=user_id)
+    except User.DoesNotExist:   # Wrong id
+        return HttpResponse(status=401)
+
+    form = UserForm(request.POST, request.FILES)
+    if form.is_valid():
+        user.username = form.cleaned_data['username']
+        user.profile_image = form.cleaned_data['profile_image']
+        user.set_password(form.cleaned_data['password'])
+        user.save()
+        user.update_date()
         response_dict = {
             'email': user.email,
             'username': user.username,
-            'profile_image': profile_image
+            'profile_image': user.profile_image.url
         }
         return JsonResponse(response_dict, safe=False)
-    if request.method == 'PUT':
-        # TODO : logged in user check
-        form = UserForm(request.POST, request.FILES)
-        if form.is_valid():
-            user.username = form.cleaned_data['username']
-            user.profile_image = form.cleaned_data['profile_image']
-            user.set_password(form.cleaned_data['password'])
-            user.save()
-            user.update_date()
-            response_dict = {
-                'email': user.email,
-                'username': user.username,
-                'profile_image': user.profile_image.url
-            }
-            return JsonResponse(response_dict, safe=False)
-        else:
-            print('invalid form')
-            return HttpResponse(status=400)
+    else:
+        return HttpResponse(status=400)
