@@ -72,12 +72,8 @@ def signout(request):
 def user_info(request, user_id):
     logged_user_id = request.session.get('user', None)
     if not logged_user_id or logged_user_id != user_id:
-        return HttpResponse(status=401)
-        
-    try:
-        user = User.objects.get(id=user_id)
-    except User.DoesNotExist:   # Wrong id
-        return HttpResponse(status=401)
+        return HttpResponse(status=401) 
+    user = User.objects.get(id=user_id)
 
     if user.profile_image:
         profile_image = user.profile_image.url
@@ -95,11 +91,7 @@ def edit_user_info(request, user_id):
     logged_user_id = request.session.get('user', None)
     if not logged_user_id or logged_user_id != user_id:
         return HttpResponse(status=401)
-        
-    try:
-        user = User.objects.get(id=user_id)
-    except User.DoesNotExist:   # Wrong id
-        return HttpResponse(status=401)
+    user = User.objects.get(id=user_id)
 
     form = UserForm(request.POST, request.FILES)
     if form.is_valid():

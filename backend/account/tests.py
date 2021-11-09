@@ -113,6 +113,15 @@ class AccountTestCase(TestCase):
         client = Client()
         user = User.objects.get(email="swpp@swpp.com")
 
+        response = client.get(f'/user/{user.id}/')
+        self.assertEqual(response.status_code, 401)
+
+        response = client.post('/user/signin/', json.dumps({
+            'email': 'swpp@swpp.com',
+            'password': 'swpp'
+            }), content_type='application/json')
+        self.assertEqual(response.status_code, 201)
+
         response = client.post(f'/user/{user.id}/')
         self.assertEqual(response.status_code, 405)
 
@@ -121,6 +130,25 @@ class AccountTestCase(TestCase):
 
         response = client.get(f'/user/{user.id}/')
         self.assertIn("swpp@swpp.com", response.content.decode())
+
+    def test_edit_user_info(self):
+        client = Client()
+        user = User.objects.get(email="swpp@swpp.com")
+
+        response = client.get(f'/user/{user.id}/')
+        self.assertEqual(response.status_code, 401)
+
+        response = client.post('/user/signin/', json.dumps({
+            'email': 'swpp@swpp.com',
+            'password': 'swpp'
+            }), content_type='application/json')
+        self.assertEqual(response.status_code, 201)
+
+        response = client.post(f'/user/{user.id}/')
+        self.assertEqual(response.status_code, 405)
+
+        response = client.get('/user/112312/')
+        self.assertEqual(response.status_code, 401)
 
         user.profile_image = File(open("./test_img.jpeg", "rb"))
         user.save()
