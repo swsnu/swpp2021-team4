@@ -7,6 +7,7 @@ import json
 from json.decoder import JSONDecodeError
 
 from .models import User
+from .forms import UserForm
 
 @require_http_methods(["POST"])
 def signup(request):
@@ -66,3 +67,44 @@ def signout(request):
         return HttpResponse(status=401)
     logout(request)
     return HttpResponse(status=204)
+
+@require_http_methods(["GET"])
+def user_info(request, user_id):
+    try:
+        user = User.objects.get(id=user_id)
+    except User.DoesNotExist:   # Wrong email
+        return HttpResponse(status=401)
+
+    if user.profile_image:
+        profile_image = user.profile_image.url
+    else:
+        profile_image = None
+    response_dict = {
+        'email': user.email,
+        'username': user.username,
+        'profile_image': profile_image
+    }
+    return JsonResponse(response_dict, safe=False)
+
+@require_http_methods(["PUT"])
+def edit_user_info(request, user_id):
+    logged_user_id = request.session.get('user', None)
+    if not logged_user_id or logged_user_id != user_id:
+        return HttpResponse(status=401)
+    user = User.objects.get(id=user_id)
+
+    form = UserForm(request.POST, request.FILES)
+    if form.is_valid():
+        user.username = form.cleaned_data['username']
+        user.profile_image = form.cleaned_data['profile_image']
+        user.set_password(form.cleaned_data['password'])
+        user.save()
+        user.update_date()
+        response_dict = {
+            'email': user.email,
+            'username': user.username,
+            'profile_image': user.profile_image.url
+        }
+        return JsonResponse(response_dict, safe=False)
+    else:
+        return HttpResponse(status=400)
