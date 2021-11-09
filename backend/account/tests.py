@@ -113,15 +113,6 @@ class AccountTestCase(TestCase):
         client = Client()
         user = User.objects.get(email="swpp@swpp.com")
 
-        response = client.get(f'/user/{user.id}/')
-        self.assertEqual(response.status_code, 401)
-
-        response = client.post('/user/signin/', json.dumps({
-            'email': 'swpp@swpp.com',
-            'password': 'swpp'
-            }), content_type='application/json')
-        self.assertEqual(response.status_code, 201)
-
         response = client.post(f'/user/{user.id}/')
         self.assertEqual(response.status_code, 405)
 
@@ -135,8 +126,8 @@ class AccountTestCase(TestCase):
         client = Client()
         user = User.objects.get(email="swpp@swpp.com")
 
-        response = client.get(f'/user/{user.id}/')
-        self.assertEqual(response.status_code, 401)
+        response = client.delete(f'/user/{user.id}/')
+        self.assertEqual(response.status_code, 405)
 
         response = client.post('/user/signin/', json.dumps({
             'email': 'swpp@swpp.com',

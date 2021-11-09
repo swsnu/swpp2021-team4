@@ -70,10 +70,10 @@ def signout(request):
 
 @require_http_methods(["GET"])
 def user_info(request, user_id):
-    logged_user_id = request.session.get('user', None)
-    if not logged_user_id or logged_user_id != user_id:
-        return HttpResponse(status=401) 
-    user = User.objects.get(id=user_id)
+    try:
+        user = User.objects.get(id=user_id)
+    except User.DoesNotExist:   # Wrong email
+        return HttpResponse(status=401)
 
     if user.profile_image:
         profile_image = user.profile_image.url
