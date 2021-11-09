@@ -1,4 +1,4 @@
-from django.http import HttpResponse, JsonResponse, HttpResponseBadRequest
+from django.http import HttpResponse, JsonResponse, HttpResponseBadRequest, response
 from django.views.decorators.http import require_http_methods
 from django.contrib.auth import logout
 from django.contrib.auth.hashers import check_password
@@ -7,6 +7,7 @@ import json
 from json.decoder import JSONDecodeError
 
 from .models import User
+from route.models import Folder, Post, Comment, Like
 
 @require_http_methods(["POST"])
 def signup(request):
@@ -66,3 +67,99 @@ def signout(request):
         return HttpResponse(status=401)
     logout(request)
     return HttpResponse(status=204)
+
+@require_http_methods(["GET"])
+def user_folders(request, user_id):
+    logged_user_id = request.session.get('user', None)
+    if not logged_user_id or logged_user_id != user_id:
+        return HttpResponse(status=401)
+
+    folders = Folder.objects.filter(user_id=user_id)
+
+    response_dict = [ {
+        'id': folder.id,
+        'name': folder.name,
+        'posts': [ {
+            'id': post.id,
+            'thumbnail_image': post.thumbnail_image.url if post.thumbnail_image else None,
+            'title': post.title,
+            'author': post.author.username,
+            'like_count': post.like_users.count(), 
+            'comment_count': Comment.objects.filter(post=post).count(),
+            'is_shared': post.is_shared
+        } for post in Post.objects.filter(folder=folder) ]
+    } for folder in folders ]
+
+    return JsonResponse(response_dict, safe=False)
+
+def user_folder_detail(request, user_id, fid):
+    logged_user_id = request.session.get('user', None)
+    if not logged_user_id or logged_user_id != user_id:
+        return HttpResponse(status=401)
+
+    try:
+        folder = Folder.objects.get(id=fid)
+    except Folder.DoesNotExist:   # Wrong id
+        return HttpResponse(status=401)
+
+    response_dict = {
+        'posts': [ {
+            'id': post.id,
+            'thumbnail_image': post.thumbnail_image.url if post.thumbnail_image else None,
+            'title': post.title,
+            'author': post.author.username,
+            'like_count': post.like_users.count(), 
+            'comment_count': Comment.objects.filter(post=post).count(),
+            'is_shared': post.is_shared
+        } for post in Post.objects.filter(folder=folder) ]
+    }
+
+    return JsonResponse(response_dict, safe=False)
+
+def user_likes(request, user_id):
+    logged_user_id = request.session.get('user', None)
+    if not logged_user_id or logged_user_id != user_id:
+        return HttpResponse(status=401)
+
+    try:
+        user = User.objects.get(id=user_id)
+    except User.DoesNotExist:   # Wrong id
+        return HttpResponse(status=401)
+    
+    like_post_ids = Like.objects.filter(user=user).values_list('post_id', flat=True)
+    like_posts = Post.objects.filter(id__in=list(like_post_ids))
+
+    response_dict = {
+        'liked_posts': [ {
+            'id': post.id,
+            'thumbnail_image': post.thumbnail_image.url if post.thumbnail_image else None,
+            'title': post.title,
+            'author': post.author.username,
+            'like_count': post.like_users.count(), 
+            'comment_count': Comment.objects.filter(post=post).count(),
+            'is_shared': post.is_shared
+        } for post in like_posts ]
+    }
+    
+    return JsonResponse(response_dict, safe=False)
+
+def user_shares(request, user_id):
+    logged_user_id = request.session.get('user', None)
+    if not logged_user_id or logged_user_id != user_id:
+        return HttpResponse(status=401)
+
+    share_posts = Post.objects.filter(author_id=user_id, is_shared=True)
+
+    response_dict = {
+        'shared_posts': [ {
+            'id': post.id,
+            'thumbnail_image': post.thumbnail_image.url if post.thumbnail_image else None,
+            'title': post.title,
+            'author': post.author.username,
+            'like_count': post.like_users.count(), 
+            'comment_count': Comment.objects.filter(post=post).count(),
+            'is_shared': post.is_shared
+        } for post in share_posts ]
+    }
+    
+    return JsonResponse(response_dict, safe=False)
