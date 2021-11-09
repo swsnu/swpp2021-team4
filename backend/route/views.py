@@ -54,14 +54,16 @@ def create(request):
     return JsonResponse(response_dict, status=201)
 
 @require_GET
-def post_spec_get(request, id_):
-    post = Post.objects.get(id=id_)
+def post_spec_get(request, ID):
+    post = Post.objects.get(id=ID)
+    author_name=post.author.username
+    folder_name=post.folder.name
     comments=[]
     for comment in post.comment_set.all():
         comments.append({'content': comment.content, 'author_id':comment.author_id})
-    response_dict = {'title': post.title, 'author_id': post.author_id, 'header_img': post.header_image, 'thumbnail_image': post.thumbnail_image, 
+    response_dict = {'title': post.title, 'author_id': post.author_id, 'author_name':author_name,
         'days': post.days, 'folder_id': post.folder_id, 'is_shared':post.is_shared, 'theme':post.theme, 'comment': comments, 'season': post.season, 
-        'location': post.location, 'availableWithOutCar': post.availableWithoutCar}
+        'location': post.location, 'availableWithOutCar': post.availableWithoutCar, 'folder_name':folder_name}
     return JsonResponse(response_dict, safe=False)
     
 @require_http_methods(["PUT", "DELETE"])

@@ -4,7 +4,7 @@ from route import views
 urlpatterns = [
     path('post/', views.posts, name='posts'), #get
     path('post/create/', views.create, name='create'), #post
-    path('post/<int:id>/', views.post_spec_get, name='post_spec_get'), #get post
+    path('post/<int:ID>/', views.post_spec_get, name='post_spec_get'), #get post
     path('post/<int:id>/edit/', views.post_spec_edit, name='post_spec_edit'), #get post
     path('post/<int:id>/cart/<int:fid>/', views.post_cart, name='post_cart'),
     path('post/<int:id>/like/', views.post_like, name='post_like'),
