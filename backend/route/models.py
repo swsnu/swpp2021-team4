@@ -3,7 +3,7 @@ from uuid import uuid4
 from django.db import models
 from account.models import User
 from django.utils import timezone
-
+from django.utils.translation import gettext_lazy as _
 
 class Folder(models.Model):
     name = models.CharField(max_length=256)
@@ -33,8 +33,8 @@ class Post(models.Model):
             ymd_path,
             uuid_name + extension,
         ])
-    header_image = models.ImageField(upload_to=header_date_upload_to, null=True, blank=True)
-    thumbnail_image = models.ImageField(upload_to=thumbnail_date_upload_to, null=True, blank=True)
+    header_image = models.ImageField(_("Image"), upload_to=header_date_upload_to, null=True, blank=True)
+    thumbnail_image = models.ImageField(_("Image"), upload_to=thumbnail_date_upload_to, null=True, blank=True)
     days= models.IntegerField(default=1)
     like_users = models.ManyToManyField(User, related_name='like_users', blank=True)
     is_shared = models.BooleanField(blank=True)
@@ -54,7 +54,7 @@ class Post(models.Model):
     theme = models.CharField(max_length=10, blank=True, null=True, choices=THEMES)
     location = models.CharField(max_length=256, blank=True)
     availableWithoutCar = models.BooleanField(blank=True)
-
+        
     def update_date(self): 
         self.updated_at = timezone.now()
         self.save()
