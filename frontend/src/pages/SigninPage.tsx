@@ -2,10 +2,16 @@ import React from "react";
 import NavBar from "../components/NavBar";
 import Signin from "../containers/Signin";
 
-function SigninPage() {
+interface PropType {
+  location: any
+  match: any
+  history: any
+}
+
+function SigninPage(props: PropType) {
   return (
     <>
-      <NavBar />
+      <NavBar location={props.location} />
       <Signin />
     </>
   );
