@@ -24,7 +24,7 @@ function App() {
         <Route exact path="/post/:id/" component={PostDetailPage} />
         <Route exact path="/user_info/:id/" component={UserInfoPage} />
         <Route exact path="/edit_profile/" component={EditProfilePage} />
-        <Route path="/main/" component={MainPage} />
+        <Route path={["/", "/main/"]} component={MainPage} />
       </Switch>
     );
   }

@@ -1,6 +1,8 @@
 import React from "react";
 import NavBar from "../components/NavBar";
 import Signup from "../containers/SIgnup";
+import '../styles/components/Signup.scss';
+import backgroundImage from '../static/png/signup_page.png';
 
 interface PropType {
   location: any
@@ -10,10 +12,11 @@ interface PropType {
 
 function SignupPage(props: PropType) {
   return (
-    <>
+    <div>
+      <img className="signup-background" src={backgroundImage} />
       <NavBar location={props.location} />
       <Signup />
-    </>
+    </div>
   );
 }
 
