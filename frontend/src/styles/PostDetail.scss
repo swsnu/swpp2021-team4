@@ -6,60 +6,62 @@
   height: 130px;
   //   display: flex;
   margin: 0px auto;
+  display: flex;
   .header-image {
     display: inline-block;
     img {
-      width: 130px;
+      width: 210px;
       height: 130px;
     }
   }
-  .header-content {
-    display: inline-block;
-    width: calc(100%-130px);
+  .header-content-left {
     .header-top {
-      display: flex;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      margin-top: 15px;
+      margin-top: 10px;
       .post-folder-name {
         font-family: $koreanFont;
-        font-size: 24px;
+        font-size: 22px;
         margin-left: 2vh;
-      }
-      .without-car-checkbox-true {
-        font-family: $mainFont;
-        font-size: 18px;
-        position: relative;
-        margin-right: 2vh;
       }
     }
     .header-middle {
+      display: flex;
+      flex-wrap: wrap;
       .post-title-name {
-        display: flex;
         justify-content: flex-start;
-        margin-top: 15px;
+        margin: 0px 8vh 0px 2vh;
         font-family: $koreanFont;
         font-weight: bold;
         color: $darkMintColor;
-        font-size: 35px;
-        margin-left: 2vh;
+        font-size: 32px;
+      }
+      .post-info-container {
+        display: flex;
+        align-items: center;
+        .post-info {
+          font-family: $koreanFont;
+          font-size: 20px;
+          font-weight: 500;
+          margin-right: 20px;
+          margin-left: 20px;
+        }
       }
     }
     .header-bottom {
+      width: 160%;
       display: flex;
       align-items: center;
       justify-content: flex-start;
       flex-wrap: wrap;
       margin-top: 5px;
       .post-author {
-        font-family: $koreanFont; //regex써서 english, korean구별
+        font-family: $mainFont;
         font-weight: bold;
         font-size: 20px;
         color: $regularMintColor;
-        margin-left: 2vh;
+        margin-left: 2.5vh;
         margin-right: 30vh;
       }
-      .post-info-container {
+      .post-tag-container {
         display: flex;
         justify-content: space-evenly;
         width: 50%;
@@ -74,7 +76,7 @@
         }
         .post-info {
           font-family: $koreanFont;
-          font-weight: 500;
+          font-weight: 300;
         }
       }
     }

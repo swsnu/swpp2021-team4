@@ -5,6 +5,9 @@
           box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
   height: 130px;
   margin: 0px auto;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
 }
 
 .post-detail-header .header-image {
@@ -12,56 +15,58 @@
 }
 
 .post-detail-header .header-image img {
-  width: 130px;
+  width: 210px;
   height: 130px;
 }
 
-.post-detail-header .header-content {
-  display: inline-block;
-  width: calc(100%-130px);
+.post-detail-header .header-content-left .header-top {
+  margin-top: 10px;
 }
 
-.post-detail-header .header-content .header-top {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
-  -ms-flex-wrap: wrap;
-      flex-wrap: wrap;
-  margin-top: 15px;
-}
-
-.post-detail-header .header-content .header-top .post-folder-name {
+.post-detail-header .header-content-left .header-top .post-folder-name {
   font-family: "Noto Sans CJK KR";
-  font-size: 24px;
+  font-size: 22px;
   margin-left: 2vh;
 }
 
-.post-detail-header .header-content .header-top .without-car-checkbox-true {
-  font-family: "Montserrat";
-  font-size: 18px;
-  position: relative;
-  margin-right: 2vh;
-}
-
-.post-detail-header .header-content .header-middle .post-title-name {
+.post-detail-header .header-content-left .header-middle {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+}
+
+.post-detail-header .header-content-left .header-middle .post-title-name {
   -webkit-box-pack: start;
       -ms-flex-pack: start;
           justify-content: flex-start;
-  margin-top: 15px;
+  margin: 0px 8vh 0px 2vh;
   font-family: "Noto Sans CJK KR";
   font-weight: bold;
   color: #57ceb9;
-  font-size: 35px;
-  margin-left: 2vh;
+  font-size: 32px;
 }
 
-.post-detail-header .header-content .header-bottom {
+.post-detail-header .header-content-left .header-middle .post-info-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.post-detail-header .header-content-left .header-middle .post-info-container .post-info {
+  font-family: "Noto Sans CJK KR";
+  font-size: 20px;
+  font-weight: 500;
+  margin-right: 20px;
+  margin-left: 20px;
+}
+
+.post-detail-header .header-content-left .header-bottom {
+  width: 160%;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -76,16 +81,16 @@
   margin-top: 5px;
 }
 
-.post-detail-header .header-content .header-bottom .post-author {
-  font-family: "Noto Sans CJK KR";
+.post-detail-header .header-content-left .header-bottom .post-author {
+  font-family: "Montserrat";
   font-weight: bold;
   font-size: 20px;
   color: #95ecdc;
-  margin-left: 2vh;
+  margin-left: 2.5vh;
   margin-right: 30vh;
 }
 
-.post-detail-header .header-content .header-bottom .post-info-container {
+.post-detail-header .header-content-left .header-bottom .post-tag-container {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -95,7 +100,7 @@
   width: 50%;
 }
 
-.post-detail-header .header-content .header-bottom .post-info-container .info-button {
+.post-detail-header .header-content-left .header-bottom .post-tag-container .info-button {
   background-color: #f6f6f9;
   border-radius: 6px;
   width: 15vh;
@@ -105,8 +110,8 @@
   line-height: 170%;
 }
 
-.post-detail-header .header-content .header-bottom .post-info-container .post-info {
+.post-detail-header .header-content-left .header-bottom .post-tag-container .post-info {
   font-family: "Noto Sans CJK KR";
-  font-weight: 500;
+  font-weight: 300;
 }
 /*# sourceMappingURL=PostDetail.css.map */
