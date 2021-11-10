@@ -18,14 +18,14 @@ function NavBar(props: PropType) {
   const [isLoggedOut, setIsLoggedOut] = useState(false);
 
   useEffect(() => {
-    if (!isLogged && sessionStorage.getItem('isAuthorized') === 'true') {
+    if (!isLogged && localStorage.getItem('isAuthorized') === 'true') {
       setIsLogged(true);
     }
   }, []);
 
   useEffect(() => {
     if (isLoggedOut) {
-      sessionStorage.removeItem('isAuthorized');
+      localStorage.removeItem('isAuthorized');
       setIsLogged(false);
     }
   }, [isLoggedOut])
