@@ -21,7 +21,7 @@ export const signinAction = (formData: SigninFormType, callbackFunc: (value: boo
     return axios.post<{ logged_user: UserType}>('/user/signin/', formData)
       .then(res => {
         dispatch({ type: SIGNIN_SUCCESS, payload: res.data.logged_user });
-        sessionStorage.setItem('isAuthorized', 'true');
+        localStorage.setItem('isAuthorized', 'true');
         callbackFunc(true);
       })
       .catch(() => {
@@ -35,7 +35,7 @@ export const signoutAction = () => {
     return axios.post('/user/signout/')
       .then(() => {
         dispatch({ type: SIGNOUT_SUCCESS });
-        sessionStorage.removeItem('isAuthorized');
+        localStorage.removeItem('isAuthorized');
       })
       .catch(() => dispatch({ type: SIGNOUT_FAIL }));
   }
