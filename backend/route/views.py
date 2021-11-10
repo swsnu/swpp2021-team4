@@ -120,13 +120,13 @@ def post_spec_get(request, ID):
     return JsonResponse(response_dict, safe=False)
     
 @require_http_methods(["POST", "DELETE"])
-def post_spec_edit(request, post_id):
+def post_spec_edit(request, ID):
     logged_user_id=request.session.get('user', None)
     if not logged_user_id:
         return HttpResponse(status=401)
     
     try:
-        post = Post.objects.get(id=post_id)
+        post = Post.objects.get(id=ID)
     except Post.DoesNotExist:   # Wrong post id
         return HttpResponse(status=401)
 
@@ -147,7 +147,7 @@ def post_spec_edit(request, post_id):
             post_location=form.cleaned_data['location']
             post_available_without_car=form.cleaned_data['availableWithoutCar']
 
-            Post.objects.filter(id=post_id).update(
+            Post.objects.filter(id=ID).update(
                 title=post_title,
                 header_image=post_header_image,
                 thumbnail_image=post_thumbnail_image,
@@ -183,27 +183,30 @@ def post_spec_edit(request, post_id):
         return HttpResponse(status=204)
 
 @require_http_methods(["POST", "DELETE"])
-def post_cart(request, post_id, fid):
+def post_cart(request, ID, fid):
     logged_user_id=request.session.get('user', None)
     if not logged_user_id:
         return HttpResponse(status=405)
 
     try:
-        post = Post.objects.get(id=post_id)
+        post = Post.objects.get(id=ID)
         folder = Folder.objects.get(id=fid)
     except (Post.DoesNotExist, Folder.DoesNotExist):   # Wrong post id
         return HttpResponse(status=404)
 
     if request.method=='POST':
-        PostInFolder.objects.create(folder=folder, post=post)
-        response_dict = {
-            'folder': {
-                'id': folder.id,
-                'name': folder.name,
-                'user': folder.user.username
+        if len(PostInFolder.objects.filter(folder=folder, post=post)) == 0:
+            PostInFolder.objects.create(folder=folder, post=post)
+            response_dict = {
+                'folder': {
+                    'id': folder.id,
+                    'name': folder.name,
+                }
             }
-        }
-        return JsonResponse(response_dict, safe=False)
+            return JsonResponse(response_dict, safe=False)
+        else:
+            # already carted
+            return HttpResponse(status=204)
     elif request.method=='DELETE':
         try:
             post_in_folder = PostInFolder.objects.get(folder=folder, post=post)
@@ -248,7 +251,7 @@ def post_comment_post(request, ID):
     except (KeyError, JSONDecodeError):
         return HttpResponseBadRequest()
     user=User.objects.get(id=logged_user_id)
-    comment=Comment.objects.create(post_id=ID, content=content,  author=user)
+    comment=Comment.objects.create(ID=ID, content=content,  author=user)
     Comment.save(comment)
 
     return JsonResponse(
@@ -334,9 +337,9 @@ def place_create(request):
         return JsonResponse(response_dict, status=201)
 
 @require_GET
-def place_spec(request, place_id):
+def place_spec(request, ID):
     try:
-        place = Place.objects.get(id=place_id)
+        place = Place.objects.get(id=ID)
     except Place.DoesNotExist:
         return HttpResponse(status=404)
     
@@ -357,13 +360,13 @@ def place_spec(request, place_id):
     return JsonResponse(response_dict, safe=False)
 
 @require_http_methods(["PUT", "DELETE"])
-def place_spec_edit(request, place_id):
+def place_spec_edit(request, ID):
     logged_user_id=request.session.get('user', None)
     if not logged_user_id:
         return HttpResponse(status=401)
 
     try:
-        place = Post.objects.get(id=place_id)
+        place = Post.objects.get(id=ID)
     except Post.DoesNotExist:   # Wrong place id
         return HttpResponse(status=404)
     
@@ -378,7 +381,7 @@ def place_spec_edit(request, place_id):
         except (KeyError, JSONDecodeError):
             return HttpResponseBadRequest()
         
-        Place.objects.filter(id=place_id).update(
+        Place.objects.filter(id=ID).update(
             description=description,
             day=day
         )
@@ -405,13 +408,13 @@ def place_spec_edit(request, place_id):
         return HttpResponse(status=204)    
 
 @require_http_methods(["POST", "DELETE"])
-def place_cart(request, place_id, fid):
+def place_cart(request, ID, fid):
     logged_user_id=request.session.get('user', None)
     if not logged_user_id:
         return HttpResponse(status=405)
 
     try:
-        place = Place.objects.get(id=place_id)
+        place = Place.objects.get(id=ID)
         folder = Folder.objects.get(id=fid)
     except (Place.DoesNotExist, Folder.DoesNotExist):   # Wrong place id
         return HttpResponse(status=404)
@@ -422,7 +425,6 @@ def place_cart(request, place_id, fid):
             'folder': {
                 'id': folder.id,
                 'name': folder.name,
-                'user': folder.user.username
             }
         }
         return JsonResponse(response_dict, safe=False)

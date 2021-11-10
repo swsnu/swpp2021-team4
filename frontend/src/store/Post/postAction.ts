@@ -1,6 +1,14 @@
 import axios from "axios";
 import * as Redux from "redux";
-import { GET_POSTS_SUCCESS, GET_POSTS_FAIL, GET_POST_SUCCESS, GET_POST_FAIL } from "../actionTypes";
+import {
+  GET_POSTS_SUCCESS,
+  GET_POSTS_FAIL,
+  GET_POST_SUCCESS,
+  GET_POST_FAIL,
+  CART_POST_SUCCESS,
+  CART_POST_FAIL
+} from "../actionTypes";
+import { Folder } from "../User/userInterfaces";
 import { PostDispatchType, PostType } from "./postInterfaces";
 
 export const getPostsAction = () => {
@@ -18,5 +26,14 @@ export const getPostAction = (postId: number) => {
       .get<PostType>(`/post/${postId}/`)
       .then((res) => dispatch({ type: GET_POST_SUCCESS, payload: res.data }))
       .catch(() => dispatch({ type: GET_POST_FAIL }));
+  };
+};
+
+export const cartPostAction = (postId: number, folderId: number) => {
+  return (dispatch: Redux.Dispatch<PostDispatchType>) => {
+    return axios
+      .post<{ folder: Folder }>(`/post/${postId}/cart/${folderId}/`)
+      .then((res) => dispatch({ type: CART_POST_SUCCESS, payload: res.data.folder }))
+      .catch(() => dispatch({ type: CART_POST_FAIL }));
   };
 };
