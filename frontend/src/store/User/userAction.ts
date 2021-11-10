@@ -7,12 +7,18 @@ import {
   SIGNOUT_FAIL,
   EDIT_PROFILE_SUCCESS,
   EDIT_PROFILE_FAIL,
+  EDIT_FOLDER_SUCCESS,
+  EDIT_FOLDER_FAIL,
 } from '../actionTypes';
-import { UserDispatchType, UserType } from './userInterfaces';
+import { Folder, UserDispatchType, UserType } from './userInterfaces';
 
 interface SigninFormType {
   email: string,
   password: string
+}
+
+interface EditFolderFormType {
+  folder_name: string
 }
 
 axios.defaults.xsrfCookieName = 'csrftoken';
@@ -57,6 +63,19 @@ export const editProfileAction = (user_id: number, formData: any, callbackFunc: 
       })
       .catch(() => {
         dispatch({ type: EDIT_PROFILE_FAIL });
+      });
+  }
+}
+
+export const editFolderAction = (user_id: number, fid: number, formData: EditFolderFormType, callbackFunc: (value: boolean) => void) => {
+  return (dispatch: Redux.Dispatch<UserDispatchType>) => {
+    return axios.put<{ folder: Folder }>(`/user/${user_id}/folder/${fid}/edit/`, formData)
+      .then(res => {
+        dispatch({ type: EDIT_FOLDER_SUCCESS, payload: res.data.folder });
+        callbackFunc(true);
+      })
+      .catch(() => {
+        dispatch({ type: EDIT_FOLDER_FAIL });
       });
   }
 }

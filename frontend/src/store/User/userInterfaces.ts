@@ -5,6 +5,8 @@ import {
   SIGNOUT_FAIL,
   EDIT_PROFILE_SUCCESS,
   EDIT_PROFILE_FAIL,
+  EDIT_FOLDER_SUCCESS,
+  EDIT_FOLDER_FAIL,
 } from '../actionTypes';
 
 export interface UserType {
@@ -16,7 +18,7 @@ export interface UserType {
 }
 
 export interface Folder {
-  user: UserType
+  id: number
   name: string
 }
 
@@ -46,10 +48,21 @@ export interface EditProfileFail {
   type: typeof EDIT_PROFILE_FAIL
 }
 
+export interface EditFolderSuccess {
+  type: typeof EDIT_FOLDER_SUCCESS
+  payload: Folder
+}
+
+export interface EditFolderFail {
+  type: typeof EDIT_FOLDER_FAIL
+}
+
 export type UserDispatchType =
   SigninSuccess |
   SigninFail |
   SignoutSuccess |
   SignoutFail |
   EditProfileSuccess |
-  EditProfileFail;
+  EditProfileFail |
+  EditFolderSuccess |
+  EditFolderFail;
