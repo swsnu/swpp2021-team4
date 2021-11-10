@@ -7,16 +7,22 @@ import {
   SIGNOUT_FAIL,
   EDIT_PROFILE_SUCCESS,
   EDIT_PROFILE_FAIL,
-} from "../actionTypes";
-import { UserDispatchType, UserType } from "./userInterfaces";
+  EDIT_FOLDER_SUCCESS,
+  EDIT_FOLDER_FAIL,
+} from '../actionTypes';
+import { Folder, UserDispatchType, UserType } from './userInterfaces';
 
 interface SigninFormType {
   email: string;
   password: string;
 }
 
-axios.defaults.xsrfCookieName = "csrftoken";
-axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
+interface EditFolderFormType {
+  folder_name: string
+}
+
+axios.defaults.xsrfCookieName = 'csrftoken';
+axios.defaults.xsrfHeaderName = 'X-CSRFTOKEN';
 
 export const signinAction = (
   formData: SigninFormType,
@@ -67,6 +73,19 @@ export const editProfileAction = (
       })
       .catch(() => {
         dispatch({ type: EDIT_PROFILE_FAIL });
+      });
+  };
+};
+
+export const editFolderAction = (user_id: number, fid: number, formData: EditFolderFormType, callbackFunc: (value: boolean) => void) => {
+  return (dispatch: Redux.Dispatch<UserDispatchType>) => {
+    return axios.put<{ folder: Folder }>(`/user/${user_id}/folder/${fid}/edit/`, formData)
+      .then(res => {
+        dispatch({ type: EDIT_FOLDER_SUCCESS, payload: res.data.folder });
+        callbackFunc(true);
+      })
+      .catch(() => {
+        dispatch({ type: EDIT_FOLDER_FAIL });
       });
   };
 };
