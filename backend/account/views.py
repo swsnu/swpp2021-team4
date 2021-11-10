@@ -48,12 +48,18 @@ def signin(request):
         else:
             profile_image = None
 
+        folders = [ {
+            'id': folder.id,
+            'name': folder.name
+        } for folder in Folder.objects.filter(user=user) ]
+
         response_dict = {
             'logged_user': {
                 'id': user.id,
                 'email': user.email,
                 'username': user.username,
-                'profile_image': profile_image
+                'profile_image': profile_image,
+                'folders': folders
             }
         }
 
@@ -80,10 +86,18 @@ def user_info(request, user_id):
         profile_image = user.profile_image.url
     else:
         profile_image = None
+
+    folders = [ {
+        'id': folder.id,
+        'name': folder.name
+    } for folder in Folder.objects.filter(user=user) ]
+    
     response_dict = {
+        'id': user.id,
         'email': user.email,
         'username': user.username,
-        'profile_image': profile_image
+        'profile_image': profile_image,
+        'folders': folders
     }
     return JsonResponse(response_dict, safe=False)
 
@@ -102,12 +116,19 @@ def edit_user_info(request, user_id):
         user.set_password(form.cleaned_data['password'])
         user.save()
         user.update_date()
+
+        folders = [ {
+            'id': folder.id,
+            'name': folder.name
+        } for folder in Folder.objects.filter(user=user) ]
+
         response_dict = {
             'logged_user': {
                 'id': user.id,
                 'email': user.email,
                 'username': user.username,
-                'profile_image': user.profile_image.url if user.profile_image else None
+                'profile_image': user.profile_image.url if user.profile_image else None,
+                'folders': folders
             }
         }
         return JsonResponse(response_dict, safe=False)

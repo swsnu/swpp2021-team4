@@ -5,6 +5,8 @@ import {
   SIGNOUT_FAIL,
   EDIT_PROFILE_SUCCESS,
   EDIT_PROFILE_FAIL,
+  EDIT_FOLDER_SUCCESS,
+  EDIT_FOLDER_FAIL,
 } from '../actionTypes';
 
 import { UserDispatchType, UserType } from "./userInterfaces";
@@ -39,6 +41,14 @@ export default (
     case EDIT_PROFILE_SUCCESS:
       return { ...state, loggedUser: { ...action.payload } };
     case EDIT_PROFILE_FAIL:
+      return { ...state };
+    case EDIT_FOLDER_SUCCESS:
+      const { id } = action.payload;
+      const nextFolders = state.loggedUser.folders.map(folder => {
+        return folder.id === id ? action.payload : folder
+      });
+      return { ...state, loggedUser: { ...state.loggedUser, folders: nextFolders } };
+    case EDIT_FOLDER_FAIL:
       return { ...state };
     default:
       return state;

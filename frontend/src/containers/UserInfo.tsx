@@ -1,16 +1,19 @@
 import React, { useState, useEffect } from "react";
 import { Redirect, useParams } from "react-router-dom";
 import "../styles/components/Userinfo.scss";
-import { useSelector } from "react-redux";
-//import { useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import axios from "axios";
-//import {UserStateType} from "../store/User/userReducer";
+import { useUserState } from "../hooks/useUserState";
 import logo from "../static/profile.png";
-import { RootReducerType } from "../store/store";
+// import { RootReducerType } from "../store/store";
 import button_up from "../static/chevron-down.svg";
 import button_down from "../static/chevron-up.svg";
 import vector from "../static/Vector.svg";
+import { editFolderAction } from "../store/User/userAction";
+
 function UserInfo() {
+  const dispatch = useDispatch();
+
   interface String {
     id: string;
   }
@@ -19,7 +22,7 @@ function UserInfo() {
   const [folder, setFolderSelect] = useState([
     {
       id: 0,
-      name: "hi",
+      name: "",
       posts: [{ id: "", thumbnail_image: "" }],
     },
   ]);
@@ -29,7 +32,17 @@ function UserInfo() {
   ]);
   const [likeImages, setLikeImages] = useState([""]);
   const [imageToShow, setImageToShow] = useState(1);
-  const { loggedUser } = useSelector((state: RootReducerType) => state.user);
+  // const { loggedUser } = useSelector((state: RootReducerType) => state.user);
+  const loggedUser = useUserState();
+
+  // const [folderEdited, setFolderEdited] = useState(0)
+  // const [folderName, setFolderName] = useState("")
+
+  const [isFolderEdited, setIsFolderEdited] = useState(false);
+  const [folderInputs, setFolderInputs] = useState({
+    folderId: 0,
+    folderName: ""
+  })
 
   const [userInfo, setUserInfo] = useState({
     profile_image: "",
@@ -39,6 +52,13 @@ function UserInfo() {
   const onEditProfile = () => {
     setIsSubmitted(true);
   };
+
+  useEffect(() => {
+    if (isFolderEdited) {
+      setFolderSelect(loggedUser.folders);
+      setFolderInputs({ folderId: 0, folderName: "" });
+    }
+  }, [isFolderEdited])
 
   const { id } = useParams<String>();
 
@@ -55,6 +75,31 @@ function UserInfo() {
     setImages(images);
     return images;
   };
+
+  const onChangeEditFolder = (e: React.ChangeEvent<HTMLInputElement>) => {
+    e.preventDefault();
+    setFolderInputs({
+      ...folderInputs,
+      folderName: e.target.value
+    })
+  };
+
+  const onClickEditFolder = (folder_id: number, folder_name: string) => {
+    setFolderInputs({
+      folderId: folder_id,
+      folderName: folder_name
+    })
+  }
+
+  const onEditFolder = (folder_id: number) => {
+    dispatch(editFolderAction(
+      loggedUser.id,
+      folder_id,
+      { folder_name: folderInputs.folderName },
+      (value) => setIsFolderEdited(value))
+    )
+  }
+
   useEffect(() => {
     axios
       .get(`/user/${id}/`)
@@ -149,20 +194,35 @@ function UserInfo() {
             </div>
             {toggle &&
               folder.map((fold) => {
-                return (
-                  <div className="eachItem" key={fold.id}>
-                    <div
-                      className="folder_name"
-                      onClick={() => {
-                        onFolderClick(fold.id);
-                        setImageToShow(1);
-                      }}
-                    >
-                      {fold.name}{" "}
+                if (folderInputs.folderId === fold.id) {
+                  return (
+                    <div className="folder_input_container">
+                      <input
+                        id="edit_folder_input"
+                        type="text"
+                        value={folderInputs.folderName}
+                        onChange={onChangeEditFolder}
+                        placeholder="변경할 폴더 이름"
+                      />
+                      <img className="icon" src={vector} onClick={() => onEditFolder(fold.id)} />
                     </div>
-                    <img className="icon" src={vector} />
-                  </div>
-                );
+                  )
+                } else {
+                  return (
+                    <div className="eachItem" key={fold.id}>
+                      <div
+                        className="folder_name"
+                        onClick={() => {
+                          onFolderClick(fold.id);
+                          setImageToShow(1);
+                        }}
+                      >
+                        {fold.name}{" "}
+                      </div>
+                      <img className="icon" src={vector} onClick={() => onClickEditFolder(fold.id, fold.name)} />
+                    </div>
+                  );
+                }
               })}
             <div className="left_button">
               <button onClick={() => setImageToShow(2)} className="folderHead">

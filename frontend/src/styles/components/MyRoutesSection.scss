@@ -1,0 +1,42 @@
+@import '../../Variables/Variables.scss';
+
+.my-routes-container {
+  background-color: #FFFFFF;
+  display: inline-block;
+  padding-top: 0.885vw;
+  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
+  border-radius: 6px;
+  justify-content: center;
+
+  .my-routes-title {
+    margin-bottom: 1.145vw;
+    font-family: $mainFont;
+    font-weight: 600;
+    font-size: 2rem;
+    line-height: 2.437rem;
+    color: #000000;
+  }
+
+  .my-routes-day-btn {
+    background-color: #CACBD2;
+    border-radius: 6px 6px 0 0;
+    padding: 0.468vw 1.04vw;
+    font-weight: 500;
+    font-size: 1rem;
+    line-height: 1.25rem;
+    color: #FFFFFF;
+  }
+
+  .my-routes-day-btn.selected {
+    background-color: #F5F6F9;
+    color: #000000;
+  }
+
+  .my-routes-day-btn + .my-routes-day-btn {
+    margin-left: 7px;
+  }
+
+  .my-routes-places {
+    background-color: #F5F6F9;
+  }
+}
