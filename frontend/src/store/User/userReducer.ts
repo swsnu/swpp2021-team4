@@ -35,6 +35,6 @@ export default (state: UserStateType = initialState, action: UserDispatchType): 
     case SIGNOUT_FAIL:
       return { ...state };
     default:
-      return { ...state };
+      return state;
   }
 }
