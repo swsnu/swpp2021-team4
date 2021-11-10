@@ -3,6 +3,8 @@ import {
   SIGNIN_FAIL,
   SIGNOUT_SUCCESS,
   SIGNOUT_FAIL,
+  EDIT_PROFILE_SUCCESS,
+  EDIT_PROFILE_FAIL,
 } from '../actionTypes';
 
 export interface UserType {
@@ -35,8 +37,19 @@ export interface SignoutFail {
   type: typeof SIGNOUT_FAIL
 }
 
+export interface EditProfileSuccess {
+  type: typeof EDIT_PROFILE_SUCCESS
+  payload: UserType
+}
+
+export interface EditProfileFail {
+  type: typeof EDIT_PROFILE_FAIL
+}
+
 export type UserDispatchType =
-SigninSuccess |
-SigninFail |
-SignoutSuccess |
-SignoutFail;
+  SigninSuccess |
+  SigninFail |
+  SignoutSuccess |
+  SignoutFail |
+  EditProfileSuccess |
+  EditProfileFail;
