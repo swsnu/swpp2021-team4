@@ -69,7 +69,7 @@ class RouteTestCase(TestCase):
         response = client.post('/post/create/', {
             'title':''
             })
-        self.assertEqual(response.status_code, 405)
+        self.assertEqual(response.status_code, 401)
         user = User.objects.create_user(email="swpp@swpp.com", username="swpp")
         user.set_password("swpp")
         user.save()
