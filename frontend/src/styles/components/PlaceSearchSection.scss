@@ -1,0 +1,27 @@
+
+.place-search-container {
+  background-color: #F5F6F9;
+  padding: 1.04vw;
+  min-height: 700px;
+  width: 430px;
+
+  .place-search-tab-container {
+    display: flex;
+    flex-direction: row;
+    
+    .tab-title {
+      font-weight: 600;
+      font-size: 1.375rem;
+      line-height: 1.6875rem;
+      color: #000000;
+    }
+
+    .tab-title.selected {
+      text-decoration: underline;
+    }
+
+    .tab-title + .tab-title {
+      margin-left: 39px;
+    }
+  }
+}

@@ -3,19 +3,9 @@
 .my-routes-container {
   background-color: #FFFFFF;
   display: inline-block;
-  padding-top: 0.885vw;
-  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
   border-radius: 6px;
   justify-content: center;
-
-  .my-routes-title {
-    margin-bottom: 1.145vw;
-    font-family: $mainFont;
-    font-weight: 600;
-    font-size: 2rem;
-    line-height: 2.437rem;
-    color: #000000;
-  }
+  width: 430px;
 
   .my-routes-day-btn {
     background-color: #CACBD2;
@@ -38,5 +28,11 @@
 
   .my-routes-places {
     background-color: #F5F6F9;
+  }
+
+  .my-routes-places-container {
+    background-color: #F5F6F9;
+    padding: 2.3vw 1vw;
+    min-height: 700px;
   }
 }
