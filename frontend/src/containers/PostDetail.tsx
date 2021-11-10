@@ -1,16 +1,31 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 import { usePostState } from "../hooks/usePostState";
 import { getPostAction } from "../store/Post/postAction";
 import border from "../static/post_info_border.svg";
 import "../styles/PostDetail.css";
+import Map from "../components/Map";
+import buttonUp from "../static/chevron-down.svg";
+import buttonDown from "../static/chevron-up.svg";
+import cartIcon from "../static/cart-icon.svg";
+import { PlaceType } from "../store/Post/postInterfaces";
 
 function PostDetail() {
   interface String {
     id: string;
   }
-
+  const [toggle, setToggle] = useState<number[]>([]);
+  const appendToggle = (id: number) => {
+    const newToggle = toggle.concat(id);
+    setToggle(newToggle);
+    return toggle;
+  };
+  const removeToggle = (id: number) => {
+    const newToggle = toggle.filter((_id) => _id !== id);
+    setToggle(newToggle);
+    return toggle;
+  };
   const dispatch = useDispatch();
   const { id } = useParams<String>();
   useEffect(() => {
@@ -31,10 +46,64 @@ function PostDetail() {
             Day{day}
             {places
               .filter((place: any) => place.day == day)
-              .map((dayPlace: any) => {
+              .map((dayPlace: PlaceType) => {
                 return (
-                  <div key={dayPlace.id} className="place-info">
-                    {dayPlace.name}
+                  <div key={dayPlace.id} className="place-container">
+                    <div className="place-container-top">
+                      <div className="place-title">{dayPlace.name}</div>
+                      <button className="cart-button">
+                        <img src={cartIcon} />
+                      </button>
+                    </div>
+                    <div className="place-container-middle">
+                      <div className="place-description text">
+                        {dayPlace.description}
+                      </div>
+                      <div className="toggle-button">
+                        {toggle.includes(dayPlace.id) && (
+                          <img
+                            className="post-icon"
+                            src={buttonUp}
+                            onClick={() => removeToggle(dayPlace.id)}
+                          />
+                        )}
+                        {toggle.includes(dayPlace.id) || (
+                          <img
+                            className="post-icon"
+                            src={buttonDown}
+                            onClick={() => appendToggle(dayPlace.id)}
+                          />
+                        )}
+                      </div>
+                    </div>
+                    {toggle.includes(dayPlace.id) && (
+                      <div className="place-info-container">
+                        <div className="place-info">
+                          <div className="place-info-column">Homepage</div>
+                          <div className="place-info-item">
+                            {dayPlace.homepage}
+                          </div>
+                        </div>
+                        <div className="place-info">
+                          <div className="place-info-column">Phone</div>
+                          <div className="place-info-item">
+                            {dayPlace.phone_number}
+                          </div>
+                        </div>
+                        <div className="place-info">
+                          <div className="place-info-column">Address</div>
+                          <div className="place-info-item">
+                            {dayPlace.address}
+                          </div>
+                        </div>
+                        <div className="place-info">
+                          <div className="place-info-column">Category</div>
+                          <div className="place-info-item">
+                            {dayPlace.category}
+                          </div>
+                        </div>
+                      </div>
+                    )}
                   </div>
                 );
               })}
@@ -93,7 +162,9 @@ function PostDetail() {
       </div>
       <div className="post-detail-body">
         <div className="body-route-container">{mapping()}</div>
-        <div className="body-map-container"></div>
+        <div className="body-map-container">
+          <Map />
+        </div>
       </div>
     </div>
   );
