@@ -16,7 +16,7 @@ function App() {
   const authorized = () => {
     return (
       <Switch>
-        <Route exact path={["post/create/", "post/:id/edit/"]} component={CreateEditPostPage} />
+        <Route exact path={["/post/create/", "/post/:id/edit/"]} component={CreateEditPostPage} />
         <Route exact path="/post/:id/" component={PostDetailPage} />
         <Route exact path="/user_info/:id/" component={UserInfoPage} />
         <Route exact path="/edit_profile/" component={EditProfilePage} />

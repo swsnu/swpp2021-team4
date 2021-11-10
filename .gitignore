@@ -350,3 +350,5 @@ thumb
 sketch
 
 # End of https://www.toptal.com/developers/gitignore/api/django,react,node,python
+package-lock.json
+yarn.lock

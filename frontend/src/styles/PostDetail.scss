@@ -89,6 +89,7 @@
           font-size: 15px;
           padding: 10px;
           line-height: 50%;
+          overflow: hidden;
         }
         .false {
           visibility: None;
@@ -116,8 +117,15 @@
     background: #ffffff;
     box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.15);
     border-radius: 6px;
-    height: 200px;
     margin: 20px 0px;
+    .route-day-info {
+      background-color: $whiteColor;
+      margin: 15px;
+      font-size: 25px;
+      font-family: $mainFont;
+      font-weight: 600;
+      padding: 20px;
+    }
   }
 
   .body-map-container {
