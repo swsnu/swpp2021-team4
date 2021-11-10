@@ -1,0 +1,70 @@
+@import "../../Variables/Variable.scss";
+
+.place-container {
+  background-color: #ffffff;
+  padding: 20px;
+  margin: 20px;
+  .place-title {
+    font-family: $koreanFont;
+    font-size: 35px;
+    margin-left: 2vh;
+  }
+  .place-description {
+    font-family: $koreanFont;
+    font-size: 15px;
+    font-weight: normal;
+    margin: 20px 10px 10px 2vh;
+    line-height: 150%;
+    // padding: 20px;
+  }
+  .place-info-container {
+    .place-info-column {
+      font-family: $mainFont;
+      font-size: 15px;
+      font-weight: 500;
+      color: $purpleColor;
+      margin: 10px 30px 0px 2vh;
+      display: inline-block;
+      width: 15%;
+    }
+    .place-info-item {
+      font-family: $mainFont;
+      font-size: 15px;
+      font-weight: 400;
+      color: $blackColor;
+      display: inline-block;
+    }
+  }
+}
+
+.place-container-middle {
+  background-color: #ffffff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  .post-icon {
+    width: 3vh;
+    height: 3vh;
+    cursor: pointer;
+  }
+}
+
+.place-container-top {
+  display: flex;
+  justify-content: space-between;
+}
+
+.place-cart-button {
+  border-radius: 50%;
+  padding: 6px;
+  height: 35px;
+  text-align: center;
+  background-color: $lightMintColor;
+  &:hover {
+    background-color: $darkMintColor;
+  }
+}
+
+.text {
+  overflow: auto;
+}
