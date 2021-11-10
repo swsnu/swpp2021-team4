@@ -45,7 +45,7 @@ export const signoutAction = () => {
 
 export const editProfileAction = (formData: any, callbackFunc: (value: boolean) => void) => {
   return (dispatch: Redux.Dispatch<UserDispatchType>) => {
-    return axios.put<{ logged_user: UserType }>(`/user/1/edit/`, formData, {
+    return axios.post<{ logged_user: UserType }>(`/user/1/edit/`, formData, {
       headers: {
         'content-type': 'multipart/form-data'
       }

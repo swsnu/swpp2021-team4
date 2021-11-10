@@ -87,14 +87,15 @@ def user_info(request, user_id):
     }
     return JsonResponse(response_dict, safe=False)
 
-@require_http_methods(["PUT"])
+@require_http_methods(["POST"])
 def edit_user_info(request, user_id):
     logged_user_id = request.session.get('user', None)
     if not logged_user_id or logged_user_id != user_id:
         return HttpResponse(status=401)
     user = User.objects.get(id=user_id)
 
-    form = UserForm(request.POST, request.FILES)
+    form = UserForm(data=request.POST, files=request.FILES)
+
     if form.is_valid():
         user.username = form.cleaned_data['username']
         user.profile_image = form.cleaned_data['profile_image']
@@ -102,12 +103,16 @@ def edit_user_info(request, user_id):
         user.save()
         user.update_date()
         response_dict = {
-            'email': user.email,
-            'username': user.username,
-            'profile_image': user.profile_image.url
+            'logged_user': {
+                'id': user.id,
+                'email': user.email,
+                'username': user.username,
+                'profile_image': user.profile_image.url
+            }
         }
         return JsonResponse(response_dict, safe=False)
     else:
+        print(form.errors.as_json(escape_html=False))
         return HttpResponse(status=400)
       
 @require_http_methods(["GET"])     

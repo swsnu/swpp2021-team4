@@ -39,6 +39,7 @@ function EditProfile() {
     formData.append('username', userInputs.username);
     formData.append('password', userInputs.password);
     if (selectedFile) formData.append('profile_image', selectedFile);
+    formData.append('enctype', 'multipart/form-data');
 
     dispatch(editProfileAction(formData, (value) => setIsEdited(value)));
   }
