@@ -61,6 +61,9 @@ function PostDetail() {
             </div>
           </div>
         </div>
+        <div className="header-content-right">
+          <button className="add-cart-button">Add this route to Cart</button>
+        </div>
       </div>
       <div className="post-detail-body">
         <div className="body-route-container"></div>
