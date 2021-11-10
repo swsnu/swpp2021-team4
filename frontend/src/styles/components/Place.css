@@ -1,0 +1,82 @@
+.place-container {
+  background-color: #ffffff;
+  padding: 20px;
+  margin: 20px;
+}
+
+.place-container .place-title {
+  font-family: "Noto Sans CJK KR";
+  font-size: 35px;
+  margin-left: 2vh;
+}
+
+.place-container .place-description {
+  font-family: "Noto Sans CJK KR";
+  font-size: 15px;
+  font-weight: normal;
+  margin: 20px 10px 10px 2vh;
+  line-height: 150%;
+}
+
+.place-container .place-info-container .place-info-column {
+  font-family: "Montserrat";
+  font-size: 15px;
+  font-weight: 500;
+  color: #9867ff;
+  margin: 10px 30px 0px 2vh;
+  display: inline-block;
+  width: 15%;
+}
+
+.place-container .place-info-container .place-info-item {
+  font-family: "Montserrat";
+  font-size: 15px;
+  font-weight: 400;
+  color: #000000;
+  display: inline-block;
+}
+
+.place-container-middle {
+  background-color: #ffffff;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.place-container-middle .post-icon {
+  width: 3vh;
+  height: 3vh;
+  cursor: pointer;
+}
+
+.place-container-top {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.place-cart-button {
+  border-radius: 50%;
+  padding: 6px;
+  height: 35px;
+  text-align: center;
+  background-color: #c7eee7;
+}
+
+.place-cart-button:hover {
+  background-color: #57ceb9;
+}
+
+.text {
+  overflow: auto;
+}
+/*# sourceMappingURL=Place.css.map */

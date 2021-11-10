@@ -6,6 +6,7 @@ declare global {
     kakao: any;
   }
 }
+const { kakao } = window;
 
 const dummyPlaces = [
   {day: 1, name: '곱창고', lat: 37.49995, lon: 127.027925},
@@ -22,25 +23,28 @@ interface DummyPlace {
   lon: number
 }
 
-// interface PropType {
-//   marks: any
-//   days: number
-//   fromWhere: string // create | edit
-// }
+interface PropType {
+  // marks: any
+  // days: number
+  // fromWhere: string // create | edit
+  location: string
+}
 
-function Map() {
+function Map(props: PropType) {
+  const { location } = props;
+
   const [selectedDay, setSelecteDay] = useState(1);
   const [markers, setMarkers] = useState<any>([]);
-  const map = useRef();
+  const map = useRef<any>();
 
   useEffect(() => {
     let container = document.getElementById('map');
     let options = {
-      center: new window.kakao.maps.LatLng(37.49793, 127.027640), // default is location's position. if it is not given, then Gangnam station will be the center.
+      center: new kakao.maps.LatLng(37.49793, 127.027640), // default is location's position. if it is not given, then Gangnam station will be the center.
       level: 6
     };
 
-    map.current = new window.kakao.maps.Map(container, options);
+    map.current = new kakao.maps.Map(container, options);
     if (map && dummyPlaces) {
       console.log('map loaded!');
     }
@@ -51,9 +55,9 @@ function Map() {
       const { day, lat, lon } = mark;
       return {
         day,
-        marker: new window.kakao.maps.Marker({
+        marker: new kakao.maps.Marker({
           map: day === selectedDay ? map.current : null,
-          position: new window.kakao.maps.LatLng(lat, lon),
+          position: new kakao.maps.LatLng(lat, lon),
         })
       };
     });
@@ -64,6 +68,33 @@ function Map() {
     markers.forEach((mark: any) => mark.day !== selectedDay ? mark.marker.setMap(null) : mark.marker.setMap(map.current));
   }, [selectedDay]);
 
+  useEffect(() => {
+    if (location) {
+      let places = new kakao.maps.services.Places();
+      let placesSearchCB = (results: any, status: any) => {
+        if (status === kakao.maps.services.Status.OK) {
+          // console.log(results);
+          // let x = 0;
+          // let y = 0;
+          // results.forEach((result: any) => {
+          //   x += parseFloat(result.x);
+          //   y += parseFloat(result.y);
+          // });
+          // x /= results.length;
+          // y /= results.length;
+          
+          map.current?.setCenter(new kakao.maps.LatLng(results[0].y, results[0].x));
+
+        } else if (status === kakao.maps.services.Status.ZERO_RESULT) {
+          alert('검색 결과가 존재하지 않습니다.');
+        } else if (status === kakao.maps.services.Status.ERROR) {
+          alert('검색 결과 중 오류가 발생했습니다.');
+        }
+      }
+      places.keywordSearch(location, placesSearchCB);
+    }
+  }, [location]);
+
   return (
     <div className="map-container">
       <div className="map-title">Map</div>
@@ -73,4 +104,4 @@ function Map() {
   );
 }
 
-export default Map;
+export default React.memo(Map);

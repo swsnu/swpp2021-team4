@@ -115,11 +115,14 @@ function UserInfo() {
           setFolderSelect(response.data);
         })
         .catch((err) => err.response);
-
+  
       axios
         .get(`/user/${id}/share/`)
         .then(function (response) {
           console.log(response.data)
+          for(var i=0; i<response.data.length; i++){
+
+          }
           setSharedImages(response.data)
         }
         )

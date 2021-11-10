@@ -1,23 +1,24 @@
-.profile{
-display: flex;
+.profile {
+  display: flex;
 
-font-family: Montserrat;
-font-style: normal;
-font-weight: 600;
-font-size: 28px;
-line-height: 34px;
-color: #57CEB9;
-margin-top: 3%;
-margin-left: 10%;
-margin-bottom: 3%;
+  font-family: Montserrat;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 28px;
+  line-height: 34px;
+  color: #57ceb9;
+  margin-top: 3%;
+  margin-left: 10%;
+  margin-bottom: 3%;
 }
-.email, .name{
-    display: flex;
-    flex-direction: row;
-    margin-bottom: 2%;
+.email,
+.name {
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 2%;
 }
-.name{
-    margin-top: 2%;
+.name {
+  margin-top: 2%;
 }
 .edit-btn {
     margin-top: 2%;
@@ -53,10 +54,28 @@ font-style: normal;
 color: #000000;
 }
 
-.value{
-font-family: Montserrat;
-font-style: normal;    
-color: #9F9F9F;
+.showProfile {
+  display: flex;
+  flex-direction: row;
+}
+.basicInfo {
+  width: 70%;
+  margin-left: 15%;
+  margin-right: 20%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.profileImage {
+  border-radius: 50%;
+  width: 70%;
+  margin-left: 50%;
+}
+.field {
+  width: 40%;
+  font-family: Montserrat;
+  font-style: normal;
+  color: #000000;
 }
 
 .line{
@@ -106,12 +125,12 @@ margin-top: 5%;
 }
 
 .eachItem:hover {
-    background: #E2E3E9;
-    box-shadow: 0px 0px 0px transparent;
-    border: 0px solid transparent;
-    text-shadow: 0px 0px 0px transparent;
-    cursor: pointer;
-  }
+  background: #e2e3e9;
+  box-shadow: 0px 0px 0px transparent;
+  border: 0px solid transparent;
+  text-shadow: 0px 0px 0px transparent;
+  cursor: pointer;
+}
 
 .folder_name{
     width: 80%;

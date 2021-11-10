@@ -1,5 +1,5 @@
-import axios from 'axios';
-import * as Redux from 'redux';
+import axios from "axios";
+import * as Redux from "redux";
 import {
   SIGNIN_SUCCESS,
   SIGNIN_FAIL,
@@ -13,8 +13,8 @@ import {
 import { Folder, UserDispatchType, UserType } from './userInterfaces';
 
 interface SigninFormType {
-  email: string,
-  password: string
+  email: string;
+  password: string;
 }
 
 interface EditFolderFormType {
@@ -24,48 +24,58 @@ interface EditFolderFormType {
 axios.defaults.xsrfCookieName = 'csrftoken';
 axios.defaults.xsrfHeaderName = 'X-CSRFTOKEN';
 
-export const signinAction = (formData: SigninFormType, callbackFunc: (value: boolean) => void) => {
+export const signinAction = (
+  formData: SigninFormType,
+  callbackFunc: (value: boolean) => void
+) => {
   return (dispatch: Redux.Dispatch<UserDispatchType>) => {
-    return axios.post<{ logged_user: UserType }>('/user/signin/', formData)
-      .then(res => {
+    return axios
+      .post<{ logged_user: UserType }>("/user/signin/", formData)
+      .then((res) => {
         dispatch({ type: SIGNIN_SUCCESS, payload: res.data.logged_user });
-        localStorage.setItem('isAuthorized', 'true');
+        localStorage.setItem("isAuthorized", "true");
         callbackFunc(true);
       })
       .catch(() => {
         alert('로그인 실패!');
         dispatch({ type: SIGNIN_FAIL });
       });
-  }
-}
+  };
+};
 
 export const signoutAction = () => {
   return (dispatch: Redux.Dispatch<UserDispatchType>) => {
-    return axios.post('/user/signout/')
+    return axios
+      .post("/user/signout/")
       .then(() => {
         dispatch({ type: SIGNOUT_SUCCESS });
-        localStorage.removeItem('isAuthorized');
+        localStorage.removeItem("isAuthorized");
       })
       .catch(() => dispatch({ type: SIGNOUT_FAIL }));
-  }
-}
+  };
+};
 
-export const editProfileAction = (user_id: number, formData: any, callbackFunc: (value: boolean) => void) => {
+export const editProfileAction = (
+  user_id: number,
+  formData: any,
+  callbackFunc: (value: boolean) => void
+) => {
   return (dispatch: Redux.Dispatch<UserDispatchType>) => {
-    return axios.post<{ logged_user: UserType }>(`/user/${user_id}/edit/`, formData, {
-      headers: {
-        'content-type': 'multipart/form-data'
-      }
-    })
-      .then(res => {
+    return axios
+      .post<{ logged_user: UserType }>(`/user/${user_id}/edit/`, formData, {
+        headers: {
+          "content-type": "multipart/form-data",
+        },
+      })
+      .then((res) => {
         dispatch({ type: EDIT_PROFILE_SUCCESS, payload: res.data.logged_user });
         callbackFunc(true);
       })
       .catch(() => {
         dispatch({ type: EDIT_PROFILE_FAIL });
       });
-  }
-}
+  };
+};
 
 export const editFolderAction = (user_id: number, fid: number, formData: EditFolderFormType, callbackFunc: (value: boolean) => void) => {
   return (dispatch: Redux.Dispatch<UserDispatchType>) => {
@@ -77,5 +87,5 @@ export const editFolderAction = (user_id: number, fid: number, formData: EditFol
       .catch(() => {
         dispatch({ type: EDIT_FOLDER_FAIL });
       });
-  }
-}
+  };
+};
