@@ -17,7 +17,7 @@
     display: inline-block;
     img {
       width: 210px;
-      height: 130px;
+      height: 160px;
     }
   }
   .header-content-left {
@@ -27,15 +27,16 @@
         font-family: $koreanFont;
         font-size: 22px;
         margin-left: 2vh;
-        margin-top: 0px;
+        margin-top: 15px;
       }
     }
     .header-middle {
       display: flex;
       flex-wrap: wrap;
+      align-items: baseline;
       .post-title-name {
         justify-content: flex-start;
-        margin: 0px 8vh 0px 2vh;
+        margin: 15px 8vh 0px 2vh;
         font-family: $koreanFont;
         font-weight: bold;
         color: $darkMintColor;
@@ -59,7 +60,7 @@
       align-items: center;
       justify-content: space-between;
       flex-wrap: wrap;
-      margin-top: 5px;
+      margin-top: 25px;
       width: 100%;
       .post-author {
         font-family: $mainFont;
@@ -67,27 +68,39 @@
         font-size: 20px;
         color: $regularMintColor;
         margin-left: 2.5vh;
-        margin-right: 30vh;
+        margin-right: 20vh;
       }
       .post-tag-container {
         display: flex;
         justify-content: space-evenly;
-        width: 50%;
-        .info-button {
+        .post-tag {
+          display: flex;
+          flex-wrap: wrap;
           background-color: $whiteColor;
           border-radius: 6px;
-          width: 15vh;
           height: 30px;
           display: inline-block;
           text-align: center;
-          line-height: 170%;
-          margin-right: 3vh;
+          margin-left: 3vh;
+          margin-right: 0px;
+          font-family: $mainFont;
+          font-weight: 400;
+          font-size: 15px;
+          padding: 10px;
+          line-height: 50%;
         }
-        .post-info {
-          font-family: $koreanFont;
-          font-weight: 300;
+        .false {
+          visibility: None;
         }
       }
+    }
+  }
+  .header-content-right {
+    display: flex;
+    justify-content: flex-end;
+    .post-cart-button {
+      background-color: $regularMintColor;
+      border-radius: 6px;
     }
   }
 }

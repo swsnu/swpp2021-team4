@@ -73,7 +73,7 @@ input {
 
 .post-detail-header .header-image img {
   width: 210px;
-  height: 130px;
+  height: 160px;
 }
 
 .post-detail-header .header-content-left .header-top {
@@ -84,7 +84,7 @@ input {
   font-family: "Noto Sans CJK KR";
   font-size: 22px;
   margin-left: 2vh;
-  margin-top: 0px;
+  margin-top: 15px;
 }
 
 .post-detail-header .header-content-left .header-middle {
@@ -93,13 +93,16 @@ input {
   display: flex;
   -ms-flex-wrap: wrap;
       flex-wrap: wrap;
+  -webkit-box-align: baseline;
+      -ms-flex-align: baseline;
+          align-items: baseline;
 }
 
 .post-detail-header .header-content-left .header-middle .post-title-name {
   -webkit-box-pack: start;
       -ms-flex-pack: start;
           justify-content: flex-start;
-  margin: 0px 8vh 0px 2vh;
+  margin: 15px 8vh 0px 2vh;
   font-family: "Noto Sans CJK KR";
   font-weight: bold;
   color: #57ceb9;
@@ -136,7 +139,7 @@ input {
           justify-content: space-between;
   -ms-flex-wrap: wrap;
       flex-wrap: wrap;
-  margin-top: 5px;
+  margin-top: 25px;
   width: 100%;
 }
 
@@ -146,7 +149,7 @@ input {
   font-size: 20px;
   color: #95ecdc;
   margin-left: 2.5vh;
-  margin-right: 30vh;
+  margin-right: 20vh;
 }
 
 .post-detail-header .header-content-left .header-bottom .post-tag-container {
@@ -156,23 +159,44 @@ input {
   -webkit-box-pack: space-evenly;
       -ms-flex-pack: space-evenly;
           justify-content: space-evenly;
-  width: 50%;
 }
 
-.post-detail-header .header-content-left .header-bottom .post-tag-container .info-button {
+.post-detail-header .header-content-left .header-bottom .post-tag-container .post-tag {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
   background-color: #f6f6f9;
   border-radius: 6px;
-  width: 15vh;
   height: 30px;
   display: inline-block;
   text-align: center;
-  line-height: 170%;
-  margin-right: 3vh;
+  margin-left: 3vh;
+  margin-right: 0px;
+  font-family: "Montserrat";
+  font-weight: 400;
+  font-size: 15px;
+  padding: 10px;
+  line-height: 50%;
 }
 
-.post-detail-header .header-content-left .header-bottom .post-tag-container .post-info {
-  font-family: "Noto Sans CJK KR";
-  font-weight: 300;
+.post-detail-header .header-content-left .header-bottom .post-tag-container .false {
+  visibility: None;
+}
+
+.post-detail-header .header-content-right {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+}
+
+.post-detail-header .header-content-right .post-cart-button {
+  background-color: #95ecdc;
+  border-radius: 6px;
 }
 
 .post-detail-body {
