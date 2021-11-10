@@ -27,6 +27,7 @@ export const signinAction = (formData: SigninFormType, callbackFunc: (value: boo
         callbackFunc(true);
       })
       .catch(() => {
+        alert('로그인 실패!');
         dispatch({ type: SIGNIN_FAIL });
       });
   }
