@@ -6,16 +6,12 @@ import PostDetailPage from "./pages/PostDetailPage";
 import UserInfoPage from "./pages/UserInfoPage";
 import EditProfilePage from "./pages/EditProfilePage";
 import CreateEditPostPage from "./pages/CreateEditPostPage";
-import {
-  Redirect,
-  Route,
-  Switch
-} from "react-router-dom";
+import { Redirect, Route, Switch } from "react-router-dom";
 
 function App() {
   const unAuthorized = () => {
     return <Redirect to="/signin/" />;
-  }
+  };
 
   const authorized = () => {
     return (
@@ -27,7 +23,7 @@ function App() {
         <Route path={["/", "/main/"]} component={MainPage} />
       </Switch>
     );
-  }
+  };
 
   return (
     <div className="App">

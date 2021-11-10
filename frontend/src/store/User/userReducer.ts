@@ -7,10 +7,7 @@ import {
   EDIT_PROFILE_FAIL,
 } from '../actionTypes';
 
-import {
-  UserDispatchType,
-  UserType
-} from './userInterfaces';
+import { UserDispatchType, UserType } from "./userInterfaces";
 
 export type UserStateType = {
   loggedUser: UserType,
@@ -19,14 +16,17 @@ export type UserStateType = {
 const initialState: UserStateType = {
   loggedUser: {
     id: 0,
-    email: '',
-    username: '',
-    profileImage: '',
-    folders: []
-  }
-}
+    email: "",
+    username: "",
+    profileImage: "",
+    folders: [],
+  },
+};
 
-export default (state: UserStateType = initialState, action: UserDispatchType): UserStateType => {
+export default (
+  state: UserStateType = initialState,
+  action: UserDispatchType
+): UserStateType => {
   switch (action.type) {
     case SIGNIN_SUCCESS:
       return { ...state, loggedUser: { ...action.payload } };
@@ -43,4 +43,4 @@ export default (state: UserStateType = initialState, action: UserDispatchType): 
     default:
       return state;
   }
-}
+};

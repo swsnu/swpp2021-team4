@@ -1,41 +1,37 @@
-import {
-  GET_POST_SUCCESS,
-  GET_POST_FAIL
-} from '../actionTypes';
+import { GET_POST_SUCCESS, GET_POST_FAIL } from "../actionTypes";
 
-import {
-  PostDispatchType,
-  PostType
-} from './postInterfaces';
+import { PostDispatchType, PostType } from "./postInterfaces";
 
 export type PostStateType = {
-  detailedPost: PostType
-}
+  detailedPost: PostType;
+};
 
 const initialState: PostStateType = {
   detailedPost: {
-    title: '',
-    author: {
-      id: 0,
-      email: '',
-      username: '',
-      profileImage: '',
-      folders: []
-    },
-    folderId: 0,
-    days: 0,
-    headerImage: '',
-    thumbnailImage: '',
-    createdAt: '',
-    updatedAt: '',
-    theme: '',
-    season: '',
-    isShared: false,
+    header_image: "",
+    thumbnail_image: "",
+    // created_at: "",
+    // updated_at: "",
+    author_id: 0,
+    author_name: "",
     availableWithoutCar: false,
+    comment: [],
+    days: 0,
+    folder_id: 0,
+    folder_name: "",
+    is_shared: false,
+    location: "",
+    places: [],
+    season: "",
+    theme: "",
+    title: "",
   }
-}
+};
 
-export default (state: PostStateType = initialState, action: PostDispatchType): PostStateType => {
+export default (
+  state: PostStateType = initialState,
+  action: PostDispatchType
+): PostStateType => {
   switch (action.type) {
     case GET_POST_SUCCESS:
       return { ...state, detailedPost: action.payload };
@@ -44,4 +40,4 @@ export default (state: PostStateType = initialState, action: PostDispatchType): 
     default:
       return { ...state };
   }
-}
+};

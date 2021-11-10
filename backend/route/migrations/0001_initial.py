@@ -90,9 +90,9 @@ class Migration(migrations.Migration):
             name='Path',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('transportation', models.CharField(choices=[('car', 'car'), ('pub', 'publicTransportation'), ('wal', 'walk'), ('etc', 'others')], max_length=3)),
                 ('from_place', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='from_place_path', to='route.place')),
                 ('to_place', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='to_place_path', to='route.place')),
-                ('transportation', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='route.transportation')),
             ],
         ),
         migrations.CreateModel(

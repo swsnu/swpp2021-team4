@@ -1,61 +1,66 @@
-import {
-  GET_POST_SUCCESS,
-  GET_POST_FAIL
-} from '../actionTypes';
-import { UserType } from '../User/userInterfaces';
+import { GET_POST_SUCCESS, GET_POST_FAIL } from "../actionTypes";
 
 export interface PostType {
-  title: string
-  author: UserType
-  folderId: number
-  days: number
-  headerImage: string
-  thumbnailImage: string
-  createdAt: string
-  updatedAt: string
-  theme: string
-  season: string
-  isShared: boolean
-  availableWithoutCar: boolean
+  title: string;
+  author_name: string;
+  author_id: number;
+  folder_id: number;
+  folder_name: string;
+  days: number;
+  location: string;
+  header_image: string;
+  thumbnail_image: string;
+  // created_at: string;
+  // updated_at: string;
+  theme: string;
+  season: string;
+  is_shared: boolean;
+  availableWithoutCar: boolean;
+  comment: CommentType[];
+  places: PlaceType[];
 }
 
 export interface PlaceInfoType {
-  name: string
-  address: string
-  latitude: string
-  longitude: string
-  description: string
+  name: string;
+  address: string;
+  latitude: string;
+  longitude: string;
+  description: string;
 }
 
 export interface PlaceType {
-  post: PostType
-  place: PlaceInfoType
-  description: string
-  day: number
+  id: number;
+  name: string;
+  post_id: number;
+  description: string;
+  day: number;
+  folder_id: number;
+  latitude: string;
+  longitude: string;
+  homepage: string;
+  phone_number: string;
+  address: string;
+  category: string;
 }
 
 export interface CommentType {
-  author: UserType
-  post: PostType
-  content: string
-  createdAt: string
+  author_id: number;
+  content: string;
 }
 
 export interface PathType {
-  from: PlaceType
-  to: PlaceType
-  transportation: string
+  from: PlaceType;
+  to: PlaceType;
+  transportation: string;
 }
 
 export interface GetPostSuccess {
-  type: typeof GET_POST_SUCCESS
-  payload: PostType
+  type: typeof GET_POST_SUCCESS;
+  payload: PostType;
 }
 
 export interface GetPostFail {
-  type: typeof GET_POST_FAIL
+  type: typeof GET_POST_FAIL;
 }
 
-export type PostDispatchType =
-GetPostSuccess |
-GetPostFail;
+export type PostDispatchType = GetPostSuccess | GetPostFail;

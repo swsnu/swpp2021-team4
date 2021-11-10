@@ -40,12 +40,19 @@ class Upload(APIView):
 @require_GET
 def post_spec_get(request, ID):
     post = Post.objects.get(id=ID)
+    placelist=[]
+    for place in post.place_set.all():
+        placelist.append({'id':place.id, 'name':place.name, 'post_id':place.post_id,'description':place.description, 'day':place.day, 'folder_id':place.folder_id, 'latitude':place.latitude, 'longitude':place.longitude, 'homepage':place.homepage,'phone_number':place.phone_number,'address':place.address,'category':place.category})
+    author_name=post.author.username
+    author_id=post.author.id
+    folder_id=post.folder.id
+    folder_name=post.folder.name
     comments=[]
     for comment in post.comment_set.all():
-        comments.append({'content': comment.content, 'usernmae':comment.author.username})
-    response_dict = {'title': post.title, 'username': post.author.username, 'header_image': post.header_image.url, 'thumbnail_image': post.thumbnail_image.url, 
-        'days': post.days, 'folder_id': post.folder_id, 'is_shared':post.is_shared, 'theme':post.theme, 'comment': comments, 'season': post.season, 
-        'location': post.location, 'availableWithOutCar': post.availableWithoutCar}
+        comments.append({'content': comment.content, 'author_id':comment.author_id})
+    response_dict = {'title': post.title, 'author_name': author_name,'author_id':author_id,
+        'days': post.days, 'is_shared':post.is_shared, 'theme':post.theme, 'comment': comments, 'season': post.season, 
+        'location': post.location, 'availableWithoutCar': post.availableWithoutCar, 'folder_id': folder_id,'folder_name':folder_name, 'places':placelist}
     return JsonResponse(response_dict, safe=False)
     
 @require_http_methods(["PUT", "DELETE"])
