@@ -10,14 +10,58 @@ function PostDetail() {
   interface String {
     id: string;
   }
+
   const dispatch = useDispatch();
   const { id } = useParams<String>();
-
   useEffect(() => {
     dispatch(getPostAction(Number(id)));
   }, [dispatch, id]);
+
+  // place의 타입 정의 후 any 고치기
   const post = usePostState();
   console.log(post);
+  const mapping = () => {
+    if (post.places) {
+      const places = post.places;
+      const days = post.days;
+      // const dayList: number[] = [];
+      // places.forEach((place: any) => dayList.push(place.day));
+      // dayList.sort();
+      // Array.from(new Set(dayList));
+      // for (
+      //   let day: number = dayList[0];
+      //   day <= dayList[dayList.length - 1];
+      //   day++
+      // )
+
+      // for (let day of days) {
+
+      //   places
+      //     .filter((place: any) => place.day == day)
+      //     .map((place: any) => {
+      //       return <div key={place.id} className="body"></div>;
+      //     });
+      // }
+      const placeList = [];
+      for (let day = 1; day <= days; day++) {
+        placeList.push(
+          <div key={days.index} className="route-day-info">
+            Day{day}
+            {places
+              .filter((place: any) => place.day == day)
+              .map((dayPlace: any) => {
+                return (
+                  <div key={dayPlace.id} className="place-info">
+                    {dayPlace.name}
+                  </div>
+                );
+              })}
+          </div>
+        );
+      }
+      return placeList;
+    } else return null;
+  };
   const postSeason = () => {
     if (post.season === "spr") return "Spring";
     else if (post.season === "sum") return "Summer";
@@ -62,11 +106,11 @@ function PostDetail() {
           </div>
         </div>
         <div className="header-content-right">
-          <button className="add-cart-button">Add this route to Cart</button>
+          <button className="post-cart-button">Add this route to Cart</button>
         </div>
       </div>
       <div className="post-detail-body">
-        <div className="body-route-container"></div>
+        <div className="body-route-container">{mapping()}</div>
         <div className="body-map-container"></div>
       </div>
     </div>
