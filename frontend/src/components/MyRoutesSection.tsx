@@ -27,11 +27,10 @@ function MyRoutesSection(props: PropType) {
       )
     }
     return results;
-  }
+  }               
 
   return (
     <div className="my-routes-container">
-      <div className="my-routes-title">My Routes</div>
       <div style={{ display: 'flex', flexDirection: 'row' }}>
         {renderDayButtons()}
         <img
@@ -40,7 +39,7 @@ function MyRoutesSection(props: PropType) {
           src={addIcon}
         />
       </div>
-      <div>
+      <div className="my-routes-places-container">
         {/* <Place /> */}
       </div>
     </div>
