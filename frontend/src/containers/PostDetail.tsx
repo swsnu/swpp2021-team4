@@ -10,10 +10,15 @@ import Map from "../components/Map";
 import cart from "../static/cart-icon.svg";
 import { PlaceType } from "../store/Post/postInterfaces";
 import Place from "../components/Place";
+import { useFolderState } from "../hooks/useFolderState";
 
 function PostDetail() {
   interface String {
     id: string;
+  }
+  interface FolderType {
+    id: number;
+    name: string;
   }
   // const [toggle, setToggle] = useState<number[]>([]);
   // const appendToggle = (id: number) => {
@@ -36,8 +41,15 @@ function PostDetail() {
   };
   // place의 타입 정의 후 any 고치기
   const post = usePostState();
+  const folders = useFolderState();
   console.log(post);
-  const mapping = () => {
+  console.log(folders);
+  // const folderMapping = () => {
+  //   folders.map((folder: FolderType) => {
+  //     return <div key={folder.id}>{folder.name}</div>;
+  //   });
+  // };
+  const placeMapping = () => {
     if (post.places) {
       const places = post.places;
       const days = post.days;
@@ -79,45 +91,55 @@ function PostDetail() {
   };
   const withoutCar: boolean = post.availableWithoutCar;
   return (
-    <div className="post-detail-container">
-      <div className="post-detail-header">
-        <div className="header-image">
-          <img src="https://media.triple.guide/triple-cms/c_limit,f_auto,h_1024,w_1024/73968eea-cbbe-49cd-b001-353e9e962cbf.jpeg" />
-        </div>
-        <div className="header-content-left">
-          <div className="header-top">
-            <div className="post-folder-name">{post.folder_name}</div>
+    <>
+      <div className="post-detail-container">
+        <div className="post-detail-header">
+          <div className="header-image">
+            <img src="https://media.triple.guide/triple-cms/c_limit,f_auto,h_1024,w_1024/73968eea-cbbe-49cd-b001-353e9e962cbf.jpeg" />
           </div>
-          <div className="header-middle">
-            <div className="post-title-name">{post.title}</div>
-            <div className="post-info-container">
-              <span className="post-info">{post.location}</span>
-              <span className="post-info-border">
-                <img src={border} />
-              </span>
-              <span className="post-info">{post.days}일 코스</span>
+          <div className="header-content-left">
+            <div className="header-top">
+              <div className="post-folder-name">{post.folder_name}</div>
+            </div>
+            <div className="header-middle">
+              <div className="post-title-name">{post.title}</div>
+              <div className="post-info-container">
+                <span className="post-info">{post.location}</span>
+                <span className="post-info-border">
+                  <img src={border} />
+                </span>
+                <span className="post-info">{post.days}일 코스</span>
+              </div>
+            </div>
+            <div className="header-bottom">
+              <div className="post-author">{post.author_name}</div>
+              <div className="post-tag-container">
+                <span className="post-tag">{postSeason()}</span>
+                <span className="post-tag">{postTheme()}</span>
+                <span className={`post-tag ${withoutCar}`}>
+                  뚜벅이 여행 가능
+                </span>
+              </div>
             </div>
           </div>
-          <div className="header-bottom">
-            <div className="post-author">{post.author_name}</div>
-            <div className="post-tag-container">
-              <span className="post-tag">{postSeason()}</span>
-              <span className="post-tag">{postTheme()}</span>
-              <span className={`post-tag ${withoutCar}`}>뚜벅이 여행 가능</span>
-            </div>
+          <div className="header-content-right">
+            <button className="post-cart-button">Add this route to Cart</button>
           </div>
         </div>
-        <div className="header-content-right">
-          <button className="post-cart-button">Add this route to Cart</button>
+        <div className="post-detail-body">
+          <div className="body-route-container">{placeMapping()}</div>
+          <div className="body-map-container">
+            <Map location={post.location} />
+          </div>
         </div>
       </div>
-      <div className="post-detail-body">
-        <div className="body-route-container">{mapping()}</div>
-        <div className="body-map-container">
-          <Map location={post.location} />
-        </div>
+      <div className="folder-select-modal">
+        {folders &&
+          folders.items.map((folder: FolderType) => {
+            return <div key={folder.id}>{folder.name}</div>;
+          })}
       </div>
-    </div>
+    </>
   );
 }
 

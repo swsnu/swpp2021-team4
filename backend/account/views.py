@@ -42,24 +42,20 @@ def signin(request):
 
     if check_password(password, user.password):
         request.session['user'] = user.id
-
         if user.profile_image:
             profile_image = user.profile_image.url
         else:
             profile_image = None
-
-        folders = [ {
-            'id': folder.id,
-            'name': folder.name
-        } for folder in Folder.objects.filter(user=user) ]
-
+        folderlist = []
+        for folder in user.folder_set.all():
+            folderlist.append({'id':folder.id, 'name':folder.name})
         response_dict = {
             'logged_user': {
                 'id': user.id,
                 'email': user.email,
                 'username': user.username,
                 'profile_image': profile_image,
-                'folders': folders
+                'folders': folderlist
             }
         }
 
