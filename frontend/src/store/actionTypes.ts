@@ -7,5 +7,7 @@ export const EDIT_PROFILE_SUCCESS = 'user/edit_profile_success' as const;
 export const EDIT_PROFILE_FAIL = 'user/edit_profile_fail' as const;
 
 // Post
+export const GET_POSTS_SUCCESS = 'post/get_posts_success' as const;
+export const GET_POSTS_FAIL = 'post/get_posts_fail' as const;
 export const GET_POST_SUCCESS = 'post/get_post_success' as const;
 export const GET_POST_FAIL = 'post/get_POST_FAIL' as const;
