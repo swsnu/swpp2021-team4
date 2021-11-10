@@ -1,6 +1,7 @@
 import React from 'react';
 import '../styles/components/MyRoutesSection.scss';
 import addIcon from '../static/add_day_icon.svg';
+// import Place from './Place';
 
 interface PropType {
   days: number
@@ -38,6 +39,9 @@ function MyRoutesSection(props: PropType) {
           onClick={() => onClickAddIcon(days+1)}
           src={addIcon}
         />
+      </div>
+      <div>
+        {/* <Place /> */}
       </div>
     </div>
   )
