@@ -63,5 +63,59 @@ height: 0px;
 
 
 border: 0.3px solid #969696;
-    border: 0.3px solid #969696;
+}
+
+.Folder{
+    display: flex;
+    flex-direction: row;
+}
+.folderHead{
+font-family: Montserrat;
+font-style: normal;
+
+color: #57CEB9;
+}
+
+.left{
+width: 30%;
+height: 100%;
+margin-left : 10%;
+background: #F5F6F9;
+border-radius: 6px;
+margin-bottom: 10%;;
+}
+
+.right{
+display: flex;
+width: 100%;
+background: #F5F6F9;
+border-radius: 6px;
+}
+.eachItem{
+display: flex;
+flex-direction: row;
+background: #ffffff;
+width: 90%;
+margin-left: 5%;
+margin-right: 5%;
+}
+
+.eachItem:hover {
+    background: #E2E3E9;
+    box-shadow: 0px 0px 0px transparent;
+    border: 0px solid transparent;
+    text-shadow: 0px 0px 0px transparent;
+    cursor: pointer;
+  }
+
+.folder_name{
+    width: 80%;
+}
+
+.icon{
+    width: 4%;
+}
+.folders{
+    display: flex;
+    flex-direction: row;
 }
