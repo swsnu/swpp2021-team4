@@ -46,17 +46,6 @@ function UserInfo() {
     email: "",
     username: "",
   });
-<<<<<<< HEAD
-  const [folder, setFolderSelect] = useState([
-    {
-      id: 0,
-      name: "",
-      posts: [{ id: "", thumbnail_image: "" }],
-    },
-  ]);
-=======
-
->>>>>>> 5739427317fa51ac7d87a88d4e12a83d5e048e84
   const onEditProfile = () => {
     setIsSubmitted(true);
   };
@@ -128,36 +117,6 @@ function UserInfo() {
         setUserInfo(response.data);
       })
       .catch((err) => err.response);
-<<<<<<< HEAD
-
-    if (id == loggedUser.id) {
-      axios
-        .get(`/user/${id}/folder/`)
-        .then(function (response) {
-          setFolderSelect(response.data);
-        })
-        .catch((err) => err.response);
-        
-      axios
-        .get(`/user/${id}/share/`)
-        .then(function (response) {
-          console.log(response.data)
-          for(var i=0; i<response.data.length; i++){
-
-          }
-          setSharedImages(response.data)
-        }
-        )
-        .catch((err) => err.response);
-      axios
-        .get(`/user/${id}/like/`)
-        .then(function (response) {
-          setLikeImages(response.data);
-        })
-        .catch((err) => err.response);
-    }
-=======
->>>>>>> 5739427317fa51ac7d87a88d4e12a83d5e048e84
   }, [id]);
 
   if (isSubmitted) {
@@ -261,35 +220,6 @@ function UserInfo() {
 
           <div className="right">
             <div className="route_image">
-<<<<<<< HEAD
-              {imageToShow == 1 &&
-                postImages.map((image) => {
-                  return (
-                    <img
-                      className="route_image"
-                      key={postImages.indexOf(image)}
-                      src={image}
-                    />
-                  );
-                })}
-              {imageToShow == 2 &&
-                likeImages.map((image) => {
-                  return (
-                    <img
-                      className="route_image"
-                      key={likeImages.indexOf(image)}
-                      src={image}
-                    />
-                  );
-                })}
-              {imageToShow == 3 &&
-                sharedImages.map((image) => {
-                  return (
-                    <img
-                      className="route_image"
-                      key={sharedImages.indexOf(image)}
-                      src={image}
-=======
               {posts &&
                 posts.map((post) => {
                   return (
@@ -300,7 +230,6 @@ function UserInfo() {
                       title={post.title}
                       author_name={post.author}
                       author_id={post.author_id}
->>>>>>> 5739427317fa51ac7d87a88d4e12a83d5e048e84
                     />
                   );
                 })}

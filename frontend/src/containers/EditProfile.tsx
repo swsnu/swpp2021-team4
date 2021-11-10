@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { editProfileAction } from "../store/User/userAction";
 import { RootReducerType } from "../store/store";
 import { useHistory } from "react-router-dom";
-
+import "../styles/components/EditProfile.scss";
 function EditProfile() {
   const dispatch = useDispatch();
   const history = useHistory();
@@ -64,41 +64,57 @@ function EditProfile() {
   return (
     <div className="edit-profile-container">
       <div className="edit-profile-form-container">
-        <input
-          id="username"
-          type="text"
-          value={userInputs.username}
-          onChange={onChangeInputs}
-          placeholder="변경할 닉네임를 입력해 주세요."
-        />
-        <input
-          id="password"
-          type="password"
-          value={userInputs.password}
-          onChange={onChangeInputs}
-          placeholder="변경할 비밀번호를 입력해 주세요."
-        />
-        <input
-          id="password2"
-          type="password"
-          value={userInputs.password2}
-          onChange={onChangeInputs}
-          placeholder="변경할 비밀번호를 다시 입력해 주세요."
-        />
-        <input
-          id="profile_image"
-          type="file"
-          accept="image/*"
-          onChange={onChangeFile}
-          placeholder="프로필 사진"
-        />
-        <button
-          onClick={onClickEditProfileButton}
-          disabled={!userInputs.username || !userInputs.password}
-          className="edit-profile-btn"
-        >
-          Update
-        </button>
+        <div className="inputs">
+          <div className="label">Username</div>
+          <input
+            id="username"
+            type="text"
+            value={userInputs.username}
+            onChange={onChangeInputs}
+            placeholder="변경할 닉네임를 입력해 주세요."
+          />
+        </div>
+        <div className="inputs">
+          <div className="label">Password</div>
+          <input
+            id="password"
+            type="password"
+            value={userInputs.password}
+            onChange={onChangeInputs}
+            placeholder="변경할 비밀번호를 입력해 주세요."
+          />
+        </div>
+        <div className="inputs">
+          <div className="label">Password</div>
+          <input
+            id="password2"
+            type="password"
+            value={userInputs.password2}
+            onChange={onChangeInputs}
+            placeholder="변경할 비밀번호를 다시 입력해 주세요."
+          />
+        </div>
+        <div className="inputs">
+          <div className="label">Profile Image</div>
+          <input
+            id="profile_image"
+            type="file"
+            accept="image/*"
+            onChange={onChangeFile}
+            placeholder="프로필 사진"
+          />
+        </div>
+        <div>
+          <div className="inputs">
+            <button
+              onClick={onClickEditProfileButton}
+              disabled={!userInputs.username || !userInputs.password}
+              className="edit-profile-btn"
+            >
+              Update
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   );
