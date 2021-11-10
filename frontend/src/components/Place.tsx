@@ -6,6 +6,7 @@ import { PlaceType } from "../store/Post/postInterfaces";
 interface PropsType {
   place: PlaceType;
   icon: string;
+  onClickButton: Function;
 }
 function Place(props: PropsType) {
   const [toggle, setToggle] = useState<number[]>([]);
@@ -23,14 +24,17 @@ function Place(props: PropsType) {
     <div className="place-container">
       <div className="place-container-top">
         <div className="place-title">{props.place.name}</div>
-        <button className="cart-button">
+        <button
+          className="place-cart-button"
+          onClick={() => props.onClickButton()}
+        >
           <img src={props.icon} />
         </button>
       </div>
       <div className="place-container-middle">
         <div className="place-description text">{props.place.description}</div>
         <div className="toggle-button">
-          {toggle.includes(props.id) && (
+          {toggle.includes(props.place.id) && (
             <img
               className="post-icon"
               src={buttonUp}
@@ -69,3 +73,4 @@ function Place(props: PropsType) {
     </div>
   );
 }
+export default Place;
