@@ -1,3 +1,4 @@
+@import '../../Variables/Variables.scss'
 #map {
   width: 26.1vw;
   height: 36.77vw;
@@ -15,7 +16,7 @@
 
 .map-title {
   margin-bottom: 1.145vw;
-  font-family: 'Montserrat';
+  font-family: $mainFont;
   font-weight: 600;
   font-size: 2rem;
   line-height: 2.437rem;
