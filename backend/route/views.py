@@ -1,14 +1,13 @@
 from django.http import HttpResponse, JsonResponse,HttpResponseBadRequest
 import json
-from .models import Post, Comment, Place, Like
+from .models import Post, Comment, Place, Like, Folder, PostInFolder, PlaceInFolder
 from json.decoder import JSONDecodeError
 from django.views.decorators.http import require_http_methods
 from django.views.decorators.http import require_POST, require_GET
 from account.models import User
-from .forms import PostSerializer
-from rest_framework.parsers import MultiPartParser, FormParser
-from rest_framework.response import Response
-from rest_framework.views import APIView
+
+from .forms import PostForm
+
 @require_GET
 def posts(request):
     postlist=[]
@@ -19,23 +18,72 @@ def posts(request):
         folder_id=''
         if post.folder:
             folder_id=post.folder_id
-        postlist.append({'title': post.title, 'username': post.author.username, 'header_image': post.header_image.url, 'thumbnail_image': post.thumbnail_image.url, 
-        'days': post.days, 'folder_id': folder_id, 'is_shared':post.is_shared, 'theme':post.theme, 'comment': comments, 'season': post.season, 
-        'location': post.location, 'availableWithOutCar': post.availableWithoutCar})
+        postlist.append({
+            'title': post.title,
+            'username': post.author.username,
+            'header_image': post.header_image.url,
+            'thumbnail_image': post.thumbnail_image.url, 
+            'days': post.days,
+            'folder_id': folder_id,
+            'is_shared': post.is_shared,
+            'theme':post.theme,
+            'comment': comments,
+            'season': post.season, 
+            'location': post.location,
+            'availableWithoutCar': post.availableWithoutCar
+            })
     if len(postlist)==0:
         return HttpResponse(status=404)
     return JsonResponse(postlist, safe=False)
 
+@require_http_methods(["POST"])
+def post_create(request):
+    logged_user_id=request.session.get('user', None)
+    if not logged_user_id:
+        return HttpResponse(status=401)
+    
+    form = PostForm(data=request.POST, files=request.FILES)
 
-class Upload(APIView):
-    parser_classes=[MultiPartParser, FormParser]
-    def post(self, request):
-        serializer= PostSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=200)
-        else:
-            return Response(serializer.errors, status=405)
+    if form.is_valid():
+        post_title = form.cleaned_data['title']
+        post_header_image = form.cleaned_data['header_image']
+        post_thumbnail_image = form.cleaned_data['thumbnail_image']
+        post_days=form.cleaned_data['days']
+        post_is_shared=form.cleaned_data['is_shared']
+        post_theme=form.cleaned_data['theme']
+        post_season=form.cleaned_data['season']
+        post_location=form.cleaned_data['location']
+        post_available_without_car=form.cleaned_data['availableWithoutCar']
+
+        post = Post.objects.create(
+            title=post_title,
+            author_id=logged_user_id,
+            header_image=post_header_image,
+            thumbnail_image=post_thumbnail_image,
+            days=post_days, 
+            is_shared=post_is_shared,
+            location=post_location,
+            theme=post_theme,
+            season=post_season, 
+            availableWithoutCar=post_available_without_car
+        )
+
+        response_dict = {
+            'title': post.title,
+            'username': post.author.username,
+            'header_image': post.header_image.url if post.header_image else None,
+            'thumbnail_image': post.thumbnail_image.url if post.thumbnail_image else None, 
+            'days': post.days,
+            'is_shared': post.is_shared,
+            'theme': post.theme,
+            'season': post.season, 
+            'location': post.location,
+            'availableWithOutCar': post.availableWithoutCar
+        }
+        return JsonResponse(response_dict, safe=False)
+    else:
+        return HttpResponse(status=400)
+
 
 @require_GET
 def post_spec_get(request, ID):
@@ -55,70 +103,98 @@ def post_spec_get(request, ID):
         'location': post.location, 'availableWithoutCar': post.availableWithoutCar, 'folder_id': folder_id,'folder_name':folder_name, 'places':placelist}
     return JsonResponse(response_dict, safe=False)
     
-@require_http_methods(["PUT", "DELETE"])
-def post_spec_edit(request, ID):
+@require_http_methods(["POST", "DELETE"])
+def post_spec_edit(request, post_id):
     logged_user_id=request.session.get('user', None)
     if not logged_user_id:
-        return HttpResponse(status=405)
-    if request.method=='PUT':
-        post = Post.objects.get(id=ID)
-        user=User.objects.get(id=logged_user_id)
-        try:
-            body = json.loads(request.body.decode())
-            post_title = body['title']
-            post_header_image = body['header_img']
-            post_thumbnail_image = body['thumbnail_img']
-            post_days=body['days']
-            post_folder_id=body['folder']
-            post_is_shared=body['is_shared']
-            post_theme=body['theme']
-            post_season=body['season']
-            post_location=body['location']
-            post_available_without_car=body['availableWithOutCar']
-        except (KeyError, JSONDecodeError):
-            return HttpResponseBadRequest()
-        post = Post(title=post_title, author=user, folder_id=post_folder_id, header_image=post_header_image, thumbnail_image=post_thumbnail_image,days=post_days, 
-        is_shared=post_is_shared, location=post_location, theme=post_theme, season=post_season, availableWithoutCar=post_available_without_car)
-        post.save()
-        response_dict = {'title': post.title, 'username': post.author.username, 'header_image': post.header_image.url, 'thumbnail_image': post.thumbnail_image.url, 
-        'days': post.days, 'folder_id': post.folder_id, 'is_shared':post.is_shared, 'theme':post.theme, 'season': post.season, 
-        'location': post.location, 'availableWithOutCar': post.availableWithoutCar}
-        return JsonResponse(response_dict, status=201)
+        return HttpResponse(status=401)
+    
+    try:
+        post = Post.objects.get(id=post_id)
+    except Post.DoesNotExist:   # Wrong post id
+        return HttpResponse(status=401)
+
+    if post.author.id != logged_user_id:
+        return HttpResponse(status=403)
+
+    if request.method=='POST':
+        form = PostForm(data=request.POST, files=request.FILES)
+
+        if form.is_valid():
+            post_title = form.cleaned_data['title']
+            post_header_image = form.cleaned_data['header_image']
+            post_thumbnail_image = form.cleaned_data['thumbnail_image']
+            post_days=form.cleaned_data['days']
+            post_is_shared=form.cleaned_data['is_shared']
+            post_theme=form.cleaned_data['theme']
+            post_season=form.cleaned_data['season']
+            post_location=form.cleaned_data['location']
+            post_available_without_car=form.cleaned_data['availableWithoutCar']
+
+            Post.objects.filter(id=post_id).update(
+                title=post_title,
+                header_image=post_header_image,
+                thumbnail_image=post_thumbnail_image,
+                days=post_days, 
+                is_shared=post_is_shared,
+                location=post_location,
+                theme=post_theme,
+                season=post_season, 
+                availableWithoutCar=post_available_without_car
+            )
+            post.save()
+            post.update_date()
+
+            response_dict = {
+                'title': post.title,
+                'username': post.author.username,
+                'header_image': post.header_image.url,
+                'thumbnail_image': post.thumbnail_image.url, 
+                'days': post.days,
+                'is_shared': post.is_shared,
+                'theme': post.theme,
+                'season': post.season, 
+                'location': post.location,
+                'availableWithoutCar': post.availableWithoutCar
+            }
+            return JsonResponse(response_dict, safe=False)
+        else:
+            return HttpResponse(status=400)
+
     elif request.method=='DELETE':
-        Post.objects.get(id=ID).delete()
-        return HttpResponse(status=200)
+        post.delete()
+        return HttpResponse(status=204)
 
 @require_http_methods(["POST", "DELETE"])
-def post_cart(request,ID, fid):
+def post_cart(request, post_id, fid):
     logged_user_id=request.session.get('user', None)
     if not logged_user_id:
         return HttpResponse(status=405)
-    post = Post.objects.get(id=ID)
-    user=User.objects.get(id=logged_user_id)
+
     try:
-        body = json.loads(request.body.decode())
-        post_title = body['title']
-        post_header_image = body['header_img']
-        post_thumbnail_image = body['thumbnail_img']
-        post_days=body['days']
-        post_is_shared=body['is_shared']
-        post_theme=body['theme']
-        post_season=body['season']
-        post_location=body['location']
-        post_available_without_car=body['availableWithOutCar']
-    except (KeyError, JSONDecodeError):
-        return HttpResponseBadRequest()
+        post = Post.objects.get(id=post_id)
+        folder = Folder.objects.get(id=fid)
+    except (Post.DoesNotExist, Folder.DoesNotExist):   # Wrong post id
+        return HttpResponse(status=404)
+
     if request.method=='POST':
-        post = Post(title=post_title, author=user, folder_id=fid, header_image=post_header_image, thumbnail_image=post_thumbnail_image,days=post_days, 
-        is_shared=post_is_shared, theme=post_theme, season=post_season, location=post_location, availableWithoutCar=post_available_without_car)
-        post.save()
-        response_dict = {'title': post.title, 'username': post.author.username, 'header_image': post.header_image.url, 'thumbnail_image': post.thumbnail_image.url, 
-        'days': post.days, 'folder_id': post.folder_id, 'is_shared':post.is_shared, 'theme':post.theme, 'season': post.season, 
-        'location': post.location, 'availableWithOutCar': post.availableWithoutCar}
-        return JsonResponse(response_dict, status=201)
+        PostInFolder.objects.create(folder=folder, post=post)
+        response_dict = {
+            'folder': {
+                'id': folder.id,
+                'name': folder.name,
+                'user': folder.user.username
+            }
+        }
+        return JsonResponse(response_dict, safe=False)
     elif request.method=='DELETE':
-        post = Post(title=post_title, author=user, folder=None, header_image=post_header_image, thumbnail_image=post_thumbnail_image,days=post_days, 
-        is_shared=post_is_shared, theme=post_theme, season=post_season, location=post_location, availableWithoutCar=post_available_without_car)
+        try:
+            post_in_folder = PostInFolder.objects.get(folder=folder, post=post)
+        except PostInFolder.DoesNotExist:
+            return HttpResponse(status=404)
+        
+        post_in_folder.delete()
+        return HttpResponse(status=204)
 
 @require_http_methods(["POST", "DELETE"])
 def post_like(request, ID):
@@ -191,70 +267,153 @@ def post_comment_spec(request, ID, cid):
 def place_create(request):
     logged_user_id=request.session.get('user', None)
     if not logged_user_id:
-        return HttpResponse(status=405)
+        return HttpResponse(status=401)
+
     else: #POST
         try:
-            body = json.loads(request.body.decode())
-            post_id = body['post_id']
-            place_id = body['place_id']
-            description = body['description']
-            day = body['day']
-        except (KeyError, JSONDecodeError):
-            return HttpResponseBadRequest()
-        place=Place(post_id=post_id, place_id=place_id, description=description, day=day)
-        place.save()
-        response_dict = {'post': place.post_id, 'place':place.place_id, 'description': place.description, 'day': place.day}
-        return JsonResponse(response_dict, status=201)
-
-@require_GET
-def place_spec(request, ID):
-    place = Place.objects.get(id=ID)
-    response_dict = {'post_id': place.post_id, 'place_id': place.place_id, 'description': place.description, 'day':place.day, 'folder_id': place.folder_id}
-    return JsonResponse(response_dict, safe=False)
-
-@require_http_methods(["PUT", "DELETE"])
-def place_spec_edit(request, ID):
-    if request.method=="PUT":
-        logged_user_id=request.session.get('user', None)
-        if not logged_user_id:
-            return HttpResponse(status=405)
-        place = Place.objects.get(id=ID)
-        try:
             body = request.body.decode()
+            name = json.loads(body)['name']
             post_id = json.loads(body)['post_id']
-            place_id = json.loads(body)['place_id']
             description = json.loads(body)['description']
             day = json.loads(body)['day']
             folder_id = json.loads(body)['folder_id']
+            latitude = json.loads(body)['latitude']
+            longitude = json.loads(body)['longitude']
+            homepage = json.loads(body)['homepage']
+            phone_number = json.loads(body)['phone_number']
+            address = json.loads(body)['address']
+            category = json.loads(body)['category']
         except (KeyError, JSONDecodeError):
             return HttpResponseBadRequest()
-        place = Place( post_id = post_id, place_id = place_id, folder_id = folder_id, description= description, day= day)
+        
+        place = Place.objects.create(
+            name=name,
+            post_id=post_id,
+            description=description,
+            day=day,
+            folder_id=folder_id,
+            latitude=latitude,
+            longitude=longitude,
+            homepage=homepage,
+            phone_number=phone_number,
+            address=address,
+            category=category
+        )
         place.save()
-        response_dict = {'post_id': place.post_id, 'place_id': place.place_id, 'folder_id': place.folder_id, 'description': place.description, 'day':place.day}
+        response_dict = {
+            'id': place.id,
+            'name':  place.name,
+            'post_id': place.post_id,
+            'description': place.description,
+            'day':place.day,
+            'folder_id': place.folder_id,
+            'latitude': place.latitude,
+            'longitude': place.longitude,
+            'homepage': place.homepage,
+            'phone_number': place.phone_number,
+            'address': place.address,
+            'category': place.category,
+        }
+        return JsonResponse(response_dict, status=201)
+
+@require_GET
+def place_spec(request, place_id):
+    try:
+        place = Place.objects.get(id=place_id)
+    except Place.DoesNotExist:
+        return HttpResponse(status=404)
+    
+    response_dict = {
+        'id': place.id,
+        'name':  place.name,
+        'post_id': place.post_id,
+        'description': place.description,
+        'day':place.day,
+        'folder_id': place.folder_id,
+        'latitude': place.latitude,
+        'longitude': place.longitude,
+        'homepage': place.homepage,
+        'phone_number': place.phone_number,
+        'address': place.address,
+        'category': place.category,
+    }
+    return JsonResponse(response_dict, safe=False)
+
+@require_http_methods(["PUT", "DELETE"])
+def place_spec_edit(request, place_id):
+    logged_user_id=request.session.get('user', None)
+    if not logged_user_id:
+        return HttpResponse(status=401)
+
+    try:
+        place = Post.objects.get(id=place_id)
+    except Post.DoesNotExist:   # Wrong place id
+        return HttpResponse(status=404)
+    
+    if place.author.id != logged_user_id:
+        return HttpResponse(status=403)
+
+    if request.method=="PUT":
+        try:
+            body = request.body.decode()
+            description = json.loads(body)['description']
+            day = json.loads(body)['day']
+        except (KeyError, JSONDecodeError):
+            return HttpResponseBadRequest()
+        
+        Place.objects.filter(id=place_id).update(
+            description=description,
+            day=day
+        )
+        place.save()
+        place.update_date()
+
+        response_dict = {
+            'id': place.id,
+            'name':  place.name,
+            'post_id': place.post_id,
+            'description': place.description,
+            'day':place.day,
+            'folder_id': place.folder_id,
+            'latitude': place.latitude,
+            'longitude': place.longitude,
+            'homepage': place.homepage,
+            'phone_number': place.phone_number,
+            'address': place.address,
+            'category': place.category,
+        }
         return JsonResponse(response_dict, status=201)
     elif request.method=='DELETE':
-        logged_user_id=request.session.get('user', None)
-        if not logged_user_id:
-            return HttpResponse(status=405)
-        Place.objects.get(id=id).delete()
-        return HttpResponse(status=200)    
+        place.delete()
+        return HttpResponse(status=204)    
 
 @require_http_methods(["POST", "DELETE"])
-def place_cart(request,ID, fid):
-    place = Place.objects.get(id=ID)
+def place_cart(request, place_id, fid):
+    logged_user_id=request.session.get('user', None)
+    if not logged_user_id:
+        return HttpResponse(status=405)
+
     try:
-        body = json.loads(request.body.decode())
-        post_id = body['post_id']
-        place_id = body['place_id']
-        description = body['description']
-        day = body['day']
-    except (KeyError, JSONDecodeError):
-        return HttpResponseBadRequest()
+        place = Place.objects.get(id=place_id)
+        folder = Folder.objects.get(id=fid)
+    except (Place.DoesNotExist, Folder.DoesNotExist):   # Wrong place id
+        return HttpResponse(status=404)
+
     if request.method=='POST':
-        place = Place(post_id=post_id, place_id=place_id, description=description, folder_id=fid, day=day)
-        place.save()
-        response_dict = {'post_id': place.post_id, 'place_id': place.place_id, 'folder_id': place.folder_id, 'description': place.description, 'day':place.day}
-        return JsonResponse(response_dict, status=201)
+        PlaceInFolder.objects.create(folder=folder, place=place)
+        response_dict = {
+            'folder': {
+                'id': folder.id,
+                'name': folder.name,
+                'user': folder.user.username
+            }
+        }
+        return JsonResponse(response_dict, safe=False)
     elif request.method=='DELETE':
-        place = Place(post_id=post_id, place_id=place_id, description=description, folder=None, day=day)
-        return HttpResponse(status=200)
+        try:
+            place_in_folder = PlaceInFolder.objects.get(folder=folder, place=place)
+        except PlaceInFolder.DoesNotExist:
+            return HttpResponse(status=404)
+        
+        place_in_folder.delete()
+        return HttpResponse(status=204)
