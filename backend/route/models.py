@@ -37,7 +37,7 @@ class Post(models.Model):
     thumbnail_image = models.ImageField(_("Image"), upload_to=thumbnail_date_upload_to, null=True, blank=True)
     days= models.IntegerField(default=1)
     like_users = models.ManyToManyField(User, related_name='like_users', blank=True)
-    is_shared = models.BooleanField(blank=True)
+    is_shared = models.BooleanField(default=False)
     SEASONS=(
         ('spr', 'spring'),
         ('sum', 'summer'),
@@ -75,6 +75,13 @@ class Place(models.Model):
     address = models.CharField(max_length=256, null=True, blank=True)
     category = models.CharField(max_length=256, null=True, blank=True)
 
+class PostInFolder(models.Model):
+    folder = models.ForeignKey(Folder, on_delete=models.CASCADE)
+    post = models.ForeignKey(Post, on_delete=models.CASCADE)
+
+class PlaceInFolder(models.Model):
+    folder = models.ForeignKey(Folder, on_delete=models.CASCADE)
+    place = models.ForeignKey(Place, on_delete=models.CASCADE)
 
 class Comment(models.Model):
     content = models.TextField()
