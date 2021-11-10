@@ -25,15 +25,14 @@ interface DummyPlace {
 
 interface PropType {
   // marks: any
-  // days: number
   // fromWhere: string // create | edit
-  location: string
+  // days: number
+  location?: string
+  selectedDay?: number
 }
 
 function Map(props: PropType) {
-  const { location } = props;
-
-  const [selectedDay, setSelecteDay] = useState(1);
+  const { location, selectedDay } = props;
   const [markers, setMarkers] = useState<any>([]);
   const map = useRef<any>();
 
@@ -88,7 +87,7 @@ function Map(props: PropType) {
         } else if (status === kakao.maps.services.Status.ZERO_RESULT) {
           alert('검색 결과가 존재하지 않습니다.');
         } else if (status === kakao.maps.services.Status.ERROR) {
-          alert('검색 결과 중 오류가 발생했습니다.');
+          alert('검색 중 오류가 발생했습니다.');
         }
       }
       places.keywordSearch(location, placesSearchCB);
@@ -99,7 +98,7 @@ function Map(props: PropType) {
     <div className="map-container">
       <div className="map-title">Map</div>
       <div id="map" />
-      <div className="map-create-btn" onClick={() => setSelecteDay(Math.floor(Math.random()*2)+1)}>Create</div>
+      <div className="map-create-btn">Create</div>
     </div>
   );
 }
