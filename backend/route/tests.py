@@ -14,8 +14,6 @@ class RouteTestCase(TestCase):
         user.save()
         client = Client()
         response = client.get('/user/signup/')
-        response = client.get('/post/')
-        self.assertEqual(response.status_code, 404)
         folder = Folder(name="folder1", user=user)
         folder.save()
         new_post = Post(title='testTitle', author=user, is_shared=False, folder=folder,availableWithoutCar=False,
@@ -49,8 +47,6 @@ class RouteTestCase(TestCase):
         user.save()
         client = Client()
         response = client.get('/user/signup/')
-        response = client.get('/post/')
-        self.assertEqual(response.status_code, 404)
         folder = Folder(name="folder1", user=user)
         folder.save()
         new_post = Post(title='testTitle', theme='friends', author=user, is_shared=False, folder=folder,availableWithoutCar=False,

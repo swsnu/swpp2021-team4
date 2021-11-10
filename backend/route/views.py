@@ -19,10 +19,12 @@ def posts(request):
         if post.folder:
             folder_id=post.folder_id
         postlist.append({
+            'id': post.id,
             'title': post.title,
-            'username': post.author.username,
-            'header_image': post.header_image.url,
-            'thumbnail_image': post.thumbnail_image.url, 
+            'author_name': post.author.username,
+            'author_id': post.author_id,
+            'header_image': post.header_image.url if post.header_image else None,
+            'thumbnail_image': post.thumbnail_image.url  if post.thumbnail_image else None, 
             'days': post.days,
             'folder_id': folder_id,
             'is_shared': post.is_shared,
@@ -32,8 +34,7 @@ def posts(request):
             'location': post.location,
             'availableWithoutCar': post.availableWithoutCar
             })
-    if len(postlist)==0:
-        return HttpResponse(status=404)
+
     return JsonResponse(postlist, safe=False)
 
 @require_http_methods(["POST"])
@@ -69,8 +70,10 @@ def post_create(request):
         )
 
         response_dict = {
+            'id': post.id,
             'title': post.title,
-            'username': post.author.username,
+            'author_name': post.author.username,
+            'author_id': post.author_id,
             'header_image': post.header_image.url if post.header_image else None,
             'thumbnail_image': post.thumbnail_image.url if post.thumbnail_image else None, 
             'days': post.days,
@@ -98,9 +101,22 @@ def post_spec_get(request, ID):
     comments=[]
     for comment in post.comment_set.all():
         comments.append({'content': comment.content, 'author_id':comment.author_id})
-    response_dict = {'title': post.title, 'author_name': author_name,'author_id':author_id,
-        'days': post.days, 'is_shared':post.is_shared, 'theme':post.theme, 'comment': comments, 'season': post.season, 
-        'location': post.location, 'availableWithoutCar': post.availableWithoutCar, 'folder_id': folder_id,'folder_name':folder_name, 'places':placelist}
+    response_dict = {
+        'id': post.id,
+        'title': post.title,
+        'author_name': author_name,
+        'author_id':author_id,
+        'days': post.days,
+        'is_shared':post.is_shared,
+        'theme':post.theme,
+        'comment': comments,
+        'season': post.season, 
+        'location': post.location,
+        'availableWithoutCar': post.availableWithoutCar,
+        'folder_id': folder_id,
+        'folder_name':folder_name,
+        'places':placelist
+        }
     return JsonResponse(response_dict, safe=False)
     
 @require_http_methods(["POST", "DELETE"])
@@ -146,6 +162,7 @@ def post_spec_edit(request, post_id):
             post.update_date()
 
             response_dict = {
+                'id': post.id,
                 'title': post.title,
                 'username': post.author.username,
                 'header_image': post.header_image.url,

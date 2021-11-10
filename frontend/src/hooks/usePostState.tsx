@@ -3,13 +3,15 @@ import { RootReducerType } from "../store/store";
 import { PostStateType } from "../store/Post/postReducer";
 
 const initialState: PostStateType = {
+  posts: [],
   detailedPost: {
+    id: 0,
     header_image: "",
     thumbnail_image: "",
     // created_at: "",
     // updated_at: "",
-    author_id:0,
-    author_name:'',
+    author_id: 0,
+    author_name: '',
     availableWithoutCar: false,
     comment: [],
     days: 0,

@@ -1,6 +1,7 @@
-import { GET_POST_SUCCESS, GET_POST_FAIL } from "../actionTypes";
+import { GET_POSTS_SUCCESS, GET_POSTS_FAIL, GET_POST_SUCCESS, GET_POST_FAIL } from "../actionTypes";
 
 export interface PostType {
+  id: number;
   title: string;
   author_name: string;
   author_id: number;
@@ -54,6 +55,15 @@ export interface PathType {
   transportation: string;
 }
 
+export interface GetPostsSuccess {
+  type: typeof GET_POSTS_SUCCESS;
+  payload: PostType[];
+}
+
+export interface GetPostsFail {
+  type: typeof GET_POSTS_FAIL;
+}
+
 export interface GetPostSuccess {
   type: typeof GET_POST_SUCCESS;
   payload: PostType;
@@ -63,4 +73,4 @@ export interface GetPostFail {
   type: typeof GET_POST_FAIL;
 }
 
-export type PostDispatchType = GetPostSuccess | GetPostFail;
+export type PostDispatchType = GetPostsSuccess | GetPostsFail | GetPostSuccess | GetPostFail;
