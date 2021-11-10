@@ -26,7 +26,7 @@ function UserInfo() {
   const { loggedUser } = useSelector((state: RootReducerType) => state.user);
 
   const [userInfo, setUserInfo] = useState({
-    profileImage: "",
+    profile_image: "",
     email: "",
     username: "",
   });
@@ -44,6 +44,7 @@ function UserInfo() {
       .get(`/user/${id}/`)
       .then(function (response) {
         setUserInfo(response.data);
+      
       })
       .catch((err) => err.response);
 
@@ -52,6 +53,7 @@ function UserInfo() {
         .get(`/user/${id}/folder/`)
         .then(function (response) {
           setFolderSelect(response.data);
+          console.log(response)
         })
         .catch((err) => err.response);
     }
@@ -66,7 +68,8 @@ function UserInfo() {
       <div className="profile">Profile</div>
       <div className="showProfile">
         <div className="image">
-          <img className="profileImage" src={logo} />
+          {userInfo.profile_image==null&&<img className="profileImage" src={logo} />}
+          {userInfo.profile_image!=null&&<img className="profileImage" src={userInfo.profile_image} />}
         </div>
         <div className="basicInfo">
           <div className="email">
