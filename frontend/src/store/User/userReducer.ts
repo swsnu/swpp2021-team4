@@ -13,7 +13,7 @@ import {
 } from './userInterfaces';
 
 export type UserStateType = {
-  loggedUser: UserType
+  loggedUser: UserType,
 }
 
 const initialState: UserStateType = {
