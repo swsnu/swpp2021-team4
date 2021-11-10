@@ -97,9 +97,8 @@ def edit_user_info(request, user_id):
     form = UserForm(data=request.POST, files=request.FILES)
 
     if form.is_valid():
-        new_username = form.cleaned_data['username']
-        new_profile_image = form.cleaned_data['profile_image']
-        User.objects.filter(id=user_id).update(username=new_username, profile_image=new_profile_image)
+        user.username = form.cleaned_data['username']
+        user.profile_image = form.cleaned_data['profile_image']
         user.set_password(form.cleaned_data['password'])
         user.save()
         user.update_date()
