@@ -12,7 +12,7 @@
   height: 160px;
   display: flex;
   margin: 0px auto;
-  display: flex;
+
   .header-image {
     display: inline-block;
     img {
@@ -76,8 +76,9 @@
         .post-tag {
           display: flex;
           flex-wrap: wrap;
-          background-color: $whiteColor;
-          border-radius: 6px;
+          background-color: transparent;
+          border: 0.8px solid black;
+          border-radius: 16px;
           height: 30px;
           display: inline-block;
           text-align: center;
@@ -96,11 +97,13 @@
     }
   }
   .header-content-right {
-    display: flex;
-    justify-content: flex-end;
+    margin-right: 0px;
     .post-cart-button {
       background-color: $regularMintColor;
       border-radius: 6px;
+      height: 30px;
+      padding: 10px;
+      line-height: 50%;
     }
   }
 }

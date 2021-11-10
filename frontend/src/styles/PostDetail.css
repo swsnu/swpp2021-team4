@@ -64,7 +64,6 @@ input {
   display: -ms-flexbox;
   display: flex;
   margin: 0px auto;
-  display: flex;
 }
 
 .post-detail-header .header-image {
@@ -167,8 +166,9 @@ input {
   display: flex;
   -ms-flex-wrap: wrap;
       flex-wrap: wrap;
-  background-color: #f6f6f9;
-  border-radius: 6px;
+  background-color: transparent;
+  border: 0.8px solid black;
+  border-radius: 16px;
   height: 30px;
   display: inline-block;
   text-align: center;
@@ -186,17 +186,15 @@ input {
 }
 
 .post-detail-header .header-content-right {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: end;
-      -ms-flex-pack: end;
-          justify-content: flex-end;
+  margin-right: 0px;
 }
 
 .post-detail-header .header-content-right .post-cart-button {
   background-color: #95ecdc;
   border-radius: 6px;
+  height: 30px;
+  padding: 10px;
+  line-height: 50%;
 }
 
 .post-detail-body {

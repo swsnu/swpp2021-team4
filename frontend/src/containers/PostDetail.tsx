@@ -24,24 +24,6 @@ function PostDetail() {
     if (post.places) {
       const places = post.places;
       const days = post.days;
-      // const dayList: number[] = [];
-      // places.forEach((place: any) => dayList.push(place.day));
-      // dayList.sort();
-      // Array.from(new Set(dayList));
-      // for (
-      //   let day: number = dayList[0];
-      //   day <= dayList[dayList.length - 1];
-      //   day++
-      // )
-
-      // for (let day of days) {
-
-      //   places
-      //     .filter((place: any) => place.day == day)
-      //     .map((place: any) => {
-      //       return <div key={place.id} className="body"></div>;
-      //     });
-      // }
       const placeList = [];
       for (let day = 1; day <= days; day++) {
         placeList.push(
