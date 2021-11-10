@@ -107,7 +107,7 @@ def edit_user_info(request, user_id):
                 'id': user.id,
                 'email': user.email,
                 'username': user.username,
-                'profile_image': user.profile_image.url
+                'profile_image': user.profile_image.url if user.profile_image else None
             }
         }
         return JsonResponse(response_dict, safe=False)
