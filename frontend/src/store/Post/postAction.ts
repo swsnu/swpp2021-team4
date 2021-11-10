@@ -1,7 +1,16 @@
 import axios from "axios";
 import * as Redux from "redux";
-import { GET_POST_SUCCESS, GET_POST_FAIL } from "../actionTypes";
+import { GET_POSTS_SUCCESS, GET_POSTS_FAIL, GET_POST_SUCCESS, GET_POST_FAIL } from "../actionTypes";
 import { PostDispatchType, PostType } from "./postInterfaces";
+
+export const getPostsAction = () => {
+  return (dispatch: Redux.Dispatch<PostDispatchType>) => {
+    return axios
+      .get<PostType[]>('/post/')
+      .then((res) => dispatch({ type: GET_POSTS_SUCCESS, payload: res.data }))
+      .catch(() => dispatch({ type: GET_POSTS_FAIL }));
+  };
+};
 
 export const getPostAction = (postId: number) => {
   return (dispatch: Redux.Dispatch<PostDispatchType>) => {

@@ -10,9 +10,9 @@ function EditProfile() {
   const { loggedUser } = useSelector((state: RootReducerType) => state.user);
   const [userInputs, setUserInputs] = useState({
     username: loggedUser.username,
-    password: '',
-    password2: '',
-    profile_image: ''
+    password: "",
+    password2: "",
+    profile_image: "",
   });
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [isEdited, setIsEdited] = useState(false);
@@ -21,42 +21,45 @@ function EditProfile() {
     if (isEdited) {
       history.goBack();
     }
-  }, [isEdited])
+  }, [isEdited]);
 
   const onChangeInputs = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
     setUserInputs({
       ...userInputs,
-      [e.target.id]: e.target.value
+      [e.target.id]: e.target.value,
     });
-  }
+  };
 
   const onChangeFile = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
-    if (!e.target.files) return
+    if (!e.target.files) return;
     setSelectedFile(e.target.files[0]);
   };
 
   const onClickEditProfileButton = () => {
     const { username, password, password2 } = userInputs;
     if (!username) {
-      alert('닉네임을 입력하세요!');
+      alert("닉네임을 입력하세요!");
     } else if (!password || !password2) {
-      alert('비밀번호를 입력하세요!')
+      alert("비밀번호를 입력하세요!");
     } else if (password !== password2) {
-      alert('입력한 비밀번호가 서로 다릅니다!');
+      alert("입력한 비밀번호가 서로 다릅니다!");
     } else {
       const formData = new FormData();
-      formData.append('username', userInputs.username);
-      formData.append('password', userInputs.password);
-      if (selectedFile) formData.append('profile_image', selectedFile);
-      else formData.append('profile_image', '');
-      formData.append('enctype', 'multipart/form-data');
+      formData.append("username", userInputs.username);
+      formData.append("password", userInputs.password);
+      if (selectedFile) formData.append("profile_image", selectedFile);
+      else formData.append("profile_image", "");
+      formData.append("enctype", "multipart/form-data");
 
-      dispatch(editProfileAction(loggedUser.id, formData, (value) => setIsEdited(value)));
+      dispatch(
+        editProfileAction(loggedUser.id, formData, (value) =>
+          setIsEdited(value)
+        )
+      );
     }
-  }
-
+  };
 
   return (
     <div className="edit-profile-container">
@@ -97,7 +100,8 @@ function EditProfile() {
           Update
         </button>
       </div>
-    </div>);
+    </div>
+  );
 }
 
 export default EditProfile;

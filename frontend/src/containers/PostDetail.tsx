@@ -5,18 +5,35 @@ import { usePostState } from "../hooks/usePostState";
 import { getPostAction } from "../store/Post/postAction";
 import border from "../static/post_info_border.svg";
 import "../styles/PostDetail.css";
+import "../styles/components/Place.scss";
+import Map from "../components/Map";
+import cart from "../static/cart-icon.svg";
+import { PlaceType } from "../store/Post/postInterfaces";
+import Place from "../components/Place";
 
 function PostDetail() {
   interface String {
     id: string;
   }
-
+  // const [toggle, setToggle] = useState<number[]>([]);
+  // const appendToggle = (id: number) => {
+  //   const newToggle = toggle.concat(id);
+  //   setToggle(newToggle);
+  //   return toggle;
+  // };
+  // const removeToggle = (id: number) => {
+  //   const newToggle = toggle.filter((_id) => _id !== id);
+  //   setToggle(newToggle);
+  //   return toggle;
+  // };
   const dispatch = useDispatch();
   const { id } = useParams<String>();
   useEffect(() => {
     dispatch(getPostAction(Number(id)));
   }, [dispatch, id]);
-
+  const onClickAddRouteCartButton = () => {
+    return null;
+  };
   // place의 타입 정의 후 any 고치기
   const post = usePostState();
   console.log(post);
@@ -31,11 +48,14 @@ function PostDetail() {
             Day{day}
             {places
               .filter((place: any) => place.day == day)
-              .map((dayPlace: any) => {
+              .map((dayPlace: PlaceType) => {
                 return (
-                  <div key={dayPlace.id} className="place-info">
-                    {dayPlace.name}
-                  </div>
+                  <Place
+                    key={days.index}
+                    place={dayPlace}
+                    icon={cart}
+                    onClickButton={() => onClickAddRouteCartButton()}
+                  />
                 );
               })}
           </div>
@@ -93,7 +113,9 @@ function PostDetail() {
       </div>
       <div className="post-detail-body">
         <div className="body-route-container">{mapping()}</div>
-        <div className="body-map-container"></div>
+        <div className="body-map-container">
+          <Map />
+        </div>
       </div>
     </div>
   );
