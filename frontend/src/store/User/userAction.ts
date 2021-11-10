@@ -4,7 +4,7 @@ import {
   SIGNIN_SUCCESS,
   SIGNIN_FAIL,
   SIGNOUT_SUCCESS,
-  SIGNOUT_FAIL
+  SIGNOUT_FAIL,
 } from '../actionTypes';
 import { UserDispatchType, UserType } from './userInterfaces';
 

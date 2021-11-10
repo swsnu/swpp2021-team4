@@ -2,7 +2,7 @@ import {
   SIGNIN_SUCCESS,
   SIGNIN_FAIL,
   SIGNOUT_SUCCESS,
-  SIGNOUT_FAIL,
+  SIGNOUT_FAIL
 } from '../actionTypes';
 
 import {
@@ -11,7 +11,7 @@ import {
 } from './userInterfaces';
 
 export type UserStateType = {
-  loggedUser: UserType
+  loggedUser: UserType,
 }
 
 const initialState: UserStateType = {

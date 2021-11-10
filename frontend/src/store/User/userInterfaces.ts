@@ -35,8 +35,10 @@ export interface SignoutFail {
   type: typeof SIGNOUT_FAIL
 }
 
+
+
 export type UserDispatchType =
 SigninSuccess |
 SigninFail |
 SignoutSuccess |
-SignoutFail;
+SignoutFail ;
