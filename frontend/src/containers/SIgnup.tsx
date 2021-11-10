@@ -20,7 +20,7 @@ function Signup() {
     });
   }
 
-  const onClickSignupButton = () => {
+  const onClickSignupButton = async () => {
     const { userEmail, userName, userPassword, checkUserPassword } = userInputs;
     if (!userEmail) {
       alert('invalid email');
@@ -31,14 +31,19 @@ function Signup() {
     } else if (userPassword !== checkUserPassword) {
       alert('passwords are different!');
     } else {
-      signup({ email: userEmail, username: userName, password: userPassword });
+      const response = await signup({ email: userEmail, username: userName, password: userPassword });
+      if (response.status === 201) {
+        setIsSubmitted(true);
+      } else {
+        alert('singup failed');
+      }
+
       setUserInputs({
         userEmail: '',
         userName: '',
         userPassword: '',
         checkUserPassword: ''
       });
-      setIsSubmitted(true);
     }
   }
 
