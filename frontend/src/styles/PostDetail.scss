@@ -1,10 +1,16 @@
 @import "../Variables/Variable.scss";
-.post-detail-header {
+@import "./reset.scss";
+
+.post-detail-container {
   width: 80%;
+  margin: 0px auto;
+}
+.post-detail-header {
+  width: 100%;
   border-radius: 6px;
   box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
-  height: 130px;
-  //   display: flex;
+  height: 160px;
+  display: flex;
   margin: 0px auto;
   display: flex;
   .header-image {
@@ -21,6 +27,7 @@
         font-family: $koreanFont;
         font-size: 22px;
         margin-left: 2vh;
+        margin-top: 0px;
       }
     }
     .header-middle {
@@ -50,9 +57,10 @@
       width: 160%;
       display: flex;
       align-items: center;
-      justify-content: flex-start;
+      justify-content: space-between;
       flex-wrap: wrap;
       margin-top: 5px;
+      width: 100%;
       .post-author {
         font-family: $mainFont;
         font-weight: bold;
@@ -73,6 +81,7 @@
           display: inline-block;
           text-align: center;
           line-height: 170%;
+          margin-right: 3vh;
         }
         .post-info {
           font-family: $koreanFont;
@@ -80,5 +89,27 @@
         }
       }
     }
+  }
+}
+
+.post-detail-body {
+  display: flex;
+  justify-content: space-between;
+  .body-route-container {
+    width: 60%;
+    background: #ffffff;
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.15);
+    border-radius: 6px;
+    height: 200px;
+    margin: 20px 0px;
+  }
+
+  .body-map-container {
+    width: 38%;
+    background: #ffffff;
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.15);
+    border-radius: 6px;
+    height: 200px;
+    margin: 20px 0px;
   }
 }
