@@ -114,7 +114,7 @@ function PostDetail() {
       <div className="post-detail-body">
         <div className="body-route-container">{mapping()}</div>
         <div className="body-map-container">
-          <Map />
+          <Map location={post.location} />
         </div>
       </div>
     </div>
