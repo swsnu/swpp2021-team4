@@ -3,6 +3,8 @@ import {
   SIGNIN_FAIL,
   SIGNOUT_SUCCESS,
   SIGNOUT_FAIL,
+  EDIT_PROFILE_SUCCESS,
+  EDIT_PROFILE_FAIL,
 } from '../actionTypes';
 
 import {
@@ -33,6 +35,10 @@ export default (state: UserStateType = initialState, action: UserDispatchType): 
     case SIGNOUT_SUCCESS:
       return { ...state, loggedUser: initialState.loggedUser };
     case SIGNOUT_FAIL:
+      return { ...state };
+    case EDIT_PROFILE_SUCCESS:
+      return { ...state, loggedUser: { ...action.payload } };
+    case EDIT_PROFILE_FAIL:
       return { ...state };
     default:
       return { ...state };
