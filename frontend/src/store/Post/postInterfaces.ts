@@ -1,21 +1,23 @@
 import { GET_POST_SUCCESS, GET_POST_FAIL } from "../actionTypes";
-import { UserType } from "../User/userInterfaces";
 
 export interface PostType {
   title: string;
-  author: UserType;
-  folderId: number;
-  folderName: string;
+  author_name: string;
+  author_id: number;
+  folder_id: number;
+  folder_name: string;
   days: number;
   location: string;
-  headerImage: string;
-  thumbnailImage: string;
-  createdAt: string;
-  updatedAt: string;
+  header_image: string;
+  thumbnail_image: string;
+  // created_at: string;
+  // updated_at: string;
   theme: string;
   season: string;
-  isShared: boolean;
+  is_shared: boolean;
   availableWithoutCar: boolean;
+  comment: CommentType[];
+  places: PlaceType[];
 }
 
 export interface PlaceInfoType {
@@ -27,17 +29,23 @@ export interface PlaceInfoType {
 }
 
 export interface PlaceType {
-  post: PostType;
-  place: PlaceInfoType;
+  id: number;
+  name: string;
+  post_id: number;
   description: string;
   day: number;
+  folder_id: number;
+  latitude: string;
+  longitude: string;
+  homepage: string;
+  phone_number: string;
+  address: string;
+  category: string;
 }
 
 export interface CommentType {
-  author: UserType;
-  post: PostType;
+  author_id: number;
   content: string;
-  createdAt: string;
 }
 
 export interface PathType {

@@ -8,30 +8,24 @@ export type PostStateType = {
 
 const initialState: PostStateType = {
   detailedPost: {
-    title: "",
-    author: {
-      id: 0,
-      email: "",
-      username: "",
-      profileImage: "",
-      folders: [],
-    },
-    folderId: 0,
-    folderName: "",
-    //location은 어디서 받아오는지?
-    days: 0,
-    location: "",
-    headerImage: "",
-    thumbnailImage: "",
-    createdAt: "",
-    updatedAt: "",
-    theme: "", // lover로 렌더됨
-    season: "",
-    //Season여러 개 받도록 해야 하지 않는지?
-    //sum으로 렌더됨
-    isShared: false,
+    header_image: "",
+    thumbnail_image: "",
+    // created_at: "",
+    // updated_at: "",
+    author_id: 0,
+    author_name: "",
     availableWithoutCar: false,
-  },
+    comment: [],
+    days: 0,
+    folder_id: 0,
+    folder_name: "",
+    is_shared: false,
+    location: "",
+    places: [],
+    season: "",
+    theme: "",
+    title: "",
+  }
 };
 
 export default (
