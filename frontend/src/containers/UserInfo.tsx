@@ -18,14 +18,9 @@ function UserInfo() {
     id: string;
   }
   const [toggle, setToggle] = useState(true);
+  const [smallFolder, setSmallFolder] = useState(0);
   const [isSubmitted, setIsSubmitted] = useState(false);
-  const [folder, setFolderSelect] = useState([
-    {
-      id: 0,
-      name: "",
-      posts: [{ id: "", thumbnail_image: "" }],
-    },
-  ]);
+
   const [postImages, setImages] = useState([""]);
   const [sharedImages, setSharedImages] = useState([
     ''
@@ -49,6 +44,13 @@ function UserInfo() {
     email: "",
     username: "",
   });
+  const [folder, setFolderSelect] = useState([
+    {
+      id: 0,
+      name: "",
+      posts: [{ id: "", thumbnail_image: "" }],
+    },
+  ]);
   const onEditProfile = () => {
     setIsSubmitted(true);
   };
@@ -115,7 +117,28 @@ function UserInfo() {
           setFolderSelect(response.data);
         })
         .catch((err) => err.response);
-  
+       
+        var small=-1;
+        console.log(folder);
+        for (let i = 0; i < folder.length; i++) {
+          console.log(folder[i]);
+          if (folder[i].id==-1||folder[i].id<small){
+            small=folder[i].id;
+          }
+        }
+        setSmallFolder(small);
+        console.log('small');
+        console.log(smallFolder)
+        const images = [];
+        for (let i = 0; i < folder.length; i++) {
+          if (folder[i].id == smallFolder) {
+            for (let p = 0; p < folder[i].posts.length; p++) {
+              images.push(folder[i].posts[p].thumbnail_image);
+            }
+            break;
+          }
+        }
+        setImages(images);
       axios
         .get(`/user/${id}/share/`)
         .then(function (response) {
@@ -253,7 +276,7 @@ function UserInfo() {
                   return (
                     <img
                       className="route_image"
-                      key={postImages.indexOf(image)}
+                      key={likeImages.indexOf(image)}
                       src={image}
                     />
                   );
@@ -263,7 +286,7 @@ function UserInfo() {
                   return (
                     <img
                       className="route_image"
-                      key={postImages.indexOf(image)}
+                      key={sharedImages.indexOf(image)}
                       src={image}
                     />
                   );
