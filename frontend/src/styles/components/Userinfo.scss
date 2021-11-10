@@ -1,121 +1,120 @@
-.profile{
-display: flex;
+.profile {
+  display: flex;
 
-font-family: Montserrat;
-font-style: normal;
-font-weight: 600;
-font-size: 28px;
-line-height: 34px;
-color: #57CEB9;
-margin-top: 3%;
-margin-left: 10%;
-margin-bottom: 3%;
+  font-family: Montserrat;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 28px;
+  line-height: 34px;
+  color: #57ceb9;
+  margin-top: 3%;
+  margin-left: 10%;
+  margin-bottom: 3%;
 }
-.email, .name{
-    display: flex;
-    flex-direction: row;
-    margin-bottom: 2%;
+.email,
+.name {
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 2%;
 }
-.name{
-    margin-top: 2%;
+.name {
+  margin-top: 2%;
 }
 .edit-btn {
-    margin-top: 2%;
-    background: #F5F6F9;
-    border-radius: 6px;
-    
-  }
-
-.showProfile{
-    display: flex;
-    flex-direction: row;
-
-}
-.basicInfo{
-    width: 70%;
-    margin-left: 15%;
-    margin-right: 20%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
-.profileImage{
-    border-radius:50%;
-    width: 70%;
-    margin-left: 50%;
-}
-.field{
-width: 40%;
-font-family: Montserrat;
-font-style: normal;
-color: #000000;
+  margin-top: 2%;
+  background: #f5f6f9;
+  border-radius: 6px;
 }
 
-.value{
-font-family: Montserrat;
-font-style: normal;    
-color: #9F9F9F;
+.showProfile {
+  display: flex;
+  flex-direction: row;
+}
+.basicInfo {
+  width: 70%;
+  margin-left: 15%;
+  margin-right: 20%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.profileImage {
+  border-radius: 50%;
+  width: 70%;
+  margin-left: 50%;
+}
+.field {
+  width: 40%;
+  font-family: Montserrat;
+  font-style: normal;
+  color: #000000;
 }
 
-.line{
-width: 100%;
-height: 0px;
-
-
-border: 0.3px solid #969696;
+.value {
+  font-family: Montserrat;
+  font-style: normal;
+  color: #9f9f9f;
 }
 
-.Folder{
-    display: flex;
-    flex-direction: row;
-}
-.folderHead{
-font-family: Montserrat;
-font-style: normal;
+.line {
+  width: 100%;
+  height: 0px;
 
-color: #57CEB9;
+  border: 0.3px solid #969696;
 }
 
-.left{
-width: 30%;
-height: 100%;
-margin-left : 10%;
-background: #F5F6F9;
-border-radius: 6px;
-margin-bottom: 10%;;
+.Folder {
+  display: flex;
+  flex-direction: row;
+}
+.folderHead {
+  font-family: Montserrat;
+  font-style: normal;
+
+  color: #57ceb9;
 }
 
-.right{
-display: flex;
-width: 100%;
-background: #F5F6F9;
-border-radius: 6px;
+.left {
+  width: 30%;
+  height: 100%;
+  margin-left: 10%;
+  background: #f5f6f9;
+  border-radius: 6px;
+  margin-bottom: 10%;
 }
-.eachItem{
-display: flex;
-flex-direction: row;
-background: #ffffff;
-width: 90%;
-margin-left: 5%;
-margin-right: 5%;
+
+.right {
+  display: flex;
+  width: 100%;
+  background: #f5f6f9;
+  border-radius: 6px;
+}
+.eachItem {
+  display: flex;
+  flex-direction: row;
+  background: #ffffff;
+  width: 90%;
+  margin-left: 5%;
+  margin-right: 5%;
 }
 
 .eachItem:hover {
-    background: #E2E3E9;
-    box-shadow: 0px 0px 0px transparent;
-    border: 0px solid transparent;
-    text-shadow: 0px 0px 0px transparent;
-    cursor: pointer;
-  }
-
-.folder_name{
-    width: 80%;
+  background: #e2e3e9;
+  box-shadow: 0px 0px 0px transparent;
+  border: 0px solid transparent;
+  text-shadow: 0px 0px 0px transparent;
+  cursor: pointer;
 }
 
-.icon{
-    width: 4%;
+.folder_name {
+  width: 80%;
 }
-.folders{
-    display: flex;
-    flex-direction: row;
+
+.icon {
+  width: 4%;
+  cursor: pointer;
+}
+.folders {
+  display: flex;
+  flex-direction: row;
 }
