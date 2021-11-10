@@ -1,0 +1,41 @@
+@import '../../Variables/Variables.scss';
+
+#map {
+  width: 26.1vw;
+  height: 36.77vw;
+  margin-bottom: 2.6vw;
+}
+
+.map-container {
+  background-color: #FFFFFF;
+  display: inline-block;
+  padding: 0.885vw 1.875vw 2.34vw 1.875vw;
+  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
+  border-radius: 6px;
+  justify-content: center;
+}
+
+.map-title {
+  margin-bottom: 1.145vw;
+  font-family: $mainFont;
+  font-weight: 600;
+  font-size: 2rem;
+  line-height: 2.437rem;
+  color: #000000;
+}
+
+.map-create-btn {
+  background-color: #57CEB9;
+  margin: 0 auto;
+  padding: 0.625vw 3.23vw;
+  width: max-content;
+  border-radius: 6px;
+  font-weight: 600;
+  font-size: 1.125rem;
+  line-height: 1.375rem;
+  color: #FFFFFF;
+}
+
+.map-create-btn:hover {
+  background-color: #95ECDC;
+}

@@ -5,6 +5,8 @@ import {
   SIGNIN_FAIL,
   SIGNOUT_SUCCESS,
   SIGNOUT_FAIL,
+  EDIT_PROFILE_SUCCESS,
+  EDIT_PROFILE_FAIL,
 } from '../actionTypes';
 import { UserDispatchType, UserType } from './userInterfaces';
 
@@ -18,10 +20,10 @@ axios.defaults.xsrfHeaderName = 'X-CSRFTOKEN';
 
 export const signinAction = (formData: SigninFormType, callbackFunc: (value: boolean) => void) => {
   return (dispatch: Redux.Dispatch<UserDispatchType>) => {
-    return axios.post<{ logged_user: UserType}>('/user/signin/', formData)
+    return axios.post<{ logged_user: UserType }>('/user/signin/', formData)
       .then(res => {
         dispatch({ type: SIGNIN_SUCCESS, payload: res.data.logged_user });
-        sessionStorage.setItem('isAuthorized', 'true');
+        localStorage.setItem('isAuthorized', 'true');
         callbackFunc(true);
       })
       .catch(() => {
@@ -35,8 +37,25 @@ export const signoutAction = () => {
     return axios.post('/user/signout/')
       .then(() => {
         dispatch({ type: SIGNOUT_SUCCESS });
-        sessionStorage.removeItem('isAuthorized');
+        localStorage.removeItem('isAuthorized');
       })
       .catch(() => dispatch({ type: SIGNOUT_FAIL }));
+  }
+}
+
+export const editProfileAction = (user_id: number, formData: any, callbackFunc: (value: boolean) => void) => {
+  return (dispatch: Redux.Dispatch<UserDispatchType>) => {
+    return axios.post<{ logged_user: UserType }>(`/user/${user_id}/edit/`, formData, {
+      headers: {
+        'content-type': 'multipart/form-data'
+      }
+    })
+      .then(res => {
+        dispatch({ type: EDIT_PROFILE_SUCCESS, payload: res.data.logged_user });
+        callbackFunc(true);
+      })
+      .catch(() => {
+        dispatch({ type: EDIT_PROFILE_FAIL });
+      });
   }
 }
