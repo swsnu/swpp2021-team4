@@ -6,7 +6,7 @@
 
 .place-container .place-title {
   font-family: "Noto Sans CJK KR";
-  font-size: 35px;
+  font-size: 30px;
   margin-left: 2vh;
 }
 
@@ -65,10 +65,12 @@
 }
 
 .place-cart-button {
+  border: none;
   border-radius: 50%;
   padding: 6px;
   height: 35px;
   text-align: center;
+  cursor: pointer;
   background-color: #c7eee7;
 }
 
@@ -78,5 +80,9 @@
 
 .text {
   overflow: auto;
+}
+
+.invisible {
+  display: None;
 }
 /*# sourceMappingURL=Place.css.map */

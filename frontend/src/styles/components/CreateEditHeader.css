@@ -1,0 +1,162 @@
+*, *:before, *:after {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+html, body, div, span, object, iframe, figure, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, code, em, img, small, strike, strong, sub, sup, tt, b, u, i, ol, ul, li, fieldset, form, label, table, caption, tbody, tfoot, thead, tr, th, td, main, canvas, embed, footer, header, nav, section, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -webkit-text-size-adjust: none;
+     -moz-text-size-adjust: none;
+      -ms-text-size-adjust: none;
+          text-size-adjust: none;
+}
+
+footer, header, nav, section, main {
+  display: block;
+}
+
+body {
+  line-height: 1;
+}
+
+ol, ul {
+  list-style: none;
+}
+
+blockquote, q {
+  quotes: none;
+}
+
+blockquote:before, blockquote:after, q:before, q:after {
+  content: '';
+  content: none;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+input {
+  -webkit-appearance: none;
+  border-radius: 0;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+.post-ce-container {
+  margin: 0px 10vw;
+}
+
+.post-ce-header {
+  width: 100%;
+  min-height: 173px;
+  border-radius: 6px;
+  -webkit-box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
+          box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+}
+
+.post-ce-header input {
+  font-weight: 500;
+  font-size: 1.25rem;
+  line-height: 1.5rem;
+  max-height: 41px;
+  color: #000000;
+}
+
+.post-ce-header input::-webkit-input-placeholder {
+  color: #A7A9AF;
+}
+
+.post-ce-header input:-ms-input-placeholder {
+  color: #A7A9AF;
+}
+
+.post-ce-header input::-ms-input-placeholder {
+  color: #A7A9AF;
+}
+
+.post-ce-header input::placeholder {
+  color: #A7A9AF;
+}
+
+.post-ce-header .header-image {
+  display: inline-block;
+}
+
+.post-ce-header .header-image img {
+  width: 210px;
+  height: 160px;
+}
+
+.post-ce-header .post-ce-info-container {
+  padding: 1.2vw 18.23vw 1.2vw 2.47vw;
+  -webkit-box-flex: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1;
+}
+
+.post-ce-header .post-ce-folder-name {
+  font-weight: 500;
+  font-size: 1.5rem;
+  line-height: 1.812rem;
+  color: #000000;
+}
+
+.post-ce-header .post-ce-info-first-line {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin-top: 3px;
+  margin-bottom: 14px;
+}
+
+.post-ce-header .post-ce-info-first-line input {
+  font-weight: 600;
+  font-size: 2rem;
+  line-height: 2.437rem;
+}
+
+.post-ce-header .post-ce-info-first-line .post-ce-title {
+  -webkit-box-flex: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1;
+  margin-right: auto;
+  max-width: '26vw';
+}
+
+.post-ce-header .post-ce-info-second-line {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  width: 100%;
+}
+/*# sourceMappingURL=CreateEditHeader.css.map */
