@@ -32,7 +32,7 @@ function PostDetail() {
     setClicked(false);
     return clicked;
   };
-  const onClickFolderSelect = (folderId:number) => {
+  const onClickFolderSelect = (folderId: number) => {
     alert("장바구니에 성공적으로 담겼습니다!");
     setClicked(true);
     dispatch(cartPostAction(Number(id), folderId));
@@ -154,7 +154,7 @@ function PostDetail() {
               return (
                 <div
                   className="folder-modal-name"
-                  onClick={() => onClickFolderSelect()}
+                  onClick={() => onClickFolderSelect(folder.id)}
                   key={folder.id}
                 >
                   {folder.name}

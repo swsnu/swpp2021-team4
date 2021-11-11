@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Redirect } from "react-router-dom";
 import { signup } from "../api/userApi";
-import '../styles/components/Signup.scss';
+import '../styles/components/Signup.css';
 
 function Signup() {
   const [userInputs, setUserInputs] = useState({
