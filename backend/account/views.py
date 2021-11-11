@@ -7,7 +7,7 @@ import json
 from json.decoder import JSONDecodeError
 
 from .models import User
-from route.models import Folder, Post, Comment, Like
+from route.models import Folder, Post, Comment, Like, PostInFolder
 from .forms import UserForm
 
 @require_http_methods(["POST"])
@@ -193,6 +193,9 @@ def user_folder(request, user_id, fid):
     except Folder.DoesNotExist:   # Wrong id
         return HttpResponse(status=401)
 
+    post_in_folder_ids = PostInFolder.objects.filter(folder=folder).values_list('post_id', flat=True)
+    posts_in_folder = Post.objects.filter(id__in=list(post_in_folder_ids))
+
     response_dict = {
         'posts': [ {
             'id': post.id,
@@ -203,7 +206,7 @@ def user_folder(request, user_id, fid):
             'like_count': post.like_users.count(), 
             'comment_count': Comment.objects.filter(post=post).count(),
             'is_shared': post.is_shared
-        } for post in Post.objects.filter(folder=folder) ]
+        } for post in posts_in_folder ]
     }
 
     return JsonResponse(response_dict, safe=False)

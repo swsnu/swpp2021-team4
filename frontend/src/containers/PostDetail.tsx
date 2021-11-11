@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 import { usePostState } from "../hooks/usePostState";
-import { getPostAction } from "../store/Post/postAction";
+import { cartPostAction, getPostAction } from "../store/Post/postAction";
 import border from "../static/post_info_border.svg";
 import "../styles/PostDetail.css";
 import "../styles/components/Place.scss";
@@ -34,6 +34,10 @@ function PostDetail() {
   const onClickAddRouteCartButton = () => {
     return null;
   };
+  const onCartPost = (folderId: number) => {
+    dispatch(cartPostAction(Number(id), folderId));
+  }
+
   // place의 타입 정의 후 any 고치기
   const post = usePostState();
   console.log(post);
@@ -108,7 +112,7 @@ function PostDetail() {
           </div>
         </div>
         <div className="header-content-right">
-          <button className="post-cart-button">Add this route to Cart</button>
+          <button className="post-cart-button" onClick={() => onCartPost(2)}>Add this route to Cart</button>
         </div>
       </div>
       <div className="post-detail-body">
