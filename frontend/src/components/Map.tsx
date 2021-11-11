@@ -16,12 +16,12 @@ const dummyPlaces = [
   {day: 1, name: '서운중학교', lat: 37.493508152438245, lon: 127.0247135738803},
 ]
 
-interface DummyPlace {
-  day: number
-  name: string
-  lat: number
-  lon: number
-}
+// interface DummyPlace {
+//   day: number
+//   name: string
+//   lat: number
+//   lon: number
+// }
 
 interface PropType {
   // marks: any
@@ -29,10 +29,11 @@ interface PropType {
   // days: number
   location?: string
   selectedDay?: number
+  placeList?: any[]
 }
 
 function Map(props: PropType) {
-  const { location, selectedDay } = props;
+  const { location, selectedDay, placeList = dummyPlaces } = props;
   const [markers, setMarkers] = useState<any>([]);
   const map = useRef<any>();
 
@@ -44,24 +45,26 @@ function Map(props: PropType) {
     };
 
     map.current = new kakao.maps.Map(container, options);
-    if (map && dummyPlaces) {
+    if (map && placeList) {
       console.log('map loaded!');
     }
   }, []);
 
   useEffect(() => {
-    const allMarkers = dummyPlaces.map((mark: DummyPlace) => {
-      const { day, lat, lon } = mark;
+    console.log(placeList);
+    const allMarkers = placeList.map((mark: any) => {
+      console.log('mark', mark);
+      const { day, place } = mark;
       return {
         day,
         marker: new kakao.maps.Marker({
           map: day === selectedDay ? map.current : null,
-          position: new kakao.maps.LatLng(lat, lon),
+          position: new kakao.maps.LatLng(place.lat, place.lon),
         })
       };
     });
     setMarkers(allMarkers);
-  }, [dummyPlaces]);
+  }, [placeList]);
 
   useEffect(() => {
     markers.forEach((mark: any) => mark.day !== selectedDay ? mark.marker.setMap(null) : mark.marker.setMap(map.current));
