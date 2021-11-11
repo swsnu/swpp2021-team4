@@ -4,31 +4,32 @@ import Map from "../components/Map";
 import MyRoutesSection from "../components/MyRoutesSection";
 import PlaceSearchSection from "../components/PlaceSearchSection";
 import { usePostState } from "../hooks/usePostState";
-import '../styles/components/CreateEditPost.scss';
+import "../styles/components/CreateEditPost.scss";
 
 export interface PostInfoDataType {
-  title: string
-  location: string
-  days: number
-  seasonRecommendation: string
-  theme: string
-  image: string
-  availableWithoutCar: boolean
+  title: string;
+  location: string;
+  days: number;
+  seasonRecommendation: string;
+  theme: string;
+  image: string;
+  availableWithoutCar: boolean;
 }
 const initialFolderData: PostInfoDataType = {
-  title: '',
-  location: '',
+  title: "",
+  location: "",
   days: 3,
-  seasonRecommendation: '',
-  theme: '',
-  image: '',
+  seasonRecommendation: "",
+  theme: "",
+  image: "",
   availableWithoutCar: false,
-}
+};
 
 function CreateEditPost() {
   const post = usePostState();
-  const [postInfoData, setPostInfoData] = useState<PostInfoDataType>(initialFolderData);
-  const [locationQuery, setLocationQuery] = useState('');
+  const [postInfoData, setPostInfoData] =
+    useState<PostInfoDataType>(initialFolderData);
+  const [locationQuery, setLocationQuery] = useState("");
   const [selectedDay, setSelectedDay] = useState(1);
 
   const [routePlaces, setRoutePlaces] = useState<any[]>([]);
@@ -40,31 +41,40 @@ function CreateEditPost() {
   const [selectedTab, setSelectedTab] = useState<'place' | 'search'>('place');
   // const [searchResults, setSearchResults] = useState<any>([]);
 
-  const onChangePostInfoData = useCallback((e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-    e.preventDefault();
-    setPostInfoData({
-      ...postInfoData,
-      [e.target.id]: e.target.value
-    });
-  }, [postInfoData]);
+  const onChangePostInfoData = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+      e.preventDefault();
+      setPostInfoData({
+        ...postInfoData,
+        [e.target.id]: e.target.value,
+      });
+    },
+    [postInfoData]
+  );
 
-  const onPressEnterLocation = useCallback((e: React.KeyboardEvent) => {
-    if (e.key === 'Enter') {
-      setLocationQuery(postInfoData.location);
-    }
-  }, [postInfoData.location]);
+  const onPressEnterLocation = useCallback(
+    (e: React.KeyboardEvent) => {
+      if (e.key === "Enter") {
+        setLocationQuery(postInfoData.location);
+      }
+    },
+    [postInfoData.location]
+  );
 
   const onClickDay = useCallback((value: number) => {
     setSelectedDay(value);
   }, []);
 
-  const onClickAddIcon = useCallback((value: number) => {
-    if (postInfoData.days !== value) {
-      setPostInfoData({ ...postInfoData, days: value });
-    }
-  }, [postInfoData.days]);
+  const onClickAddIcon = useCallback(
+    (value: number) => {
+      if (postInfoData.days !== value) {
+        setPostInfoData({ ...postInfoData, days: value });
+      }
+    },
+    [postInfoData.days]
+  );
 
-  const onClickTabButton = (type: 'search' | 'place') => {
+  const onClickTabButton = (type: "search" | "place") => {
     setSelectedTab(type);
   };
 
@@ -86,7 +96,6 @@ function CreateEditPost() {
         onPressEnterLocation={onPressEnterLocation}
       />
       <div className="create-edit-content-container">
-
         <div className="create-edit-place-section">
           <div className="create-edit-places-section">
             <div className="my-routes-title">Places</div>

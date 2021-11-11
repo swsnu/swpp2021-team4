@@ -1,10 +1,18 @@
-import { GET_POSTS_SUCCESS, GET_POSTS_FAIL, GET_POST_SUCCESS, GET_POST_FAIL } from "../actionTypes";
-
+import {
+  GET_POSTS_SUCCESS,
+  GET_POSTS_FAIL,
+  GET_POST_SUCCESS,
+  GET_POST_FAIL,
+  CART_POST_SUCCESS,
+  CART_POST_FAIL
+} from "../actionTypes";
+import { Folder } from "../User/userInterfaces";
 import { PostDispatchType, PostType } from "./postInterfaces";
 
 export type PostStateType = {
   posts: PostType[];
   detailedPost: PostType;
+  selectedFolder: Folder;
 };
 
 const initialState: PostStateType = {
@@ -28,6 +36,10 @@ const initialState: PostStateType = {
     season: "",
     theme: "",
     title: "",
+  },
+  selectedFolder: {
+    id: 0,
+    name: "",
   }
 };
 
@@ -43,6 +55,10 @@ export default (
     case GET_POST_SUCCESS:
       return { ...state, detailedPost: action.payload };
     case GET_POST_FAIL:
+      return { ...state };
+    case CART_POST_SUCCESS:
+      return { ...state, selectedFolder: action.payload };
+    case CART_POST_FAIL:
       return { ...state };
     default:
       return { ...state };

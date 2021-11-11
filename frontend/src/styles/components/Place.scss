@@ -6,7 +6,7 @@
   margin: 20px;
   .place-title {
     font-family: $koreanFont;
-    font-size: 35px;
+    font-size: 30px;
     margin-left: 2vh;
   }
   .place-description {
@@ -55,10 +55,12 @@
 }
 
 .place-cart-button {
+  border: none;
   border-radius: 50%;
   padding: 6px;
   height: 35px;
   text-align: center;
+  cursor: pointer;
   background-color: $lightMintColor;
   &:hover {
     background-color: $darkMintColor;
@@ -67,4 +69,8 @@
 
 .text {
   overflow: auto;
+}
+
+.invisible {
+  display: None;
 }
