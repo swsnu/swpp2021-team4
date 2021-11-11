@@ -24,6 +24,10 @@ const initialState: PostStateType = {
     theme: "",
     title: "",
   },
+  selectedFolder: {
+    id: 0,
+    name: "",
+  }
 };
 export const usePostState = () => {
   const post = useSelector(

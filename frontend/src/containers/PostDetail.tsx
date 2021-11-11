@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useParams, NavLink } from "react-router-dom";
 import { usePostState } from "../hooks/usePostState";
-import { getPostAction } from "../store/Post/postAction";
+import { cartPostAction, getPostAction } from "../store/Post/postAction";
 import border from "../static/post_info_border.svg";
 import "../styles/PostDetail.css";
 import "../styles/components/Place.scss";
@@ -32,10 +32,12 @@ function PostDetail() {
     setClicked(false);
     return clicked;
   };
-  const onClickFolderSelect = () => {
+  const onClickFolderSelect = (folderId:number) => {
     alert("장바구니에 성공적으로 담겼습니다!");
     setClicked(true);
+    dispatch(cartPostAction(Number(id), folderId));
   };
+
   // place의 타입 정의 후 any 고치기
   const post = usePostState();
   const folders = useFolderState();

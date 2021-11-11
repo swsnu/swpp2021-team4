@@ -1,4 +1,5 @@
-import { GET_POSTS_SUCCESS, GET_POSTS_FAIL, GET_POST_SUCCESS, GET_POST_FAIL } from "../actionTypes";
+import { GET_POSTS_SUCCESS, GET_POSTS_FAIL, GET_POST_SUCCESS, GET_POST_FAIL, CART_POST_SUCCESS, CART_POST_FAIL } from "../actionTypes";
+import { Folder } from "../User/userInterfaces";
 
 export interface PostType {
   id: number;
@@ -73,4 +74,13 @@ export interface GetPostFail {
   type: typeof GET_POST_FAIL;
 }
 
-export type PostDispatchType = GetPostsSuccess | GetPostsFail | GetPostSuccess | GetPostFail;
+export interface CartPostSuccess {
+  type: typeof CART_POST_SUCCESS;
+  payload: Folder;
+}
+
+export interface CartPostFail {
+  type: typeof CART_POST_FAIL;
+}
+
+export type PostDispatchType = GetPostsSuccess | GetPostsFail | GetPostSuccess | GetPostFail | CartPostSuccess | CartPostFail;
