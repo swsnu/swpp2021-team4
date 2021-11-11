@@ -18,7 +18,7 @@ export interface UserType {
 }
 
 export interface Folder {
-  id: number
+  id: number,
   name: string
 }
 

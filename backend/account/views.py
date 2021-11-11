@@ -195,6 +195,7 @@ def user_folder(request, user_id, fid):
             'thumbnail_image': post.thumbnail_image.url if post.thumbnail_image else None,
             'title': post.title,
             'author': post.author.username,
+            'author_id': post.author.id,
             'like_count': post.like_users.count(), 
             'comment_count': Comment.objects.filter(post=post).count(),
             'is_shared': post.is_shared
@@ -262,6 +263,7 @@ def user_likes(request, user_id):
             'thumbnail_image': post.thumbnail_image.url if post.thumbnail_image else None,
             'title': post.title,
             'author': post.author.username,
+            'author_id': post.author.id,
             'like_count': post.like_users.count(), 
             'comment_count': Comment.objects.filter(post=post).count(),
             'is_shared': post.is_shared
@@ -285,6 +287,7 @@ def user_shares(request, user_id):
             'thumbnail_image': post.thumbnail_image.url if post.thumbnail_image else None,
             'title': post.title,
             'author': post.author.username,
+            'author_id': post.author.id,
             'like_count': post.like_users.count(), 
             'comment_count': Comment.objects.filter(post=post).count(),
             'is_shared': post.is_shared
