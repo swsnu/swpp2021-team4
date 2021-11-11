@@ -46,7 +46,6 @@ function UserInfo() {
     email: "",
     username: "",
   });
-
   const onEditProfile = () => {
     setIsSubmitted(true);
   };
