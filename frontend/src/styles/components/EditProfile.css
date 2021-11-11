@@ -1,0 +1,48 @@
+.inputs {
+  width: 100%;
+  margin-left: 20%;
+  margin-bottom: 3%;
+  height: 30px;
+}
+
+.inputs {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+}
+
+.label {
+  font-family: Montserrat;
+  font-style: normal;
+  color: #57CEB9;
+  width: 20%;
+}
+
+.edit-profile-btn {
+  background-color: #95ECDC;
+  padding: 0.647vw .76vw;
+  border-radius: 6px;
+  font-weight: bold;
+  font-size: 1.125rem;
+  line-height: 1.375rem;
+  color: #FFFFFF;
+  float: right;
+}
+
+.edit-profile-container {
+  margin-top: 5%;
+  width: 80%;
+  background-color: #e2e3e9;
+  padding-top: 2%;
+  padding-bottom: 1%;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin-left: 10%;
+  border-radius: 2%;
+}
+/*# sourceMappingURL=EditProfile.css.map */
