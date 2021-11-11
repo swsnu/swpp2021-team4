@@ -179,7 +179,7 @@ function UserInfo() {
               loggedUser.folders.map((fold: Folder) => {
                 if (folderInputs.folderId === fold.id) {
                   return (
-                    <div className="folder_input_container">
+                    <div className="folder_input_container eachItem">
                       <input
                         id="edit_folder_input"
                         type="text"

@@ -1,55 +1,55 @@
-.info{
-    display: flex;
-    flex-direction: row;
+@import "../../Variables/Variable.scss";
+.info {
+  display: flex;
+  flex-direction: row;
 }
-.author_name{
-    font-family: Montserrat;
-    font-style: normal;
-    font-weight: 400px;
-    font-size: 15px;
-    color: #ffffff;
-    padding: 2px 2px 2px 2px;
-    background-color: #57CEB9;
-    border-radius: 10%;
-    justify-content: end;
+.author_name {
+  font-family: Montserrat;
+  font-style: normal;
+  font-weight: 400px;
+  font-size: 15px;
+  color: #ffffff;
+  padding: 2px 2px 2px 2px;
+  background-color: #57ceb9;
+  border-radius: 10%;
+  justify-content: end;
+  height: 20px;
 }
-.title{
-    font-family: Noto Sans CJK KR;
-    font-style: normal;
-    font-weight: 600px;
-    font-size: 25px;
-}
-
-.search-research{
-font-family: Montserrat;
-font-style: normal;
-font-weight: 600;
-font-size: 28px;
-line-height: 34px;
-
-color: #57CEB9;
-}
-.postitem-container{
-    width: 33%;
-    height: width;
-    overflow:hidden;
-    .thumbnail{
-        width:300px;
-        height:300px;
-    }
+.title {
+  margin: 5px;
+  font-family: $koreanFont;
+  font-style: normal;
+  font-weight: 600px;
+  font-size: 25px;
 }
 
-.search-research-content{
-    display:flex;
-    justify-content: space-between;
-    flex-wrap:wrap;
-    margin-left: 5%;
-    margin-right: 5%;
-}
-.postitem-container{
- margin-top:3%;
-}
-.search-research{
-    margin-left: 5%;
+.search-research {
+  font-family: Montserrat;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 28px;
+  line-height: 34px;
 
+  color: #57ceb9;
+}
+.postitem-container {
+  margin: 20px;
+  width: 40vh;
+  height: 30vh;
+  overflow: hidden;
+  .thumbnail img {
+    width: 200px;
+    height: 200px;
+  }
+}
+
+.search-research-content {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  margin-left: 5%;
+  margin-right: 5%;
+}
+.search-research {
+  margin-left: 5%;
 }

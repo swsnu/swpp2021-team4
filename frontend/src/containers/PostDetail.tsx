@@ -1,6 +1,6 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useParams, NavLink } from "react-router-dom";
 import { usePostState } from "../hooks/usePostState";
 import { getPostAction } from "../store/Post/postAction";
 import border from "../static/post_info_border.svg";
@@ -20,29 +20,26 @@ function PostDetail() {
     id: number;
     name: string;
   }
-  // const [toggle, setToggle] = useState<number[]>([]);
-  // const appendToggle = (id: number) => {
-  //   const newToggle = toggle.concat(id);
-  //   setToggle(newToggle);
-  //   return toggle;
-  // };
-  // const removeToggle = (id: number) => {
-  //   const newToggle = toggle.filter((_id) => _id !== id);
-  //   setToggle(newToggle);
-  //   return toggle;
-  // };
+
   const dispatch = useDispatch();
   const { id } = useParams<String>();
   useEffect(() => {
     dispatch(getPostAction(Number(id)));
+    console.log("did");
   }, [dispatch, id]);
-  const onClickAddRouteCartButton = () => {
-    return null;
+  const [clicked, setClicked] = useState(true);
+  const onClickAddPostCartButton = () => {
+    setClicked(false);
+    return clicked;
+  };
+  const onClickFolderSelect = () => {
+    alert("장바구니에 성공적으로 담겼습니다!");
+    setClicked(true);
   };
   // place의 타입 정의 후 any 고치기
   const post = usePostState();
   const folders = useFolderState();
-  console.log(post);
+  // console.log(post);
   console.log(folders);
   // const folderMapping = () => {
   //   folders.map((folder: FolderType) => {
@@ -66,7 +63,7 @@ function PostDetail() {
                     key={days.index}
                     place={dayPlace}
                     icon={cart}
-                    onClickButton={() => onClickAddRouteCartButton()}
+                    onClickButton={() => onClickAddPostCartButton()}
                   />
                 );
               })}
@@ -112,7 +109,11 @@ function PostDetail() {
               </div>
             </div>
             <div className="header-bottom">
-              <div className="post-author">{post.author_name}</div>
+              <div className="post-author">
+                <NavLink to={`/user_info/${post.author_id}/`}>
+                  {post.author_name}
+                </NavLink>
+              </div>
               <div className="post-tag-container">
                 <span className="post-tag">{postSeason()}</span>
                 <span className="post-tag">{postTheme()}</span>
@@ -123,7 +124,12 @@ function PostDetail() {
             </div>
           </div>
           <div className="header-content-right">
-            <button className="post-cart-button">Add this route to Cart</button>
+            <button
+              className="post-cart-button"
+              onClick={() => onClickAddPostCartButton()}
+            >
+              Add this route to Cart
+            </button>
           </div>
         </div>
         <div className="post-detail-body">
@@ -133,11 +139,36 @@ function PostDetail() {
           </div>
         </div>
       </div>
-      <div className="folder-select-modal">
-        {folders &&
-          folders.items.map((folder: FolderType) => {
-            return <div key={folder.id}>{folder.name}</div>;
-          })}
+      <div className={`folder-select-modal ${clicked && `invisible`}`}>
+        <div className="folder-modal-top">
+          <div className="folder-modal-title">Select a Folder!</div>
+          <button className="close-button" onClick={() => setClicked(true)}>
+            X
+          </button>
+        </div>
+        <div className="folder-modal-middle">
+          {folders &&
+            folders.map((folder: FolderType) => {
+              return (
+                <div
+                  className="folder-modal-name"
+                  onClick={() => onClickFolderSelect()}
+                  key={folder.id}
+                >
+                  {folder.name}
+                </div>
+              );
+            })}
+          {/* <div className="add-folder">Add Folder</div> */}
+        </div>
+        <div className="folder-modal-bottom">
+          {/* <button
+            className="folder-select-button"
+            onClick={() => onClickFolderSelect()}
+          >
+            Select
+          </button> */}
+        </div>
       </div>
     </>
   );

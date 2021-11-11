@@ -3,32 +3,6 @@
   margin: 0;
 }
 
-button {
-  background: transparent;
-  -webkit-box-shadow: 0px 0px 0px transparent;
-          box-shadow: 0px 0px 0px transparent;
-  border: 0px solid transparent;
-  text-shadow: 0px 0px 0px transparent;
-}
-
-button:hover {
-  background: #57CEB9;
-  -webkit-box-shadow: 0px 0px 0px transparent;
-          box-shadow: 0px 0px 0px transparent;
-  border: 0px solid transparent;
-  text-shadow: 0px 0px 0px transparent;
-  cursor: pointer;
-}
-
-button:active {
-  outline: none;
-  border: none;
-}
-
-button:focus {
-  outline: 0;
-}
-
 .signin-background {
   position: absolute;
   width: 100%;
@@ -65,7 +39,33 @@ button:focus {
   max-width: 25.88vw;
 }
 
-input {
+.signin-form-container button {
+  background: transparent;
+  -webkit-box-shadow: 0px 0px 0px transparent;
+          box-shadow: 0px 0px 0px transparent;
+  border: 0px solid transparent;
+  text-shadow: 0px 0px 0px transparent;
+}
+
+.signin-form-container button:hover {
+  background: #57CEB9;
+  -webkit-box-shadow: 0px 0px 0px transparent;
+          box-shadow: 0px 0px 0px transparent;
+  border: 0px solid transparent;
+  text-shadow: 0px 0px 0px transparent;
+  cursor: pointer;
+}
+
+.signin-form-container button:active {
+  outline: none;
+  border: none;
+}
+
+.signin-form-container button:focus {
+  outline: 0;
+}
+
+.signin-form-container input {
   background-color: #F6F6F9;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
@@ -78,27 +78,27 @@ input {
   color: #000000;
 }
 
-input::-webkit-input-placeholder {
+.signin-form-container input::-webkit-input-placeholder {
   color: #CACBD2;
 }
 
-input:-ms-input-placeholder {
+.signin-form-container input:-ms-input-placeholder {
   color: #CACBD2;
 }
 
-input::-ms-input-placeholder {
+.signin-form-container input::-ms-input-placeholder {
   color: #CACBD2;
 }
 
-input::placeholder {
+.signin-form-container input::placeholder {
   color: #CACBD2;
 }
 
-input + input {
+.signin-form-container input + input {
   margin-top: 0.937vw;
 }
 
-.signin-btn {
+.signin-form-container .signin-btn {
   background-color: #95ECDC;
   margin-top: 2.5vw;
   padding: 0.677vw 2.76vw;

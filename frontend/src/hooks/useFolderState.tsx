@@ -15,7 +15,7 @@ const initialState: UserStateType = {
 export const useFolderState = () => {
   const folders = useSelector(
     (state: RootReducerType) =>
-      state.user.loggedUser || initialState.loggedUser
+      state.user.loggedUser.folders || initialState.loggedUser.folders
   );
   return folders;
 };

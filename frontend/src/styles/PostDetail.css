@@ -187,7 +187,8 @@ input {
 }
 
 .post-detail-header .header-content-right {
-  margin-right: 0px;
+  margin-left: 100px;
+  margin-top: 50px;
 }
 
 .post-detail-header .header-content-right .post-cart-button {
@@ -196,6 +197,9 @@ input {
   height: 30px;
   padding: 10px;
   line-height: 50%;
+  cursor: pointer;
+  border: none;
+  font-family: "Montserrat";
 }
 
 .post-detail-body {
@@ -233,5 +237,95 @@ input {
   border-radius: 6px;
   height: 200px;
   margin: 20px 0px;
+}
+
+.folder-select-modal {
+  z-index: 2;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-right: 100px;
+  height: 600px;
+  width: 400px;
+  background-color: #ffffff;
+  border-radius: 6px;
+  -webkit-box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.15);
+          box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.15);
+}
+
+.folder-select-modal .folder-modal-top {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.folder-select-modal .folder-modal-top .folder-modal-title {
+  margin: 20px;
+  font-family: "Montserrat";
+  font-size: 35px;
+  color: #57ceb9;
+  font-weight: bold;
+}
+
+.folder-select-modal .folder-modal-top .close-button {
+  background-color: transparent;
+  border: none;
+  border-radius: 30px;
+  background-color: #95ecdc;
+  color: #ffffff;
+  cursor: pointer;
+  width: 30px;
+  height: 30px;
+}
+
+.folder-select-modal .folder-modal-middle {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.folder-select-modal .folder-modal-middle .folder-modal-name {
+  margin: 10px;
+  height: 50px;
+  font-family: "Montserrat";
+  font-size: 20px;
+  text-align: left;
+  padding: 20px;
+  line-height: 50%;
+  background-color: #f5f6f9;
+  cursor: pointer;
+}
+
+.folder-select-modal .folder-modal-middle .folder-modal-name:hover {
+  background-color: #95ecdc;
+}
+
+.folder-select-modal .folder-modal-bottom {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.folder-select-modal .folder-select-button {
+  border: none;
+  cursor: pointer;
+  width: 80px;
+  height: 50px;
+  border-radius: 15px;
+  font-family: "Montserrat";
+  font-weight: 500;
+  font-size: 20px;
+  text-align: center;
+  line-height: 120%;
 }
 /*# sourceMappingURL=PostDetail.css.map */

@@ -1,7 +1,7 @@
 import React from "react";
 
 function SearchInfo() {
-  return <div>SearchInfo component</div>;
+  return <div></div>;
 }
 
 export default SearchInfo;
