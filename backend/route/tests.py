@@ -1,6 +1,6 @@
 from django.test import TestCase, Client
 from account.models import User
-from route.models import Folder, Post, Comment, Place, PostInFolder, Like, PlaceInFolder
+from route.models import Folder, Post, Comment, Place, PostInFolder, Like
 from django.core.files import File
 import json
 class RouteTestCase(TestCase):
@@ -279,7 +279,7 @@ class RouteTestCase(TestCase):
         new_post = Post(title='testTitle', theme='friends', author=user, is_shared=False, folder=folder,availableWithoutCar=False,
         header_image=File(open("./grape.jpg", "rb")), thumbnail_image=File(open("./grape.jpg", "rb")))
         new_post.save()
-        like = Like(user=user, post=new_post)
+        Like(user=user, post=new_post)
         response = client.post('/post/1/like/')
         self.assertEqual(response.status_code, 201)
 
