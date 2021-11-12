@@ -1,0 +1,32 @@
+.place-search-container {
+  background-color: #F5F6F9;
+  padding: 1.04vw;
+  min-height: 700px;
+  width: 430px;
+}
+
+.place-search-container .place-search-tab-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+}
+
+.place-search-container .place-search-tab-container .tab-title {
+  font-weight: 600;
+  font-size: 1.375rem;
+  line-height: 1.6875rem;
+  color: #000000;
+}
+
+.place-search-container .place-search-tab-container .tab-title.selected {
+  text-decoration: underline;
+}
+
+.place-search-container .place-search-tab-container .tab-title + .tab-title {
+  margin-left: 39px;
+}
+/*# sourceMappingURL=PlaceSearchSection.css.map */
