@@ -88,10 +88,8 @@ class AccountTestCase(TestCase):
         user = User.objects.get(email="swpp@swpp.com")
         user.profile_image = File(open("./test_img.jpeg", "rb"))
         user.save()
+        
         Folder.objects.create(name="test folder", user_id=user.id)
-        # client.post('/user/1/folder/new/', json.dumps({
-        #     'folder_name': 'new_folder'
-        #     }), content_type='application/json')
 
         response = client.post('/user/signin/', json.dumps({
             'email': 'swpp@swpp.com',
