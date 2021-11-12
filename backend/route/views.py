@@ -15,9 +15,6 @@ def posts(request):
         comments=[]
         for comment in post.comment_set.all():
             comments.append({'content': comment.content, 'usernmae':comment.author.username})
-        #folder_id=''
-        #if post.folder:
-        #    folder_id=post.folder_id
         postlist.append({
             'id': post.id,
             'title': post.title,

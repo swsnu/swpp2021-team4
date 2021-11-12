@@ -23,8 +23,7 @@ class RouteTestCase(TestCase):
         comment.save()
         response = client.get('/post/')
         self.assertEqual(response.status_code, 200)
-        #path = new_post.header_image.path
-        #self.assertEqual(response.status_code, 200)
+
 
     def test_get_post_other(self):
         user = User.objects.create_user(email="swpp@swpp.com", username="swpp")
@@ -58,8 +57,6 @@ class RouteTestCase(TestCase):
         comment.save()
         response = client.get('/post/1/')
         self.assertEqual(response.status_code, 200)
-        #path = new_post.header_image.path
-        #self.assertEqual(response.status_code, 200)
 
 
     def test_create(self):
@@ -588,8 +585,6 @@ class RouteTestCase(TestCase):
 
         response = client.post('/place/1/cart/1/', content_type='application/json')
         self.assertEqual(response.status_code, 200)
-        #placeInFolder=PlaceInFolder(place=place, folder=folder)
-        #placeInFolder.save()
         response = client.delete('/place/1/cart/1/')
         self.assertEqual(response.status_code, 204)
 
