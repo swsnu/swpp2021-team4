@@ -1,40 +1,20 @@
 .create-edit-content-container {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: row;
-          flex-direction: row;
-  margin: 2.3vw 10vw 0vw 10vw;
-}
-
-.create-edit-content-container .create-edit-place-section {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: row;
-          flex-direction: row;
-  background-color: #FFFFFF;
-  margin-right: 1.97vw;
-  padding-top: 0.885vw;
-  padding: 0.885vw 1.5vw 4.6vw 1.5vw;
-  -webkit-box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
-          box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
-}
-
-.create-edit-content-container .my-routes-title {
-  margin-bottom: 1.145vw;
-  font-family: "Montserrat";
-  font-weight: 600;
-  font-size: 2rem;
-  line-height: 2.437rem;
-  color: #000000;
-}
-
-.create-edit-content-container .create-edit-routes-section {
-  margin-left: 21px;
-}
-/*# sourceMappingURL=CreateEditPost.css.map */
+  flex-direction: row;
+  margin: 2.3vw 10vw 0vw 10vw; }
+  .create-edit-content-container .create-edit-place-section {
+    display: flex;
+    flex-direction: row;
+    background-color: #FFFFFF;
+    margin-right: 1.97vw;
+    padding: 0.885vw 1.5vw 4.6vw 1.5vw;
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1); }
+  .create-edit-content-container .my-routes-title {
+    margin-bottom: 1.145vw;
+    font-family: "Noto Sans CJK KR";
+    font-weight: 600;
+    font-size: 2rem;
+    line-height: 2.437rem;
+    color: #000000; }
+  .create-edit-content-container .create-edit-routes-section {
+    margin-left: 21px; }
