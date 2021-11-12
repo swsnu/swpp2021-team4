@@ -15,9 +15,9 @@ def posts(request):
         comments=[]
         for comment in post.comment_set.all():
             comments.append({'content': comment.content, 'usernmae':comment.author.username})
-        folder_id=''
-        if post.folder:
-            folder_id=post.folder_id
+        #folder_id=''
+        #if post.folder:
+        #    folder_id=post.folder_id
         postlist.append({
             'id': post.id,
             'title': post.title,
@@ -26,7 +26,7 @@ def posts(request):
             'header_image': post.header_image.url if post.header_image else None,
             'thumbnail_image': post.thumbnail_image.url  if post.thumbnail_image else None, 
             'days': post.days,
-            'folder_id': folder_id,
+            'folder_id': post.folder_id,
             'is_shared': post.is_shared,
             'theme':post.theme,
             'comment': comments,
@@ -178,7 +178,7 @@ def post_spec_edit(request, ID):
         else:
             return HttpResponse(status=400)
 
-    elif request.method=='DELETE':
+    else: #delete
         post.delete()
         return HttpResponse(status=204)
 
@@ -207,7 +207,7 @@ def post_cart(request, ID, fid):
         else:
             # already carted
             return HttpResponse(status=204)
-    elif request.method=='DELETE':
+    else: #delete 
         try:
             post_in_folder = PostInFolder.objects.get(folder=folder, post=post)
         except PostInFolder.DoesNotExist:
@@ -227,7 +227,7 @@ def post_like(request, ID):
         like_list = post.like_set.filter(user_id=user.id)
         Like.objects.create(user=user, post=post)
         return JsonResponse({'postLikeUserCount': like_list.count()}, status=201)
-    elif request.method=='DELETE':
+    else : #delete
         post = Post.objects.get(id=ID)
         post.like_set.get(user=user).delete()
         return HttpResponse(status=200)
@@ -251,7 +251,8 @@ def post_comment_post(request, ID):
     except (KeyError, JSONDecodeError):
         return HttpResponseBadRequest()
     user=User.objects.get(id=logged_user_id)
-    comment=Comment.objects.create(ID=ID, content=content,  author=user)
+    post=Post.objects.get(id=ID)
+    comment=Comment.objects.create(post=post, content=content,  author=user)
     Comment.save(comment)
 
     return JsonResponse(
@@ -366,12 +367,9 @@ def place_spec_edit(request, ID):
         return HttpResponse(status=401)
 
     try:
-        place = Post.objects.get(id=ID)
-    except Post.DoesNotExist:   # Wrong place id
+        place = Place.objects.get(id=ID)
+    except Place.DoesNotExist:   # Wrong place id
         return HttpResponse(status=404)
-    
-    if place.author.id != logged_user_id:
-        return HttpResponse(status=403)
 
     if request.method=="PUT":
         try:
@@ -386,7 +384,6 @@ def place_spec_edit(request, ID):
             day=day
         )
         place.save()
-        place.update_date()
 
         response_dict = {
             'id': place.id,
@@ -403,7 +400,7 @@ def place_spec_edit(request, ID):
             'category': place.category,
         }
         return JsonResponse(response_dict, status=201)
-    elif request.method=='DELETE':
+    else : #delete
         place.delete()
         return HttpResponse(status=204)    
 
@@ -428,7 +425,7 @@ def place_cart(request, ID, fid):
             }
         }
         return JsonResponse(response_dict, safe=False)
-    elif request.method=='DELETE':
+    else : #delete
         try:
             place_in_folder = PlaceInFolder.objects.get(folder=folder, place=place)
         except PlaceInFolder.DoesNotExist:
