@@ -66,6 +66,16 @@
     "eslint-plugin-import": "^2.25.2",
     "eslint-plugin-jsx-a11y": "^6.4.1",
     "eslint-plugin-react": "^7.26.1",
-    "eslint-plugin-react-hooks": "^4.2.0"
-  }
+    "eslint-plugin-react-hooks": "^4.2.0",
+    "jest-localstorage-mock": "^2.4.18"
+  },
+  "jest": {
+    "resetMocks": false,
+    "collectCoverageFrom": [
+        "src/**/*.{js,jsx,tsx}",
+        "!src/index.js",
+        "!src/serviceWorker.js",
+        "!src/store/action/index.js"
+    ]
+}
 }
