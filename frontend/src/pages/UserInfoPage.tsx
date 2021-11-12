@@ -5,7 +5,7 @@ import UserInfo from "../containers/UserInfo";
 
 function UserInfoPage() {
   return (
-    <div>
+    <div className="UserInfoPage">
       <NavBar />
       <UserInfo />
     </div>
