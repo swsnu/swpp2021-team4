@@ -2,7 +2,7 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import UserInfoPage from './UserInfoPage'
 
-describe('<PostItem />', () => {
+describe('<UserInfoPage />', () => {
   it('should render without errors', () => {
     const component = shallow(<UserInfoPage/>);
     const wrapper = component.find('.UserInfoPage');
