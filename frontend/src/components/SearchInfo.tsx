@@ -1,7 +1,7 @@
 import React from "react";
 
 function SearchInfo() {
-  return <div></div>;
+  return <div className="search-info"></div>;
 }
 
 export default SearchInfo;
