@@ -45,7 +45,6 @@ function MyRoutesSection(props: PropType) {
       <div className="my-routes-places-container">
         { routePlaces.map((result: { day: number, place: PlaceType }) => {
           const { place, day } = result;
-          console.log(result);
           return day === selectedDay
             ? <Place key={place.id} place={place} icon='' onClickButton={() => {}} onAddButton={() => {console.log('눌렵씁니다')}} />
             : null;

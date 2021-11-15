@@ -51,9 +51,8 @@ function Map(props: PropType) {
   }, []);
 
   useEffect(() => {
-    console.log(placeList);
+    markers?.forEach((mark: any) => mark.marker.setMap(null));
     const allMarkers = placeList.map((mark: any) => {
-      console.log('mark', mark);
       const { day, place } = mark;
       return {
         day,
@@ -75,18 +74,7 @@ function Map(props: PropType) {
       let places = new kakao.maps.services.Places();
       let placesSearchCB = (results: any, status: any) => {
         if (status === kakao.maps.services.Status.OK) {
-          // console.log(results);
-          // let x = 0;
-          // let y = 0;
-          // results.forEach((result: any) => {
-          //   x += parseFloat(result.x);
-          //   y += parseFloat(result.y);
-          // });
-          // x /= results.length;
-          // y /= results.length;
-          
           map.current?.setCenter(new kakao.maps.LatLng(results[0].y, results[0].x));
-
         } else if (status === kakao.maps.services.Status.ZERO_RESULT) {
           alert('검색 결과가 존재하지 않습니다.');
         } else if (status === kakao.maps.services.Status.ERROR) {

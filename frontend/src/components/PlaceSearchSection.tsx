@@ -34,11 +34,10 @@ function PlaceSearchSection(props: PropType) {
   useEffect(() => {
     if (isSearchRequested) {
       let places = new kakao.maps.services.Places();
-      console.log(searchTabQuery);
       let placesSearchCB = (results: any, status: any) => {
         if (status === kakao.maps.services.Status.OK) {
-          console.log(results);
           /**
+           * 카카오 api response 타입 (임시 저장용)
            * address_name: "서울 강남구 신사동 668-33"
             category_group_code: "AT4"
             category_group_name: "관광명소"
