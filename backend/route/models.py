@@ -67,6 +67,7 @@ class Place(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
     description = models.TextField()
     day = models.IntegerField()
+    index = models.IntegerField(blank=True, null=True)
     folder = models.ForeignKey(Folder, null=True, blank=True,on_delete=models.CASCADE)
     latitude = models.CharField(max_length=256, null=True, blank=True)
     longitude = models.CharField(max_length=256, null=True, blank=True)
