@@ -4,6 +4,7 @@ from django.core.files.uploadedfile import SimpleUploadedFile
 from django.utils import timezone
 import json
 from .models import User
+from route.models import Folder
 from .forms import UserForm
 
 class AccountTestCase(TestCase):
@@ -87,6 +88,8 @@ class AccountTestCase(TestCase):
         user = User.objects.get(email="swpp@swpp.com")
         user.profile_image = File(open("./test_img.jpeg", "rb"))
         user.save()
+        
+        Folder.objects.create(name="test folder", user_id=user.id)
 
         response = client.post('/user/signin/', json.dumps({
             'email': 'swpp@swpp.com',
@@ -162,6 +165,30 @@ class AccountTestCase(TestCase):
         file_dict = {'profile_image': SimpleUploadedFile(upload_file.name, upload_file.read())}
         form = UserForm(post_dict, file_dict)
         self.assertTrue(form.is_valid())
+
+        stranger = User.objects.create(username='stranger', email="stranger@str.com", password='stranger')
+        response = client.get(f'/user/{stranger.id}/edit/')
+        self.assertEqual(response.status_code, 405)
+
+        response = client.post(f'/user/{stranger.id}/edit/', json.dumps({
+            'email': 'swpp@swpp.com',
+            'password': 'swpp'
+            }), content_type='application/json')
+        self.assertEqual(response.status_code, 401)
+
+        response = client.post(f'/user/{user.id}/edit/', json.dumps({
+            'email': 'swpp@swpp.com',
+            'password': 'swpp'
+            }), content_type='application/json')
+        self.assertEqual(response.status_code, 400)
+
+        response = client.post(f'/user/{user.id}/edit/', data={
+            'username': 'swpp',
+            'email': 'swpp@swpp.com',
+            'password': 'swpp',
+            'profile_image': ''
+            })
+        self.assertEqual(response.status_code, 200)
 
         # response = client.put(f'/user/{user.id}/', {
         #     'profile_image': SimpleUploadedFile(upload_file.name, upload_file.read(), content_type="image/*")
