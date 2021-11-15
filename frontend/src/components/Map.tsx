@@ -34,6 +34,7 @@ interface PropType {
 
 function Map(props: PropType) {
   const { location, selectedDay, placeList = dummyPlaces } = props;
+  const [locationCenter, setLocationCenter] = useState<any>(null);
   const [markers, setMarkers] = useState<any>([]);
   const map = useRef<any>();
 
@@ -70,11 +71,25 @@ function Map(props: PropType) {
   }, [selectedDay]);
 
   useEffect(() => {
+    const bounds = new kakao.maps.LatLngBounds();
+    markers.forEach((mark: any) => mark?.day === selectedDay ? bounds.extend(mark?.marker?.getPosition()) : null); // .extend : jQuery?
+    if (Object.keys(bounds)?.length > 0) {
+      map.current?.setBounds(bounds, 100);
+    } else {
+      const center = locationCenter ?? new kakao.maps.LatLng(37.49793, 127.027640);
+      map.current.setLevel(10);
+      map.current.setCenter(center);
+    }
+  }, [placeList, selectedDay])
+
+  useEffect(() => {
     if (location) {
       let places = new kakao.maps.services.Places();
       let placesSearchCB = (results: any, status: any) => {
         if (status === kakao.maps.services.Status.OK) {
-          map.current?.setCenter(new kakao.maps.LatLng(results[0].y, results[0].x));
+          const center = new kakao.maps.LatLng(results[0].y, results[0].x)
+          map.current?.setCenter(center);
+          setLocationCenter(center);
         } else if (status === kakao.maps.services.Status.ZERO_RESULT) {
           alert('검색 결과가 존재하지 않습니다.');
         } else if (status === kakao.maps.services.Status.ERROR) {
