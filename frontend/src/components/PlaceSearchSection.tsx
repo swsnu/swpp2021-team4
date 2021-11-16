@@ -95,17 +95,19 @@ function PlaceSearchSection(props: PropType) {
           onChange={onChangeSearchTabQuery}
           onKeyPress={onPressEnterSearch}
         />
-        {
-          searchResults.map((place: PlaceType) => {
-            return (
-              <CreatePlaceCard
-                key={place.id}
-                place={place}
-                icon={cart}
-                onClickButton={onAddPlace}
-              />)
-          })
-        }
+        <div style={{ maxHeight: '70vw', overflowY: 'scroll', paddingBottom: '30px' }}>
+          {
+            searchResults.map((place: PlaceType) => {
+              return (
+                <CreatePlaceCard
+                  key={place.id}
+                  place={place}
+                  icon={cart}
+                  onClickButton={onAddPlace}
+                />)
+            })
+          }
+        </div>
       </div>
     )
   }
