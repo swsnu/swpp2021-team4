@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useParams, NavLink } from "react-router-dom";
 import { usePostState } from "../hooks/usePostState";
 import { cartPostAction, getPostAction } from "../store/Post/postAction";
@@ -11,6 +11,7 @@ import cart from "../static/cart-icon.svg";
 import { PlaceType } from "../store/Post/postInterfaces";
 import Place from "../components/Place";
 import { useFolderState } from "../hooks/useFolderState";
+import { RootReducerType } from "../store/store";
 
 function PostDetail() {
   interface String {
@@ -23,6 +24,8 @@ function PostDetail() {
 
   const dispatch = useDispatch();
   const { id } = useParams<String>();
+  const { loggedUser } = useSelector((state: RootReducerType) => state.user);
+
   useEffect(() => {
     dispatch(getPostAction(Number(id)));
     console.log("did");
@@ -98,7 +101,7 @@ function PostDetail() {
           </div>
           <div className="header-content-left">
             <div className="header-top">
-              <div className="post-folder-name">{post.folder_name}</div>
+              <div className="post-folder-name">{loggedUser.id == post.author_id && post.folder_name}</div>
             </div>
             <div className="header-middle">
               <div className="post-title-name">{post.title}</div>

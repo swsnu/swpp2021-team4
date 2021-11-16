@@ -34,6 +34,42 @@ def posts(request):
 
     return JsonResponse(postlist, safe=False)
 
+def create_place_list(places, post):
+    place_list = []
+
+    for place in places:
+        new_place = Place.objects.create(
+            name = place['name'],
+            post = post,
+            description = place['description'],
+            day = place['day'],
+            index = place['index'],
+            folder_id = post.folder_id,
+            latitude = place['latitude'],
+            longitude = place['longitude'],
+            homepage = place['homepage'],
+            phone_number = place['phone_number'],
+            address = place['address'],
+            category = place['category']
+        )
+
+        place_list.append({
+            'id': new_place.id,
+            'name': new_place.name,
+            'description': new_place.description,
+            'day': new_place.day,
+            'index': new_place.index,
+            'folder_id': new_place.folder.id,
+            'latitude': new_place.latitude,
+            'longitude': new_place.longitude,
+            'homepage': new_place.homepage,
+            'phone_number': new_place.phone_number,
+            'address': new_place.address,
+            'category': new_place.category, 
+        })
+    
+    return place_list
+
 @require_http_methods(["POST"])
 def post_create(request):
     logged_user_id=request.session.get('user', None)
@@ -47,17 +83,21 @@ def post_create(request):
         post_header_image = form.cleaned_data['header_image']
         post_thumbnail_image = form.cleaned_data['thumbnail_image']
         post_days=form.cleaned_data['days']
+        post_folder_id = form.cleaned_data['folder_id']
         post_is_shared=form.cleaned_data['is_shared']
         post_theme=form.cleaned_data['theme']
         post_season=form.cleaned_data['season']
         post_location=form.cleaned_data['location']
         post_available_without_car=form.cleaned_data['availableWithoutCar']
+        
+        places = json.loads(form.cleaned_data['places'])
 
         post = Post.objects.create(
             title=post_title,
             author_id=logged_user_id,
             header_image=post_header_image,
             thumbnail_image=post_thumbnail_image,
+            folder_id = post_folder_id,
             days=post_days, 
             is_shared=post_is_shared,
             location=post_location,
@@ -65,6 +105,8 @@ def post_create(request):
             season=post_season, 
             availableWithoutCar=post_available_without_car
         )
+
+        place_list = create_place_list(places, post)
 
         response_dict = {
             'id': post.id,
@@ -74,11 +116,13 @@ def post_create(request):
             'header_image': post.header_image.url if post.header_image else None,
             'thumbnail_image': post.thumbnail_image.url if post.thumbnail_image else None, 
             'days': post.days,
+            'folder_id': post.folder.id,
             'is_shared': post.is_shared,
             'theme': post.theme,
             'season': post.season, 
             'location': post.location,
-            'availableWithOutCar': post.availableWithoutCar
+            'availableWithOutCar': post.availableWithoutCar,
+            'places': place_list
         }
         return JsonResponse(response_dict, safe=False)
     else:
@@ -89,20 +133,36 @@ def post_create(request):
 def post_spec_get(request, ID):
     post = Post.objects.get(id=ID)
     placelist=[]
-    for place in post.place_set.all():
-        placelist.append({'id':place.id, 'name':place.name, 'post_id':place.post_id,'description':place.description, 'day':place.day, 'folder_id':place.folder_id, 'latitude':place.latitude, 'longitude':place.longitude, 'homepage':place.homepage,'phone_number':place.phone_number,'address':place.address,'category':place.category})
-    author_name=post.author.username
-    author_id=post.author.id
-    folder_id=post.folder.id
-    folder_name=post.folder.name
+
+    for place in post.place_set.all().order_by('day', 'index'):
+        placelist.append({
+            'id':place.id,
+            'name':place.name,
+            'post_id':place.post_id,
+            'description':place.description,
+            'day':place.day,
+            'index': place.index,
+            'folder_id':place.folder_id,
+            'latitude':place.latitude,
+            'longitude':place.longitude,
+            'homepage':place.homepage,
+            'phone_number':place.phone_number,
+            'address':place.address,
+            'category':place.category
+        })
+    
     comments=[]
     for comment in post.comment_set.all():
-        comments.append({'content': comment.content, 'author_id':comment.author_id})
+        comments.append({
+            'content': comment.content,
+            'author_id':comment.author_id
+        })
+
     response_dict = {
         'id': post.id,
         'title': post.title,
-        'author_name': author_name,
-        'author_id':author_id,
+        'author_name': post.author.username,
+        'author_id': post.author.id,
         'days': post.days,
         'is_shared':post.is_shared,
         'theme':post.theme,
@@ -110,9 +170,9 @@ def post_spec_get(request, ID):
         'season': post.season, 
         'location': post.location,
         'availableWithoutCar': post.availableWithoutCar,
-        'folder_id': folder_id,
-        'folder_name':folder_name,
-        'places':placelist
+        'folder_id': post.folder.id,
+        'folder_name': post.folder.name,
+        'places': placelist
         }
     return JsonResponse(response_dict, safe=False)
     
@@ -138,17 +198,20 @@ def post_spec_edit(request, ID):
             post_header_image = form.cleaned_data['header_image']
             post_thumbnail_image = form.cleaned_data['thumbnail_image']
             post_days=form.cleaned_data['days']
+            post_folder_id=form.cleaned_data['folder_id']
             post_is_shared=form.cleaned_data['is_shared']
             post_theme=form.cleaned_data['theme']
             post_season=form.cleaned_data['season']
             post_location=form.cleaned_data['location']
             post_available_without_car=form.cleaned_data['availableWithoutCar']
+            places = json.loads(form.cleaned_data['places'])
 
             Post.objects.filter(id=ID).update(
                 title=post_title,
                 header_image=post_header_image,
                 thumbnail_image=post_thumbnail_image,
                 days=post_days, 
+                folder_id=post_folder_id,
                 is_shared=post_is_shared,
                 location=post_location,
                 theme=post_theme,
@@ -158,18 +221,26 @@ def post_spec_edit(request, ID):
             post.save()
             post.update_date()
 
+            Place.objects.filter(post_id = ID).delete()     # 기존 Place 삭제
+            
+            place_list = create_place_list(places, post)
+
             response_dict = {
                 'id': post.id,
                 'title': post.title,
-                'username': post.author.username,
+                'author_name': post.author.username,
+                'author_id': post.author_id,
                 'header_image': post.header_image.url,
                 'thumbnail_image': post.thumbnail_image.url, 
                 'days': post.days,
+                'folder_name': post.folder.name,
+                'folder_id': post.folder.id,
                 'is_shared': post.is_shared,
                 'theme': post.theme,
                 'season': post.season, 
                 'location': post.location,
-                'availableWithoutCar': post.availableWithoutCar
+                'availableWithoutCar': post.availableWithoutCar,
+                'places': place_list
             }
             return JsonResponse(response_dict, safe=False)
         else:

@@ -51,8 +51,10 @@ class RouteTestCase(TestCase):
         new_post = Post(title='testTitle', theme='friends', author=user, is_shared=False, folder=folder,availableWithoutCar=False,
         header_image=File(open("./grape.jpg", "rb")), thumbnail_image=File(open("./grape.jpg", "rb")))
         new_post.save()
-        place = Place(name="Korea", post=new_post, description="beautiful", folder=folder, day=1, latitude='1', longitude='1', address='road1')
-        place.save()
+        place1 = Place(name="Place1", post=new_post, description="desc", folder=folder, day=1, index=1, latitude='2', longitude='2', address='road2')
+        place1.save()
+        place2 = Place(name="Korea", post=new_post, description="beautiful", folder=folder, day=1, index=2, latitude='1', longitude='1', address='road1')
+        place2.save()
         comment=Comment(content="comment", post=new_post, author=user)
         comment.save()
         response = client.get('/post/1/')
@@ -75,19 +77,47 @@ class RouteTestCase(TestCase):
             }), content_type='application/json')
         folder = Folder(name="folder1", user=user)
         folder.save()
+        places = json.dumps([
+                {
+                    'name': 'Place1',
+                    'description': 'desc1',
+                    'day': 1,
+                    'index': 1,
+                    'latitude': 1,
+                    'longitude': 1,
+                    'homepage': 'https://homepage1.com',
+                    'phone_number': '010-000-0001',
+                    'address': '서울 관악구 관악로 1',
+                    'category': '학교'
+                },
+                {
+                    'name': 'Place2',
+                    'description': 'desc2',
+                    'day': 1,
+                    'index': 2,
+                    'latitude': 2,
+                    'longitude': 1,
+                    'homepage': 'https://homepage2.com',
+                    'phone_number': '010-000-0002',
+                    'address': '서울 관악구 관악로 2',
+                    'category': '학교'
+                }
+            ])
         response = client.post('/post/create/', ({
             'title':'testPost',
-            'header_img': './grape.jpg',
-            'thumbnail_img': './grape.jpg',
+            'header_image': './grape.jpg',
+            'thumbnail_image': './grape.jpg',
             'days':'1',
-            'folder':'1', 
+            'folder_id':'1', 
             'is_shared':True, 
             'theme':'friends',
             'season':'sum',
             'location':'korea',
-            'availableWithOutCar': False
+            'availableWithoutCar': False,
+            'places': places
             }), format='multipart')
         self.assertEqual(response.status_code, 200)
+        self.assertEqual(str(Post.objects.get(title='testPost')), 'testPost')
 
     def test_create_form_not_valid(self):
         client = Client()
@@ -103,9 +133,9 @@ class RouteTestCase(TestCase):
         folder.save()
         response = client.post('/post/create/', ({
             'title':'testPost',
-            'header_img': './grape.jpg',
-            'thumbnail_img': './grape.jpg',
-            'folder':'1', 
+            'header_image': './grape.jpg',
+            'thumbnail_image': './grape.jpg',
+            'folder_id':'1', 
             'is_shared':True, 
             'theme':'friends',
             'season':'sum',
@@ -131,17 +161,46 @@ class RouteTestCase(TestCase):
             'email': 'swpp@swpp.com',
             'password': 'swpp'
             }), content_type='application/json')
+
+        places = json.dumps([
+                {
+                    'name': 'Place1',
+                    'description': 'desc1',
+                    'day': 1,
+                    'index': 1,
+                    'latitude': 1,
+                    'longitude': 1,
+                    'homepage': 'https://homepage1.com',
+                    'phone_number': '010-000-0001',
+                    'address': '서울 관악구 관악로 1',
+                    'category': '학교'
+                },
+                {
+                    'name': 'Place2',
+                    'description': 'desc2',
+                    'day': 1,
+                    'index': 2,
+                    'latitude': 2,
+                    'longitude': 1,
+                    'homepage': 'https://homepage2.com',
+                    'phone_number': '010-000-0002',
+                    'address': '서울 관악구 관악로 2',
+                    'category': '학교'
+                }
+            ])
+
         response = client.post('/post/1/edit/', ({
             'title':'testPost',
-            'header_img': './grape.jpg',
-            'thumbnail_img': './grape.jpg',
+            'header_image': './grape.jpg',
+            'thumbnail_image': './grape.jpg',
             'days':'1',
-            'folder':'1', 
+            'folder_id':'1', 
             'is_shared':True, 
             'theme':'friends',
             'season':'sum',
             'location':'korea',
-            'availableWithOutCar': False
+            'availableWithOutCar': False,
+            'places': places
             }), format='multipart')
         self.assertEqual(response.status_code, 401)
         folder = Folder(name="folder1", user=user)
@@ -157,10 +216,10 @@ class RouteTestCase(TestCase):
         new_post2.save()
         response = client.post('/post/2/edit/', ({
             'title':'testPost',
-            'header_img': './grape.jpg',
-            'thumbnail_img': './grape.jpg',
+            'header_image': './grape.jpg',
+            'thumbnail_image': './grape.jpg',
             'days':'1',
-            'folder':'1', 
+            'folder_id':'1', 
             'is_shared':True, 
             'theme':'friends',
             'season':'sum',
@@ -170,27 +229,29 @@ class RouteTestCase(TestCase):
         self.assertEqual(response.status_code, 403)
         response = client.post('/post/1/edit/', ({
             'title':'testPost',
-            'header_img': './grape.jpg',
-            'thumbnail_img': './grape.jpg',
-            'folder':'1', 
+            'header_image': './grape.jpg',
+            'thumbnail_image': './grape.jpg',
+            'folder_id':'1', 
             'is_shared':True, 
             'theme':'friends',
             'season':'sum',
             'location':'korea',
-            'availableWithOutCar': False
+            'availableWithOutCar': False,
+            'places': places
             }), format='multipart')
         self.assertEqual(response.status_code, 400)
         response = client.post('/post/1/edit/', ({
             'title':'testPost',
-            'header_img': './grape.jpg',
-            'thumbnail_img': './grape.jpg',
+            'header_image': './grape.jpg',
+            'thumbnail_image': './grape.jpg',
             'days':'1',
-            'folder':'1', 
+            'folder_id':'1', 
             'is_shared':True, 
             'theme':'friends',
             'season':'sum',
             'location':'korea',
-            'availableWithOutCar': False
+            'availableWithOutCar': False,
+            'places': places
             }), format='multipart')
         self.assertEqual(response.status_code, 200)
 

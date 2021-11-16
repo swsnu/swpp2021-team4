@@ -190,12 +190,6 @@ class AccountTestCase(TestCase):
             })
         self.assertEqual(response.status_code, 200)
 
-        # response = client.put(f'/user/{user.id}/', {
-        #     'profile_image': SimpleUploadedFile(upload_file.name, upload_file.read(), content_type="image/*")
-        # }, format="multipart")
-        # self.assertNotEqual(response.status_code, 400)
-        # self.assertIn("edited_username", response.content.decode())
-
     def test_user_folders(self):
         client = Client()
 
