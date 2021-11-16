@@ -127,8 +127,49 @@ def post_create(request):
         return JsonResponse(response_dict, safe=False)
     else:
         return HttpResponse(status=400)
-
-
+@require_GET
+def search(request):
+    try:
+        body = request.body.decode()
+        keyword = json.loads(body)['keyword']
+        location = json.loads(body)['location']
+        season = json.loads(body)['season']
+        days = json.loads(body)['days']
+        theme = json.loads(body)['theme']
+        transportation = json.loads(body)['transportation']
+    except (KeyError, JSONDecodeError):
+        return HttpResponseBadRequest()   
+    postlist=[]
+    for post in Post.objects.all():
+        if not((keyword in post.title) or (keyword in post.description) or (keyword in post.location)):
+            continue
+        if not (location and location in post.location):
+            continue
+        if not (season and season==post.season):
+            continue
+        if not (days and days==post.days):
+            continue
+        if not (theme and theme==post.theme):
+            continue
+        if not (transportation and transportation==post.transportation):
+            continue
+        postlist.append({
+            'id': post.id,
+            'title': post.title,
+            'author_name': post.author.username,
+            'author_id': post.author_id,
+            'header_image': post.header_image.url if post.header_image else None,
+            'thumbnail_image': post.thumbnail_image.url  if post.thumbnail_image else None, 
+            'days': post.days,
+            'folder_id': post.folder_id,
+            'is_shared': post.is_shared,
+            'theme':post.theme,
+            'season': post.season, 
+            'location': post.location,
+            'availableWithoutCar': post.availableWithoutCar
+            })
+    return JsonResponse(postlist, safe=False)
+    
 @require_GET
 def post_spec_get(request, post_id):
     post = Post.objects.get(id=post_id)
