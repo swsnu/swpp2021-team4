@@ -127,7 +127,8 @@ def post_create(request):
         return JsonResponse(response_dict, safe=False)
     else:
         return HttpResponse(status=400)
-@require_GET
+
+@require_POST
 def search(request):
     try:
         body = request.body.decode()
@@ -141,18 +142,13 @@ def search(request):
         return HttpResponseBadRequest()   
     postlist=[]
     for post in Post.objects.all():
-        if not((keyword in post.title) or (keyword in post.description) or (keyword in post.location)):
-            continue
-        if not (location and location in post.location):
-            continue
-        if not (season and season==post.season):
-            continue
-        if not (days and days==post.days):
-            continue
-        if not (theme and theme==post.theme):
-            continue
-        if not (transportation and transportation==post.transportation):
-            continue
+        place_exist=False
+        for place in post.place_set.all().order_by('day', 'index'):
+            if keyword!='' and keyword in place.description:
+                place_exist=True
+        if not place_exist:
+            if not(keyword!='' and (keyword in post.title or keyword in post.location)) or not(location!='' and location in post.location) or not (season!='' and season==post.season) or not (days!='' and days==post.days) or not (theme!='' and theme==post.theme) or not (transportation!='' and transportation==post.transportation):
+                continue
         postlist.append({
             'id': post.id,
             'title': post.title,
@@ -169,7 +165,7 @@ def search(request):
             'availableWithoutCar': post.availableWithoutCar
             })
     return JsonResponse(postlist, safe=False)
-    
+
 @require_GET
 def post_spec_get(request, post_id):
     post = Post.objects.get(id=post_id)
