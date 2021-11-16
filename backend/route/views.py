@@ -177,11 +177,11 @@ def post_spec_get(request, ID):
     return JsonResponse(response_dict, safe=False)
     
 @require_POST
-def post_share(request, ID):
+def post_share(request, post_id):
     logged_user_id=request.session.get('user', None)
 
     try:
-        post = Post.objects.get(id=ID)
+        post = Post.objects.get(id=post_id)
     except Post.DoesNotExist:   # Wrong post id
         return HttpResponse(status=404)
 
