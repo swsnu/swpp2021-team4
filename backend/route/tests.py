@@ -117,6 +117,7 @@ class RouteTestCase(TestCase):
             'places': places
             }), format='multipart')
         self.assertEqual(response.status_code, 200)
+        self.assertEqual(str(Post.objects.get(title='testPost')), 'testPost')
 
     def test_create_form_not_valid(self):
         client = Client()
