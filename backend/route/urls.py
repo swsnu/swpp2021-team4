@@ -5,6 +5,7 @@ urlpatterns = [
     path('post/', views.posts, name='posts'), #get
     path('post/create/', views.post_create, name='post_create'), #post
     path('post/<int:ID>/', views.post_spec_get, name='post_spec_get'), #get post
+    path('post/<int:ID>/share/', views.post_share, name='post_share'),
     path('post/<int:ID>/edit/', views.post_spec_edit, name='post_spec_edit'), # post delete
     path('post/<int:ID>/cart/<int:fid>/', views.post_cart, name='post_cart'),
     path('post/<int:ID>/like/', views.post_like, name='post_like'),
