@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { PlaceType } from '../store/Post/postInterfaces';
 import '../styles/components/PlaceSearchSection.scss';
-import Place from './Place';
-
-
+import CreatePlaceCard from './CreatePlaceCard';
+import cart from "../static/cart-icon.svg";
 
 const { kakao } = window;
 interface PropType {
@@ -96,7 +95,17 @@ function PlaceSearchSection(props: PropType) {
           onChange={onChangeSearchTabQuery}
           onKeyPress={onPressEnterSearch}
         />
-        { searchResults.map((place: PlaceType) => <Place key={place.id} place={place} icon='' onClickButton={() => {}} onAddButton={onAddPlace} />)}
+        {
+          searchResults.map((place: PlaceType) => {
+            return (
+              <CreatePlaceCard
+                key={place.id}
+                place={place}
+                icon={cart}
+                onClickButton={onAddPlace}
+              />)
+          })
+        }
       </div>
     )
   }

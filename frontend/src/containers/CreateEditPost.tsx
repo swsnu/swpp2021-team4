@@ -96,6 +96,7 @@ function CreateEditPost() {
         onPressEnterLocation={onPressEnterLocation}
       />
       <div className="create-edit-content-container">
+
         <div className="create-edit-place-section">
           <div className="create-edit-places-section">
             <div className="my-routes-title">Places</div>
@@ -109,15 +110,16 @@ function CreateEditPost() {
 
           <div className="create-edit-routes-section">
             <div className="my-routes-title">My Routes</div>
-              <MyRoutesSection
-                days={postInfoData.days}
-                selectedDay={selectedDay}
-                onClickDay={onClickDay}
-                onClickAddIcon={onClickAddIcon}
-                routePlaces={routePlaces}
-              />
-            </div>
+            <MyRoutesSection
+              days={postInfoData.days}
+              selectedDay={selectedDay}
+              onClickDay={onClickDay}
+              onClickAddIcon={onClickAddIcon}
+              routePlaces={routePlaces}
+            />
+          </div>
         </div>
+
         <Map
           location={locationQuery}
           selectedDay={selectedDay}
