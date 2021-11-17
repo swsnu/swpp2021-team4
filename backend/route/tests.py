@@ -51,6 +51,25 @@ class RouteTestCase(TestCase):
         new_post = Post(title='testTitle', theme='friends', author=user, is_shared=False, folder=folder,availableWithoutCar=False,
         header_image=File(open("./grape.jpg", "rb")), thumbnail_image=File(open("./grape.jpg", "rb")))
         new_post.save()
+        
+        response = client.post('/post/1/share/')
+        self.assertEqual(response.status_code, 401)
+
+        response = client.post('/user/signin/', json.dumps({
+            'email': 'swpp@swpp.com',
+            'password': 'swpp'
+            }), content_type='application/json')
+
+
+        response = client.post('/post/23243/share/')
+        self.assertEqual(response.status_code, 404)
+        
+        response = client.post('/post/1/share/')
+        self.assertEqual(response.status_code, 204)
+
+        response = client.post('/post/1/share/')
+        self.assertEqual(response.status_code, 400)
+
         place1 = Place(name="Place1", post=new_post, description="desc", folder=folder, day=1, index=1, latitude='2', longitude='2', address='road2')
         place1.save()
         place2 = Place(name="Korea", post=new_post, description="beautiful", folder=folder, day=1, index=2, latitude='1', longitude='1', address='road1')

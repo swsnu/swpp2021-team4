@@ -176,6 +176,26 @@ def post_spec_get(request, post_id):
         }
     return JsonResponse(response_dict, safe=False)
     
+@require_POST
+def post_share(request, post_id):
+    logged_user_id=request.session.get('user', None)
+
+    try:
+        post = Post.objects.get(id=post_id)
+    except Post.DoesNotExist:   # Wrong post id
+        return HttpResponse(status=404)
+
+    if not logged_user_id or logged_user_id != post.author.id:
+        return HttpResponse(status=401)
+    
+    if post.is_shared:  # already shared
+        return HttpResponse(status=400)
+
+    post.is_shared = True
+    post.save()
+
+    return HttpResponse(status=204)
+
 @require_http_methods(["POST", "DELETE"])
 def post_spec_edit(request, post_id):
     logged_user_id=request.session.get('user', None)
