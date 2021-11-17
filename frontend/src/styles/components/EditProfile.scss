@@ -1,5 +1,4 @@
-
-
+@import '../../Variables/Variables.scss';
   .inputs{
       width: 100%;
       margin-left: 20%;
@@ -14,15 +13,15 @@
   }
 
   .label{
-    font-family: Montserrat;
+    font-family: $mainFont;
     font-style: normal;
 
-    color: #57CEB9;
+    color: $darkMintColor;
     width: 20%;
   }
 
   .edit-profile-btn {
-    background-color: #95ECDC;
+    background-color: $regularMintColor;
     padding: 0.647vw .76vw;
     border-radius: 6px;
     font-weight: bold;
@@ -35,7 +34,7 @@
   .edit-profile-container{
       margin-top: 5%;
       width: 80%;
-      background-color: #e2e3e9;
+      background-color: $lightGrayColor;
       padding-top: 2%;
       padding-bottom: 1%;
       align-items: center;

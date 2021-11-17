@@ -1,3 +1,5 @@
+@import '../../Variables/Variables.scss';
+
 * {
   padding: 0;
   margin: 0;
@@ -42,7 +44,7 @@
   }
   
   button:hover {
-    background: #57CEB9;
+    background: $darkMintColor;
     box-shadow: 0px 0px 0px transparent;
     border: 0px solid transparent;
     text-shadow: 0px 0px 0px transparent;
@@ -79,7 +81,7 @@
   }
   
   .signin-btn {
-    background-color: #95ECDC;
+    background-color: $regularMintColor;
     margin-top: 2.5vw;
     padding: 0.677vw 2.76vw;
     border-radius: 6px;

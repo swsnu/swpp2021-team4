@@ -18,7 +18,7 @@
   }
 
   .my-routes-day-btn.selected {
-    background-color: #F5F6F9;
+    background-color: $whiteColor;
     color: #000000;
   }
 
@@ -27,11 +27,11 @@
   }
 
   .my-routes-places {
-    background-color: #F5F6F9;
+    background-color: $whiteColor;
   }
 
   .my-routes-places-container {
-    background-color: #F5F6F9;
+    background-color: $whiteColor;
     padding: 2.3vw 1vw;
     min-height: 700px;
   }

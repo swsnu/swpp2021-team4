@@ -9,8 +9,8 @@ import {
   EDIT_PROFILE_FAIL,
   EDIT_FOLDER_SUCCESS,
   EDIT_FOLDER_FAIL,
-} from '../actionTypes';
-import { Folder, UserDispatchType, UserType } from './userInterfaces';
+} from "../actionTypes";
+import { Folder, UserDispatchType, UserType } from "./userInterfaces";
 
 interface SigninFormType {
   email: string;
@@ -18,11 +18,11 @@ interface SigninFormType {
 }
 
 interface EditFolderFormType {
-  folder_name: string
+  folder_name: string;
 }
 
-axios.defaults.xsrfCookieName = 'csrftoken';
-axios.defaults.xsrfHeaderName = 'X-CSRFTOKEN';
+axios.defaults.xsrfCookieName = "csrftoken";
+axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
 
 export const signinAction = (
   formData: SigninFormType,
@@ -37,7 +37,7 @@ export const signinAction = (
         callbackFunc(true);
       })
       .catch(() => {
-        alert('로그인 실패!');
+        alert("로그인 실패!");
         dispatch({ type: SIGNIN_FAIL });
       });
   };
@@ -77,10 +77,16 @@ export const editProfileAction = (
   };
 };
 
-export const editFolderAction = (user_id: number, fid: number, formData: EditFolderFormType, callbackFunc: (value: boolean) => void) => {
+export const editFolderAction = (
+  user_id: number,
+  fid: number,
+  formData: EditFolderFormType,
+  callbackFunc: (value: boolean) => void
+) => {
   return (dispatch: Redux.Dispatch<UserDispatchType>) => {
-    return axios.put<{ folder: Folder }>(`/user/${user_id}/folder/${fid}/edit/`, formData)
-      .then(res => {
+    return axios
+      .put<{ folder: Folder }>(`/user/${user_id}/folder/${fid}/edit/`, formData)
+      .then((res) => {
         dispatch({ type: EDIT_FOLDER_SUCCESS, payload: res.data.folder });
         callbackFunc(true);
       })

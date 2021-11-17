@@ -1,12 +1,14 @@
+@import '../../Variables/Variables.scss';
+
 .profile {
   display: flex;
 
-  font-family: Montserrat;
+  font-family: $mainFont;
   font-style: normal;
   font-weight: 600;
   font-size: 28px;
   line-height: 34px;
-  color: #57ceb9;
+  color: $darkMintColor;
   margin-top: 3%;
   margin-left: 10%;
   margin-bottom: 3%;
@@ -22,7 +24,7 @@
 }
 .edit-btn {
   margin-top: 2%;
-  background: #f5f6f9;
+  background: $whiteColor;
   border-radius: 6px;
 }
 
@@ -48,7 +50,7 @@
 }
 .field {
   width: 40%;
-  font-family: Montserrat;
+  font-family: $mainFont;
   font-style: normal;
   color: #000000;
 }
@@ -72,7 +74,7 @@
 }
 .field {
   width: 40%;
-  font-family: Montserrat;
+  font-family: $mainFont;
   font-style: normal;
   color: #000000;
 }
@@ -89,11 +91,11 @@
   flex-direction: row;
 }
 .folderHead {
-  font-family: Montserrat;
+  font-family: $mainFont;
   font-style: normal;
   margin-left: 4%;
   margin-top: 8%;
-  color: #57ceb9;
+  color: $darkMintColor;
 }
 .folder-input-container {
   width: 80%;
@@ -108,7 +110,7 @@
   height: 100%;
   margin-left: 130px;
   margin-bottom: 100px;
-  background: #f5f6f9;
+  background:  $whiteColor;
   border-radius: 6px;
   margin-right: 20px;
 }
@@ -117,7 +119,7 @@
   display: flex;
   height: max-content;
   width: 100vh;
-  background: #f5f6f9;
+  background: $whiteColor;
   border-radius: 6px;
   margin-right: 10%;
 }
@@ -172,7 +174,7 @@ button {
 }
 
 button:hover {
-  background: #57ceb9;
+  background: $darkMintColor;
   box-shadow: 0px 0px 0px transparent;
   border: 0px solid transparent;
   text-shadow: 0px 0px 0px transparent;

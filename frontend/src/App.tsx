@@ -7,6 +7,7 @@ import UserInfoPage from "./pages/UserInfoPage";
 import EditProfilePage from "./pages/EditProfilePage";
 import CreateEditPostPage from "./pages/CreateEditPostPage";
 import { Redirect, Route, Switch } from "react-router-dom";
+import "./styles/reset.css";
 
 function App() {
   const unAuthorized = () => {
