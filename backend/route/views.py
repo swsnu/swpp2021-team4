@@ -151,18 +151,13 @@ def search(request):
                 continue
         postlist.append({
             'id': post.id,
+            'thumbnail_image': post.thumbnail_image.url if post.thumbnail_image else None,
             'title': post.title,
-            'author_name': post.author.username,
-            'author_id': post.author_id,
-            'header_image': post.header_image.url if post.header_image else None,
-            'thumbnail_image': post.thumbnail_image.url  if post.thumbnail_image else None, 
-            'days': post.days,
-            'folder_id': post.folder_id,
-            'is_shared': post.is_shared,
-            'theme':post.theme,
-            'season': post.season, 
-            'location': post.location,
-            'availableWithoutCar': post.availableWithoutCar
+            'author': post.author.username,
+            'author_id': post.author.id,
+            'like_count': post.like_users.count(), 
+            'comment_count': Comment.objects.filter(post=post).count(),
+            'is_shared': post.is_shared
             })
     return JsonResponse(postlist, safe=False)
 
