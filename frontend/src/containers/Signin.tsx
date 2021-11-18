@@ -12,13 +12,13 @@ function Signin() {
     userEmail: '',
     userPassword: ''
   });
-  const [isSignned, setIsSignned] = useState(false);
+  const [isSigned, setIsSigned] = useState(false);
 
   useEffect(() => {
-    if (isSignned) {
+    if (isSigned) {
       history.goBack();
     }
-  }, [isSignned])
+  }, [isSigned])
 
   const onChangeInputs = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
@@ -27,9 +27,9 @@ function Signin() {
       [e.target.id]: e.target.value
     });
   }
-  
+
   const onClickSigninButton = () => {
-    dispatch(signinAction({ email: userInputs.userEmail, password: userInputs.userPassword }, (value) => setIsSignned(value)));
+    dispatch(signinAction({ email: userInputs.userEmail, password: userInputs.userPassword }, (value) => setIsSigned(value)));
   }
 
   return (
@@ -37,7 +37,7 @@ function Signin() {
       <img src={logo} />
       <div className="divider" />
 
-      <div className="signin-form-container">  
+      <div className="signin-form-container">
         <input
           id="userEmail"
           type="text"

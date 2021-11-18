@@ -1,6 +1,6 @@
 import React from "react";
 import NavBar from "../components/NavBar";
-import Signup from "../containers/SIgnup";
+import Signup from "../containers/Signup";
 import '../styles/components/Signup.scss';
 import backgroundImage from '../static/png/signup_page.png';
 
