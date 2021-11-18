@@ -1,16 +1,17 @@
-@import "../../Variables/Variable.scss";
+@import '../../Variables/Variables.scss';
+
 .info {
   display: flex;
   flex-direction: row;
 }
 .author_name {
-  font-family: Montserrat;
+  font-family: $mainFont;
   font-style: normal;
   font-weight: 400px;
   font-size: 15px;
   color: #ffffff;
   padding: 2px 2px 2px 2px;
-  background-color: #57ceb9;
+  background-color: $darkMintColor;
   border-radius: 10%;
   justify-content: end;
   height: 20px;
@@ -24,13 +25,13 @@
 }
 
 .search-research {
-  font-family: Montserrat;
+  font-family: $mainFont;
   font-style: normal;
   font-weight: 600;
   font-size: 28px;
   line-height: 34px;
 
-  color: #57ceb9;
+  color: $darkMintColor;
 }
 .postitem-container {
   margin: 20px;

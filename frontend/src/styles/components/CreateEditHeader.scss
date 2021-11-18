@@ -1,5 +1,4 @@
-@import "../../Variables/Variable.scss";
-@import "../reset.scss";
+@import "../../Variables/Variables.scss";
 
 * {
   margin: 0;
@@ -20,7 +19,7 @@
   }
   
   input::placeholder {
-    color: #A7A9AF;
+    color: $darkGrayColor;
   }
   
   width: 100%;

@@ -48,7 +48,7 @@
 }
 
 .signin-form-container button:hover {
-  background: #57CEB9;
+  background: #57ceb9;
   -webkit-box-shadow: 0px 0px 0px transparent;
           box-shadow: 0px 0px 0px transparent;
   border: 0px solid transparent;
@@ -99,7 +99,7 @@
 }
 
 .signin-form-container .signin-btn {
-  background-color: #95ECDC;
+  background-color: #95ecdc;
   margin-top: 2.5vw;
   padding: 0.677vw 2.76vw;
   border-radius: 6px;

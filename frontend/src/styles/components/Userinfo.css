@@ -2,7 +2,7 @@
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  font-family: Montserrat;
+  font-family: "Montserrat", Monospace;
   font-style: normal;
   font-weight: 600;
   font-size: 28px;
@@ -31,7 +31,7 @@
 
 .edit-btn {
   margin-top: 2%;
-  background: #f5f6f9;
+  background: #f6f6f9;
   border-radius: 6px;
 }
 
@@ -72,7 +72,7 @@
 
 .field {
   width: 40%;
-  font-family: Montserrat;
+  font-family: "Montserrat", Monospace;
   font-style: normal;
   color: #000000;
 }
@@ -111,7 +111,7 @@
 
 .field {
   width: 40%;
-  font-family: Montserrat;
+  font-family: "Montserrat", Monospace;
   font-style: normal;
   color: #000000;
 }
@@ -134,7 +134,7 @@
 }
 
 .folderHead {
-  font-family: Montserrat;
+  font-family: "Montserrat", Monospace;
   font-style: normal;
   margin-left: 4%;
   margin-top: 8%;
@@ -154,7 +154,7 @@
   height: 100%;
   margin-left: 130px;
   margin-bottom: 100px;
-  background: #f5f6f9;
+  background: #f6f6f9;
   border-radius: 6px;
   margin-right: 20px;
 }
@@ -167,7 +167,7 @@
   height: -moz-max-content;
   height: max-content;
   width: 100vh;
-  background: #f5f6f9;
+  background: #f6f6f9;
   border-radius: 6px;
   margin-right: 10%;
 }

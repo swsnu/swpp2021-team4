@@ -1,54 +1,3 @@
-*, *:before, *:after {
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
-}
-
-html, body, div, span, object, iframe, figure, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, code, em, img, small, strike, strong, sub, sup, tt, b, u, i, ol, ul, li, fieldset, form, label, table, caption, tbody, tfoot, thead, tr, th, td, main, canvas, embed, footer, header, nav, section, video {
-  margin: 0;
-  padding: 0;
-  border: 0;
-  font-size: 100%;
-  font: inherit;
-  vertical-align: baseline;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -webkit-text-size-adjust: none;
-     -moz-text-size-adjust: none;
-      -ms-text-size-adjust: none;
-          text-size-adjust: none;
-}
-
-footer, header, nav, section, main {
-  display: block;
-}
-
-body {
-  line-height: 1;
-}
-
-ol, ul {
-  list-style: none;
-}
-
-blockquote, q {
-  quotes: none;
-}
-
-blockquote:before, blockquote:after, q:before, q:after {
-  content: '';
-  content: none;
-}
-
-table {
-  border-collapse: collapse;
-  border-spacing: 0;
-}
-
-input {
-  -webkit-appearance: none;
-  border-radius: 0;
-}
-
 .post-detail-container {
   width: 80%;
   margin: 0px auto;
@@ -80,7 +29,7 @@ input {
 }
 
 .post-detail-header .header-content-left .header-top .post-folder-name {
-  font-family: "Noto Sans CJK KR";
+  font-family: "Noto Sans CJK KR", Monospace;
   font-size: 22px;
   margin-left: 2vh;
   margin-top: 15px;
@@ -102,7 +51,7 @@ input {
       -ms-flex-pack: start;
           justify-content: flex-start;
   margin: 15px 8vh 0px 2vh;
-  font-family: "Noto Sans CJK KR";
+  font-family: "Noto Sans CJK KR", Monospace;
   font-weight: bold;
   color: #57ceb9;
   font-size: 32px;
@@ -118,7 +67,7 @@ input {
 }
 
 .post-detail-header .header-content-left .header-middle .post-info-container .post-info {
-  font-family: "Noto Sans CJK KR";
+  font-family: "Noto Sans CJK KR", Monospace;
   font-size: 20px;
   font-weight: 500;
   margin-right: 20px;
@@ -126,7 +75,6 @@ input {
 }
 
 .post-detail-header .header-content-left .header-bottom {
-  width: 160%;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -143,7 +91,7 @@ input {
 }
 
 .post-detail-header .header-content-left .header-bottom .post-author {
-  font-family: "Montserrat";
+  font-family: "Montserrat", Monospace;
   font-weight: bold;
   font-size: 20px;
   color: #95ecdc;
@@ -161,9 +109,6 @@ input {
 }
 
 .post-detail-header .header-content-left .header-bottom .post-tag-container .post-tag {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
   -ms-flex-wrap: wrap;
       flex-wrap: wrap;
   background-color: transparent;
@@ -174,7 +119,7 @@ input {
   text-align: center;
   margin-left: 3vh;
   margin-right: 0px;
-  font-family: "Montserrat";
+  font-family: "Montserrat", Monospace;
   font-weight: 400;
   font-size: 15px;
   padding: 10px;
@@ -199,7 +144,7 @@ input {
   line-height: 50%;
   cursor: pointer;
   border: none;
-  font-family: "Montserrat";
+  font-family: "Montserrat", Monospace;
 }
 
 .post-detail-body {
@@ -221,10 +166,10 @@ input {
 }
 
 .post-detail-body .body-route-container .route-day-info {
-  background-color: #f5f6f9;
+  background-color: #f6f6f9;
   margin: 15px;
   font-size: 25px;
-  font-family: "Montserrat";
+  font-family: "Montserrat", Monospace;
   font-weight: 600;
   padding: 20px;
 }
@@ -264,14 +209,13 @@ input {
 
 .folder-select-modal .folder-modal-top .folder-modal-title {
   margin: 20px;
-  font-family: "Montserrat";
+  font-family: "Montserrat", Monospace;
   font-size: 35px;
   color: #57ceb9;
   font-weight: bold;
 }
 
 .folder-select-modal .folder-modal-top .close-button {
-  background-color: transparent;
   border: none;
   border-radius: 30px;
   background-color: #95ecdc;
@@ -294,12 +238,12 @@ input {
 .folder-select-modal .folder-modal-middle .folder-modal-name {
   margin: 10px;
   height: 50px;
-  font-family: "Montserrat";
+  font-family: "Montserrat", Monospace;
   font-size: 20px;
   text-align: left;
   padding: 20px;
   line-height: 50%;
-  background-color: #f5f6f9;
+  background-color: #f6f6f9;
   cursor: pointer;
 }
 
@@ -322,7 +266,7 @@ input {
   width: 80px;
   height: 50px;
   border-radius: 15px;
-  font-family: "Montserrat";
+  font-family: "Montserrat", Monospace;
   font-weight: 500;
   font-size: 20px;
   text-align: center;

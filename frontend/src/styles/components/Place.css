@@ -5,13 +5,13 @@
 }
 
 .place-container .place-title {
-  font-family: "Noto Sans CJK KR";
+  font-family: "Noto Sans CJK KR", Monospace;
   font-size: 30px;
   margin-left: 2vh;
 }
 
 .place-container .place-description {
-  font-family: "Noto Sans CJK KR";
+  font-family: "Noto Sans CJK KR", Monospace;
   font-size: 15px;
   font-weight: normal;
   margin: 20px 10px 10px 2vh;
@@ -19,7 +19,7 @@
 }
 
 .place-container .place-info-container .place-info-column {
-  font-family: "Montserrat";
+  font-family: "Montserrat", Monospace;
   font-size: 15px;
   font-weight: 500;
   color: #9867ff;
@@ -29,7 +29,7 @@
 }
 
 .place-container .place-info-container .place-info-item {
-  font-family: "Montserrat";
+  font-family: "Montserrat", Monospace;
   font-size: 15px;
   font-weight: 400;
   color: #000000;

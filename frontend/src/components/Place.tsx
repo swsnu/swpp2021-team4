@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import buttonUp from "../static/chevron-down.svg";
 import buttonDown from "../static/chevron-up.svg";
 import { PlaceType } from "../store/Post/postInterfaces";
+import "../styles/components/Place.css";
 
 interface PropsType {
   place: PlaceType;

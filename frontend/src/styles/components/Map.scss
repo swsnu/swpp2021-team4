@@ -25,7 +25,7 @@
 }
 
 .map-create-btn {
-  background-color: #57CEB9;
+  background-color: $darkMintColor;
   margin: 0 auto;
   padding: 0.625vw 3.23vw;
   width: max-content;
@@ -37,5 +37,5 @@
 }
 
 .map-create-btn:hover {
-  background-color: #95ECDC;
+  background-color: $regularMintColor;
 }
