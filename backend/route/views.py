@@ -128,6 +128,38 @@ def post_create(request):
     else:
         return HttpResponse(status=400)
 
+@require_POST
+def search(request):
+    try:
+        body = request.body.decode()
+        keyword = json.loads(body)['keyword']
+        location = json.loads(body)['location']
+        season = json.loads(body)['season']
+        days = json.loads(body)['days']
+        theme = json.loads(body)['theme']
+        transportation = json.loads(body)['transportation']
+    except (KeyError, JSONDecodeError):
+        return HttpResponseBadRequest()   
+    postlist=[]
+    for post in Post.objects.all():
+        place_exist=False
+        for place in post.place_set.all().order_by('day', 'index'):
+            if keyword!='' and keyword in place.description:
+                place_exist=True
+        if not place_exist:
+            if not(keyword!='' and (keyword in post.title or keyword in post.location)) or not(location!='' and location in post.location) or not (season!='' and season==post.season) or not (days!='' and days==post.days) or not (theme!='' and theme==post.theme) or not (transportation!='' and transportation==post.transportation):
+                continue
+        postlist.append({
+            'id': post.id,
+            'thumbnail_image': post.thumbnail_image.url if post.thumbnail_image else None,
+            'title': post.title,
+            'author': post.author.username,
+            'author_id': post.author.id,
+            'like_count': post.like_users.count(), 
+            'comment_count': Comment.objects.filter(post=post).count(),
+            'is_shared': post.is_shared
+            })
+    return JsonResponse(postlist, safe=False)
 
 @require_GET
 def post_spec_get(request, post_id):
