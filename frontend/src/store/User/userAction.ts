@@ -9,6 +9,8 @@ import {
   EDIT_PROFILE_FAIL,
   EDIT_FOLDER_SUCCESS,
   EDIT_FOLDER_FAIL,
+  DELETE_FOLDER_SUCCESS,
+  DELETE_FOLDER_FAIL,
 } from "../actionTypes";
 import { Folder, UserDispatchType, UserType } from "./userInterfaces";
 
@@ -92,6 +94,22 @@ export const editFolderAction = (
       })
       .catch(() => {
         dispatch({ type: EDIT_FOLDER_FAIL });
+      });
+  };
+};
+
+export const deleteFolderAction = (
+  user_id: number,
+  fid: number,
+) => {
+  return (dispatch: Redux.Dispatch<UserDispatchType>) => {
+    return axios
+      .delete(`/user/${user_id}/folder/${fid}/delete/`)
+      .then(() => {
+        dispatch({ type: DELETE_FOLDER_SUCCESS, payload: fid });
+      })
+      .catch(() => {
+        dispatch({ type: DELETE_FOLDER_FAIL });
       });
   };
 };

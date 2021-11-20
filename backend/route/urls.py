@@ -3,8 +3,10 @@ from route import views
 
 urlpatterns = [
     path('post/', views.posts, name='posts'), #get
+    path('post/search/', views.search, name='search'),
     path('post/create/', views.post_create, name='post_create'), #post
     path('post/<int:post_id>/', views.post_spec_get, name='post_spec_get'), #get post
+    path('post/<int:post_id>/share/', views.post_share, name='post_share'),
     path('post/<int:post_id>/edit/', views.post_spec_edit, name='post_spec_edit'), # post delete
     path('post/<int:post_id>/cart/<int:fid>/', views.post_cart, name='post_cart'),
     path('post/<int:post_id>/like/', views.post_like, name='post_like'),

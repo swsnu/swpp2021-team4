@@ -1,0 +1,77 @@
+@import "../../Variables/Variables.scss";
+
+.create-place-container {
+  background-color: #FFFFFF;
+  margin-bottom: 1.45vw;
+  padding: 1.04vw;
+
+  .place-container-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+
+    .place-title {
+      font-family: $koreanFont;
+      font-weight: 600;
+      font-size: 1.25rem;
+      line-height: 1.5rem;
+      color: #000000;
+    }
+  
+    .place-cart-button {
+      border: none;
+      border-radius: 50%;
+      padding: 6px;
+      min-width: 35px;
+      min-height: 35px;
+      text-align: center;
+      cursor: pointer;
+      background-color: $lightMintColor;
+      &:hover {
+        background-color: $darkMintColor;
+      }
+    }
+  }
+
+  .place-container-middle {
+    display: flex;
+    margin-bottom: 10px;
+    justify-content: space-between;
+    align-items: center;
+
+    .place-description {
+      font-weight: normal;
+      font-size: 1.125rem;
+      line-height: 1.375rem;
+      color: #000000;
+      word-wrap: break-word;
+      word-break: break-all;
+    }
+
+    .post-icon {
+      width: 3vh;
+      height: 3vh;
+      cursor: pointer;
+    }
+  }
+
+  .place-info-container {
+    .place-info {
+      margin-bottom: 20px;
+      min-height: 40px;
+      .place-info-column {
+        margin-bottom: 10px;
+        font-family: $mainFont;
+        font-size: 1rem;
+        line-height: 1.25rem;
+        font-weight: 500;
+        color: $purpleColor;
+      }
+    }
+
+    & + .invisible {
+      display: none;
+    }
+  }
+}

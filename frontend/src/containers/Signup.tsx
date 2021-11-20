@@ -1,16 +1,26 @@
-import React, { useState } from "react";
-import { Redirect } from "react-router-dom";
+import React, { useState, useEffect } from "react";
 import { signup } from "../api/userApi";
 import '../styles/components/Signup.css';
+import { useDispatch } from "react-redux";
+import { signinAction } from "../store/User/userAction";
+import { useHistory } from "react-router-dom";
 
 function Signup() {
+  const dispatch = useDispatch();
+  const history = useHistory();
   const [userInputs, setUserInputs] = useState({
     userEmail: '',
     userName: '',
     userPassword: '',
     checkUserPassword: ''
   });
-  const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isSigned, setIsSigned] = useState(false);
+
+  useEffect(() => {
+    if (isSigned) {
+      history.push('/main/');
+    }
+  }, [isSigned])
 
   const onChangeInputs = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
@@ -33,22 +43,11 @@ function Signup() {
     } else {
       const response = await signup({ email: userEmail, username: userName, password: userPassword });
       if (response.status === 201) {
-        setIsSubmitted(true);
+        dispatch(signinAction({ email: userInputs.userEmail, password: userInputs.userPassword }, (value) => setIsSigned(value)));
       } else {
         alert('singup failed');
       }
-
-      setUserInputs({
-        userEmail: '',
-        userName: '',
-        userPassword: '',
-        checkUserPassword: ''
-      });
     }
-  }
-
-  if (isSubmitted) {
-    return <Redirect to="/main/" />;
   }
 
   return (

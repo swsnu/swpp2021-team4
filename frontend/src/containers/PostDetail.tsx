@@ -206,7 +206,17 @@ function PostDetail() {
         <div className="post-detail-body">
           <div className="body-route-container">{placeMapping()}</div>
           <div className="body-left-container">
-            <Map location={post.location} />
+            <Map
+              location={post.location}
+              placeList={post.places.map((place: any) => {
+                place.lat = place.latitude;
+                place.lon = place.longitude;
+                return {
+                  day: place.day,
+                  place
+                };
+              })}
+            />
             <div className="body-comments-container">
               <div className="comment-input-container">
                 <input
