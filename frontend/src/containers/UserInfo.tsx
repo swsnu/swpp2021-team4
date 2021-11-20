@@ -84,7 +84,9 @@ function UserInfo() {
   }
 
   const onDeleteFolder = (folder_id: number) => {
-    dispatch(deleteFolderAction(loggedUser.id, folder_id))
+    if (confirm("정말 삭제하시겠습니까?")) {
+      dispatch(deleteFolderAction(loggedUser.id, folder_id));
+    }
   }
 
   const onClickFolder = (folder_id: number) => {
