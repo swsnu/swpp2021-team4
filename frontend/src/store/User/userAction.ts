@@ -101,14 +101,12 @@ export const editFolderAction = (
 export const deleteFolderAction = (
   user_id: number,
   fid: number,
-  // callbackFunc: (value: boolean) => void
 ) => {
   return (dispatch: Redux.Dispatch<UserDispatchType>) => {
     return axios
       .delete(`/user/${user_id}/folder/${fid}/delete/`)
       .then(() => {
         dispatch({ type: DELETE_FOLDER_SUCCESS, payload: fid });
-        // callbackFunc(true);
       })
       .catch(() => {
         dispatch({ type: DELETE_FOLDER_FAIL });
