@@ -4,6 +4,8 @@ from .models import Post, Comment, Place, Like, Folder, PostInFolder, PlaceInFol
 from json.decoder import JSONDecodeError
 from django.views.decorators.http import require_http_methods
 from django.views.decorators.http import require_POST, require_GET
+from django.shortcuts import redirect
+from django.urls import reverse
 from account.models import User
 
 from .forms import PostForm
@@ -155,8 +157,20 @@ def post_spec_get(request, post_id):
     for comment in post.comment_set.all():
         comments.append({
             'content': comment.content,
-            'author_id':comment.author_id
+            'username':comment.author.username,
+            'profile_image': f'{comment.author.profile_image.url if comment.author.profile_image else ""}',
+            'id': comment.id
         })
+
+    likeCounts = post.like_users.count()
+    
+    logged_user_id=request.session.get('user', None)
+    if logged_user_id: 
+        user = User.objects.get(id = logged_user_id)
+        if user in post.like_users.all(): 
+            liked = True
+        else: liked = False
+    else: liked=False
 
     response_dict = {
         'id': post.id,
@@ -166,13 +180,15 @@ def post_spec_get(request, post_id):
         'days': post.days,
         'is_shared':post.is_shared,
         'theme':post.theme,
-        'comment': comments,
+        'comments': comments,
         'season': post.season, 
         'location': post.location,
         'availableWithoutCar': post.availableWithoutCar,
-        'folder_id': post.folder.id,
-        'folder_name': post.folder.name,
-        'places': placelist
+        'folder_id': f'{post.folder.id if post.folder else 0}',
+        'folder_name':f'{post.folder.name if post.folder else ""}',
+        'places': placelist,
+        'like_counts': likeCounts,
+        'liked': liked
         }
     return JsonResponse(response_dict, safe=False)
     
@@ -284,28 +300,30 @@ def post_cart(request, post_id, fid):
         post_in_folder.delete()
         return HttpResponse(status=204)
 
-@require_http_methods(["POST", "DELETE"])
+@require_http_methods(["GET"])
 def post_like(request, post_id):
     logged_user_id=request.session.get('user', None)
     if not logged_user_id:
         return HttpResponse(status=405)
     user=User.objects.get(id=logged_user_id)
-    if request.method=='POST':
-        post = Post.objects.get(id=post_id)
-        like_list = post.like_set.filter(user_id=user.id)
-        Like.objects.create(user=user, post=post)
-        return JsonResponse({'postLikeUserCount': like_list.count()}, status=201)
-    else : #delete
-        post = Post.objects.get(id=post_id)
-        post.like_set.get(user=user).delete()
-        return HttpResponse(status=200)
+    print(user.username)
+    post = Post.objects.get(id=post_id)
+    like_list = post.like_set.filter(user_id=user.id)
+    print(like_list)
+    if like_list.count()>0:
+        post.like_set.get(user = user).delete()
+    else:
+        Like.objects.create(user = user, post= post)
+    like_counts = post.like_users.count()
+    print(post.like_users.all())
+    return JsonResponse({'like_counts':like_counts})
 
 @require_GET
 def post_comment_get(request, post_id):
     post=Post.objects.get(id=post_id)
     comments=[]
     for comment in post.comment_set.all():
-        comments.append({'content': comment.content, 'username':comment.author.username})
+        comments.append({'id': comment.id, 'content': comment.content, 'username':comment.author.username, 'profile_image':f'{comment.author.profile_image.url if comment.author.profile_image else ""}'})
     return JsonResponse(comments, safe=False)
 
 @require_POST
