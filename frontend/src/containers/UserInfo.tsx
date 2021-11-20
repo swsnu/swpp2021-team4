@@ -7,8 +7,9 @@ import { useUserState } from "../hooks/useUserState";
 import logo from "../static/profile.png";
 import button_up from "../static/chevron-down.svg";
 import button_down from "../static/chevron-up.svg";
-import vector from "../static/Vector.svg";
-import { editFolderAction } from "../store/User/userAction";
+import edit_btn from "../static/edit-icon.svg";
+import delete_btn from "../static/delete-icon.svg";
+import { deleteFolderAction, editFolderAction } from "../store/User/userAction";
 import PostItem from "../components/PostItem";
 import { Folder } from "../store/User/userInterfaces";
 
@@ -80,6 +81,12 @@ function UserInfo() {
       { folder_name: folderInputs.folderName },
       (value) => setIsFolderEdited(value))
     )
+  }
+
+  const onDeleteFolder = (folder_id: number) => {
+    if (confirm("정말 삭제하시겠습니까?")) {
+      dispatch(deleteFolderAction(loggedUser.id, folder_id));
+    }
   }
 
   const onClickFolder = (folder_id: number) => {
@@ -187,7 +194,7 @@ function UserInfo() {
                         onChange={onChangeEditFolder}
                         placeholder="변경할 폴더 이름"
                       />
-                      <img className="icon" src={vector} onClick={() => onEditFolder(fold.id)} />
+                      <img className="icon" src={edit_btn} onClick={() => onEditFolder(fold.id)} />
                     </div>
                   )
                 } else {
@@ -201,7 +208,8 @@ function UserInfo() {
                       >
                         {fold.name}{" "}
                       </div>
-                      <img className="icon" src={vector} onClick={() => onClickEditFolder(fold.id, fold.name)} />
+                      <img className="icon" src={edit_btn} onClick={() => onClickEditFolder(fold.id, fold.name)} />
+                      <img className="icon" src={delete_btn} onClick={() => onDeleteFolder(fold.id)} />
                     </div>
                   );
                 }
