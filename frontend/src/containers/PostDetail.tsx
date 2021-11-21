@@ -61,7 +61,6 @@ function PostDetail() {
   // };
   const placeMapping = () => {
     if (post.places) {
-      // setLikes(post.like_counts);
       const places = post.places;
       const days = post.days;
       const placeList = [];

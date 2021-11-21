@@ -4,8 +4,6 @@ from .models import Post, Comment, Place, Like, Folder, PostInFolder, PlaceInFol
 from json.decoder import JSONDecodeError
 from django.views.decorators.http import require_http_methods
 from django.views.decorators.http import require_POST, require_GET
-# from django.shortcuts import redirect
-# from django.urls import reverse
 from account.models import User
 
 from .forms import PostForm
@@ -194,7 +192,7 @@ def post_spec_get(request, post_id):
             'id': comment.id
         })
 
-    likeCounts = post.like_users.count()
+    like_counts = post.like_users.count()
     
     logged_user_id=request.session.get('user', None)
     if logged_user_id: 
@@ -219,7 +217,7 @@ def post_spec_get(request, post_id):
         'folder_id': f'{post.folder.id if post.folder else 0}',
         'folder_name':f'{post.folder.name if post.folder else ""}',
         'places': placelist,
-        'like_counts': likeCounts,
+        'like_counts': like_counts,
         'liked': liked
         }
     return JsonResponse(response_dict, safe=False)
