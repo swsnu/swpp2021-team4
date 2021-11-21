@@ -18,14 +18,14 @@ function MyRoutesSection(props: PropType) {
 
   const renderDayButtons = () => {
     const results = [];
-    for (let i=1; i < days+1; i++) {
+    for (let i=0; i < days; i++) {
       results.push(
         <div
-          key={i}
-          className={"my-routes-day-btn " + (i === selectedDay ? ' selected' : '')}
-          onClick={() => onClickDay(i)}
+          key={i+1}
+          className={"my-routes-day-btn " + (i+1 === selectedDay ? ' selected' : '')}
+          onClick={() => onClickDay(i+1)}
         >
-          Day {i}
+          Day {i+1}
         </div>
       )
     }
