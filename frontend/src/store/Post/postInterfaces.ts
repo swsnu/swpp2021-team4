@@ -61,6 +61,13 @@ export interface PathType {
   transportation: string;
 }
 
+export interface PathListType {
+  [from: string]: {
+    to: string,
+    transportation: 'car'|'pub'|'vic'|'wal'
+  }
+}
+
 export interface GetPostsSuccess {
   type: typeof GET_POSTS_SUCCESS;
   payload: PostType[];
