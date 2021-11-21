@@ -45,6 +45,11 @@ export interface PlaceType {
   category: string;
 }
 
+export interface PlaceDayType {
+  day: number|string,
+  place: PlaceType
+}
+
 export interface CommentType {
   author_id: number;
   content: string;
