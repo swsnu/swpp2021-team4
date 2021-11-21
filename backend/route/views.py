@@ -4,8 +4,8 @@ from .models import Post, Comment, Place, Like, Folder, PostInFolder, PlaceInFol
 from json.decoder import JSONDecodeError
 from django.views.decorators.http import require_http_methods
 from django.views.decorators.http import require_POST, require_GET
-from django.shortcuts import redirect
-from django.urls import reverse
+# from django.shortcuts import redirect
+# from django.urls import reverse
 from account.models import User
 
 from .forms import PostForm
