@@ -34,8 +34,10 @@ function MyRoutesSection(props: PropType) {
 
   return (
     <div className="my-routes-container">
-      <div style={{ display: 'flex', flexDirection: 'row' }}>
-        {renderDayButtons()}
+      <div style={{ width: '100%', display: 'flex', flexDirection: 'row' }}>
+        <div style={{ width: '90%', display: 'flex', flexDirection: 'row', overflowX: 'scroll' }}>
+          {renderDayButtons()}
+        </div>
         <img
           style={{ marginLeft: '11px' }}
           onClick={() => onClickAddIcon(days+1)}
