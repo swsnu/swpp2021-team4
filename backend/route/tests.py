@@ -357,8 +357,8 @@ class RouteTestCase(TestCase):
         header_image=File(open("./grape.jpg", "rb")), thumbnail_image=File(open("./grape.jpg", "rb")))
         new_post.save()
         Like(user=user, post=new_post)
-        response = client.post('/post/1/like/')
-        self.assertEqual(response.status_code, 201)
+        response = client.get('/post/1/like/')
+        self.assertEqual(response.status_code, 200)
 
     def test_like_delete(self):
         client = Client()
@@ -376,7 +376,7 @@ class RouteTestCase(TestCase):
         new_post.save()
         like = Like(user=user, post=new_post)
         like.save()
-        response = client.delete('/post/1/like/')
+        response = client.get('/post/1/like/')
         self.assertEqual(response.status_code, 200)
 
     def test_post_comment_get(self):
