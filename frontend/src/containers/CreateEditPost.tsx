@@ -4,6 +4,7 @@ import Map from "../components/Map";
 import MyRoutesSection from "../components/MyRoutesSection";
 import PlaceSearchSection from "../components/PlaceSearchSection";
 import { usePostState } from "../hooks/usePostState";
+import { PlaceType } from "../store/Post/postInterfaces";
 import "../styles/components/CreateEditPost.scss";
 
 export interface PostInfoDataType {
@@ -36,6 +37,16 @@ function CreateEditPost() {
 
   const onAddPlace = (place: any) => {
     setRoutePlaces([ ...routePlaces, { place, day: selectedDay } ]);
+  }
+
+  const onDeletePlace = (place: any) => {
+    setRoutePlaces(routePlaces.filter((p: { place: PlaceType, day: number}) => p.day !== selectedDay || p.place.id !== place.id));
+  }
+
+  const isPlaceInRoute = (place: any) => {
+    return routePlaces
+    .filter((p: { place: PlaceType, day: number}) => p.day === selectedDay)
+    .some((p: { place: PlaceType, day: number}) => p.place.id === place.id);
   }
 
   const [selectedTab, setSelectedTab] = useState<'place' | 'search'>('place');
@@ -104,7 +115,9 @@ function CreateEditPost() {
               selectedTab={selectedTab}
               onClickTabButton={onClickTabButton}
               onAddPlace={onAddPlace}
+              onDeletePlace={onDeletePlace}
               selectedDay={selectedDay}
+              isPlaceInRoute={isPlaceInRoute}
             />
           </div>
 
@@ -116,6 +129,7 @@ function CreateEditPost() {
               onClickDay={onClickDay}
               onClickAddIcon={onClickAddIcon}
               routePlaces={routePlaces}
+              onDeletePlace={onDeletePlace}
             />
           </div>
         </div>

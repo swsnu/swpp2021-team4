@@ -2,19 +2,20 @@ import React from 'react';
 import '../styles/components/MyRoutesSection.scss';
 import addIcon from '../static/add_day_icon.svg';
 import { PlaceType } from '../store/Post/postInterfaces';
-import cart from "../static/cart-icon.svg";
+import deleteIcon from '../static/delete.svg';
 import CreatePlaceCard from './CreatePlaceCard';
 
 interface PropType {
   days: number
   selectedDay: number
-  onClickDay: (value: number) => void;
-  onClickAddIcon: (value: number) => void
   routePlaces: any[]
+  onClickDay: (value: number) => void
+  onClickAddIcon: (value: number) => void
+  onDeletePlace: (place: any) => void
 }
 
 function MyRoutesSection(props: PropType) {
-  const { days, selectedDay, onClickDay, onClickAddIcon, routePlaces } = props;
+  const { days, selectedDay, onClickDay, onClickAddIcon, routePlaces, onDeletePlace } = props;
 
   const renderDayButtons = () => {
     const results = [];
@@ -52,8 +53,10 @@ function MyRoutesSection(props: PropType) {
               <CreatePlaceCard
                 key={place.id}
                 place={place}
-                icon={cart}
-                onClickButton={() => {}}
+                icon={deleteIcon}
+                type="route"
+                onClickCartButton={onDeletePlace}
+                isPlaceInCart={() => true}
               />
           })
         }
