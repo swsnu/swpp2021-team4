@@ -8,10 +8,12 @@ import "../styles/components/PostDetail.css";
 import "../styles/components/Place.css";
 import Map from "../components/Map";
 import cart from "../static/cart-icon.svg";
+import edit_btn from "../static/edit-icon.svg";
 import { PlaceType } from "../store/Post/postInterfaces";
 import Place from "../components/Place";
 import { useFolderState } from "../hooks/useFolderState";
 import { RootReducerType } from "../store/store";
+import { addFolderAction, editFolderAction } from "../store/User/userAction";
 
 function PostDetail() {
   interface String {
@@ -40,6 +42,73 @@ function PostDetail() {
     setClicked(true);
     dispatch(cartPostAction(Number(id), folderId));
   };
+
+  const [isFolderEdited, setIsFolderEdited] = useState(false);
+  const [isFolderAdded, setIsFolderAdded] = useState(false);
+  const [isFolderAdding, setIsFolderAdding] = useState(false);
+  const [folderInputs, setFolderInputs] = useState({
+    folderId: 0,
+    folderName: "",
+    newFolderName: ""
+  })
+
+  useEffect(() => {
+    if (isFolderEdited) {
+      setFolderInputs({ ...folderInputs, folderId: 0, folderName: "" });
+    }
+  }, [isFolderEdited])
+
+  useEffect(() => {
+    if (isFolderAdded) {
+      setFolderInputs({ ...folderInputs, newFolderName: "" });
+    }
+  }, [isFolderAdded])
+
+  const onChangeEditFolder = (e: React.ChangeEvent<HTMLInputElement>) => {
+    e.preventDefault();
+    setFolderInputs({
+      ...folderInputs,
+      folderName: e.target.value
+    })
+  };
+
+  const onChangeAddFolder = (e: React.ChangeEvent<HTMLInputElement>) => {
+    e.preventDefault();
+    setFolderInputs({
+      ...folderInputs,
+      newFolderName: e.target.value
+    })
+  };
+
+  const onClickAddFolder = () => {
+    setIsFolderAdding(true);
+  }
+
+  const onClickEditFolder = (folder_id: number, folder_name: string) => {
+    setFolderInputs({
+      ...folderInputs,
+      folderId: folder_id,
+      folderName: folder_name
+    })
+  }
+
+  const onEditFolder = (folder_id: number) => {
+    dispatch(editFolderAction(
+      loggedUser.id,
+      folder_id,
+      { folder_name: folderInputs.folderName },
+      (value) => setIsFolderEdited(value))
+    )
+  }
+
+  const onAddFolder = () => {
+    dispatch(addFolderAction(
+      loggedUser.id,
+      folderInputs.newFolderName,
+      (value) => setIsFolderAdded(value))
+    )
+    setIsFolderAdding(false);
+  }
 
   // place의 타입 정의 후 any 고치기
   const post = usePostState();
@@ -164,17 +233,46 @@ function PostDetail() {
         <div className="folder-modal-middle">
           {folders &&
             folders.map((folder: FolderType) => {
-              return (
-                <div
-                  className="folder-modal-name"
-                  onClick={() => onClickFolderSelect(folder.id)}
-                  key={folder.id}
-                >
-                  {folder.name}
-                </div>
-              );
+              if (folderInputs.folderId === folder.id) {
+                return (
+                  <div className="folder-modal-name">
+                    <input
+                      id="edit_folder_input"
+                      type="text"
+                      value={folderInputs.folderName}
+                      onChange={onChangeEditFolder}
+                    />
+                    <img className="icon" src={edit_btn} onClick={() => onEditFolder(folder.id)} />
+                  </div>
+                )
+              } else {
+                return (
+                  <div key={folder.id}>
+                    <div
+                      className="folder-modal-name"
+                      onClick={() => onClickFolderSelect(folder.id)}
+                    >
+                      {folder.name}
+                    </div>
+                    <img className="icon" src={edit_btn} onClick={() => onClickEditFolder(folder.id, folder.name)} />
+                  </div>
+                );
+              }
             })}
-          {/* <div className="add-folder">Add Folder</div> */}
+          {isFolderAdding &&
+            <div className="add-folder">
+              <input
+                id="add_folder_input"
+                type="text"
+                value={folderInputs.newFolderName}
+                onChange={onChangeAddFolder}
+              />
+              <img className="icon" src={edit_btn} onClick={() => onAddFolder()} />
+            </div>}
+          <div
+            className="add-folder"
+            onClick={() => onClickAddFolder()}
+          >Add Folder</div>
         </div>
         <div className="folder-modal-bottom">
           {/* <button
