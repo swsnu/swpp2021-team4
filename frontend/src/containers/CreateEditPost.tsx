@@ -4,7 +4,7 @@ import Map from "../components/Map";
 import MyRoutesSection from "../components/MyRoutesSection";
 import PlaceSearchSection from "../components/PlaceSearchSection";
 import { usePostState } from "../hooks/usePostState";
-import { PlaceType } from "../store/Post/postInterfaces";
+import { PlaceDayType, PlaceType } from "../store/Post/postInterfaces";
 import "../styles/components/CreateEditPost.scss";
 
 export interface PostInfoDataType {
@@ -33,20 +33,23 @@ function CreateEditPost() {
   const [locationQuery, setLocationQuery] = useState("");
   const [selectedDay, setSelectedDay] = useState(1);
 
-  const [routePlaces, setRoutePlaces] = useState<any[]>([]);
+  const [routePlaces, setRoutePlaces] = useState<PlaceDayType[]>([]);
 
   const onAddPlace = (place: any) => {
     setRoutePlaces([ ...routePlaces, { place, day: selectedDay } ]);
   }
 
-  const onDeletePlace = (place: any) => {
-    setRoutePlaces(routePlaces.filter((p: { place: PlaceType, day: number}) => p.day !== selectedDay || p.place.id !== place.id));
-  }
+  const onDeletePlace = useCallback(
+    (place: PlaceType) => {
+      setRoutePlaces(routePlaces.filter((p: PlaceDayType) => p.day !== selectedDay || p.place.id !== place.id));
+    },
+    [routePlaces, selectedDay]
+  );
 
-  const isPlaceInRoute = (place: any) => {
+  const isPlaceInRoute = (place: PlaceType) => {
     return routePlaces
-    .filter((p: { place: PlaceType, day: number}) => p.day === selectedDay)
-    .some((p: { place: PlaceType, day: number}) => p.place.id === place.id);
+    .filter((p: PlaceDayType) => p.day === selectedDay)
+    .some((p: PlaceDayType) => p.place.id === place.id);
   }
 
   const [selectedTab, setSelectedTab] = useState<'place' | 'search'>('place');
