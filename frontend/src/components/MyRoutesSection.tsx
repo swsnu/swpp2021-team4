@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import '../styles/components/MyRoutesSection.scss';
 import addIcon from '../static/add_day_icon.svg';
-import { PlaceType } from '../store/Post/postInterfaces';
+import { PlaceDayType } from '../store/Post/postInterfaces';
 import deleteIcon from '../static/delete.svg';
 import CreatePlaceCard from './CreatePlaceCard';
+import Path from './Path';
 
 interface PropType {
   days: number
@@ -15,7 +16,20 @@ interface PropType {
 }
 
 function MyRoutesSection(props: PropType) {
-  const { days, selectedDay, onClickDay, onClickAddIcon, routePlaces, onDeletePlace } = props;
+  const {
+    days,
+    selectedDay,
+    onClickDay,
+    onClickAddIcon,
+    routePlaces,
+    onDeletePlace
+  } = props;
+
+  const [todayPlaceList, setTodayPlaceList] = useState<PlaceDayType[]>([]);
+
+  useEffect(() => {
+    setTodayPlaceList(routePlaces.filter((p: PlaceDayType) => p.day == selectedDay));
+  }, [selectedDay, routePlaces]);
 
   const renderDayButtons = () => {
     const results = [];
@@ -47,17 +61,27 @@ function MyRoutesSection(props: PropType) {
       </div>
       <div className="my-routes-places-container">
         {
-          routePlaces.map((result: { day: number, place: PlaceType }) => {
-            const { place, day } = result;
-            return day !== selectedDay ? null :
-              <CreatePlaceCard
-                key={place.id}
-                place={place}
-                icon={deleteIcon}
-                type="route"
-                onClickCartButton={onDeletePlace}
-                isPlaceInCart={() => true}
-              />
+          todayPlaceList.map((result: PlaceDayType, index: number) => {
+            const { place } = result;
+            return (
+              <>
+                <CreatePlaceCard
+                  key={place.id}
+                  place={place}
+                  icon={deleteIcon}
+                  type="route"
+                  onClickCartButton={onDeletePlace}
+                  isPlaceInCart={() => true}
+                />
+                {
+                  index !== (todayPlaceList.length-1) &&
+                  <Path
+                    from={place}
+                    to={todayPlaceList[index+1].place}
+                  />
+                }
+              </>
+            );
           })
         }
       </div>
