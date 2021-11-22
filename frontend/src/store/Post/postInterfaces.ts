@@ -37,8 +37,10 @@ export interface PlaceType {
   description: string;
   day: number;
   folder_id: number;
-  latitude: string;
-  longitude: string;
+  latitude?: string;
+  longitude?: string;
+  lat: string;
+  lon: string;
   homepage: string;
   phone_number: string;
   address: string;
