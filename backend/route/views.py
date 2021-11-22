@@ -356,16 +356,13 @@ def post_like(request, post_id):
     if not logged_user_id:
         return HttpResponse(status=405)
     user=User.objects.get(id=logged_user_id)
-    print(user.username)
     post = Post.objects.get(id=post_id)
     like_list = post.like_set.filter(user_id=user.id)
-    print(like_list)
     if like_list.count()>0:
         post.like_set.get(user = user).delete()
     else:
         Like.objects.create(user = user, post= post)
     like_counts = post.like_users.count()
-    print(post.like_users.all())
     return JsonResponse({'like_counts':like_counts})
 
 @require_GET

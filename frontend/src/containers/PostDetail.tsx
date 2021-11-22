@@ -53,7 +53,6 @@ function PostDetail() {
   const post = usePostState();
   const folders = useFolderState();
   // console.log(post);
-  console.log("folders" + folders);
   // const folderMapping = () => {
   //   folders.map((folder: FolderType) => {
   //     return <div key={folder.id}>{folder.name}</div>;
