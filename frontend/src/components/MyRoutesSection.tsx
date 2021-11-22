@@ -64,9 +64,8 @@ function MyRoutesSection(props: PropType) {
           todayPlaceList.map((result: PlaceDayType, index: number) => {
             const { place } = result;
             return (
-              <>
+              <div key={place.id}>
                 <CreatePlaceCard
-                  key={place.id}
                   place={place}
                   icon={deleteIcon}
                   type="route"
@@ -80,7 +79,7 @@ function MyRoutesSection(props: PropType) {
                     to={todayPlaceList[index+1].place}
                   />
                 }
-              </>
+              </div>
             );
           })
         }
