@@ -8,13 +8,13 @@ import {
   GET_POST_SUCCESS,
   GET_POST_FAIL,
   CART_POST_SUCCESS,
-  CART_POST_FAIL
+  CART_POST_FAIL,
 } from "../actionTypes";
 import { Folder } from "../User/userInterfaces";
 import { PostDispatchType, PostType, SearchType } from "./postInterfaces";
 interface SearchForm {
   keyword: string;
-  season: string
+  season: string;
   location: string;
   days: string;
   theme: string;
@@ -24,7 +24,7 @@ interface SearchForm {
 export const getPostsAction = () => {
   return (dispatch: Redux.Dispatch<PostDispatchType>) => {
     return axios
-      .get<PostType[]>('/post/')
+      .get<PostType[]>("/post/")
       .then((res) => dispatch({ type: GET_POSTS_SUCCESS, payload: res.data }))
       .catch(() => dispatch({ type: GET_POSTS_FAIL }));
   };
@@ -43,17 +43,23 @@ export const cartPostAction = (postId: number, folderId: number) => {
   return (dispatch: Redux.Dispatch<PostDispatchType>) => {
     return axios
       .post<{ folder: Folder }>(`/post/${postId}/cart/${folderId}/`)
-      .then((res) => dispatch({ type: CART_POST_SUCCESS, payload: res.data.folder }))
+      .then((res) =>
+        dispatch({ type: CART_POST_SUCCESS, payload: res.data.folder })
+      )
       .catch(() => dispatch({ type: CART_POST_FAIL }));
   };
 };
 
-export const searchAction = (searchForm: SearchForm) => {
+export const searchAction = (
+  searchForm: SearchForm,
+) => {
   return (dispatch: Redux.Dispatch<PostDispatchType>) => {
     console.log(searchForm);
     return axios
-      .post<{ data: SearchType[]}>(`/post/search/`, searchForm)
-      .then((res) => dispatch({ type: SEARCH_SUCCESS, payload: res.data.data }))
+      .post<{ result: SearchType[] }>(`/post/search/`, searchForm)
+      .then((res) => {
+        dispatch({ type: SEARCH_SUCCESS, payload: res.data.result });
+      })
       .catch(() => dispatch({ type: SEARCH_FAIL }));
   };
 };

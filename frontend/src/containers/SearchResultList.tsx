@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { usePostsState } from "../hooks/usePostsState";
+import { useSearchPostState } from "../hooks/usePostsState";
 import { PostType } from "../store/Post/postInterfaces";
 import PostItem from "../components/PostItem";
 import { getPostsAction } from "../store/Post/postAction";
@@ -12,7 +12,7 @@ function SearchResultList() {
     dispatch(getPostsAction());
   }, [dispatch]);
 
-  const posts = usePostsState();
+  const posts = useSearchPostState();
 
   const postList = posts.map((post: PostType) => {
     return (

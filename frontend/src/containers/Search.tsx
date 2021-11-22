@@ -1,8 +1,12 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import search from "../static/search.svg";
-import { searchAction } from "../store/Post/postAction";
+import { getPostsAction, searchAction } from "../store/Post/postAction";
 import "../styles/components/Search.scss";
+import { SearchType } from "../store/Post/postInterfaces";
+import PostItem from "../components/PostItem";
+import { usePostsState, useSearchPostState } from "../hooks/usePostsState";
+//import { useSearchPostState } from "../hooks/usePostsState";
 
 function Search() {
   const dispatch = useDispatch();
@@ -14,6 +18,54 @@ function Search() {
     theme: "",
     transportation: "",
   });
+ // const [searchResults, setSearchResults] = useState([
+ //   {
+ //     id: 0,
+ //     thumbnail_image: "",
+ //     author_name: "",
+ //     author_id: 0,
+ //     title: "",
+ //     is_shared: false,
+ //   },
+ // ]);
+  useEffect(() => {
+    dispatch(getPostsAction());
+  }, [dispatch]);
+
+  const posts = usePostsState();
+
+  // const posts = useSearchPostState();
+
+  //  const onSearch = () => {
+  //    axios
+  //    .post<{ result: SearchType[] }>(`/post/search/`, {
+  //      keyword: userInputs.keyword,
+  //      season: userInputs.season,
+  //      location: userInputs.location,
+  //      days: userInputs.days,
+  //      theme: userInputs.theme,
+  //      transportation: userInputs.transportation,
+  //    })
+  //    .then(function (response) {
+  //      return setSearchResults(response.data.result);
+  //    })
+  //    .catch((err) => err.response);
+  //};
+
+  useEffect(() => {
+    dispatch(
+      searchAction(
+        {
+          keyword: userInputs.keyword,
+          season: userInputs.season,
+          location: userInputs.location,
+          days: userInputs.days,
+          theme: userInputs.theme,
+          transportation: userInputs.transportation,
+        }
+      )
+    );
+  }, [dispatch]);
 
   const onChangeInputs = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
@@ -25,16 +77,34 @@ function Search() {
   };
   const onClickSearch = () => {
     dispatch(
-      searchAction({
-        keyword: userInputs.keyword,
-        season: userInputs.season,
-        location: userInputs.location,
-        days: userInputs.days,
-        theme: userInputs.theme,
-        transportation: userInputs.transportation,
-      })
+      searchAction(
+        {
+          keyword: userInputs.keyword,
+          season: userInputs.season,
+          location: userInputs.location,
+          days: userInputs.days,
+          theme: userInputs.theme,
+          transportation: userInputs.transportation,
+        }
+      )
     );
+   // const searches = useSearchPostState();
+    //setSearchResults(searches)
   };
+
+  const postList = posts.map((post: SearchType) => {
+    return (
+      <PostItem
+        key={post.id}
+        id={post.id}
+        thumbnail_image={post.thumbnail_image}
+        title={post.title}
+        author_name={post.author_name}
+        author_id={post.author_id}
+      />
+    );
+  });
+
   return (
     <div className="search-container">
       <div className="search">
@@ -75,10 +145,10 @@ function Search() {
             id="season"
             className="season"
             onClick={() =>
-              userInputs.season != "Spring"
+              userInputs.season != "spr"
                 ? setUserInputs({
                     ...userInputs,
-                    season: "Spring",
+                    season: "spr",
                   })
                 : setUserInputs({ ...userInputs, season: "" })
             }
@@ -89,10 +159,10 @@ function Search() {
             id="season"
             className="season"
             onClick={() =>
-              userInputs.season != "Summer"
+              userInputs.season != "sum"
                 ? setUserInputs({
                     ...userInputs,
-                    season: "Summer",
+                    season: "sum",
                   })
                 : setUserInputs({ ...userInputs, season: "" })
             }
@@ -103,10 +173,10 @@ function Search() {
             id="season"
             className="season"
             onClick={() =>
-              userInputs.season != "Fall"
+              userInputs.season != "aut"
                 ? setUserInputs({
                     ...userInputs,
-                    season: "Fall",
+                    season: "aut",
                   })
                 : setUserInputs({ ...userInputs, season: "" })
             }
@@ -117,10 +187,10 @@ function Search() {
             id="season"
             className="season"
             onClick={() =>
-              userInputs.season != "Winter"
+              userInputs.season != "win"
                 ? setUserInputs({
                     ...userInputs,
-                    season: "Winter",
+                    season: "win",
                   })
                 : setUserInputs({ ...userInputs, season: "" })
             }
@@ -234,6 +304,24 @@ function Search() {
           >
             뚜벅이 여행 가능
           </button>
+        </div>
+      </div>
+      <div className="search-result-container">
+        <div className="search-research">Routes</div>
+        <div className="search-research-content">{postList}</div>
+        <div className="search-research-content">
+          {useSearchPostState()== undefined && postList}
+          {useSearchPostState() != undefined &&
+            useSearchPostState().map((post: SearchType) => {
+              <PostItem
+                key={post.id}
+                id={post.id}
+                thumbnail_image={post.thumbnail_image}
+                title={post.title}
+                author_name={post.author_name}
+                author_id={post.author_id}
+              />;
+            })}
         </div>
       </div>
     </div>

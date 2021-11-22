@@ -66,6 +66,7 @@ export interface PathType {
 }
 
 export interface SearchType {
+  id: number;
   thumbnail_image: string;
   author_name: string;
   author_id: number;
