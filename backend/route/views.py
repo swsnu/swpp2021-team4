@@ -147,7 +147,7 @@ def search(request):
             if keyword!='' and keyword in place.description:
                 place_exist=True
         if not place_exist:
-            if not(keyword!='' and (keyword in post.title or keyword in post.location)) or not(location!='' and location in post.location) or not (season!='' and season==post.season) or not (days!='' and days==post.days) or not (theme!='' and theme==post.theme) or not (transportation!='' and transportation==post.transportation):
+            if not(keyword!='' and (keyword in post.title or keyword in post.location)) or not(location!='' and location in post.location) or not (season!='' and season==post.season) or not (days!='' and days==post.days) or not (theme!='' and theme==post.theme) or not (transportation!='' and transportation==post.availableWithoutCar):
                 continue
         postlist.append({
             'id': post.id,

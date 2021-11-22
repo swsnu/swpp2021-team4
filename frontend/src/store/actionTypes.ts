@@ -17,3 +17,5 @@ export const GET_POST_SUCCESS = 'post/get_post_success' as const;
 export const GET_POST_FAIL = 'post/get_POST_FAIL' as const;
 export const CART_POST_SUCCESS = 'post/cart_post_success' as const;
 export const CART_POST_FAIL = 'post/cart_post_fail' as const;
+export const SEARCH_SUCCESS = 'post/search_success' as const;
+export const SEARCH_FAIL = 'post/search_fail' as const;

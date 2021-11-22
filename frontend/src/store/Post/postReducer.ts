@@ -4,13 +4,16 @@ import {
   GET_POST_SUCCESS,
   GET_POST_FAIL,
   CART_POST_SUCCESS,
-  CART_POST_FAIL
+  CART_POST_FAIL,
+  SEARCH_SUCCESS,
+  SEARCH_FAIL,
 } from "../actionTypes";
 import { Folder } from "../User/userInterfaces";
-import { PostDispatchType, PostType } from "./postInterfaces";
+import { PostDispatchType, PostType, SearchType } from "./postInterfaces";
 
 export type PostStateType = {
   posts: PostType[];
+  search: SearchType[];
   detailedPost: PostType;
   selectedFolder: Folder;
 };
@@ -40,7 +43,8 @@ const initialState: PostStateType = {
   selectedFolder: {
     id: 0,
     name: "",
-  }
+  },
+  search: [],
 };
 
 export default (
@@ -59,6 +63,10 @@ export default (
     case CART_POST_SUCCESS:
       return { ...state, selectedFolder: action.payload };
     case CART_POST_FAIL:
+      return { ...state };
+    case SEARCH_SUCCESS:
+      return { ...state, search: action.payload };
+    case SEARCH_FAIL:
       return { ...state };
     default:
       return { ...state };

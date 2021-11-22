@@ -7,6 +7,9 @@
       -ms-flex-direction: row;
           flex-direction: row;
   margin: 2.3vw 10vw 0vw 10vw;
+  max-height: 83.5vw;
+  margin-bottom: 32vw;
+  padding-bottom: 30px;
 }
 
 .create-edit-content-container .create-edit-place-section {

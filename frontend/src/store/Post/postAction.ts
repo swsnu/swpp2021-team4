@@ -3,13 +3,23 @@ import * as Redux from "redux";
 import {
   GET_POSTS_SUCCESS,
   GET_POSTS_FAIL,
+  SEARCH_SUCCESS,
+  SEARCH_FAIL,
   GET_POST_SUCCESS,
   GET_POST_FAIL,
   CART_POST_SUCCESS,
   CART_POST_FAIL
 } from "../actionTypes";
 import { Folder } from "../User/userInterfaces";
-import { PostDispatchType, PostType } from "./postInterfaces";
+import { PostDispatchType, PostType, SearchType } from "./postInterfaces";
+interface SearchForm {
+  keyword: string;
+  season: string
+  location: string;
+  days: string;
+  theme: string;
+  transportation: string;
+}
 
 export const getPostsAction = () => {
   return (dispatch: Redux.Dispatch<PostDispatchType>) => {
@@ -35,5 +45,15 @@ export const cartPostAction = (postId: number, folderId: number) => {
       .post<{ folder: Folder }>(`/post/${postId}/cart/${folderId}/`)
       .then((res) => dispatch({ type: CART_POST_SUCCESS, payload: res.data.folder }))
       .catch(() => dispatch({ type: CART_POST_FAIL }));
+  };
+};
+
+export const searchAction = (searchForm: SearchForm) => {
+  return (dispatch: Redux.Dispatch<PostDispatchType>) => {
+    console.log(searchForm);
+    return axios
+      .post<{ data: SearchType[]}>(`/post/search/`, searchForm)
+      .then((res) => dispatch({ type: SEARCH_SUCCESS, payload: res.data.data }))
+      .catch(() => dispatch({ type: SEARCH_FAIL }));
   };
 };

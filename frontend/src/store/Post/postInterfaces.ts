@@ -1,4 +1,13 @@
-import { GET_POSTS_SUCCESS, GET_POSTS_FAIL, GET_POST_SUCCESS, GET_POST_FAIL, CART_POST_SUCCESS, CART_POST_FAIL } from "../actionTypes";
+import {
+  GET_POSTS_SUCCESS,
+  GET_POSTS_FAIL,
+  GET_POST_SUCCESS,
+  GET_POST_FAIL,
+  CART_POST_SUCCESS,
+  CART_POST_FAIL,
+  SEARCH_SUCCESS,
+  SEARCH_FAIL,
+} from "../actionTypes";
 import { Folder } from "../User/userInterfaces";
 
 export interface PostType {
@@ -56,6 +65,13 @@ export interface PathType {
   transportation: string;
 }
 
+export interface SearchType {
+  thumbnail_image: string;
+  author_name: string;
+  author_id: number;
+  title: string, 
+  is_shared: boolean;
+}
 export interface GetPostsSuccess {
   type: typeof GET_POSTS_SUCCESS;
   payload: PostType[];
@@ -83,4 +99,20 @@ export interface CartPostFail {
   type: typeof CART_POST_FAIL;
 }
 
-export type PostDispatchType = GetPostsSuccess | GetPostsFail | GetPostSuccess | GetPostFail | CartPostSuccess | CartPostFail;
+export interface SearchSuccess {
+  type: typeof SEARCH_SUCCESS;
+  payload: SearchType[];
+}
+export interface SearchFail {
+  type: typeof SEARCH_FAIL;
+}
+
+export type PostDispatchType =
+  | GetPostsSuccess
+  | GetPostsFail
+  | GetPostSuccess
+  | GetPostFail
+  | CartPostSuccess
+  | CartPostFail
+  | SearchSuccess
+  | SearchFail;
