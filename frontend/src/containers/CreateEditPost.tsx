@@ -22,7 +22,7 @@ const initialFolderData: PostInfoDataType = {
   days: 3,
   seasonRecommendation: "",
   theme: "",
-  image: "",
+  headerImage: "",
   availableWithoutCar: false,
 };
 
