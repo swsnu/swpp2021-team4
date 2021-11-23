@@ -28,7 +28,6 @@ function PostDetail() {
 
   useEffect(() => {
     dispatch(getPostAction(Number(id)));
-    console.log("did");
   }, [dispatch, id]);
   const [clicked, setClicked] = useState(true);
   const onClickAddPostCartButton = () => {

@@ -19,7 +19,7 @@ function EditProfile() {
 
   useEffect(() => {
     if (isEdited) {
-      history.goBack();
+      history.push(`/user_info/${loggedUser.id}/`);
     }
   }, [isEdited]);
 
@@ -50,7 +50,6 @@ function EditProfile() {
       formData.append("username", userInputs.username);
       formData.append("password", userInputs.password);
       if (selectedFile) formData.append("profile_image", selectedFile);
-      else formData.append("profile_image", "");
       formData.append("enctype", "multipart/form-data");
 
       dispatch(

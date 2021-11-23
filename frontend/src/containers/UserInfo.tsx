@@ -102,7 +102,6 @@ function UserInfo() {
     axios
       .get<{ shared_posts: SimplePostType[] }>(`/user/${id}/share/`)
       .then(function (response) {
-        console.log(response.data)
         setPosts(response.data.shared_posts)
       })
       .catch((err) => err.response);
