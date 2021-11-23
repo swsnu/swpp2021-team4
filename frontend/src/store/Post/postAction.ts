@@ -54,9 +54,7 @@ export const searchAction = (
   searchForm: SearchForm,
   callbackFunc: (value: boolean) => void
 ) => {
-  console.log(searchForm)
   return (dispatch: Redux.Dispatch<PostDispatchType>) => {
-    console.log(searchForm);
     return axios
       .post<SearchType[]>(`/post/search/`, searchForm)
       .then((res) => {

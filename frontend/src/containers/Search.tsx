@@ -6,7 +6,6 @@ import "../styles/components/Search.scss";
 import { SearchType } from "../store/Post/postInterfaces";
 import PostItem from "../components/PostItem";
 import { useSearchPostState } from "../hooks/usePostsState";
-//import { useSearchPostState } from "../hooks/usePostsState";
 
 function Search() {
   const dispatch = useDispatch();
@@ -63,7 +62,6 @@ function Search() {
         (value) => SetSearch(value)
       )
     );
-    console.log(searched);
   };
 
   return (
