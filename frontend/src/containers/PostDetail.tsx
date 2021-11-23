@@ -43,8 +43,6 @@ function PostDetail() {
     dispatch(cartPostAction(Number(id), folderId));
   };
 
-  const [isFolderEdited, setIsFolderEdited] = useState(false);
-  const [isFolderAdded, setIsFolderAdded] = useState(false);
   const [isFolderAdding, setIsFolderAdding] = useState(false);
   const [folderInputs, setFolderInputs] = useState({
     folderId: 0,
@@ -52,20 +50,7 @@ function PostDetail() {
     newFolderName: ""
   })
 
-  useEffect(() => {
-    if (isFolderEdited) {
-      setFolderInputs({ ...folderInputs, folderId: 0, folderName: "" });
-    }
-  }, [isFolderEdited])
-
-  useEffect(() => {
-    if (isFolderAdded) {
-      setFolderInputs({ ...folderInputs, newFolderName: "" });
-    }
-  }, [isFolderAdded])
-
   const onChangeEditFolder = (e: React.ChangeEvent<HTMLInputElement>) => {
-    e.preventDefault();
     setFolderInputs({
       ...folderInputs,
       folderName: e.target.value
@@ -73,7 +58,6 @@ function PostDetail() {
   };
 
   const onChangeAddFolder = (e: React.ChangeEvent<HTMLInputElement>) => {
-    e.preventDefault();
     setFolderInputs({
       ...folderInputs,
       newFolderName: e.target.value
@@ -97,7 +81,9 @@ function PostDetail() {
       loggedUser.id,
       folder_id,
       { folder_name: folderInputs.folderName },
-      (value) => setIsFolderEdited(value))
+      (value) => {
+        if (value) setFolderInputs({ ...folderInputs, folderId: 0, folderName: "" });
+      })
     )
   }
 
@@ -105,9 +91,9 @@ function PostDetail() {
     dispatch(addFolderAction(
       loggedUser.id,
       folderInputs.newFolderName,
-      (value) => setIsFolderAdded(value))
+      (value) => setIsFolderAdding(!value))
     )
-    setIsFolderAdding(false);
+    setFolderInputs({ ...folderInputs, newFolderName: "" });
   }
 
   // place의 타입 정의 후 any 고치기
@@ -237,7 +223,7 @@ function PostDetail() {
                 return (
                   <div className="folder-modal-name">
                     <input
-                      id="edit_folder_input"
+                      id="edit-folder-input"
                       type="text"
                       value={folderInputs.folderName}
                       onChange={onChangeEditFolder}
@@ -262,7 +248,7 @@ function PostDetail() {
           {isFolderAdding &&
             <div className="add-folder">
               <input
-                id="add_folder_input"
+                id="add-folder-input"
                 type="text"
                 value={folderInputs.newFolderName}
                 onChange={onChangeAddFolder}
