@@ -7,6 +7,8 @@ import {
   SIGNOUT_FAIL,
   EDIT_PROFILE_SUCCESS,
   EDIT_PROFILE_FAIL,
+  ADD_FOLDER_SUCCESS,
+  ADD_FOLDER_FAIL,
   EDIT_FOLDER_SUCCESS,
   EDIT_FOLDER_FAIL,
   DELETE_FOLDER_SUCCESS,
@@ -75,6 +77,24 @@ export const editProfileAction = (
       })
       .catch(() => {
         dispatch({ type: EDIT_PROFILE_FAIL });
+      });
+  };
+};
+
+export const addFolderAction = (
+  user_id: number,
+  fname: string,
+  callbackFunc: (value: boolean) => void
+) => {
+  return (dispatch: Redux.Dispatch<UserDispatchType>) => {
+    return axios
+      .post<{ folder: Folder }>(`/user/${user_id}/folder/new/`, { folder_name: fname })
+      .then((res) => {
+        dispatch({ type: ADD_FOLDER_SUCCESS, payload: res.data.folder });
+        callbackFunc(true);
+      })
+      .catch(() => {
+        dispatch({ type: ADD_FOLDER_FAIL });
       });
   };
 };

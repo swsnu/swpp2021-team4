@@ -7,6 +7,8 @@ import {
   CART_POST_FAIL,
   SEARCH_SUCCESS,
   SEARCH_FAIL,
+  GET_COMMENTS_SUCCESS,
+  GET_COMMENTS_FAIL,
 } from "../actionTypes";
 import { Folder } from "../User/userInterfaces";
 
@@ -27,8 +29,10 @@ export interface PostType {
   season: string;
   is_shared: boolean;
   availableWithoutCar: boolean;
-  comment: CommentType[];
+  comments: CommentType[];
   places: PlaceType[];
+  like_counts: number;
+  liked: boolean;
 }
 
 export interface PlaceInfoType {
@@ -55,8 +59,10 @@ export interface PlaceType {
 }
 
 export interface CommentType {
-  author_id: number;
+  username: string;
   content: string;
+  profile_image: string;
+  id: number;
 }
 
 export interface PathType {
@@ -100,12 +106,23 @@ export interface CartPostFail {
   type: typeof CART_POST_FAIL;
 }
 
+
 export interface SearchSuccess {
   type: typeof SEARCH_SUCCESS;
   payload: SearchType[];
 }
 export interface SearchFail {
   type: typeof SEARCH_FAIL;
+}
+
+
+export interface GetCommentsSucess {
+  type: typeof GET_COMMENTS_SUCCESS;
+  payload: CommentType[];
+}
+
+export interface GetCommentsFail {
+  type: typeof GET_COMMENTS_FAIL;
 }
 
 export type PostDispatchType =
@@ -117,3 +134,5 @@ export type PostDispatchType =
   | CartPostFail
   | SearchSuccess
   | SearchFail;
+  | GetCommentsSucess
+  | GetCommentsFail;

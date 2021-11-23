@@ -5,6 +5,8 @@ import {
   SIGNOUT_FAIL,
   EDIT_PROFILE_SUCCESS,
   EDIT_PROFILE_FAIL,
+  ADD_FOLDER_SUCCESS,
+  ADD_FOLDER_FAIL,
   EDIT_FOLDER_SUCCESS,
   EDIT_FOLDER_FAIL,
   DELETE_FOLDER_SUCCESS,
@@ -43,6 +45,11 @@ export default (
     case EDIT_PROFILE_SUCCESS:
       return { ...state, loggedUser: { ...action.payload } };
     case EDIT_PROFILE_FAIL:
+      return { ...state };
+    case ADD_FOLDER_SUCCESS:
+      const newFolder = action.payload;
+      return { ...state, loggedUser: { ...state.loggedUser, folders: [...state.loggedUser.folders, newFolder] } };
+    case ADD_FOLDER_FAIL:
       return { ...state };
     case EDIT_FOLDER_SUCCESS:
       const editedId = action.payload.id;
