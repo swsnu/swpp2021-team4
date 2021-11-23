@@ -76,7 +76,10 @@ export default (
     case SEARCH_FAIL:
       return { ...state };
     case GET_COMMENTS_SUCCESS:
-      return { ...state, detailedPost: { ...state.detailedPost, comments: action.payload } };
+      return {
+        ...state,
+        detailedPost: { ...state.detailedPost, comments: action.payload },
+      };
     case GET_COMMENTS_FAIL:
       return { ...state };
     default:

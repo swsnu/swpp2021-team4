@@ -39,7 +39,7 @@
 }
 
 .category {
-  font-family: Montserrat;
+  font-family: $mainFont;
   font-style: normal;
   font-weight: 600;
   font-size: 18px;
@@ -78,7 +78,7 @@
 }
 .season,
 .theme{
-  font-family: Montserrat;
+  font-family: $koreanFont;
   font-style: normal;
   font-weight: 400;
   font-size: 14px;
@@ -89,7 +89,7 @@
   color: #9f9f9f;
 }
 .season-clicked, .theme-clicked{
-  font-family: Montserrat;
+  font-family: $koreanFont;
   font-style: normal;
   font-weight: 400;
   font-size: 14px;

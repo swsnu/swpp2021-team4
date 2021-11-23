@@ -62,6 +62,7 @@ function Search() {
         (value) => SetSearch(value)
       )
     );
+    console.log(searched)
   };
 
   return (
