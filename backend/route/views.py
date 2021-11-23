@@ -147,7 +147,7 @@ def search(request):
             if keyword!='' and keyword in place.description:
                 place_exist=True
         if not place_exist:
-            if (keyword!='' and (keyword in post.title or keyword in post.location)) or (location!='' and location in post.location) or (season!='' and season==post.season) or (days!='' and days==post.days) or (theme!='' and theme==post.theme) or (transportation!='' and transportation==post.availableWithoutCar):
+            if ((keyword=='' or (keyword!='' and (keyword in post.title or keyword in post.location))) and (location=='' or (location!='' and location in post.location)) and (season=='' or (season!='' and season==post.season)) and (days=='' or (days!='' and int(days)==int(post.days))) and (theme=='' or (theme!='' and theme==post.theme)) and (transportation=='' or (transportation!='' and str(transportation)==str(post.availableWithoutCar)))):
                 postlist.append({
             'id': post.id,
             'thumbnail_image': post.thumbnail_image.url if post.thumbnail_image else None,
@@ -159,7 +159,8 @@ def search(request):
             'is_shared': post.is_shared
             })
 
-        else: postlist.append({
+        elif (location=='' or (location!='' and location in post.location)) and (season=='' or (season!='' and season==post.season)) and (days=='' or (days!='' and int(days)==int(post.days))) and (theme=='' or (theme!='' and theme==post.theme)) and (transportation=='' or (transportation!='' and str(transportation)==str(post.availableWithoutCar))): 
+            postlist.append({
             'id': post.id,
             'thumbnail_image': post.thumbnail_image.url if post.thumbnail_image else None,
             'title': post.title,

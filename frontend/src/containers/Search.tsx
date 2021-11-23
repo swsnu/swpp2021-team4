@@ -249,17 +249,17 @@ function Search() {
           <div className="category">Transportation</div>
           <button
             id="transportation"
-            className={`theme${userInputs.transportation=="true" ? '-clicked' : ''}`}
+            className={`theme${userInputs.transportation=="True" ? '-clicked' : ''}`}
             onClick={() =>
-              userInputs.transportation == "false" ||
+              userInputs.transportation == "False" ||
               userInputs.transportation == ""
                 ? setUserInputs({
                     ...userInputs,
-                    transportation: "true",
+                    transportation: "True",
                   })
                 : setUserInputs({
                     ...userInputs,
-                    transportation: "false",
+                    transportation: "False",
                   })
             }
           >
