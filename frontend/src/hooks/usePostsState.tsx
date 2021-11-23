@@ -4,6 +4,7 @@ import { PostStateType } from "../store/Post/postReducer";
 
 const initialState: PostStateType = {
   posts: [],
+  search: [],
   detailedPost: {
     id: 0,
     header_image: "",
@@ -34,6 +35,12 @@ const initialState: PostStateType = {
 export const usePostsState = () => {
   const posts = useSelector(
     (state: RootReducerType) => state.post.posts || initialState.posts
+  );
+  return posts;
+};
+export const useSearchPostState = () => {
+  const posts = useSelector(
+    (state: RootReducerType) => state.post.search || initialState.search
   );
   return posts;
 };

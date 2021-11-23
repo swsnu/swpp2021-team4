@@ -4,6 +4,7 @@ import { PostStateType } from "../store/Post/postReducer";
 
 const initialState: PostStateType = {
   posts: [],
+  search: [],
   detailedPost: {
     id: 0,
     header_image: "",
@@ -38,3 +39,4 @@ export const usePostState = () => {
   );
   return post;
 };
+

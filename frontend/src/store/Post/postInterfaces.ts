@@ -5,6 +5,8 @@ import {
   GET_POST_FAIL,
   CART_POST_SUCCESS,
   CART_POST_FAIL,
+  SEARCH_SUCCESS,
+  SEARCH_FAIL,
   GET_COMMENTS_SUCCESS,
   GET_COMMENTS_FAIL,
 } from "../actionTypes";
@@ -69,6 +71,14 @@ export interface PathType {
   transportation: string;
 }
 
+export interface SearchType {
+  id: number;
+  thumbnail_image: string;
+  author_name: string;
+  author_id: number;
+  title: string, 
+  is_shared: boolean;
+}
 export interface GetPostsSuccess {
   type: typeof GET_POSTS_SUCCESS;
   payload: PostType[];
@@ -96,6 +106,16 @@ export interface CartPostFail {
   type: typeof CART_POST_FAIL;
 }
 
+
+export interface SearchSuccess {
+  type: typeof SEARCH_SUCCESS;
+  payload: SearchType[];
+}
+export interface SearchFail {
+  type: typeof SEARCH_FAIL;
+}
+
+
 export interface GetCommentsSucess {
   type: typeof GET_COMMENTS_SUCCESS;
   payload: CommentType[];
@@ -104,6 +124,7 @@ export interface GetCommentsSucess {
 export interface GetCommentsFail {
   type: typeof GET_COMMENTS_FAIL;
 }
+
 export type PostDispatchType =
   | GetPostsSuccess
   | GetPostsFail
@@ -111,5 +132,7 @@ export type PostDispatchType =
   | GetPostFail
   | CartPostSuccess
   | CartPostFail
+  | SearchSuccess
+  | SearchFail
   | GetCommentsSucess
   | GetCommentsFail;

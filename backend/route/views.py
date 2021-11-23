@@ -147,13 +147,24 @@ def search(request):
             if keyword!='' and keyword in place.description:
                 place_exist=True
         if not place_exist:
-            if not(keyword!='' and (keyword in post.title or keyword in post.location)) or not(location!='' and location in post.location) or not (season!='' and season==post.season) or not (days!='' and days==post.days) or not (theme!='' and theme==post.theme) or not (transportation!='' and transportation==post.transportation):
-                continue
-        postlist.append({
+            if ((keyword=='' or (keyword!='' and (keyword in post.title or keyword in post.location))) and (location=='' or (location!='' and location in post.location)) and (season=='' or (season!='' and season==post.season)) and (days=='' or (days!='' and int(days)==int(post.days))) and (theme=='' or (theme!='' and theme==post.theme)) and (transportation=='' or (transportation!='' and str(transportation)==str(post.availableWithoutCar)))):
+                postlist.append({
             'id': post.id,
             'thumbnail_image': post.thumbnail_image.url if post.thumbnail_image else None,
             'title': post.title,
-            'author': post.author.username,
+            'author_name': post.author.username,
+            'author_id': post.author.id,
+            'like_count': post.like_users.count(), 
+            'comment_count': Comment.objects.filter(post=post).count(),
+            'is_shared': post.is_shared
+            })
+
+        elif (location=='' or (location!='' and location in post.location)) and (season=='' or (season!='' and season==post.season)) and (days=='' or (days!='' and int(days)==int(post.days))) and (theme=='' or (theme!='' and theme==post.theme)) and (transportation=='' or (transportation!='' and str(transportation)==str(post.availableWithoutCar))): 
+            postlist.append({
+            'id': post.id,
+            'thumbnail_image': post.thumbnail_image.url if post.thumbnail_image else None,
+            'title': post.title,
+            'author_name': post.author.username,
             'author_id': post.author.id,
             'like_count': post.like_users.count(), 
             'comment_count': Comment.objects.filter(post=post).count(),
