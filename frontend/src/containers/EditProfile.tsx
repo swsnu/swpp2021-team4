@@ -12,7 +12,7 @@ function EditProfile() {
     username: loggedUser.username,
     password: "",
     password2: "",
-    profile_image: "",
+    profile_image_url: loggedUser.profile_image ? loggedUser.profile_image : ""
   });
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [isEdited, setIsEdited] = useState(false);
@@ -34,7 +34,18 @@ function EditProfile() {
   const onChangeFile = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
     if (!e.target.files) return;
-    setSelectedFile(e.target.files[0]);
+
+    let reader = new FileReader();
+    let file = e.target.files[0];
+    reader.onloadend = () => {
+      setSelectedFile(file);
+      setUserInputs({
+        ...userInputs,
+        profile_image_url: reader.result
+      });
+    };
+    reader.readAsDataURL(file);
+
   };
 
   const onClickEditProfileButton = () => {
@@ -62,6 +73,10 @@ function EditProfile() {
 
   return (
     <div className="edit-profile-container">
+      <div className="edit-profile-image">
+        {userInputs.profile_image_url &&
+          <img className="profile-image-preview" src={userInputs.profile_image_url} />}
+      </div>
       <div className="edit-profile-form-container">
         <div className="inputs">
           <div className="label">Username</div>
