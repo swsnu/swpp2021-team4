@@ -1,15 +1,16 @@
-import React, { useEffect, useState } from 'react';
-import { PlaceType } from '../store/Post/postInterfaces';
-import '../styles/components/PlaceSearchSection.scss';
-import CreatePlaceCard from './CreatePlaceCard';
+import React, { useEffect, useState } from "react";
+import { PlaceType } from "../store/Post/postInterfaces";
+import "../styles/components/PlaceSearchSection.scss";
+import CreatePlaceCard from "./CreatePlaceCard";
 import cart from "../static/cart-icon.svg";
+// import { useDrop } from "react-dnd";
 
 const { kakao } = window;
 interface PropType {
-  selectedTab: 'place' | 'search'
-  onClickTabButton: (type: 'place' | 'search') => void
-  onAddPlace: (place: any) => void
-  selectedDay: number
+  selectedTab: "place" | "search";
+  onClickTabButton: (type: "place" | "search") => void;
+  onAddPlace: (place: any) => void;
+  selectedDay: number;
   // searchTabQuery?: string
   // onChangeSearchTabQuery?: (e: React.ChangeEvent<HTMLInputElement>) => void
 }
@@ -18,12 +19,12 @@ function PlaceSearchSection(props: PropType) {
   const {
     selectedTab,
     onClickTabButton,
-    onAddPlace
+    onAddPlace,
     // searchTabQuery,
     // onChangeSearchTabQuery
   } = props;
 
-  const [searchTabQuery, setSearchTabQuery] = useState('');
+  const [searchTabQuery, setSearchTabQuery] = useState("");
   const [isSearchRequested, setIsSearchRequested] = useState(false);
   const [searchResults, setSearchResults] = useState([]);
   if (searchResults) {
@@ -59,88 +60,90 @@ function PlaceSearchSection(props: PropType) {
               address: result.address_name,
               category: result.category_group_name,
               lon: result.x,
-              lat: result.y
-            }
+              lat: result.y,
+            };
           });
           setSearchResults(convertedPlaces);
         } else if (status === kakao.maps.services.Status.ZERO_RESULT) {
-          alert('검색 결과가 존재하지 않습니다.');
+          alert("검색 결과가 존재하지 않습니다.");
         } else if (status === kakao.maps.services.Status.ERROR) {
-          alert('검색 중 오류가 발생했습니다.');
+          alert("검색 중 오류가 발생했습니다.");
         }
-      }
+      };
       places.keywordSearch(searchTabQuery, placesSearchCB);
     }
   }, [isSearchRequested, searchTabQuery]);
 
   const onPressEnterSearch = (e: React.KeyboardEvent) => {
-    if (e.key === 'Enter') {
+    if (e.key === "Enter") {
       setIsSearchRequested(true);
       setTimeout(() => setIsSearchRequested(false), 100);
     }
-  }
+  };
 
   const onChangeSearchTabQuery = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
     setSearchTabQuery(e.target.value);
-  }
+  };
 
   const renderSearchTab = () => {
     return (
       <div>
         <input
-          style={{ marginTop: '20px' }}
+          style={{ marginTop: "20px" }}
           type="text"
           value={searchTabQuery}
           onChange={onChangeSearchTabQuery}
           onKeyPress={onPressEnterSearch}
         />
-        <div style={{ maxHeight: '70vw', overflowY: 'scroll', paddingBottom: '30px' }}>
-          {
-            searchResults.map((place: PlaceType) => {
-              return (
-                <CreatePlaceCard
-                  key={place.id}
-                  place={place}
-                  icon={cart}
-                  onClickButton={onAddPlace}
-                />)
-            })
-          }
+        <div
+          style={{
+            maxHeight: "70vw",
+            overflowY: "scroll",
+            paddingBottom: "30px",
+          }}
+        >
+          {searchResults.map((place: PlaceType) => {
+            return (
+              <CreatePlaceCard
+                key={place.id}
+                id={place.id}
+                place={place}
+                icon={cart}
+                onClickButton={onAddPlace}
+              />
+            );
+          })}
         </div>
       </div>
-    )
-  }
+    );
+  };
 
   const renderPlaceTab = () => {
-    return (
-      <div>
-
-      </div>
-    )
-  }
-
+    return <div></div>;
+  };
   return (
     <div className="place-search-container">
       <div className="place-search-tab-container">
         <div
           id="place"
-          className={"tab-title" + (selectedTab === 'place' ? ' selected' : '')}
-          onClick={() => onClickTabButton('place')}
+          className={"tab-title" + (selectedTab === "place" ? " selected" : "")}
+          onClick={() => onClickTabButton("place")}
         >
           Places
         </div>
 
         <div
           id="search"
-          className={"tab-title" + (selectedTab === 'search' ? ' selected' : '')}
-          onClick={() => onClickTabButton('search')}
+          className={
+            "tab-title" + (selectedTab === "search" ? " selected" : "")
+          }
+          onClick={() => onClickTabButton("search")}
         >
           Search
         </div>
       </div>
-
-      { selectedTab === 'search' ? renderSearchTab() : renderPlaceTab() }
+      {selectedTab === "search" ? renderSearchTab() : renderPlaceTab()}
     </div>
   );
 }

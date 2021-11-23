@@ -6,6 +6,7 @@ import PlaceSearchSection from "../components/PlaceSearchSection";
 import { usePostState } from "../hooks/usePostState";
 import "../styles/components/CreateEditPost.scss";
 
+
 export interface PostInfoDataType {
   title: string;
   location: string;
@@ -35,10 +36,10 @@ function CreateEditPost() {
   const [routePlaces, setRoutePlaces] = useState<any[]>([]);
 
   const onAddPlace = (place: any) => {
-    setRoutePlaces([ ...routePlaces, { place, day: selectedDay } ]);
-  }
+    setRoutePlaces([...routePlaces, { place, day: selectedDay }]);
+  };
 
-  const [selectedTab, setSelectedTab] = useState<'place' | 'search'>('place');
+  const [selectedTab, setSelectedTab] = useState<"place" | "search">("place");
   // const [searchResults, setSearchResults] = useState<any>([]);
 
   const onChangePostInfoData = useCallback(
@@ -96,7 +97,6 @@ function CreateEditPost() {
         onPressEnterLocation={onPressEnterLocation}
       />
       <div className="create-edit-content-container">
-
         <div className="create-edit-place-section">
           <div className="create-edit-places-section">
             <div className="my-routes-title">Places</div>
