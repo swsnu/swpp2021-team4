@@ -67,7 +67,8 @@ export const searchAction = (
         callbackFunc(true);
       })
       .catch(() => dispatch({ type: SEARCH_FAIL }));
-
+  }
+}
 export const getCommentsAction = (postId: number) => {
   return (dispatch: Redux.Dispatch<PostDispatchType>) => {
     return axios

@@ -133,6 +133,6 @@ export type PostDispatchType =
   | CartPostSuccess
   | CartPostFail
   | SearchSuccess
-  | SearchFail;
+  | SearchFail
   | GetCommentsSucess
   | GetCommentsFail;
