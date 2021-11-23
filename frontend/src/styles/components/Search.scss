@@ -77,7 +77,7 @@
   flex-direction: row;
 }
 .season,
-.theme {
+.theme{
   font-family: Montserrat;
   font-style: normal;
   font-weight: 400;
@@ -88,12 +88,25 @@
   padding-right: 1%;
   color: #9f9f9f;
 }
+.season-clicked, .theme-clicked{
+  font-family: Montserrat;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  margin-right: 5%;
+  border-radius: 6px;
+  padding-left: 1%;
+  padding-right: 1%;
+}
 .season:hover,
-.theme:hover {
+.season-clicked:hover,
+.theme:hover,
+.theme-clicked:hover {
   background-color: #f3f4f5;
 }
-.season:focus,
-.theme:focus {
+
+.season-clicked,
+.theme-clicked {
   color: #57ceb9;
 }
 .days {
