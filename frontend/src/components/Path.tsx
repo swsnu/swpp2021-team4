@@ -1,10 +1,10 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import arrowDownIcon from '../static/arrow_down.svg';
+import '../styles/components/Path.scss';
 import { PathListType, PlaceType } from '../store/Post/postInterfaces';
-// import returnPathTime from '../utils/returnPathTime';
+import returnPathTime from '../utils/returnPathTime';
 
 interface PropsType {
-  placeListLen?: number
   from: PlaceType
   to: PlaceType
 }
@@ -19,7 +19,6 @@ const transportationTypes = [
 
 function Path(props: PropsType) {
   const {
-    // placeListLen,
     from,
     to,
   } = props;
@@ -27,6 +26,17 @@ function Path(props: PropsType) {
   const [pathList, setPathList] = useState<PathListType>({});
   const [posFrom, setPosFrom] = useState('');
   const [posTo, setPosTo] = useState('');
+  const [time, setTime] = useState('');
+
+  useEffect(() => {
+    const setPathTime = async () => {
+      const pathTime: string = await returnPathTime(posFrom, posTo, pathList[from.id]?.transportation);
+      setTime(pathTime);
+    }
+    if (posFrom && posTo) {
+      setPathTime();
+    }
+  }, [posFrom, posTo, pathList]);
 
   useEffect(() => {
     setPosFrom(`${from.lon},${from.lat}`);
@@ -47,10 +57,11 @@ function Path(props: PropsType) {
   );
 
   return (
-    <div>
+    <div className="path-container">
       <img src={arrowDownIcon} />
       <select
         id="path"
+        className="path-select-container"
         name="path"
         onChange={(event: React.ChangeEvent<HTMLSelectElement>) => onChangePath(event, from, to)}
       >
@@ -63,9 +74,8 @@ function Path(props: PropsType) {
         }
       </select>
       <span>{
-        pathList[from.id]
-        // ? `약 ${returnPathTime(posFrom, posTo, pathList[from.id].transportation)}`
-        ? 'WIP...'+posFrom+posTo
+        pathList[from.id]?.transportation && typeof time === 'string'
+        ? `약 ${time}`
         : ''
       }</span>
     </div>
