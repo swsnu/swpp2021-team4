@@ -9,11 +9,11 @@ declare global {
 const { kakao } = window;
 
 const dummyPlaces = [
-  {day: 1, name: '곱창고', lat: 37.49995, lon: 127.027925},
-  {day: 1, name: '시코르', lat: 37.50203907104957, lon: 127.02531725648348},
-  {day: 2, name: '삼성전자', lat: 37.49733554663784, lon: 127.02791103551873},
-  {day: 2, name: '와라와라', lat: 37.49498833856227, lon: 127.03127140544494},
-  {day: 1, name: '서운중학교', lat: 37.493508152438245, lon: 127.0247135738803},
+  { day: 1, name: '곱창고', lat: 37.49995, lon: 127.027925 },
+  { day: 1, name: '시코르', lat: 37.50203907104957, lon: 127.02531725648348 },
+  { day: 2, name: '삼성전자', lat: 37.49733554663784, lon: 127.02791103551873 },
+  { day: 2, name: '와라와라', lat: 37.49498833856227, lon: 127.03127140544494 },
+  { day: 1, name: '서운중학교', lat: 37.493508152438245, lon: 127.0247135738803 },
 ]
 
 // interface DummyPlace {
@@ -46,9 +46,6 @@ function Map(props: PropType) {
     };
 
     map.current = new kakao.maps.Map(container, options);
-    if (map && placeList) {
-      console.log('map loaded!');
-    }
   }, []);
 
   useEffect(() => {

@@ -12,9 +12,9 @@ const initialState: PostStateType = {
     // created_at: "",
     // updated_at: "",
     author_id: 0,
-    author_name: '',
+    author_name: "",
     availableWithoutCar: false,
-    comment: [],
+    comments: [],
     days: 0,
     folder_id: 0,
     folder_name: "",
@@ -24,11 +24,13 @@ const initialState: PostStateType = {
     season: "",
     theme: "",
     title: "",
+    like_counts: 0,
+    liked: false,
   },
   selectedFolder: {
     id: 0,
     name: "",
-  }
+  },
 };
 export const usePostState = () => {
   const post = useSelector(

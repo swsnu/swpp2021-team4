@@ -5,6 +5,8 @@ import {
   SIGNOUT_FAIL,
   EDIT_PROFILE_SUCCESS,
   EDIT_PROFILE_FAIL,
+  ADD_FOLDER_SUCCESS,
+  ADD_FOLDER_FAIL,
   EDIT_FOLDER_SUCCESS,
   EDIT_FOLDER_FAIL,
   DELETE_FOLDER_SUCCESS,
@@ -50,6 +52,15 @@ export interface EditProfileFail {
   type: typeof EDIT_PROFILE_FAIL
 }
 
+export interface AddFolderSuccess {
+  type: typeof ADD_FOLDER_SUCCESS
+  payload: Folder
+}
+
+export interface AddFolderFail {
+  type: typeof ADD_FOLDER_FAIL
+}
+
 export interface EditFolderSuccess {
   type: typeof EDIT_FOLDER_SUCCESS
   payload: Folder
@@ -75,6 +86,8 @@ export type UserDispatchType =
   SignoutFail |
   EditProfileSuccess |
   EditProfileFail |
+  AddFolderSuccess |
+  AddFolderFail |
   EditFolderSuccess |
   EditFolderFail |
   DeleteFolderSuccess |
