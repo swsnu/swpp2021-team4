@@ -8,6 +8,7 @@ interface PropsType {
   place: PlaceType;
   icon: string;
   onClickButton: Function;
+  key: number;
   onAddButton?: (place:any) => void
 }
 function Place(props: PropsType) {
@@ -23,7 +24,7 @@ function Place(props: PropsType) {
     return toggle;
   };
   return (
-    <div className="place-container">
+    <div className="place-container" key={props.key}>
       <div className="place-container-top">
         <div className="place-title" onClick={() => {
           if (props.onAddButton) {

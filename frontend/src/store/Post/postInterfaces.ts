@@ -1,4 +1,13 @@
-import { GET_POSTS_SUCCESS, GET_POSTS_FAIL, GET_POST_SUCCESS, GET_POST_FAIL, CART_POST_SUCCESS, CART_POST_FAIL } from "../actionTypes";
+import {
+  GET_POSTS_SUCCESS,
+  GET_POSTS_FAIL,
+  GET_POST_SUCCESS,
+  GET_POST_FAIL,
+  CART_POST_SUCCESS,
+  CART_POST_FAIL,
+  GET_COMMENTS_SUCCESS,
+  GET_COMMENTS_FAIL,
+} from "../actionTypes";
 import { Folder } from "../User/userInterfaces";
 
 export interface PostType {
@@ -18,8 +27,10 @@ export interface PostType {
   season: string;
   is_shared: boolean;
   availableWithoutCar: boolean;
-  comment: CommentType[];
+  comments: CommentType[];
   places: PlaceType[];
+  like_counts: number;
+  liked: boolean;
 }
 
 export interface PlaceInfoType {
@@ -46,8 +57,10 @@ export interface PlaceType {
 }
 
 export interface CommentType {
-  author_id: number;
+  username: string;
   content: string;
+  profile_image: string;
+  id: number;
 }
 
 export interface PathType {
@@ -83,4 +96,20 @@ export interface CartPostFail {
   type: typeof CART_POST_FAIL;
 }
 
-export type PostDispatchType = GetPostsSuccess | GetPostsFail | GetPostSuccess | GetPostFail | CartPostSuccess | CartPostFail;
+export interface GetCommentsSucess {
+  type: typeof GET_COMMENTS_SUCCESS;
+  payload: CommentType[];
+}
+
+export interface GetCommentsFail {
+  type: typeof GET_COMMENTS_FAIL;
+}
+export type PostDispatchType =
+  | GetPostsSuccess
+  | GetPostsFail
+  | GetPostSuccess
+  | GetPostFail
+  | CartPostSuccess
+  | CartPostFail
+  | GetCommentsSucess
+  | GetCommentsFail;
