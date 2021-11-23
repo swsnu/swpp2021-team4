@@ -55,6 +55,7 @@ function CreateEditHeader(props: PropType) {
             <input
               id="days"
               type="number"
+              min={1}
               placeholder="Days"
               style={{ maxWidth: '4.5vw' }}
               value={postInfoData.days}

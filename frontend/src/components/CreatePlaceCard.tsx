@@ -7,10 +7,13 @@ import ItemTypes from "../utils/items";
 import { useDrag } from "react-dnd";
 
 interface PropsType {
-  id: Number;
-  place: PlaceType;
-  icon: string;
-  onClickButton: (place: any) => void;
+  id: Number
+  place: PlaceType
+  icon: string
+  type: 'search' | 'place' | 'route'
+  isPlaceInCart: (id: number) => boolean
+  isPlaceInRoute?: (place: any) => boolean
+  onClickCartButton?: (place: PlaceType) => void
 }
 // interface DragType {
 //   item: {
@@ -29,14 +32,21 @@ function CreatePlaceCard(props: PropsType) {
   const [isExpanded, setIsExpanded] = useState(false);
 
   const onClickCartButton = () => {
-    props.onClickButton(props.place);
-  };
+    if (props.onClickCartButton) {
+      props.onClickCartButton(props.place);
+    }
+  }
 
   return (
     <div ref={dragRef} style={{ opacity }} className="create-place-container">
       <div className="place-container-top">
-        <div className="place-title">{props.place.name}</div>
-        <button className="place-cart-button" onClick={onClickCartButton}>
+        <div className="place-title">
+          {props.place.name}
+        </div>
+        <button
+          className={`place-cart-button ${props.type}`.concat(props.isPlaceInCart(props.place.id) ? ' selected' : '')}
+          onClick={onClickCartButton}
+        >
           <img src={props.icon} />
         </button>
       </div>

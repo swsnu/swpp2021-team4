@@ -4,8 +4,8 @@ import Map from "../components/Map";
 import MyRoutesSection from "../components/MyRoutesSection";
 import PlaceSearchSection from "../components/PlaceSearchSection";
 import { usePostState } from "../hooks/usePostState";
+import { PlaceDayType, PlaceType } from "../store/Post/postInterfaces";
 import "../styles/components/CreateEditPost.scss";
-
 
 export interface PostInfoDataType {
   title: string;
@@ -33,10 +33,27 @@ function CreateEditPost() {
   const [locationQuery, setLocationQuery] = useState("");
   const [selectedDay, setSelectedDay] = useState(1);
 
-  const [routePlaces, setRoutePlaces] = useState<any[]>([]);
+  const [routePlaces, setRoutePlaces] = useState<PlaceDayType[]>([]);
 
   const onAddPlace = (place: any) => {
     setRoutePlaces([...routePlaces, { place, day: selectedDay }]);
+  };
+
+  const onDeletePlace = useCallback(
+    (place: PlaceType) => {
+      setRoutePlaces(
+        routePlaces.filter(
+          (p: PlaceDayType) => p.day !== selectedDay || p.place.id !== place.id
+        )
+      );
+    },
+    [routePlaces, selectedDay]
+  );
+
+  const isPlaceInRoute = (place: PlaceType) => {
+    return routePlaces
+      .filter((p: PlaceDayType) => p.day === selectedDay)
+      .some((p: PlaceDayType) => p.place.id === place.id);
   };
 
   const [selectedTab, setSelectedTab] = useState<"place" | "search">("place");
@@ -104,7 +121,9 @@ function CreateEditPost() {
               selectedTab={selectedTab}
               onClickTabButton={onClickTabButton}
               onAddPlace={onAddPlace}
+              onDeletePlace={onDeletePlace}
               selectedDay={selectedDay}
+              isPlaceInRoute={isPlaceInRoute}
             />
           </div>
 
@@ -116,6 +135,7 @@ function CreateEditPost() {
               onClickDay={onClickDay}
               onClickAddIcon={onClickAddIcon}
               routePlaces={routePlaces}
+              onDeletePlace={onDeletePlace}
             />
           </div>
         </div>

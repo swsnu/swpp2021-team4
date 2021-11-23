@@ -37,12 +37,19 @@ export interface PlaceType {
   description: string;
   day: number;
   folder_id: number;
-  latitude: string;
-  longitude: string;
+  latitude?: string;
+  longitude?: string;
+  lat: string;
+  lon: string;
   homepage: string;
   phone_number: string;
   address: string;
   category: string;
+}
+
+export interface PlaceDayType {
+  day: number|string,
+  place: PlaceType
 }
 
 export interface CommentType {
@@ -54,6 +61,13 @@ export interface PathType {
   from: PlaceType;
   to: PlaceType;
   transportation: string;
+}
+
+export interface PathListType {
+  [from: string]: {
+    to: string,
+    transportation: 'car'|'pub'|'vic'|'wal'
+  }
 }
 
 export interface GetPostsSuccess {

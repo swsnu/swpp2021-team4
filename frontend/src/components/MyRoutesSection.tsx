@@ -1,33 +1,50 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "../styles/components/MyRoutesSection.scss";
 import addIcon from "../static/add_day_icon.svg";
-import { PlaceType } from "../store/Post/postInterfaces";
-import cart from "../static/cart-icon.svg";
+import { PlaceDayType } from "../store/Post/postInterfaces";
+import deleteIcon from "../static/delete.svg";
 import CreatePlaceCard from "./CreatePlaceCard";
+import Path from "./Path";
 
 interface PropType {
   days: number;
   selectedDay: number;
+  routePlaces: any[];
   onClickDay: (value: number) => void;
   onClickAddIcon: (value: number) => void;
-  routePlaces: any[];
+  onDeletePlace: (place: any) => void;
 }
 
 function MyRoutesSection(props: PropType) {
-  const { days, selectedDay, onClickDay, onClickAddIcon, routePlaces } = props;
+  const {
+    days,
+    selectedDay,
+    onClickDay,
+    onClickAddIcon,
+    routePlaces,
+    onDeletePlace,
+  } = props;
+
+  const [todayPlaceList, setTodayPlaceList] = useState<PlaceDayType[]>([]);
+
+  useEffect(() => {
+    setTodayPlaceList(
+      routePlaces.filter((p: PlaceDayType) => p.day == selectedDay)
+    );
+  }, [selectedDay, routePlaces]);
 
   const renderDayButtons = () => {
     const results = [];
-    for (let i = 1; i < days + 1; i++) {
+    for (let i = 0; i < days; i++) {
       results.push(
         <div
-          key={i}
+          key={i + 1}
           className={
-            "my-routes-day-btn " + (i === selectedDay ? " selected" : "")
+            "my-routes-day-btn " + (i + 1 === selectedDay ? " selected" : "")
           }
-          onClick={() => onClickDay(i)}
+          onClick={() => onClickDay(i + 1)}
         >
-          Day {i}
+          Day {i + 1}
         </div>
       );
     }
@@ -36,8 +53,17 @@ function MyRoutesSection(props: PropType) {
 
   return (
     <div className="my-routes-container">
-      <div style={{ display: "flex", flexDirection: "row" }}>
-        {renderDayButtons()}
+      <div style={{ width: "100%", display: "flex", flexDirection: "row" }}>
+        <div
+          style={{
+            width: "90%",
+            display: "flex",
+            flexDirection: "row",
+            overflowX: "scroll",
+          }}
+        >
+          {renderDayButtons()}
+        </div>
         <img
           style={{ marginLeft: "11px" }}
           onClick={() => onClickAddIcon(days + 1)}
@@ -45,16 +71,23 @@ function MyRoutesSection(props: PropType) {
         />
       </div>
       <div className="my-routes-places-container">
-        {routePlaces.map((result: { day: number; place: PlaceType }) => {
-          const { place, day } = result;
-          return day !== selectedDay ? null : (
-            <CreatePlaceCard
-              id={place.id}
-              key={place.id}
-              place={place}
-              icon={cart}
-              onClickButton={() => {}}
-            />
+        {todayPlaceList.map((result: PlaceDayType, index: number) => {
+          const { place } = result;
+          return (
+            <>
+              <CreatePlaceCard
+                id={place.id}
+                key={place.id}
+                place={place}
+                icon={deleteIcon}
+                type="route"
+                onClickCartButton={onDeletePlace}
+                isPlaceInCart={() => true}
+              />
+              {index !== todayPlaceList.length - 1 && (
+                <Path from={place} to={todayPlaceList[index + 1].place} />
+              )}
+            </>
           );
         })}
       </div>
