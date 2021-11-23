@@ -5,7 +5,7 @@ import { getPostsAction, searchAction } from "../store/Post/postAction";
 import "../styles/components/Search.scss";
 import { SearchType } from "../store/Post/postInterfaces";
 import PostItem from "../components/PostItem";
-import { usePostsState, useSearchPostState } from "../hooks/usePostsState";
+import { useSearchPostState } from "../hooks/usePostsState";
 //import { useSearchPostState } from "../hooks/usePostsState";
 
 function Search() {
@@ -18,39 +18,13 @@ function Search() {
     theme: "",
     transportation: "",
   });
- // const [searchResults, setSearchResults] = useState([
- //   {
- //     id: 0,
- //     thumbnail_image: "",
- //     author_name: "",
- //     author_id: 0,
- //     title: "",
- //     is_shared: false,
- //   },
- // ]);
+  const [searched, SetSearch] = useState(false);
+
   useEffect(() => {
     dispatch(getPostsAction());
   }, [dispatch]);
 
-  const posts = usePostsState();
-
-  // const posts = useSearchPostState();
-
-  //  const onSearch = () => {
-  //    axios
-  //    .post<{ result: SearchType[] }>(`/post/search/`, {
-  //      keyword: userInputs.keyword,
-  //      season: userInputs.season,
-  //      location: userInputs.location,
-  //      days: userInputs.days,
-  //      theme: userInputs.theme,
-  //      transportation: userInputs.transportation,
-  //    })
-  //    .then(function (response) {
-  //      return setSearchResults(response.data.result);
-  //    })
-  //    .catch((err) => err.response);
-  //};
+  const searchedPosts = useSearchPostState();
 
   useEffect(() => {
     dispatch(
@@ -62,7 +36,8 @@ function Search() {
           days: userInputs.days,
           theme: userInputs.theme,
           transportation: userInputs.transportation,
-        }
+        },
+        (value) => SetSearch(value)
       )
     );
   }, [dispatch]);
@@ -75,6 +50,7 @@ function Search() {
     });
     console.log(e.target.value);
   };
+
   const onClickSearch = () => {
     dispatch(
       searchAction(
@@ -85,25 +61,15 @@ function Search() {
           days: userInputs.days,
           theme: userInputs.theme,
           transportation: userInputs.transportation,
-        }
+        },
+        (value) => SetSearch(value)
       )
     );
-   // const searches = useSearchPostState();
-    //setSearchResults(searches)
+    console.log(searched);
+
   };
 
-  const postList = posts.map((post: SearchType) => {
-    return (
-      <PostItem
-        key={post.id}
-        id={post.id}
-        thumbnail_image={post.thumbnail_image}
-        title={post.title}
-        author_name={post.author_name}
-        author_id={post.author_id}
-      />
-    );
-  });
+
 
   return (
     <div className="search-container">
@@ -308,19 +274,19 @@ function Search() {
       </div>
       <div className="search-result-container">
         <div className="search-research">Routes</div>
-        <div className="search-research-content">{postList}</div>
         <div className="search-research-content">
-          {useSearchPostState()== undefined && postList}
-          {useSearchPostState() != undefined &&
-            useSearchPostState().map((post: SearchType) => {
-              <PostItem
-                key={post.id}
-                id={post.id}
-                thumbnail_image={post.thumbnail_image}
-                title={post.title}
-                author_name={post.author_name}
-                author_id={post.author_id}
-              />;
+          {searchedPosts &&
+            searchedPosts.map((post: SearchType) => {
+              return (
+                <PostItem
+                  key={post.id}
+                  id={post.id}
+                  thumbnail_image={post.thumbnail_image}
+                  title={post.title}
+                  author_name={post.author_name}
+                  author_id={post.author_id}
+                />
+              );
             })}
         </div>
       </div>

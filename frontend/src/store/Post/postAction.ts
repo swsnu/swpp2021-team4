@@ -52,13 +52,15 @@ export const cartPostAction = (postId: number, folderId: number) => {
 
 export const searchAction = (
   searchForm: SearchForm,
+  callbackFunc: (value: boolean) => void
 ) => {
   return (dispatch: Redux.Dispatch<PostDispatchType>) => {
     console.log(searchForm);
     return axios
-      .post<{ result: SearchType[] }>(`/post/search/`, searchForm)
+      .post<SearchType[]>(`/post/search/`, searchForm)
       .then((res) => {
-        dispatch({ type: SEARCH_SUCCESS, payload: res.data.result });
+        dispatch({ type: SEARCH_SUCCESS, payload: res.data});
+        callbackFunc(true);
       })
       .catch(() => dispatch({ type: SEARCH_FAIL }));
   };
