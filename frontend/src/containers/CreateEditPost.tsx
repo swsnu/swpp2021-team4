@@ -13,8 +13,11 @@ export interface PostInfoDataType {
   days: number;
   seasonRecommendation: string;
   theme: string;
-  image: string;
+  headerImage: string;
   availableWithoutCar: boolean;
+  isAvailableWithoutCar: boolean;
+  folderId: number;
+  isShared: false;
 }
 const initialFolderData: PostInfoDataType = {
   title: "",
@@ -24,6 +27,9 @@ const initialFolderData: PostInfoDataType = {
   theme: "",
   headerImage: "",
   availableWithoutCar: false,
+  isAvailableWithoutCar: false,
+  folderId: 0,
+  isShared: false
 };
 
 function CreateEditPost() {
