@@ -5,6 +5,8 @@ import { PostStateType } from "../store/Post/postReducer";
 const initialState: PostStateType = {
   posts: [],
   search: [],
+  likeSorted:[],
+  dateSorted:[],
   detailedPost: {
     id: 0,
     header_image: "",

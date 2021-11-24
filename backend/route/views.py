@@ -155,6 +155,7 @@ def search(request):
             'author_name': post.author.username,
             'author_id': post.author.id,
             'like_count': post.like_users.count(), 
+            'created_at': post.created_at,
             'comment_count': Comment.objects.filter(post=post).count(),
             'is_shared': post.is_shared
             })
@@ -166,11 +167,14 @@ def search(request):
             'title': post.title,
             'author_name': post.author.username,
             'author_id': post.author.id,
+            'created_at': post.created_at,
             'like_count': post.like_users.count(), 
             'comment_count': Comment.objects.filter(post=post).count(),
             'is_shared': post.is_shared
             })
-    return JsonResponse(postlist, safe=False)
+    likelist=[]
+    
+    return JsonResponse({'ordinary':postlist, 'like':sorted(postlist, key=(lambda x:-x['like_count'])), 'created': sorted(postlist, key=(lambda x: x['created_at']),reverse=True)}, safe=False)
 
 @require_GET
 def post_spec_get(request, post_id):

@@ -117,3 +117,27 @@
   border: none;
   width: 50%;
 }
+.sorting{
+  margin-left: 2%;
+  border-radius: 3px;
+  font-family: $koreanFont;
+  font-style: normal;
+
+  align-items: flex-end;
+}
+
+.sorting-clicked{
+  margin-left: 2%;
+  color: $darkMintColor;
+  border-radius: 3px;
+  font-family: $koreanFont;
+  font-style: normal;
+}
+
+.sorting:hover, .sorting-clicked:hover{
+  background-color:#f3f4f5;
+}
+.search-title{
+  display: flex;
+  flex-direction: row;
+}
