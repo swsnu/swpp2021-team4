@@ -90,14 +90,14 @@ def post_create(request):
         post_location=form.cleaned_data['location']
         post_available_without_car=form.cleaned_data['availableWithoutCar']
         
-        places = json.loads(form.cleaned_data['places'])
+        places = form.cleaned_data['places']
 
         post = Post.objects.create(
             title=post_title,
             author_id=logged_user_id,
             header_image=post_header_image,
             thumbnail_image=post_thumbnail_image,
-            folder_id = post_folder_id,
+            # folder_id = post_folder_id,
             days=post_days, 
             is_shared=post_is_shared,
             location=post_location,
@@ -116,7 +116,7 @@ def post_create(request):
             'header_image': post.header_image.url if post.header_image else None,
             'thumbnail_image': post.thumbnail_image.url if post.thumbnail_image else None, 
             'days': post.days,
-            'folder_id': post.folder.id,
+            'folder_id': post.folder.id if post.folder else '',
             'is_shared': post.is_shared,
             'theme': post.theme,
             'season': post.season, 
