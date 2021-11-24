@@ -1,9 +1,11 @@
 import React, { useCallback, useState } from "react";
+import { useDispatch } from "react-redux";
 import CreateEditHeader from "../components/CreateEditHeader";
 import Map from "../components/Map";
 import MyRoutesSection from "../components/MyRoutesSection";
 import PlaceSearchSection from "../components/PlaceSearchSection";
 import { usePostState } from "../hooks/usePostState";
+import { createPostAction } from "../store/Post/postAction";
 import { PlaceDayType, PlaceType } from "../store/Post/postInterfaces";
 import "../styles/components/CreateEditPost.scss";
 
@@ -33,9 +35,9 @@ const initialFolderData: PostInfoDataType = {
 };
 
 function CreateEditPost() {
+  const dispatch = useDispatch();
   const post = usePostState();
-  const [postInfoData, setPostInfoData] =
-    useState<PostInfoDataType>(initialFolderData);
+  const [postInfoData, setPostInfoData] = useState<PostInfoDataType>(initialFolderData);
   const [locationQuery, setLocationQuery] = useState("");
   const [selectedDay, setSelectedDay] = useState(1);
 
@@ -60,6 +62,53 @@ function CreateEditPost() {
 
   const [selectedTab, setSelectedTab] = useState<'place' | 'search'>('place');
   // const [searchResults, setSearchResults] = useState<any>([]);
+
+  const onClickCreateButton = () => {
+    const {
+      title,
+      headerImage,
+      days,
+      theme,
+      seasonRecommendation,
+      location,
+      isAvailableWithoutCar,
+      folderId,
+      isShared
+    } = postInfoData;
+
+    const placeListData = routePlaces.map((p: PlaceDayType, index: number) => {
+      const { day, place } = p;
+
+      return {
+        day,
+        index,
+        name: place.name,
+        description : place.description,
+        latitude: place.lat || place.latitude || '',
+        longitude: place.lon || place.longitude || '',
+        homepage: place.homepage,
+        address: place.address,
+        category: place.category,
+        phone_number: place.phone_number,
+      }
+    });
+
+    const defaultHeaderImage = 'https://media.triple.guide/triple-cms/c_limit,f_auto,h_1024,w_1024/73968eea-cbbe-49cd-b001-353e9e962cbf.jpeg';
+    const formData = new FormData();
+    formData.append("title", title);
+    formData.append("is_shared", isShared?.toString() || 'false');
+    formData.append('header_image', headerImage || defaultHeaderImage);
+    formData.append('days', days?.toString());
+    formData.append('theme', theme);
+    formData.append('season', seasonRecommendation);
+    formData.append('location', location);
+    formData.append('availableWithoutCar', isAvailableWithoutCar.toString())
+    formData.append('folder_id', folderId ? folderId.toString() : '172637238622223');
+    formData.append('places', new Blob([ JSON.stringify(placeListData)], {type: 'application/json'}));
+    formData.append("enctype", 'multipart/form-data');
+
+    dispatch(createPostAction(formData));
+  }
 
   const onChangePostInfoData = useCallback(
     (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
@@ -144,9 +193,11 @@ function CreateEditPost() {
         </div>
 
         <Map
+          fromWhere={'create'}
           location={locationQuery}
           selectedDay={selectedDay}
           placeList={routePlaces}
+          onClickButton={onClickCreateButton}
         />
       </div>
     </div>
