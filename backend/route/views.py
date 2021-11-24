@@ -172,8 +172,6 @@ def search(request):
             'comment_count': Comment.objects.filter(post=post).count(),
             'is_shared': post.is_shared
             })
-    likelist=[]
-    
     return JsonResponse({'ordinary':postlist, 'like':sorted(postlist, key=(lambda x:-x['like_count'])), 'created': sorted(postlist, key=(lambda x: x['created_at']),reverse=True)}, safe=False)
 
 @require_GET
