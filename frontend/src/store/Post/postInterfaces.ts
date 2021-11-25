@@ -76,7 +76,7 @@ export interface SearchType {
   thumbnail_image: string;
   author_name: string;
   author_id: number;
-  title: string, 
+  title: string;
   is_shared: boolean;
 }
 export interface GetPostsSuccess {
@@ -106,7 +106,6 @@ export interface CartPostFail {
   type: typeof CART_POST_FAIL;
 }
 
-
 export interface SearchSuccess {
   type: typeof SEARCH_SUCCESS;
   payload: SearchType[];
@@ -114,7 +113,6 @@ export interface SearchSuccess {
 export interface SearchFail {
   type: typeof SEARCH_FAIL;
 }
-
 
 export interface GetCommentsSucess {
   type: typeof GET_COMMENTS_SUCCESS;

@@ -240,7 +240,9 @@ function PostDetail() {
               </button>
             </div>
             <div className="header-bottom">
-              {post.liked ? (
+              {!loggedUser.id ? (
+                <img className="post-like-icon unliked" src={unlike_icon} />
+              ) : post.liked ? (
                 <img
                   className="post-like-icon liked"
                   onClick={() => onClickPostLikeButton()}
@@ -274,7 +276,20 @@ function PostDetail() {
               })}
             />
             <div className="body-comments-container">
-              <div className="comment-input-container">
+              <div className={`comment-input-container ${loggedUser.id ? `visible` : `invisible`}`}>
+                {post.liked ? (
+                  <img
+                    className="post-like-icon liked"
+                    onClick={() => onClickPostLikeButton()}
+                    src={like_icon}
+                  />
+                ) : (
+                  <img
+                    className="post-like-icon unliked"
+                    onClick={() => onClickPostLikeButton()}
+                    src={unlike_icon}
+                  />
+                )}
                 <input
                   className="comment-input"
                   type="text"

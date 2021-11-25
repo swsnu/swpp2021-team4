@@ -62,7 +62,7 @@ function Search() {
         (value) => SetSearch(value)
       )
     );
-    console.log(searched)
+    console.log(searched);
   };
 
   return (
@@ -103,7 +103,7 @@ function Search() {
           <div className="category">Season</div>
           <button
             id="season"
-            className={`season${userInputs.season=="spr" ? '-clicked' : ''}`}
+            className={`season${userInputs.season == "spr" ? "-clicked" : ""}`}
             onClick={() =>
               userInputs.season != "spr"
                 ? setUserInputs({
@@ -117,7 +117,7 @@ function Search() {
           </button>
           <button
             id="season"
-            className={`season${userInputs.season=="sum" ? '-clicked' : ''}`}
+            className={`season${userInputs.season == "sum" ? "-clicked" : ""}`}
             onClick={() =>
               userInputs.season != "sum"
                 ? setUserInputs({
@@ -131,7 +131,7 @@ function Search() {
           </button>
           <button
             id="season"
-            className={`season${userInputs.season=="aut" ? '-clicked' : ''}`}
+            className={`season${userInputs.season == "aut" ? "-clicked" : ""}`}
             onClick={() =>
               userInputs.season != "aut"
                 ? setUserInputs({
@@ -145,7 +145,7 @@ function Search() {
           </button>
           <button
             id="season"
-            className={`season${userInputs.season=="win" ? '-clicked' : ''}`}
+            className={`season${userInputs.season == "win" ? "-clicked" : ""}`}
             onClick={() =>
               userInputs.season != "win"
                 ? setUserInputs({
@@ -176,7 +176,7 @@ function Search() {
           <div className="category">Theme</div>
           <button
             id="theme"
-            className={`theme${userInputs.theme=="lover" ? '-clicked' : ''}`}
+            className={`theme${userInputs.theme == "lover" ? "-clicked" : ""}`}
             onClick={() =>
               userInputs.theme != "lover"
                 ? setUserInputs({
@@ -193,7 +193,7 @@ function Search() {
           </button>
           <button
             id="theme"
-            className={`theme${userInputs.theme=="family" ? '-clicked' : ''}`}
+            className={`theme${userInputs.theme == "family" ? "-clicked" : ""}`}
             onClick={() =>
               userInputs.theme != "family"
                 ? setUserInputs({
@@ -210,7 +210,9 @@ function Search() {
           </button>
           <button
             id="theme"
-            className={`theme${userInputs.theme=="friends" ? '-clicked' : ''}`}
+            className={`theme${
+              userInputs.theme == "friends" ? "-clicked" : ""
+            }`}
             onClick={() =>
               userInputs.theme != "friends"
                 ? setUserInputs({
@@ -227,7 +229,7 @@ function Search() {
           </button>
           <button
             id="theme"
-            className={`theme${userInputs.theme=="alone" ? '-clicked' : ''}`}
+            className={`theme${userInputs.theme == "alone" ? "-clicked" : ""}`}
             onClick={() =>
               userInputs.theme != "alone"
                 ? setUserInputs({
@@ -248,7 +250,9 @@ function Search() {
           <div className="category">Transportation</div>
           <button
             id="transportation"
-            className={`theme${userInputs.transportation=="True" ? '-clicked' : ''}`}
+            className={`theme${
+              userInputs.transportation == "True" ? "-clicked" : ""
+            }`}
             onClick={() =>
               userInputs.transportation == "False" ||
               userInputs.transportation == ""
