@@ -4,6 +4,9 @@ import { PostStateType } from "../store/Post/postReducer";
 
 const initialState: PostStateType = {
   posts: [],
+  search: [],
+  likeSorted: [],
+  dateSorted:[],
   detailedPost: {
     id: 0,
     header_image: "",
@@ -36,4 +39,21 @@ export const usePostsState = () => {
     (state: RootReducerType) => state.post.posts || initialState.posts
   );
   return posts;
+};
+export const useSearchPostState = (sorting: string) => {
+  if (sorting==""){
+    return useSelector(
+      (state: RootReducerType) => state.post.search || initialState.search
+    );
+  }
+  else if (sorting=="like"){
+    return useSelector(
+      (state: RootReducerType) => state.post.likeSorted || initialState.likeSorted
+    );
+  }
+  else{
+    return useSelector(
+      (state: RootReducerType) => state.post.dateSorted || initialState.dateSorted
+    );
+  }
 };
