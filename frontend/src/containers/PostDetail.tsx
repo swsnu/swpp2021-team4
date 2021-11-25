@@ -52,54 +52,57 @@ function PostDetail() {
   const [folderInputs, setFolderInputs] = useState({
     folderId: 0,
     folderName: "",
-    newFolderName: ""
-  })
+    newFolderName: "",
+  });
 
   const onChangeEditFolder = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFolderInputs({
       ...folderInputs,
-      folderName: e.target.value
-    })
+      folderName: e.target.value,
+    });
   };
 
   const onChangeAddFolder = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFolderInputs({
       ...folderInputs,
-      newFolderName: e.target.value
-    })
+      newFolderName: e.target.value,
+    });
   };
 
   const onClickAddFolder = () => {
     setIsFolderAdding(true);
-  }
+  };
 
   const onClickEditFolder = (folder_id: number, folder_name: string) => {
     setFolderInputs({
       ...folderInputs,
       folderId: folder_id,
-      folderName: folder_name
-    })
-  }
+      folderName: folder_name,
+    });
+  };
 
   const onEditFolder = (folder_id: number) => {
-    dispatch(editFolderAction(
-      loggedUser.id,
-      folder_id,
-      { folder_name: folderInputs.folderName },
-      (value) => {
-        if (value) setFolderInputs({ ...folderInputs, folderId: 0, folderName: "" });
-      })
-    )
-  }
+    dispatch(
+      editFolderAction(
+        loggedUser.id,
+        folder_id,
+        { folder_name: folderInputs.folderName },
+        (value) => {
+          if (value)
+            setFolderInputs({ ...folderInputs, folderId: 0, folderName: "" });
+        }
+      )
+    );
+  };
 
   const onAddFolder = () => {
-    dispatch(addFolderAction(
-      loggedUser.id,
-      folderInputs.newFolderName,
-      (value) => setIsFolderAdding(!value))
-    )
+    dispatch(
+      addFolderAction(loggedUser.id, folderInputs.newFolderName, (value) =>
+        setIsFolderAdding(!value)
+      )
+    );
     setFolderInputs({ ...folderInputs, newFolderName: "" });
-  }
+  };
 
   // place의 타입 정의 후 any 고치기
   const post = usePostState();
@@ -194,7 +197,7 @@ function PostDetail() {
                 place.lon = place.longitude;
                 return {
                   day: place.day,
-                  place
+                  place,
                 };
               })}
             />
@@ -265,9 +268,13 @@ function PostDetail() {
                       value={folderInputs.folderName}
                       onChange={onChangeEditFolder}
                     />
-                    <img className="icon" src={edit_btn} onClick={() => onEditFolder(folder.id)} />
+                    <img
+                      className="icon"
+                      src={edit_btn}
+                      onClick={() => onEditFolder(folder.id)}
+                    />
                   </div>
-                )
+                );
               } else {
                 return (
                   <div key={folder.id}>
@@ -277,12 +284,16 @@ function PostDetail() {
                     >
                       {folder.name}
                     </div>
-                    <img className="icon" src={edit_btn} onClick={() => onClickEditFolder(folder.id, folder.name)} />
+                    <img
+                      className="icon"
+                      src={edit_btn}
+                      onClick={() => onClickEditFolder(folder.id, folder.name)}
+                    />
                   </div>
                 );
               }
             })}
-          {isFolderAdding &&
+          {isFolderAdding && (
             <div className="add-folder">
               <input
                 id="add-folder-input"
@@ -290,12 +301,16 @@ function PostDetail() {
                 value={folderInputs.newFolderName}
                 onChange={onChangeAddFolder}
               />
-              <img className="icon" src={edit_btn} onClick={() => onAddFolder()} />
-            </div>}
-          <div
-            className="add-folder"
-            onClick={() => onClickAddFolder()}
-          >Add Folder</div>
+              <img
+                className="icon"
+                src={edit_btn}
+                onClick={() => onAddFolder()}
+              />
+            </div>
+          )}
+          <div className="add-folder" onClick={() => onClickAddFolder()}>
+            Add Folder
+          </div>
         </div>
         <div className="folder-modal-bottom">
           {/* <button

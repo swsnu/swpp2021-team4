@@ -5,14 +5,19 @@ import {
   GET_POST_FAIL,
   CART_POST_SUCCESS,
   CART_POST_FAIL,
+  SEARCH_SUCCESS,
+  SEARCH_FAIL,
   GET_COMMENTS_SUCCESS,
   GET_COMMENTS_FAIL,
 } from "../actionTypes";
 import { Folder } from "../User/userInterfaces";
-import { PostDispatchType, PostType } from "./postInterfaces";
+import { PostDispatchType, PostType, SearchType } from "./postInterfaces";
 
 export type PostStateType = {
   posts: PostType[];
+  search: SearchType[];
+  likeSorted: SearchType[];
+  dateSorted: SearchType[];
   detailedPost: PostType;
   selectedFolder: Folder;
 };
@@ -45,6 +50,10 @@ const initialState: PostStateType = {
     id: 0,
     name: "",
   },
+
+  search: [],
+  likeSorted:[],
+  dateSorted:[]
 };
 
 export default (
@@ -66,8 +75,15 @@ export default (
       return { ...state, selectedFolder: action.payload };
     case CART_POST_FAIL:
       return { ...state };
+    case SEARCH_SUCCESS:
+      return { ...state, search: action.ordinary, likeSorted: action.like, dateSorted: action.date };
+    case SEARCH_FAIL:
+      return { ...state };
     case GET_COMMENTS_SUCCESS:
-      return { ...state, detailedPost: { ...state.detailedPost, comments: action.payload } };
+      return {
+        ...state,
+        detailedPost: { ...state.detailedPost, comments: action.payload },
+      };
     case GET_COMMENTS_FAIL:
       return { ...state };
     default:

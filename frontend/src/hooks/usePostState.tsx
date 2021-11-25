@@ -30,6 +30,9 @@ const initialState: PostStateType = {
     id: 0,
     name: "",
   },
+  search: [],
+  likeSorted: [],
+  dateSorted: [],
 };
 export const usePostState = () => {
   const post = useSelector(
