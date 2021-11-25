@@ -47,14 +47,12 @@ export const useSearchPostState = () => {
   return posts;
 };
 export const useLikeSortedPostState = () => {
-  const posts = useSelector(
+  return useSelector(
     (state: RootReducerType) => state.post.likeSorted || initialState.likeSorted
   );
-  return posts;
 };
 export const useDateSortedSearchPostState = () => {
-  const posts = useSelector(
+  return useSelector(
     (state: RootReducerType) => state.post.dateSorted || initialState.dateSorted
   );
-  return posts;
 };

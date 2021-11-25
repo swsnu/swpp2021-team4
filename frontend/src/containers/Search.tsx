@@ -30,6 +30,14 @@ function Search() {
   const searchedPosts = useSearchPostState();
   const likeSortedPosts = useLikeSortedPostState();
   const dateSortedPosts = useDateSortedSearchPostState();
+  let showedPosts;
+  if (sorting == "") {
+    showedPosts = searchedPosts;
+  } else if (sorting == "like") {
+    showedPosts = likeSortedPosts;
+  } else {
+    showedPosts = dateSortedPosts;
+  }
   useEffect(() => {
     dispatch(
       searchAction(
@@ -293,45 +301,18 @@ function Search() {
           </button>
         </div>
         <div className="search-research-content">
-          {sorting == "" &&
-            searchedPosts.map((post: SearchType) => {
-              return (
-                <PostItem
-                  key={post.id}
-                  id={post.id}
-                  thumbnail_image={post.thumbnail_image}
-                  title={post.title}
-                  author_name={post.author_name}
-                  author_id={post.author_id}
-                />
-              );
-            })}
-          {sorting == "like" &&
-            likeSortedPosts.map((post: SearchType) => {
-              return (
-                <PostItem
-                  key={post.id}
-                  id={post.id}
-                  thumbnail_image={post.thumbnail_image}
-                  title={post.title}
-                  author_name={post.author_name}
-                  author_id={post.author_id}
-                />
-              );
-            })}
-          {sorting == "date" &&
-            dateSortedPosts.map((post: SearchType) => {
-              return (
-                <PostItem
-                  key={post.id}
-                  id={post.id}
-                  thumbnail_image={post.thumbnail_image}
-                  title={post.title}
-                  author_name={post.author_name}
-                  author_id={post.author_id}
-                />
-              );
-            })}
+          {showedPosts.map((post: SearchType) => {
+            return (
+              <PostItem
+                key={post.id}
+                id={post.id}
+                thumbnail_image={post.thumbnail_image}
+                title={post.title}
+                author_name={post.author_name}
+                author_id={post.author_id}
+              />
+            );
+          })}
         </div>
       </div>
     </div>
