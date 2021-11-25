@@ -29,7 +29,7 @@ interface PropType {
   loggedUserId: number;
   post: HeaderPostType;
   isPostDetail: boolean;
-  onClickAddPostCartButton: () => void
+  onClickAddPostCartButton?: () => void
   onClickPostLikeButton: () => void
 }
 
@@ -104,27 +104,26 @@ function PostHeader(props: PropType) {
             </button>}
         </div>
         <div className="header-bottom">
-          {isAuthenticated && props.isPostDetail ?
-            (props.post.liked ? (
-              <img
-                className="post-like-icon liked"
-                onClick={props.onClickPostLikeButton}
-                src={like_icon}
-              />
-            ) : (
-              <img
-                className="post-like-icon unliked"
-                onClick={props.onClickPostLikeButton}
-                src={unlike_icon}
-              />
-            ))
-            : (
-              <img
-                className="post-like-icon unliked"
-                src={unlike_icon}
-              />
-            )
-          }
+          {isAuthenticated && props.isPostDetail && props.post.liked && (
+            <img
+              className="post-like-icon liked"
+              onClick={props.onClickPostLikeButton}
+              src={like_icon}
+            />
+          )}
+          {isAuthenticated && props.isPostDetail && !props.post.liked && (
+            <img
+              className="post-like-icon unliked"
+              onClick={props.onClickPostLikeButton}
+              src={unlike_icon}
+            />
+          )}
+          {!(isAuthenticated && props.isPostDetail) && (
+            <img
+              className="post-like-icon unliked"
+              src={unlike_icon}
+            />
+          )}
           {props.post.like_counts}
           <img className="post-comment-icon" src={comment_icon} />
           {props.post.comments ? props.post.comments.length : props.post.comment_counts}

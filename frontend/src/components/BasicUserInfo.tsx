@@ -8,7 +8,7 @@ interface PropType {
     email: string;
     username: string;
     profile_image: string;
-    onEditProfile: () => void;
+    onEditProfile?: () => void;
 }
 
 function BasicUserInfo(props: PropType) {

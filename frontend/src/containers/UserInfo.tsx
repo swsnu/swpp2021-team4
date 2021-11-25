@@ -74,7 +74,6 @@ function UserInfo(props: PropType) {
         email={userInfo.email}
         username={userInfo.username}
         profile_image={userInfo.profile_image}
-        onEditProfile={() => { }}
       />
       {posts.map((post) => {
         return (
@@ -83,7 +82,6 @@ function UserInfo(props: PropType) {
             loggedUserId={props.loggedUser.id}
             post={post}
             isPostDetail={false}
-            onClickAddPostCartButton={() => { }}
             onClickPostLikeButton={onClickPostLikeButton}
           />);
       })}

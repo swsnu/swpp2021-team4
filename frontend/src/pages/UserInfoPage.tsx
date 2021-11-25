@@ -6,11 +6,7 @@ import UserInfo from "../containers/UserInfo";
 import { useUserState } from "../hooks/useUserState";
 
 function UserInfoPage() {
-  interface String {
-    id: string;
-  }
-
-  const { id } = useParams<String>();
+  const { id } = useParams<any>();
 
   const loggedUser = useUserState();
 

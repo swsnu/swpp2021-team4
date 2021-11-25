@@ -24,15 +24,12 @@ import hover_delete_icon from "../static/hover-delete-icon.svg";
 import PostHeader from "../components/PostHeader";
 
 function PostDetail() {
-  interface String {
-    id: string;
-  }
   interface FolderType {
     id: number;
     name: string;
   }
   const dispatch = useDispatch();
-  const { id } = useParams<String>();
+  const { id } = useParams<any>();
   const { loggedUser } = useSelector((state: RootReducerType) => state.user);
   useEffect(() => {
     dispatch(getPostAction(Number(id)));
