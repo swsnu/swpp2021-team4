@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
-import { useParams } from "react-router-dom";
+import { useParams, NavLink } from "react-router-dom";
 import { usePostState } from "../hooks/usePostState";
 import {
   cartPostAction,
@@ -22,6 +22,8 @@ import profile_image from "../static/profile.png";
 import delete_icon from "../static/delete-icon.svg";
 import hover_delete_icon from "../static/hover-delete-icon.svg";
 import PostHeader from "../components/PostHeader";
+import like_icon from "../static/like-icon.svg";
+import unlike_icon from "../static/unlike-icon.svg";
 
 function PostDetail() {
   interface FolderType {
@@ -167,7 +169,7 @@ function PostDetail() {
   };
 
   const onClickCommentDelete = (commentId: number) => {
-    if (commentId) {
+    if (commentId && window.confirm("댓글을 정말 삭제하시겠습니까?")) {
       return axios.delete(`/post/${id}/comment/${commentId}`).then(function () {
         dispatch(getCommentsAction(Number(id)));
       });
@@ -199,7 +201,24 @@ function PostDetail() {
               })}
             />
             <div className="body-comments-container">
-              <div className="comment-input-container">
+              <div
+                className={`comment-input-container ${
+                  loggedUser.id ? `visible` : `invisible`
+                }`}
+              >
+                {post.liked ? (
+                  <img
+                    className="post-like-icon liked logged"
+                    onClick={() => onClickPostLikeButton()}
+                    src={like_icon}
+                  />
+                ) : (
+                  <img
+                    className="post-like-icon unliked"
+                    onClick={() => onClickPostLikeButton()}
+                    src={unlike_icon}
+                  />
+                )}
                 <input
                   className="comment-input"
                   type="text"
@@ -219,25 +238,36 @@ function PostDetail() {
                   post.comments.map((comment: CommentType, index: number) => {
                     return (
                       <div className="each-comment-container" key={index}>
-                        <img
-                          className="each-profile-image"
-                          src={comment.profile_image || profile_image}
-                        />
-                        <span className="each-comment-author">
-                          {comment.username}
-                        </span>
-                        <span className="each-comment-content">
-                          {comment.content}&nbsp;&nbsp;&nbsp;
-                        </span>
-                        <button
-                          id="delete-comment-button"
-                          className={`visible-${loggedUser.username === comment.username
+                        <div className="each-comment-top">
+                          <img
+                            className="each-profile-image"
+                            src={comment.profile_image || profile_image}
+                          />
+                          <NavLink
+                            to={`/user_info/${comment.author_id}/`}
+                            className="each-comment-author"
+                          >
+                            {comment.username}
+                          </NavLink>
+                          <span className="each-comment-content">
+                            {comment.content}&nbsp;&nbsp;&nbsp;
+                          </span>
+                          <button
+                            id="delete-comment-button"
+                            className={`visible-${
+                              loggedUser.username === comment.username
                             }`}
-                          onClick={() => onClickCommentDelete(comment.id)}
-                        >
-                          <img src={delete_icon} />
-                          <img src={hover_delete_icon} />
-                        </button>
+                            onClick={() => onClickCommentDelete(comment.id)}
+                          >
+                            <img src={delete_icon} />
+                            <img src={hover_delete_icon} />
+                          </button>
+                        </div>
+                        <div className="each-comment-bottom">
+                          <div className="each-comment-created-at">
+                            {comment.created_at}
+                          </div>
+                        </div>
                       </div>
                     );
                   })}

@@ -20,6 +20,7 @@ interface HeaderPostType {
   like_counts: number;
   comment_counts: number;
   availableWithoutCar: boolean;
+  created_at: string;
 }
 
 interface PropType {

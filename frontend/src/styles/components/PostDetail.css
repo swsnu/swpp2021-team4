@@ -52,7 +52,20 @@
 }
 
 .post-detail-body .body-left-container .comments-container .each-comment-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
   margin: 10px 0px 10px 20px;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+}
+
+.post-detail-body .body-left-container .comments-container .each-comment-container .each-comment-top {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -65,21 +78,22 @@
   width: 90%;
 }
 
-.post-detail-body .body-left-container .comments-container .each-comment-container .each-profile-image {
+.post-detail-body .body-left-container .comments-container .each-comment-container .each-comment-top .each-profile-image {
   margin: 5px;
   width: 30px;
   height: 30px;
   border-radius: 50%;
 }
 
-.post-detail-body .body-left-container .comments-container .each-comment-container .each-comment-author {
+.post-detail-body .body-left-container .comments-container .each-comment-container .each-comment-top .each-comment-author {
   font-family: "Montserrat", Monospace;
   margin-left: 5px;
   margin-right: 10px;
   font-size: 12px;
+  color: #000000;
 }
 
-.post-detail-body .body-left-container .comments-container .each-comment-container .each-comment-content {
+.post-detail-body .body-left-container .comments-container .each-comment-container .each-comment-top .each-comment-content {
   font-family: "Noto Sans CJK KR", Monospace;
   font-weight: 300;
   display: -webkit-box;
@@ -87,7 +101,16 @@
   display: flex;
   -ms-flex-wrap: wrap;
       flex-wrap: wrap;
+  font-size: 14px;
+}
+
+.post-detail-body .body-left-container .comments-container .each-comment-container .each-comment-created-at {
+  display: block;
+  margin-left: 5px;
+  font-family: "Montserrat", Monospace;
+  font-weight: 300;
   font-size: 12px;
+  color: #000000;
 }
 
 .folder-select-modal {
@@ -198,6 +221,7 @@
   border: none;
   border-radius: 6px;
   height: 30px;
+  margin-left: 15px;
   margin-right: 15px;
   padding: 10px;
   font-size: 15px;
@@ -250,5 +274,9 @@ input:focus::-webkit-input-placeholder {
 
 .post-like-icon {
   margin-right: 3px;
+}
+
+.logged {
+  cursor: pointer;
 }
 /*# sourceMappingURL=PostDetail.css.map */

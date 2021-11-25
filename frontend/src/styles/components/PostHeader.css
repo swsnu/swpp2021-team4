@@ -92,6 +92,10 @@
   margin-right: 10vh;
 }
 
+.post-header .header-content-left .header-bottom .post-author a {
+  color: #95ecdc;
+}
+
 .post-header .header-content-left .header-bottom .post-tag-container {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -137,6 +141,10 @@
           align-items: center;
 }
 
+.post-header .header-content-right .header-top {
+  margin-bottom: 4vh;
+}
+
 .post-header .header-content-right .post-cart-button {
   margin-left: 5vh;
   background-color: #95ecdc;
@@ -146,11 +154,27 @@
   cursor: pointer;
   border: none;
   font-family: "Montserrat", Monospace;
-  margin-bottom: 6vh;
+  margin-bottom: 0.2vh;
   color: #ffffff;
 }
 
 .post-header .header-content-right .post-cart-button:hover {
   background-color: #57ceb9;
+}
+
+.post-header .header-content-right .post-created-at {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: end;
+      -ms-flex-align: end;
+          align-items: flex-end;
+}
+
+.post-header .header-content-right .post-created-at .time-icon {
+  margin-left: 5vh;
+  margin-right: 1vh;
+  width: 20px;
+  height: 20px;
 }
 /*# sourceMappingURL=PostHeader.css.map */

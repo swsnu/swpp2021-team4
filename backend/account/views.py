@@ -320,6 +320,7 @@ def user_posts(request, user_id):
             'season': post.season,
             'theme': post.theme,
             'availableWithoutCar': post.availableWithoutCar,
+            'created_at': post.created_at.strftime("%Y-%m-%d %H:%M")
         } for post in posts ]
     }
 
