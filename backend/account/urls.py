@@ -15,4 +15,5 @@ urlpatterns = [
     path('<int:user_id>/folder/<int:fid>/delete/', views.delete_user_folder, name='delete_user_folder'), 
     path('<int:user_id>/like/', views.user_likes, name='user_likes'), 
     path('<int:user_id>/share/', views.user_shares, name='user_shares'), 
+    path('<int:user_id>/posts/', views.user_posts, name='user_posts'), 
 ]
