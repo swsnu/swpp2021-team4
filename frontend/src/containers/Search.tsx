@@ -5,7 +5,9 @@ import { getPostsAction, searchAction } from "../store/Post/postAction";
 import "../styles/components/Search.scss";
 import { SearchType } from "../store/Post/postInterfaces";
 import PostItem from "../components/PostItem";
-import { useSearchPostState } from "../hooks/usePostsState";
+import {
+  useSearchPostState,
+} from "../hooks/usePostsState";
 
 function Search() {
   const dispatch = useDispatch();
@@ -17,13 +19,13 @@ function Search() {
     theme: "",
     transportation: "",
   });
+  const [sorting, setSorting] = useState("");
   const [searched, SetSearch] = useState(false);
   useEffect(() => {
     dispatch(getPostsAction());
   }, [dispatch]);
 
-  const searchedPosts = useSearchPostState();
-
+  const searchedPosts = useSearchPostState(sorting);
   useEffect(() => {
     dispatch(
       searchAction(
@@ -271,21 +273,34 @@ function Search() {
         </div>
       </div>
       <div className="search-result-container">
-        <div className="search-research">Routes</div>
+        <div className="search-title">
+          <div className="search-research">Routes</div>
+          <button
+            className={`sorting${sorting == "like" ? "-clicked" : ""}`}
+            onClick={() => setSorting("like")}
+          >
+            좋아요 순
+          </button>
+          <button
+            className={`sorting${sorting == "date" ? "-clicked" : ""}`}
+            onClick={() => setSorting("date")}
+          >
+            최신게시물 순
+          </button>
+        </div>
         <div className="search-research-content">
-          {searchedPosts &&
-            searchedPosts.map((post: SearchType) => {
-              return (
-                <PostItem
-                  key={post.id}
-                  id={post.id}
-                  thumbnail_image={post.thumbnail_image}
-                  title={post.title}
-                  author_name={post.author_name}
-                  author_id={post.author_id}
-                />
-              );
-            })}
+          {searchedPosts.map((post: SearchType) => {
+            return (
+              <PostItem
+                key={post.id}
+                id={post.id}
+                thumbnail_image={post.thumbnail_image}
+                title={post.title}
+                author_name={post.author_name}
+                author_id={post.author_id}
+              />
+            );
+          })}
         </div>
       </div>
     </div>

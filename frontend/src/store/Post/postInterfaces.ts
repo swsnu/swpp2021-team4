@@ -109,7 +109,9 @@ export interface CartPostFail {
 
 export interface SearchSuccess {
   type: typeof SEARCH_SUCCESS;
-  payload: SearchType[];
+  ordinary: SearchType[];
+  like: SearchType[],
+  date: SearchType[]
 }
 export interface SearchFail {
   type: typeof SEARCH_FAIL;
