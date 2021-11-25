@@ -34,6 +34,8 @@ const initialFolderData: PostInfoDataType = {
   isShared: false
 };
 
+const defaultImage = "https://media.triple.guide/triple-cms/c_limit,f_auto,h_1024,w_1024/73968eea-cbbe-49cd-b001-353e9e962cbf.jpeg";
+
 function CreateEditPost() {
   const dispatch = useDispatch();
   const post = usePostState();
@@ -111,12 +113,24 @@ function CreateEditPost() {
   }
 
   const onChangePostInfoData = useCallback(
-    (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+    (e: React.ChangeEvent<any>) => {
       e.preventDefault();
-      setPostInfoData({
-        ...postInfoData,
-        [e.target.id]: e.target.value,
-      });
+      if (e.target?.files) {
+        // 이미지 업로드
+        const reader = new FileReader();
+        reader.onloadend = () => {
+          setPostInfoData({
+            ...postInfoData,
+            headerImage: reader.result?.toString() || ''
+          })
+        }
+        reader.readAsDataURL(e.target.files[0]);
+      } else {
+        setPostInfoData({
+          ...postInfoData,
+          [e.target.id]: e.target.value,
+        });
+      }
     },
     [postInfoData]
   );
@@ -160,6 +174,7 @@ function CreateEditPost() {
     <div>
       <CreateEditHeader
         post={post}
+        headerImage={postInfoData.headerImage || defaultImage}
         postInfoData={postInfoData}
         onChangePostInfoData={onChangePostInfoData}
         onPressEnterLocation={onPressEnterLocation}
