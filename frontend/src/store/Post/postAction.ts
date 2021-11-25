@@ -61,9 +61,9 @@ export const searchAction = (
 ) => {
   return (dispatch: Redux.Dispatch<PostDispatchType>) => {
     return axios
-      .post<SearchType[]>(`/post/search/`, searchForm)
+      .post<{ordinary: SearchType[], like: SearchType[], date: SearchType[]}>(`/post/search/`, searchForm)
       .then((res) => {
-        dispatch({ type: SEARCH_SUCCESS, payload: res.data});
+        dispatch({ type: SEARCH_SUCCESS, ordinary: res.data.ordinary, like: res.data.like, date: res.data.date});
         callbackFunc(true);
       })
       .catch(() => dispatch({ type: SEARCH_FAIL }));

@@ -16,6 +16,8 @@ import { PostDispatchType, PostType, SearchType } from "./postInterfaces";
 export type PostStateType = {
   posts: PostType[];
   search: SearchType[];
+  likeSorted: SearchType[];
+  dateSorted: SearchType[];
   detailedPost: PostType;
   selectedFolder: Folder;
 };
@@ -50,6 +52,8 @@ const initialState: PostStateType = {
   },
 
   search: [],
+  likeSorted:[],
+  dateSorted:[]
 };
 
 export default (
@@ -72,7 +76,7 @@ export default (
     case CART_POST_FAIL:
       return { ...state };
     case SEARCH_SUCCESS:
-      return { ...state, search: action.payload };
+      return { ...state, search: action.ordinary, likeSorted: action.like, dateSorted: action.date };
     case SEARCH_FAIL:
       return { ...state };
     case GET_COMMENTS_SUCCESS:
