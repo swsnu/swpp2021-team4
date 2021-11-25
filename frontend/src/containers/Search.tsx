@@ -6,8 +6,6 @@ import "../styles/components/Search.scss";
 import { SearchType } from "../store/Post/postInterfaces";
 import PostItem from "../components/PostItem";
 import {
-  useDateSortedSearchPostState,
-  useLikeSortedPostState,
   useSearchPostState,
 } from "../hooks/usePostsState";
 
@@ -27,17 +25,7 @@ function Search() {
     dispatch(getPostsAction());
   }, [dispatch]);
 
-  const searchedPosts = useSearchPostState();
-  const likeSortedPosts = useLikeSortedPostState();
-  const dateSortedPosts = useDateSortedSearchPostState();
-  let showedPosts;
-  if (sorting == "") {
-    showedPosts = searchedPosts;
-  } else if (sorting == "like") {
-    showedPosts = likeSortedPosts;
-  } else {
-    showedPosts = dateSortedPosts;
-  }
+  const searchedPosts = useSearchPostState(sorting);
   useEffect(() => {
     dispatch(
       searchAction(
@@ -301,7 +289,7 @@ function Search() {
           </button>
         </div>
         <div className="search-research-content">
-          {showedPosts.map((post: SearchType) => {
+          {searchedPosts.map((post: SearchType) => {
             return (
               <PostItem
                 key={post.id}

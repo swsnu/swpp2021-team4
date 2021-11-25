@@ -40,19 +40,20 @@ export const usePostsState = () => {
   );
   return posts;
 };
-export const useSearchPostState = () => {
-  const posts = useSelector(
-    (state: RootReducerType) => state.post.search || initialState.search
-  );
-  return posts;
-};
-export const useLikeSortedPostState = () => {
-  return useSelector(
-    (state: RootReducerType) => state.post.likeSorted || initialState.likeSorted
-  );
-};
-export const useDateSortedSearchPostState = () => {
-  return useSelector(
-    (state: RootReducerType) => state.post.dateSorted || initialState.dateSorted
-  );
+export const useSearchPostState = (sorting: string) => {
+  if (sorting==""){
+    return useSelector(
+      (state: RootReducerType) => state.post.search || initialState.search
+    );
+  }
+  else if (sorting=="like"){
+    return useSelector(
+      (state: RootReducerType) => state.post.likeSorted || initialState.likeSorted
+    );
+  }
+  else{
+    return useSelector(
+      (state: RootReducerType) => state.post.dateSorted || initialState.dateSorted
+    );
+  }
 };
