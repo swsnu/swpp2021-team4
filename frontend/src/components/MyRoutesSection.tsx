@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
 import "../styles/components/MyRoutesSection.scss";
 import addIcon from "../static/add_day_icon.svg";
-import { PlaceDayType } from "../store/Post/postInterfaces";
+import { PlaceDayType, PlaceType } from "../store/Post/postInterfaces";
 import deleteIcon from "../static/delete.svg";
 import CreatePlaceCard from "./CreatePlaceCard";
 import Path from "./Path";
+import { useDrop } from "react-dnd";
+import ItemTypes from "../utils/items";
 
 interface PropType {
   days: number;
@@ -13,6 +15,12 @@ interface PropType {
   onClickDay: (value: number) => void;
   onClickAddIcon: (value: number) => void;
   onDeletePlace: (place: any) => void;
+  onAddPlace: (place: any) => void;
+}
+
+interface ItemType {
+  type: string;
+  place: PlaceType;
 }
 
 function MyRoutesSection(props: PropType) {
@@ -23,6 +31,7 @@ function MyRoutesSection(props: PropType) {
     onClickAddIcon,
     routePlaces,
     onDeletePlace,
+    onAddPlace,
   } = props;
 
   const [todayPlaceList, setTodayPlaceList] = useState<PlaceDayType[]>([]);
@@ -51,6 +60,14 @@ function MyRoutesSection(props: PropType) {
     return results;
   };
 
+  const [{ background }, drop] = useDrop({
+    accept: ItemTypes.CARD,
+    drop: (item: ItemType) => onAddPlace(item.place),
+    collect: (monitor) => ({
+      background: monitor.isOver() ? "#e2e3e9" : "#f6f6f9",
+    }),
+  });
+
   return (
     <div className="my-routes-container">
       <div style={{ width: "100%", display: "flex", flexDirection: "row" }}>
@@ -70,14 +87,18 @@ function MyRoutesSection(props: PropType) {
           src={addIcon}
         />
       </div>
-      <div className="my-routes-places-container">
+      <div
+        className="my-routes-places-container"
+        style={{ background }}
+        ref={drop}
+      >
         {todayPlaceList.map((result: PlaceDayType, index: number) => {
           const { place } = result;
           return (
             <>
               <CreatePlaceCard
+                key={index}
                 id={place.id}
-                key={place.id}
                 place={place}
                 icon={deleteIcon}
                 type="route"
@@ -85,7 +106,11 @@ function MyRoutesSection(props: PropType) {
                 isPlaceInCart={() => true}
               />
               {index !== todayPlaceList.length - 1 && (
-                <Path from={place} to={todayPlaceList[index + 1].place} />
+                <Path
+                  key={index}
+                  from={place}
+                  to={todayPlaceList[index + 1].place}
+                />
               )}
             </>
           );

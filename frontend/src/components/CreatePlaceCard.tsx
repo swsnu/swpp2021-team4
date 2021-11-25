@@ -7,24 +7,19 @@ import ItemTypes from "../utils/items";
 import { useDrag } from "react-dnd";
 
 interface PropsType {
-  id: Number
-  place: PlaceType
-  icon: string
-  type: 'search' | 'place' | 'route'
-  isPlaceInCart: (id: number) => boolean
-  isPlaceInRoute?: (place: any) => boolean
-  onClickCartButton?: (place: PlaceType) => void
+  id: Number;
+  place: PlaceType;
+  icon: string;
+  type: "search" | "place" | "route";
+  isPlaceInCart: (id: number) => boolean;
+  isPlaceInRoute?: (place: any) => boolean;
+  onClickCartButton?: (place: PlaceType) => void;
 }
-// interface DragType {
-//   item: {
-//     type: string;
-//   };
-// }
 
 function CreatePlaceCard(props: PropsType) {
   const [{ opacity }, dragRef] = useDrag({
     type: ItemTypes.CARD,
-    item: { type: ItemTypes.CARD, id: props.id },
+    item: { type: ItemTypes.CARD, place: props.place },
     collect: (monitor) => ({
       opacity: monitor.isDragging() ? 0.5 : 1,
     }),
@@ -35,16 +30,16 @@ function CreatePlaceCard(props: PropsType) {
     if (props.onClickCartButton) {
       props.onClickCartButton(props.place);
     }
-  }
+  };
 
   return (
     <div ref={dragRef} style={{ opacity }} className="create-place-container">
       <div className="place-container-top">
-        <div className="place-title">
-          {props.place.name}
-        </div>
+        <div className="place-title">{props.place.name}</div>
         <button
-          className={`place-cart-button ${props.type}`.concat(props.isPlaceInCart(props.place.id) ? ' selected' : '')}
+          className={`place-cart-button ${props.type}`.concat(
+            props.isPlaceInCart(props.place.id) ? " selected" : ""
+          )}
           onClick={onClickCartButton}
         >
           <img src={props.icon} />

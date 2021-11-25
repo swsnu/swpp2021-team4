@@ -1,4 +1,11 @@
-import { GET_POSTS_SUCCESS, GET_POSTS_FAIL, GET_POST_SUCCESS, GET_POST_FAIL, CART_POST_SUCCESS, CART_POST_FAIL } from "../actionTypes";
+import {
+  GET_POSTS_SUCCESS,
+  GET_POSTS_FAIL,
+  GET_POST_SUCCESS,
+  GET_POST_FAIL,
+  CART_POST_SUCCESS,
+  CART_POST_FAIL,
+} from "../actionTypes";
 import { Folder } from "../User/userInterfaces";
 
 export interface PostType {
@@ -48,8 +55,8 @@ export interface PlaceType {
 }
 
 export interface PlaceDayType {
-  day: number|string,
-  place: PlaceType
+  day: number | string;
+  place: PlaceType;
 }
 
 export interface CommentType {
@@ -65,9 +72,9 @@ export interface PathType {
 
 export interface PathListType {
   [from: string]: {
-    to: string,
-    transportation: 'car'|'pub'|'vic'|'wal'
-  }
+    to: string;
+    transportation: "car" | "pub" | "vic" | "wal";
+  };
 }
 
 export interface GetPostsSuccess {
@@ -97,4 +104,10 @@ export interface CartPostFail {
   type: typeof CART_POST_FAIL;
 }
 
-export type PostDispatchType = GetPostsSuccess | GetPostsFail | GetPostSuccess | GetPostFail | CartPostSuccess | CartPostFail;
+export type PostDispatchType =
+  | GetPostsSuccess
+  | GetPostsFail
+  | GetPostSuccess
+  | GetPostFail
+  | CartPostSuccess
+  | CartPostFail;

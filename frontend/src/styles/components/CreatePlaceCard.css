@@ -33,11 +33,30 @@
   min-height: 35px;
   text-align: center;
   cursor: pointer;
+}
+
+.create-place-container .place-container-top .place-cart-button .search {
   background-color: #c7eee7;
 }
 
-.create-place-container .place-container-top .place-cart-button:hover {
+.create-place-container .place-container-top .place-cart-button .search:hover {
   background-color: #57ceb9;
+}
+
+.create-place-container .place-container-top .place-cart-button.place {
+  background-color: #F5F6F9;
+}
+
+.create-place-container .place-container-top .place-cart-button.route {
+  background-color: #F5F6F9;
+}
+
+.create-place-container .place-container-top .place-cart-button.search.selected {
+  background-color: #57ceb9;
+}
+
+.create-place-container .place-container-top .place-cart-button.search.selected:hover {
+  background-color: #c7eee7;
 }
 
 .create-place-container .place-container-middle {

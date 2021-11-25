@@ -39,6 +39,10 @@ function CreateEditPost() {
     setRoutePlaces([...routePlaces, { place, day: selectedDay }]);
   };
 
+  // const onDropPlace = (place:: any)=>{
+  //   setRoutePlaces([...routePlaces, {place, day: selectedDay}])
+  // }
+
   const onDeletePlace = useCallback(
     (place: PlaceType) => {
       setRoutePlaces(
@@ -136,6 +140,7 @@ function CreateEditPost() {
               onClickAddIcon={onClickAddIcon}
               routePlaces={routePlaces}
               onDeletePlace={onDeletePlace}
+              onAddPlace={onAddPlace}
             />
           </div>
         </div>
