@@ -142,6 +142,10 @@
           align-items: center;
 }
 
+.post-detail-header .header-content-right .header-top {
+  margin-bottom: 4vh;
+}
+
 .post-detail-header .header-content-right .post-cart-button {
   margin-left: 5vh;
   background-color: #95ecdc;
@@ -151,12 +155,28 @@
   cursor: pointer;
   border: none;
   font-family: "Montserrat", Monospace;
-  margin-bottom: 6vh;
+  margin-bottom: 2vh;
   color: #ffffff;
 }
 
 .post-detail-header .header-content-right .post-cart-button:hover {
   background-color: #57ceb9;
+}
+
+.post-detail-header .header-content-right .post-created-at {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: end;
+      -ms-flex-align: end;
+          align-items: flex-end;
+}
+
+.post-detail-header .header-content-right .post-created-at .time-icon {
+  margin-left: 5vh;
+  margin-right: 1vh;
+  width: 20px;
+  height: 20px;
 }
 
 .post-detail-body {
@@ -208,7 +228,20 @@
 }
 
 .post-detail-body .body-left-container .comments-container .each-comment-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
   margin: 10px 0px 10px 20px;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+}
+
+.post-detail-body .body-left-container .comments-container .each-comment-container .each-comment-top {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -221,21 +254,21 @@
   width: 90%;
 }
 
-.post-detail-body .body-left-container .comments-container .each-comment-container .each-profile-image {
+.post-detail-body .body-left-container .comments-container .each-comment-container .each-comment-top .each-profile-image {
   margin: 5px;
   width: 30px;
   height: 30px;
   border-radius: 50%;
 }
 
-.post-detail-body .body-left-container .comments-container .each-comment-container .each-comment-author {
+.post-detail-body .body-left-container .comments-container .each-comment-container .each-comment-top .each-comment-author {
   font-family: "Montserrat", Monospace;
   margin-left: 5px;
   margin-right: 10px;
   font-size: 12px;
 }
 
-.post-detail-body .body-left-container .comments-container .each-comment-container .each-comment-content {
+.post-detail-body .body-left-container .comments-container .each-comment-container .each-comment-top .each-comment-content {
   font-family: "Noto Sans CJK KR", Monospace;
   font-weight: 300;
   display: -webkit-box;
@@ -243,7 +276,16 @@
   display: flex;
   -ms-flex-wrap: wrap;
       flex-wrap: wrap;
+  font-size: 14px;
+}
+
+.post-detail-body .body-left-container .comments-container .each-comment-container .each-comment-created-at {
+  display: block;
+  margin-left: 5px;
+  font-family: "Montserrat", Monospace;
+  font-weight: 300;
   font-size: 12px;
+  color: #000000;
 }
 
 .folder-select-modal {

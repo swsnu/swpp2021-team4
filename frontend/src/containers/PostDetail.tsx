@@ -25,6 +25,7 @@ import unlike_icon from "../static/unlike-icon.svg";
 import profile_image from "../static/profile.png";
 import delete_icon from "../static/delete-icon.svg";
 import hover_delete_icon from "../static/hover-delete-icon.svg";
+import created_at_icon from "../static/created-at-icon.svg";
 
 function PostDetail() {
   interface String {
@@ -186,7 +187,7 @@ function PostDetail() {
   };
 
   const onClickCommentDelete = (commentId: number) => {
-    if (commentId) {
+    if (commentId && window.confirm("댓글을 정말 삭제하시겠습니까?")) {
       return axios.delete(`/post/${id}/comment/${commentId}`).then(function () {
         dispatch(getCommentsAction(Number(id)));
       });
@@ -238,6 +239,10 @@ function PostDetail() {
               >
                 Add this route to Cart
               </button>
+              <div className="post-created-at">
+                <img className="time-icon" src={created_at_icon} />
+                <span className="post-created-at">{post.created_at}</span>
+              </div>
             </div>
             <div className="header-bottom">
               {!loggedUser.id ? (
@@ -276,7 +281,11 @@ function PostDetail() {
               })}
             />
             <div className="body-comments-container">
-              <div className={`comment-input-container ${loggedUser.id ? `visible` : `invisible`}`}>
+              <div
+                className={`comment-input-container ${
+                  loggedUser.id ? `visible` : `invisible`
+                }`}
+              >
                 {post.liked ? (
                   <img
                     className="post-like-icon liked"
@@ -309,26 +318,33 @@ function PostDetail() {
                   post.comments.map((comment: CommentType, index: number) => {
                     return (
                       <div className="each-comment-container" key={index}>
-                        <img
-                          className="each-profile-image"
-                          src={comment.profile_image || profile_image}
-                        />
-                        <span className="each-comment-author">
-                          {comment.username}
-                        </span>
-                        <span className="each-comment-content">
-                          {comment.content}&nbsp;&nbsp;&nbsp;
-                        </span>
-                        <button
-                          id="delete-comment-button"
-                          className={`visible-${
-                            loggedUser.username === comment.username
-                          }`}
-                          onClick={() => onClickCommentDelete(comment.id)}
-                        >
-                          <img src={delete_icon} />
-                          <img src={hover_delete_icon} />
-                        </button>
+                        <div className="each-comment-top">
+                          <img
+                            className="each-profile-image"
+                            src={comment.profile_image || profile_image}
+                          />
+                          <span className="each-comment-author">
+                            {comment.username}
+                          </span>
+                          <span className="each-comment-content">
+                            {comment.content}&nbsp;&nbsp;&nbsp;
+                          </span>
+                          <button
+                            id="delete-comment-button"
+                            className={`visible-${
+                              loggedUser.username === comment.username
+                            }`}
+                            onClick={() => onClickCommentDelete(comment.id)}
+                          >
+                            <img src={delete_icon} />
+                            <img src={hover_delete_icon} />
+                          </button>
+                        </div>
+                        <div className="each-comment-bottom">
+                          <div className="each-comment-created-at">
+                            {comment.created_at}
+                          </div>
+                        </div>
                       </div>
                     );
                   })}

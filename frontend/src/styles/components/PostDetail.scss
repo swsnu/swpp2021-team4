@@ -96,6 +96,9 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    .header-top{
+      margin-bottom: 4vh;
+    }
     .post-cart-button {
       margin-left: 5vh;
       background-color: $regularMintColor;
@@ -105,10 +108,20 @@
       cursor: pointer;
       border: none;
       font-family: $mainFont;
-      margin-bottom: 6vh;
+      margin-bottom: 2vh;
       color: #ffffff;
       &:hover {
         background-color: $darkMintColor;
+      }
+    }
+    .post-created-at {
+      display: flex;
+      align-items: flex-end;
+      .time-icon {
+        margin-left: 5vh;
+        margin-right: 1vh;
+        width: 20px;
+        height: 20px;
       }
     }
   }
@@ -146,29 +159,42 @@
     }
     .comments-container {
       .each-comment-container {
-        margin: 10px 0px 10px 20px;
         display: flex;
-        justify-content: flex-start;
-        align-items: center;
-        width: 90%;
-        .each-profile-image {
-          margin: 5px;
-          width: 30px;
-          height: 30px;
-          border-radius: 50%;
-        }
-        .each-comment-author {
-          font-family: $mainFont;
-          margin-left: 5px;
-          margin-right: 10px;
-          font-size: 12px;
-        }
-        .each-comment-content {
-          font-family: $koreanFont;
-          font-weight: 300;
+        flex-direction: column;
+        margin: 10px 0px 10px 20px;
+        align-items: flex-start;
+        .each-comment-top {
           display: flex;
-          flex-wrap: wrap;
+          justify-content: flex-start;
+          align-items: center;
+          width: 90%;
+          .each-profile-image {
+            margin: 5px;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+          }
+          .each-comment-author {
+            font-family: $mainFont;
+            margin-left: 5px;
+            margin-right: 10px;
+            font-size: 12px;
+          }
+          .each-comment-content {
+            font-family: $koreanFont;
+            font-weight: 300;
+            display: flex;
+            flex-wrap: wrap;
+            font-size: 14px;
+          }
+        }
+        .each-comment-created-at {
+          display: block;
+          margin-left: 5px;
+          font-family: $mainFont;
+          font-weight: 300;
           font-size: 12px;
+          color: $blackColor;
         }
       }
     }
@@ -306,10 +332,10 @@ input:focus::-webkit-input-placeholder {
   display: none;
 }
 
-.post-comment-icon{
+.post-comment-icon {
   margin-left: 15px;
   margin-right: 3px;
 }
-.post-like-icon{
+.post-like-icon {
   margin-right: 3px;
 }

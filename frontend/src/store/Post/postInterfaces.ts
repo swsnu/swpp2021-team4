@@ -63,6 +63,7 @@ export interface CommentType {
   content: string;
   profile_image: string;
   id: number;
+  created_at: string;
 }
 
 export interface PathType {
