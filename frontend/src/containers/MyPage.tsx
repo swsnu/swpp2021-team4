@@ -28,8 +28,8 @@ function MyPage(props: PropType) {
   const [isFolderEdited, setIsFolderEdited] = useState(false);
   const [folderInputs, setFolderInputs] = useState({
     folderId: 0,
-    folderName: ""
-  })
+    folderName: "",
+  });
 
   const onEditProfile = () => {
     setIsSubmitted(true);
@@ -39,55 +39,57 @@ function MyPage(props: PropType) {
     if (isFolderEdited) {
       setFolderInputs({ folderId: 0, folderName: "" });
     }
-  }, [isFolderEdited])
+  }, [isFolderEdited]);
 
   const onChangeEditFolder = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
     setFolderInputs({
       ...folderInputs,
-      folderName: e.target.value
-    })
+      folderName: e.target.value,
+    });
   };
 
   const onClickEditFolder = (folder_id: number, folder_name: string) => {
     setFolderInputs({
       folderId: folder_id,
-      folderName: folder_name
-    })
-  }
+      folderName: folder_name,
+    });
+  };
 
   const onEditFolder = (folder_id: number) => {
-    dispatch(editFolderAction(
-      props.loggedUser.id,
-      folder_id,
-      { folder_name: folderInputs.folderName },
-      (value) => setIsFolderEdited(value))
-    )
-  }
+    dispatch(
+      editFolderAction(
+        props.loggedUser.id,
+        folder_id,
+        { folder_name: folderInputs.folderName },
+        (value) => setIsFolderEdited(value)
+      )
+    );
+  };
 
   const onDeleteFolder = (folder_id: number) => {
     if (confirm("정말 삭제하시겠습니까?")) {
       dispatch(deleteFolderAction(props.loggedUser.id, folder_id));
     }
-  }
+  };
 
   const onClickFolder = (folder_id: number) => {
     axios
       .get<{ posts: SimplePostType[] }>(`/user/${props.id}/folder/${folder_id}`)
       .then(function (response) {
-        setPosts(response.data.posts)
+        setPosts(response.data.posts);
       })
       .catch((err) => err.response);
-  }
+  };
 
   const onClickShare = () => {
     axios
       .get<{ shared_posts: SimplePostType[] }>(`/user/${props.id}/share/`)
       .then(function (response) {
-        setPosts(response.data.shared_posts)
+        setPosts(response.data.shared_posts);
       })
       .catch((err) => err.response);
-  }
+  };
 
   const onClickLike = () => {
     axios
@@ -96,7 +98,7 @@ function MyPage(props: PropType) {
         setPosts(response.data.liked_posts);
       })
       .catch((err) => err.response);
-  }
+  };
 
   if (isSubmitted) {
     return <Redirect to="/edit_profile/" />;
@@ -113,7 +115,7 @@ function MyPage(props: PropType) {
         profile_image={props.loggedUser.profile_image}
         onEditProfile={onEditProfile}
       />
-      {props.loggedUser.id === props.id &&
+      {props.loggedUser.id === props.id && (
         <div className="Folder">
           <div className="left">
             <div className="folderHead">
@@ -133,7 +135,8 @@ function MyPage(props: PropType) {
                 />
               )}
             </div>
-            {toggle && props.loggedUser.folders &&
+            {toggle &&
+              props.loggedUser.folders &&
               props.loggedUser.folders.map((fold: Folder) => {
                 if (folderInputs.folderId === fold.id) {
                   return (
@@ -145,9 +148,13 @@ function MyPage(props: PropType) {
                         onChange={onChangeEditFolder}
                         placeholder="변경할 폴더 이름"
                       />
-                      <img className="icon" src={edit_btn} onClick={() => onEditFolder(fold.id)} />
+                      <img
+                        className="icon"
+                        src={edit_btn}
+                        onClick={() => onEditFolder(fold.id)}
+                      />
                     </div>
-                  )
+                  );
                 } else {
                   return (
                     <div className="eachItem" key={fold.id}>
@@ -159,8 +166,16 @@ function MyPage(props: PropType) {
                       >
                         {fold.name}{" "}
                       </div>
-                      <img className="icon" src={edit_btn} onClick={() => onClickEditFolder(fold.id, fold.name)} />
-                      <img className="icon" src={delete_btn} onClick={() => onDeleteFolder(fold.id)} />
+                      <img
+                        className="icon"
+                        src={edit_btn}
+                        onClick={() => onClickEditFolder(fold.id, fold.name)}
+                      />
+                      <img
+                        className="icon"
+                        src={delete_btn}
+                        onClick={() => onDeleteFolder(fold.id)}
+                      />
                     </div>
                   );
                 }
@@ -195,7 +210,7 @@ function MyPage(props: PropType) {
             </div>
           </div>
         </div>
-      }
+      )}
     </div>
   );
 }

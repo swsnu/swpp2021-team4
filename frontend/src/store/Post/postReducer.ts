@@ -52,8 +52,8 @@ const initialState: PostStateType = {
   },
 
   search: [],
-  likeSorted:[],
-  dateSorted:[]
+  likeSorted: [],
+  dateSorted: [],
 };
 
 export default (
@@ -76,7 +76,12 @@ export default (
     case CART_POST_FAIL:
       return { ...state };
     case SEARCH_SUCCESS:
-      return { ...state, search: action.ordinary, likeSorted: action.like, dateSorted: action.date };
+      return {
+        ...state,
+        search: action.ordinary,
+        likeSorted: action.like,
+        dateSorted: action.date,
+      };
     case SEARCH_FAIL:
       return { ...state };
     case GET_COMMENTS_SUCCESS:

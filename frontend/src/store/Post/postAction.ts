@@ -11,10 +11,14 @@ import {
   CART_POST_FAIL,
   GET_COMMENTS_SUCCESS,
   GET_COMMENTS_FAIL,
-
 } from "../actionTypes";
 import { Folder } from "../User/userInterfaces";
-import { PostDispatchType, PostType, CommentType, SearchType } from "./postInterfaces";
+import {
+  PostDispatchType,
+  PostType,
+  CommentType,
+  SearchType,
+} from "./postInterfaces";
 interface SearchForm {
   keyword: string;
   season: string;
@@ -23,7 +27,6 @@ interface SearchForm {
   theme: string;
   transportation: string;
 }
-
 
 export const getPostsAction = () => {
   return (dispatch: Redux.Dispatch<PostDispatchType>) => {
@@ -54,21 +57,28 @@ export const cartPostAction = (postId: number, folderId: number) => {
   };
 };
 
-
 export const searchAction = (
   searchForm: SearchForm,
   callbackFunc: (value: boolean) => void
 ) => {
   return (dispatch: Redux.Dispatch<PostDispatchType>) => {
     return axios
-      .post<{ordinary: SearchType[], like: SearchType[], date: SearchType[]}>(`/post/search/`, searchForm)
+      .post<{ ordinary: SearchType[]; like: SearchType[]; date: SearchType[] }>(
+        `/post/search/`,
+        searchForm
+      )
       .then((res) => {
-        dispatch({ type: SEARCH_SUCCESS, ordinary: res.data.ordinary, like: res.data.like, date: res.data.date});
+        dispatch({
+          type: SEARCH_SUCCESS,
+          ordinary: res.data.ordinary,
+          like: res.data.like,
+          date: res.data.date,
+        });
         callbackFunc(true);
       })
       .catch(() => dispatch({ type: SEARCH_FAIL }));
-  }
-}
+  };
+};
 export const getCommentsAction = (postId: number) => {
   return (dispatch: Redux.Dispatch<PostDispatchType>) => {
     return axios
@@ -77,6 +87,5 @@ export const getCommentsAction = (postId: number) => {
         dispatch({ type: GET_COMMENTS_SUCCESS, payload: res.data })
       )
       .catch(() => dispatch({ type: GET_COMMENTS_FAIL }));
-
   };
 };

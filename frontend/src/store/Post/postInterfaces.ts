@@ -90,15 +90,12 @@ export interface PathType {
   transportation: string;
 }
 
-<<<<<<< HEAD
 export interface PathListType {
   [from: string]: {
     to: string;
     transportation: "car" | "pub" | "vic" | "wal";
   };
 }
-
-=======
 export interface SearchType {
   id: number;
   thumbnail_image: string;
@@ -107,7 +104,6 @@ export interface SearchType {
   title: string;
   is_shared: boolean;
 }
->>>>>>> 8460d3a3bd823c9947e950d367ad76067683865d
 export interface GetPostsSuccess {
   type: typeof GET_POSTS_SUCCESS;
   payload: PostType[];
@@ -135,8 +131,6 @@ export interface CartPostFail {
   type: typeof CART_POST_FAIL;
 }
 
-<<<<<<< HEAD
-=======
 export interface SearchSuccess {
   type: typeof SEARCH_SUCCESS;
   ordinary: SearchType[];
@@ -156,19 +150,14 @@ export interface GetCommentsFail {
   type: typeof GET_COMMENTS_FAIL;
 }
 
->>>>>>> 8460d3a3bd823c9947e950d367ad76067683865d
 export type PostDispatchType =
   | GetPostsSuccess
   | GetPostsFail
   | GetPostSuccess
   | GetPostFail
   | CartPostSuccess
-<<<<<<< HEAD
-  | CartPostFail;
-=======
   | CartPostFail
   | SearchSuccess
   | SearchFail
   | GetCommentsSucess
   | GetCommentsFail;
->>>>>>> 8460d3a3bd823c9947e950d367ad76067683865d
