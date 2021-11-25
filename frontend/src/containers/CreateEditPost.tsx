@@ -16,7 +16,6 @@ export interface PostInfoDataType {
   seasonRecommendation: string;
   theme: string;
   headerImage: string;
-  availableWithoutCar: boolean;
   isAvailableWithoutCar: boolean;
   folderId: number;
   isShared: false;
@@ -28,7 +27,6 @@ const initialFolderData: PostInfoDataType = {
   seasonRecommendation: "",
   theme: "",
   headerImage: "",
-  availableWithoutCar: false,
   isAvailableWithoutCar: false,
   folderId: 0,
   isShared: false
