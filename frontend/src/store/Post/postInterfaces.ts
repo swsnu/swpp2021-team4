@@ -1,4 +1,3 @@
-import { GET_POSTS_SUCCESS, GET_POSTS_FAIL, GET_POST_SUCCESS, GET_POST_FAIL, CART_POST_SUCCESS, CART_POST_FAIL, CREATE_POST_SUCCESS, CREATE_POST_FAIL } from "../actionTypes";
 import {
   GET_POSTS_SUCCESS,
   GET_POSTS_FAIL,
@@ -10,6 +9,8 @@ import {
   SEARCH_FAIL,
   GET_COMMENTS_SUCCESS,
   GET_COMMENTS_FAIL,
+  CREATE_POST_SUCCESS,
+  CREATE_POST_FAIL,
 } from "../actionTypes";
 import { Folder } from "../User/userInterfaces";
 
@@ -129,9 +130,6 @@ export interface CreatePostSuccess {
 export interface CreatePostFail {
   type: typeof CREATE_POST_FAIL
 }
-
-export type PostDispatchType =
-  GetPostsSuccess
 
 export interface SearchSuccess {
   type: typeof SEARCH_SUCCESS;
