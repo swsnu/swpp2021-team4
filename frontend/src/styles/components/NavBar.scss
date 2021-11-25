@@ -48,7 +48,7 @@
 }
 
 .nav-create-btn:hover {
-  background-color: #F5F6F9;
+  background-color: $whiteColor;
   border-radius: 6px;
 }
 
@@ -57,7 +57,7 @@
 }
 
 .nav-mypage-btn:hover {
-  background-color: #F5F6F9;
+  background-color: $whiteColor;
   border-radius: 6px;
 }
 
@@ -74,7 +74,7 @@
   min-width: 5.2vw;
   text-align: center;
   padding: 0.626vw 0;
-  border: 1px solid #A7A9AF;
+  border: 1px solid $darkGrayColor;
   border-radius: 6px;
 }
 

@@ -36,7 +36,7 @@ class Post(models.Model):
     header_image = models.ImageField(_("Image"), upload_to=header_date_upload_to, null=True, blank=True)
     thumbnail_image = models.ImageField(_("Image"), upload_to=thumbnail_date_upload_to, null=True, blank=True)
     days= models.IntegerField(default=1)
-    like_users = models.ManyToManyField(User, related_name='like_users', blank=True)
+    like_users = models.ManyToManyField(User, related_name='like_posts', blank=True, through="Like")
     is_shared = models.BooleanField(default=False)
     SEASONS=(
         ('spr', 'spring'),
@@ -67,6 +67,7 @@ class Place(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
     description = models.TextField()
     day = models.IntegerField()
+    index = models.IntegerField(blank=True, null=True)
     folder = models.ForeignKey(Folder, null=True, blank=True,on_delete=models.CASCADE)
     latitude = models.CharField(max_length=256, null=True, blank=True)
     longitude = models.CharField(max_length=256, null=True, blank=True)

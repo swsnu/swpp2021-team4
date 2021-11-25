@@ -16,14 +16,14 @@
 }
 
 .label {
-  font-family: Montserrat;
+  font-family: "Montserrat", Monospace;
   font-style: normal;
-  color: #57CEB9;
+  color: #57ceb9;
   width: 20%;
 }
 
 .edit-profile-btn {
-  background-color: #95ECDC;
+  background-color: #95ecdc;
   padding: 0.647vw .76vw;
   border-radius: 6px;
   font-weight: bold;

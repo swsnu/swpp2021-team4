@@ -9,7 +9,7 @@
 }
 
 .author_name {
-  font-family: Montserrat;
+  font-family: "Montserrat", Monospace;
   font-style: normal;
   font-weight: 400px;
   font-size: 15px;
@@ -25,14 +25,14 @@
 
 .title {
   margin: 5px;
-  font-family: "Noto Sans CJK KR";
+  font-family: "Noto Sans CJK KR", Monospace;
   font-style: normal;
   font-weight: 600px;
   font-size: 25px;
 }
 
 .search-research {
-  font-family: Montserrat;
+  font-family: "Montserrat", Monospace;
   font-style: normal;
   font-weight: 600;
   font-size: 28px;

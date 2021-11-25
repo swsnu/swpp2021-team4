@@ -5,8 +5,12 @@ import {
   SIGNOUT_FAIL,
   EDIT_PROFILE_SUCCESS,
   EDIT_PROFILE_FAIL,
+  ADD_FOLDER_SUCCESS,
+  ADD_FOLDER_FAIL,
   EDIT_FOLDER_SUCCESS,
   EDIT_FOLDER_FAIL,
+  DELETE_FOLDER_SUCCESS,
+  DELETE_FOLDER_FAIL,
 } from '../actionTypes';
 
 import { UserDispatchType, UserType } from "./userInterfaces";
@@ -42,13 +46,26 @@ export default (
       return { ...state, loggedUser: { ...action.payload } };
     case EDIT_PROFILE_FAIL:
       return { ...state };
+    case ADD_FOLDER_SUCCESS:
+      const newFolder = action.payload;
+      return { ...state, loggedUser: { ...state.loggedUser, folders: [...state.loggedUser.folders, newFolder] } };
+    case ADD_FOLDER_FAIL:
+      return { ...state };
     case EDIT_FOLDER_SUCCESS:
-      const { id } = action.payload;
-      const nextFolders = state.loggedUser.folders.map(folder => {
-        return folder.id === id ? action.payload : folder
+      const editedId = action.payload.id;
+      const editedFolders = state.loggedUser.folders.map(folder => {
+        return folder.id === editedId ? action.payload : folder
       });
-      return { ...state, loggedUser: { ...state.loggedUser, folders: nextFolders } };
+      return { ...state, loggedUser: { ...state.loggedUser, folders: editedFolders } };
     case EDIT_FOLDER_FAIL:
+      return { ...state };
+    case DELETE_FOLDER_SUCCESS:
+      const deletedId = action.payload;
+      const deleteFolders = state.loggedUser.folders.filter(folder => {
+        return folder.id !== deletedId
+      });
+      return { ...state, loggedUser: { ...state.loggedUser, folders: deleteFolders } };
+    case DELETE_FOLDER_FAIL:
       return { ...state };
     default:
       return state;

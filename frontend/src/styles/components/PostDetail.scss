@@ -1,5 +1,4 @@
-@import "../Variables/Variable.scss";
-@import "./reset.scss";
+@import "../../Variables/Variables.scss";
 
 .post-detail-container {
   width: 80%;
@@ -21,6 +20,7 @@
     }
   }
   .header-content-left {
+    width: 60%;
     .header-top {
       margin-top: 10px;
       .post-folder-name {
@@ -55,40 +55,34 @@
       }
     }
     .header-bottom {
-      width: 160%;
       display: flex;
       align-items: center;
-      justify-content: space-between;
-      flex-wrap: wrap;
       margin-top: 25px;
-      width: 100%;
       .post-author {
         font-family: $mainFont;
         font-weight: bold;
         font-size: 20px;
         color: $regularMintColor;
         margin-left: 2.5vh;
-        margin-right: 20vh;
+        margin-right: 10vh;
       }
       .post-tag-container {
         display: flex;
         justify-content: space-evenly;
         .post-tag {
-          display: flex;
           flex-wrap: wrap;
           background-color: transparent;
           border: 0.8px solid black;
           border-radius: 16px;
-          height: 30px;
           display: inline-block;
           text-align: center;
           margin-left: 3vh;
           margin-right: 0px;
           font-family: $mainFont;
           font-weight: 400;
-          font-size: 15px;
+          font-size: 13px;
           padding: 10px;
-          line-height: 50%;
+          line-height: 80%;
           overflow: hidden;
         }
         .false {
@@ -98,17 +92,24 @@
     }
   }
   .header-content-right {
-    margin-left: 100px;
-    margin-top: 50px;
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     .post-cart-button {
+      margin-left: 5vh;
       background-color: $regularMintColor;
       border-radius: 6px;
-      height: 30px;
-      padding: 10px;
-      line-height: 50%;
+      padding: 10px 20px 10px 20px;
+      line-height: 80%;
       cursor: pointer;
       border: none;
       font-family: $mainFont;
+      margin-bottom: 6vh;
+      color: #ffffff;
+      &:hover {
+        background-color: $darkMintColor;
+      }
     }
   }
 }
@@ -131,15 +132,55 @@
       padding: 20px;
     }
   }
-
-  .body-map-container {
-    width: 38%;
-    background: #ffffff;
-    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.15);
-    border-radius: 6px;
-    height: 200px;
-    margin: 20px 0px;
+  .body-left-container {
+    display: flex;
+    flex-direction: column;
+    margin: 20px 0px 20px 20px;
+    width: 40%;
+    .body-comments-container {
+      width: 100%;
+      background: #ffffff;
+      box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.15);
+      border-radius: 6px;
+      margin: 20px 0px;
+    }
+    .comments-container {
+      .each-comment-container {
+        margin: 10px 0px 10px 20px;
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        width: 90%;
+        .each-profile-image {
+          margin: 5px;
+          width: 30px;
+          height: 30px;
+          border-radius: 50%;
+        }
+        .each-comment-author {
+          font-family: $mainFont;
+          margin-left: 5px;
+          margin-right: 10px;
+          font-size: 12px;
+        }
+        .each-comment-content {
+          font-family: $koreanFont;
+          font-weight: 300;
+          display: flex;
+          flex-wrap: wrap;
+          font-size: 12px;
+        }
+      }
+    }
   }
+  // .body-map-container {
+  //   width: 38%;
+  //   background: #ffffff;
+  //   box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.15);
+  //   border-radius: 6px;
+  //   height: 200px;
+  //   margin: 20px 0px;
+  // }
 }
 
 .folder-select-modal {
@@ -164,7 +205,6 @@
       font-weight: bold;
     }
     .close-button {
-      background-color: transparent;
       border: none;
       border-radius: 30px;
       background-color: $regularMintColor;
@@ -209,4 +249,66 @@
     text-align: center;
     line-height: 120%;
   }
+}
+
+.comment-input-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 10px auto;
+}
+.comment-input {
+  width: 30vh;
+  background: $whiteColor;
+  border: none;
+  border-radius: 6px;
+  height: 30px;
+  margin-right: 15px;
+  padding: 10px;
+  font-size: 15px;
+}
+
+.comment-submit {
+  font-family: $koreanFont;
+  color: $darkMintColor;
+  font-weight: bold;
+  height: 20px;
+  &:hover {
+    background-color: transparent;
+  }
+}
+
+input:focus::-webkit-input-placeholder {
+  color: transparent;
+}
+
+#delete-comment-button {
+  img {
+    width: 15px;
+    height: 15px;
+  }
+  img:last-child {
+    display: none;
+  }
+  &:hover {
+    background-color: transparent;
+    img:first-child {
+      display: none;
+    }
+    img:last-child {
+      display: inline-block;
+    }
+  }
+}
+
+.visible-false {
+  display: none;
+}
+
+.post-comment-icon{
+  margin-left: 15px;
+  margin-right: 3px;
+}
+.post-like-icon{
+  margin-right: 3px;
 }

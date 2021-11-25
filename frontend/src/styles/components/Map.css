@@ -18,7 +18,7 @@
 
 .map-title {
   margin-bottom: 1.145vw;
-  font-family: "Montserrat";
+  font-family: "Montserrat", Monospace;
   font-weight: 600;
   font-size: 2rem;
   line-height: 2.437rem;
@@ -26,7 +26,7 @@
 }
 
 .map-create-btn {
-  background-color: #57CEB9;
+  background-color: #57ceb9;
   margin: 0 auto;
   padding: 0.625vw 3.23vw;
   width: -webkit-max-content;
@@ -40,6 +40,6 @@
 }
 
 .map-create-btn:hover {
-  background-color: #95ECDC;
+  background-color: #95ecdc;
 }
 /*# sourceMappingURL=Map.css.map */

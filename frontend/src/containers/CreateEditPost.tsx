@@ -31,7 +31,15 @@ function CreateEditPost() {
     useState<PostInfoDataType>(initialFolderData);
   const [locationQuery, setLocationQuery] = useState("");
   const [selectedDay, setSelectedDay] = useState(1);
-  const [selectedTab, setSelectedTab] = useState<"place" | "search">("place");
+
+  const [routePlaces, setRoutePlaces] = useState<any[]>([]);
+
+  const onAddPlace = (place: any) => {
+    setRoutePlaces([ ...routePlaces, { place, day: selectedDay } ]);
+  }
+
+  const [selectedTab, setSelectedTab] = useState<'place' | 'search'>('place');
+  // const [searchResults, setSearchResults] = useState<any>([]);
 
   const onChangePostInfoData = useCallback(
     (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
@@ -70,6 +78,15 @@ function CreateEditPost() {
     setSelectedTab(type);
   };
 
+  // const onChangeSearchTabQuery = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+  //   e.preventDefault();
+  //   setSearchTabQuery(e.target.value);
+  // }, []);
+
+  // const onChangeSearchResults = useCallback((results: any) => {
+  //   setSearchResults(results);
+  // }, []);
+
   return (
     <div>
       <CreateEditHeader
@@ -79,12 +96,15 @@ function CreateEditPost() {
         onPressEnterLocation={onPressEnterLocation}
       />
       <div className="create-edit-content-container">
+
         <div className="create-edit-place-section">
           <div className="create-edit-places-section">
             <div className="my-routes-title">Places</div>
             <PlaceSearchSection
               selectedTab={selectedTab}
               onClickTabButton={onClickTabButton}
+              onAddPlace={onAddPlace}
+              selectedDay={selectedDay}
             />
           </div>
 
@@ -95,10 +115,16 @@ function CreateEditPost() {
               selectedDay={selectedDay}
               onClickDay={onClickDay}
               onClickAddIcon={onClickAddIcon}
+              routePlaces={routePlaces}
             />
           </div>
         </div>
-        <Map location={locationQuery} selectedDay={selectedDay} />
+
+        <Map
+          location={locationQuery}
+          selectedDay={selectedDay}
+          placeList={routePlaces}
+        />
       </div>
     </div>
   );

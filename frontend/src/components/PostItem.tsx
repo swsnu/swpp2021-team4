@@ -1,6 +1,7 @@
 import React from "react";
 import "../styles/components/PostItem.scss";
 import { NavLink } from "react-router-dom";
+import "../styles/components/PostItem.css";
 
 interface PropType {
   id: number;

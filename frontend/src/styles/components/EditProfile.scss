@@ -1,11 +1,14 @@
-
-
+@import '../../Variables/Variables.scss';
   .inputs{
       width: 100%;
-      margin-left: 20%;
+      margin-left: 10%;
       
       margin-bottom: 3%;
       height:30px;
+
+      input {
+        width: 40%;
+      }
   }
   
   .inputs{
@@ -14,15 +17,15 @@
   }
 
   .label{
-    font-family: Montserrat;
+    font-family: $mainFont;
     font-style: normal;
 
-    color: #57CEB9;
+    color: $darkMintColor;
     width: 20%;
   }
 
   .edit-profile-btn {
-    background-color: #95ECDC;
+    background-color: $regularMintColor;
     padding: 0.647vw .76vw;
     border-radius: 6px;
     font-weight: bold;
@@ -35,10 +38,25 @@
   .edit-profile-container{
       margin-top: 5%;
       width: 80%;
-      background-color: #e2e3e9;
+      background-color: $lightGrayColor;
       padding-top: 2%;
       padding-bottom: 1%;
       align-items: center;
       margin-left: 10%;
       border-radius: 2%;
+      display: flex;
+  }
+
+  .edit-profile-image {
+    width: 30%;
+
+    .profile-image-preview {
+      margin-left: 10%;
+      width: 90%;
+    }
+  }
+
+  .edit-profile-form-container {
+    width: 70%;
+
   }
