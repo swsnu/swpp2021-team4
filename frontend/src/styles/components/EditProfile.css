@@ -1,8 +1,12 @@
 .inputs {
   width: 100%;
-  margin-left: 20%;
+  margin-left: 10%;
   margin-bottom: 3%;
   height: 30px;
+}
+
+.inputs input {
+  width: 40%;
 }
 
 .inputs {
@@ -44,5 +48,21 @@
           align-items: center;
   margin-left: 10%;
   border-radius: 2%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.edit-profile-image {
+  width: 30%;
+}
+
+.edit-profile-image .profile-image-preview {
+  margin-left: 10%;
+  width: 90%;
+}
+
+.edit-profile-form-container {
+  width: 70%;
 }
 /*# sourceMappingURL=EditProfile.css.map */

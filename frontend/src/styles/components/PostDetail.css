@@ -3,150 +3,6 @@
   margin: 0px auto;
 }
 
-.post-detail-header {
-  width: 100%;
-  border-radius: 6px;
-  -webkit-box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
-          box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
-  height: 160px;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  margin: 0px auto;
-}
-
-.post-detail-header .header-image {
-  display: inline-block;
-}
-
-.post-detail-header .header-image img {
-  width: 210px;
-  height: 160px;
-}
-
-.post-detail-header .header-content-left .header-top {
-  margin-top: 10px;
-}
-
-.post-detail-header .header-content-left .header-top .post-folder-name {
-  font-family: "Noto Sans CJK KR", Monospace;
-  font-size: 22px;
-  margin-left: 2vh;
-  margin-top: 15px;
-}
-
-.post-detail-header .header-content-left .header-middle {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -ms-flex-wrap: wrap;
-      flex-wrap: wrap;
-  -webkit-box-align: baseline;
-      -ms-flex-align: baseline;
-          align-items: baseline;
-}
-
-.post-detail-header .header-content-left .header-middle .post-title-name {
-  -webkit-box-pack: start;
-      -ms-flex-pack: start;
-          justify-content: flex-start;
-  margin: 15px 8vh 0px 2vh;
-  font-family: "Noto Sans CJK KR", Monospace;
-  font-weight: bold;
-  color: #57ceb9;
-  font-size: 32px;
-}
-
-.post-detail-header .header-content-left .header-middle .post-info-container {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-}
-
-.post-detail-header .header-content-left .header-middle .post-info-container .post-info {
-  font-family: "Noto Sans CJK KR", Monospace;
-  font-size: 20px;
-  font-weight: 500;
-  margin-right: 20px;
-  margin-left: 20px;
-}
-
-.post-detail-header .header-content-left .header-bottom {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
-  -ms-flex-wrap: wrap;
-      flex-wrap: wrap;
-  margin-top: 25px;
-  width: 100%;
-}
-
-.post-detail-header .header-content-left .header-bottom .post-author {
-  font-family: "Montserrat", Monospace;
-  font-weight: bold;
-  font-size: 20px;
-  color: #95ecdc;
-  margin-left: 2.5vh;
-  margin-right: 20vh;
-}
-
-.post-detail-header .header-content-left .header-bottom .post-tag-container {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: space-evenly;
-      -ms-flex-pack: space-evenly;
-          justify-content: space-evenly;
-}
-
-.post-detail-header .header-content-left .header-bottom .post-tag-container .post-tag {
-  -ms-flex-wrap: wrap;
-      flex-wrap: wrap;
-  background-color: transparent;
-  border: 0.8px solid black;
-  border-radius: 16px;
-  height: 30px;
-  display: inline-block;
-  text-align: center;
-  margin-left: 3vh;
-  margin-right: 0px;
-  font-family: "Montserrat", Monospace;
-  font-weight: 400;
-  font-size: 15px;
-  padding: 10px;
-  line-height: 50%;
-  overflow: hidden;
-}
-
-.post-detail-header .header-content-left .header-bottom .post-tag-container .false {
-  visibility: None;
-}
-
-.post-detail-header .header-content-right {
-  margin-left: 100px;
-  margin-top: 50px;
-}
-
-.post-detail-header .header-content-right .post-cart-button {
-  background-color: #95ecdc;
-  border-radius: 6px;
-  height: 30px;
-  padding: 10px;
-  line-height: 50%;
-  cursor: pointer;
-  border: none;
-  font-family: "Montserrat", Monospace;
-}
-
 .post-detail-body {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -174,14 +30,87 @@
   padding: 20px;
 }
 
-.post-detail-body .body-map-container {
-  width: 38%;
+.post-detail-body .body-left-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  margin: 20px 0px 20px 20px;
+  width: 40%;
+}
+
+.post-detail-body .body-left-container .body-comments-container {
+  width: 100%;
   background: #ffffff;
   -webkit-box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.15);
           box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.15);
   border-radius: 6px;
-  height: 200px;
   margin: 20px 0px;
+}
+
+.post-detail-body .body-left-container .comments-container .each-comment-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  margin: 10px 0px 10px 20px;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+}
+
+.post-detail-body .body-left-container .comments-container .each-comment-container .each-comment-top {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: 90%;
+}
+
+.post-detail-body .body-left-container .comments-container .each-comment-container .each-comment-top .each-profile-image {
+  margin: 5px;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+}
+
+.post-detail-body .body-left-container .comments-container .each-comment-container .each-comment-top .each-comment-author {
+  font-family: "Montserrat", Monospace;
+  margin-left: 5px;
+  margin-right: 10px;
+  font-size: 12px;
+  color: #000000;
+}
+
+.post-detail-body .body-left-container .comments-container .each-comment-container .each-comment-top .each-comment-content {
+  font-family: "Noto Sans CJK KR", Monospace;
+  font-weight: 300;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  font-size: 14px;
+}
+
+.post-detail-body .body-left-container .comments-container .each-comment-container .each-comment-created-at {
+  display: block;
+  margin-left: 5px;
+  font-family: "Montserrat", Monospace;
+  font-weight: 300;
+  font-size: 12px;
+  color: #000000;
 }
 
 .folder-select-modal {
@@ -271,5 +200,83 @@
   font-size: 20px;
   text-align: center;
   line-height: 120%;
+}
+
+.comment-input-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin: 10px auto;
+}
+
+.comment-input {
+  width: 30vh;
+  background: #f6f6f9;
+  border: none;
+  border-radius: 6px;
+  height: 30px;
+  margin-left: 15px;
+  margin-right: 15px;
+  padding: 10px;
+  font-size: 15px;
+}
+
+.comment-submit {
+  font-family: "Noto Sans CJK KR", Monospace;
+  color: #57ceb9;
+  font-weight: bold;
+  height: 20px;
+}
+
+.comment-submit:hover {
+  background-color: transparent;
+}
+
+input:focus::-webkit-input-placeholder {
+  color: transparent;
+}
+
+#delete-comment-button img {
+  width: 15px;
+  height: 15px;
+}
+
+#delete-comment-button img:last-child {
+  display: none;
+}
+
+#delete-comment-button:hover {
+  background-color: transparent;
+}
+
+#delete-comment-button:hover img:first-child {
+  display: none;
+}
+
+#delete-comment-button:hover img:last-child {
+  display: inline-block;
+}
+
+.visible-false {
+  display: none;
+}
+
+.post-comment-icon {
+  margin-left: 15px;
+  margin-right: 3px;
+}
+
+.post-like-icon {
+  margin-right: 3px;
+}
+
+.logged {
+  cursor: pointer;
 }
 /*# sourceMappingURL=PostDetail.css.map */

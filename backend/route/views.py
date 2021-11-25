@@ -14,7 +14,7 @@ def posts(request):
     for post in Post.objects.all():
         comments=[]
         for comment in post.comment_set.all():
-            comments.append({'content': comment.content, 'usernmae':comment.author.username})
+            comments.append({'content': comment.content, 'username':comment.author.username})
         postlist.append({
             'id': post.id,
             'title': post.title,
@@ -147,19 +147,32 @@ def search(request):
             if keyword!='' and keyword in place.description:
                 place_exist=True
         if not place_exist:
-            if not(keyword!='' and (keyword in post.title or keyword in post.location)) or not(location!='' and location in post.location) or not (season!='' and season==post.season) or not (days!='' and days==post.days) or not (theme!='' and theme==post.theme) or not (transportation!='' and transportation==post.transportation):
-                continue
-        postlist.append({
+            if ((keyword=='' or (keyword!='' and (keyword in post.title or keyword in post.location))) and (location=='' or (location!='' and location in post.location)) and (season=='' or (season!='' and season==post.season)) and (days=='' or (days!='' and int(days)==int(post.days))) and (theme=='' or (theme!='' and theme==post.theme)) and (transportation=='' or (transportation!='' and str(transportation)==str(post.availableWithoutCar)))):
+                postlist.append({
             'id': post.id,
             'thumbnail_image': post.thumbnail_image.url if post.thumbnail_image else None,
             'title': post.title,
-            'author': post.author.username,
+            'author_name': post.author.username,
             'author_id': post.author.id,
+            'like_count': post.like_users.count(), 
+            'created_at': post.created_at,
+            'comment_count': Comment.objects.filter(post=post).count(),
+            'is_shared': post.is_shared
+            })
+
+        elif (location=='' or (location!='' and location in post.location)) and (season=='' or (season!='' and season==post.season)) and (days=='' or (days!='' and int(days)==int(post.days))) and (theme=='' or (theme!='' and theme==post.theme)) and (transportation=='' or (transportation!='' and str(transportation)==str(post.availableWithoutCar))): 
+            postlist.append({
+            'id': post.id,
+            'thumbnail_image': post.thumbnail_image.url if post.thumbnail_image else None,
+            'title': post.title,
+            'author_name': post.author.username,
+            'author_id': post.author.id,
+            'created_at': post.created_at,
             'like_count': post.like_users.count(), 
             'comment_count': Comment.objects.filter(post=post).count(),
             'is_shared': post.is_shared
             })
-    return JsonResponse(postlist, safe=False)
+    return JsonResponse({'ordinary':postlist, 'like':sorted(postlist, key=(lambda x:-x['like_count'])), 'date': sorted(postlist, key=(lambda x: x['created_at']),reverse=True)}, safe=False)
 
 @require_GET
 def post_spec_get(request, post_id):
@@ -187,8 +200,22 @@ def post_spec_get(request, post_id):
     for comment in post.comment_set.all():
         comments.append({
             'content': comment.content,
-            'author_id':comment.author_id
+            'author_id':comment.author.id,
+            'username':comment.author.username,
+            'profile_image': f'{comment.author.profile_image.url if comment.author.profile_image else ""}',
+            'id': comment.id,
+            'created_at': comment.created_at.strftime("%Y-%m-%d %H:%M")
         })
+
+    like_counts = post.like_users.count()
+    
+    logged_user_id=request.session.get('user', None)
+    if logged_user_id: 
+        user = User.objects.get(id = logged_user_id)
+        if user in post.like_users.all(): 
+            liked = True
+        else: liked = False
+    else: liked=False
 
     response_dict = {
         'id': post.id,
@@ -198,13 +225,16 @@ def post_spec_get(request, post_id):
         'days': post.days,
         'is_shared':post.is_shared,
         'theme':post.theme,
-        'comment': comments,
+        'comments': comments,
         'season': post.season, 
         'location': post.location,
         'availableWithoutCar': post.availableWithoutCar,
-        'folder_id': post.folder.id,
-        'folder_name': post.folder.name,
-        'places': placelist
+        'folder_id': f'{post.folder.id if post.folder else 0}',
+        'folder_name':f'{post.folder.name if post.folder else ""}',
+        'places': placelist,
+        'like_counts': like_counts,
+        'liked': liked,
+        'created_at': post.updated_at.strftime("%Y. %m. %d. %H:%M"),
         }
     return JsonResponse(response_dict, safe=False)
     
@@ -336,28 +366,27 @@ def post_cart(request, post_id, fid):
         post_in_folder.delete()
         return HttpResponse(status=204)
 
-@require_http_methods(["POST", "DELETE"])
+@require_http_methods(["GET"])
 def post_like(request, post_id):
     logged_user_id=request.session.get('user', None)
     if not logged_user_id:
         return HttpResponse(status=405)
     user=User.objects.get(id=logged_user_id)
-    if request.method=='POST':
-        post = Post.objects.get(id=post_id)
-        like_list = post.like_set.filter(user_id=user.id)
-        Like.objects.create(user=user, post=post)
-        return JsonResponse({'postLikeUserCount': like_list.count()}, status=201)
-    else : #delete
-        post = Post.objects.get(id=post_id)
-        post.like_set.get(user=user).delete()
-        return HttpResponse(status=200)
+    post = Post.objects.get(id=post_id)
+    like_list = post.like_set.filter(user_id=user.id)
+    if like_list.count()>0:
+        post.like_set.get(user = user).delete()
+    else:
+        Like.objects.create(user = user, post= post)
+    like_counts = post.like_users.count()
+    return JsonResponse({'like_counts':like_counts})
 
 @require_GET
 def post_comment_get(request, post_id):
     post=Post.objects.get(id=post_id)
     comments=[]
     for comment in post.comment_set.all():
-        comments.append({'content': comment.content, 'username':comment.author.username})
+        comments.append({'id': comment.id, 'content': comment.content, 'author_id': comment.author.id, 'username':comment.author.username, 'created_at': comment.created_at.strftime("%Y. %m. %d. %H:%M"), 'profile_image':f'{comment.author.profile_image.url if comment.author.profile_image else ""}'})
     return JsonResponse(comments, safe=False)
 
 @require_POST
