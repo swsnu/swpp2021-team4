@@ -8,7 +8,8 @@ interface PropsType {
   place: PlaceType;
   icon: string;
   onClickButton: Function;
-  onAddButton?: (place:any) => void
+  key: number;
+  onAddButton?: (place: any) => void;
 }
 function Place(props: PropsType) {
   const [toggle, setToggle] = useState<number[]>([]);
@@ -23,13 +24,16 @@ function Place(props: PropsType) {
     return toggle;
   };
   return (
-    <div className="place-container">
+    <div className="place-container" key={props.key}>
       <div className="place-container-top">
-        <div className="place-title" onClick={() => {
-          if (props.onAddButton) {
-            props.onAddButton(props.place)
-          }
-        }}>
+        <div
+          className="place-title"
+          onClick={() => {
+            if (props.onAddButton) {
+              props.onAddButton(props.place);
+            }
+          }}
+        >
           {props.place.name}
         </div>
         <button

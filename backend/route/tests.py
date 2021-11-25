@@ -357,8 +357,8 @@ class RouteTestCase(TestCase):
         header_image=File(open("./grape.jpg", "rb")), thumbnail_image=File(open("./grape.jpg", "rb")))
         new_post.save()
         Like(user=user, post=new_post)
-        response = client.post('/post/1/like/')
-        self.assertEqual(response.status_code, 201)
+        response = client.get('/post/1/like/')
+        self.assertEqual(response.status_code, 200)
 
     def test_like_delete(self):
         client = Client()
@@ -376,7 +376,7 @@ class RouteTestCase(TestCase):
         new_post.save()
         like = Like(user=user, post=new_post)
         like.save()
-        response = client.delete('/post/1/like/')
+        response = client.get('/post/1/like/')
         self.assertEqual(response.status_code, 200)
 
     def test_post_comment_get(self):
@@ -668,3 +668,62 @@ class RouteTestCase(TestCase):
         response = client.delete('/place/1/cart/1/')
         self.assertEqual(response.status_code, 204)
 
+    def test_search(self):
+        client= Client()
+        user = User.objects.create_user(email="swpp@swpp.com", username="swpp")
+        user.set_password("swpp")
+        user.save()
+        
+        response = client.post('/user/signin/', json.dumps({
+            'email': 'swpp@swpp.com',
+            'password': 'swpp'
+            }), content_type='application/json')
+        folder = Folder(name="folder1", user=user)
+        folder.save()
+        new_post = Post(
+            title='testTitle', 
+            author=user, 
+            is_shared=False, 
+            folder=folder,
+            days=1,
+            availableWithoutCar=False,
+            location ="location",
+            header_image=File(open("./grape.jpg", "rb")), 
+            thumbnail_image=File(open("./grape.jpg", "rb")))
+        new_post.save()
+        place = Place(
+            name="Korea", 
+            post=new_post, 
+            description="test", 
+            folder=folder, 
+            day=1, 
+            latitude='1', 
+            longitude='1', 
+            address='road1')
+        place.save()
+        response = client.post('/post/search/', json.dumps({
+            'keyword': 'test',
+            'location' : 'location',
+            'days': '1',
+            'theme': '',
+            'transportation':''
+            }), content_type='application/json')
+        self.assertEqual(response.status_code, 400)
+        response = client.post('/post/search/', json.dumps({
+            'keyword': 'test',
+            'location' : 'location',
+            'season': 'spr',
+            'days': '1',
+            'theme': '',
+            'transportation':''
+            }), content_type='application/json')
+        self.assertEqual(response.status_code, 200)        
+        response = client.post('/post/search/', json.dumps({
+            'keyword': '',
+            'location' : '',
+            'season': 'spr',
+            'days': '1',
+            'theme': '',
+            'transportation':''
+            }), content_type='application/json')
+        self.assertEqual(response.status_code, 200)    

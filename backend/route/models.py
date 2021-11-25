@@ -36,7 +36,7 @@ class Post(models.Model):
     header_image = models.ImageField(_("Image"), upload_to=header_date_upload_to, null=True, blank=True)
     thumbnail_image = models.ImageField(_("Image"), upload_to=thumbnail_date_upload_to, null=True, blank=True)
     days= models.IntegerField(default=1)
-    like_users = models.ManyToManyField(User, related_name='like_users', blank=True)
+    like_users = models.ManyToManyField(User, related_name='like_posts', blank=True, through="Like")
     is_shared = models.BooleanField(default=False)
     SEASONS=(
         ('spr', 'spring'),

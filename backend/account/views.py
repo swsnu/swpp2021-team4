@@ -108,7 +108,8 @@ def edit_user_info(request, user_id):
 
     if form.is_valid():
         user.username = form.cleaned_data['username']
-        user.profile_image = form.cleaned_data['profile_image']
+        if form.cleaned_data['profile_image']:
+            user.profile_image = form.cleaned_data['profile_image']
         user.set_password(form.cleaned_data['password'])
         user.save()
         user.update_date()

@@ -7,8 +7,12 @@ import {
   SIGNOUT_FAIL,
   EDIT_PROFILE_SUCCESS,
   EDIT_PROFILE_FAIL,
+  ADD_FOLDER_SUCCESS,
+  ADD_FOLDER_FAIL,
   EDIT_FOLDER_SUCCESS,
   EDIT_FOLDER_FAIL,
+  DELETE_FOLDER_SUCCESS,
+  DELETE_FOLDER_FAIL,
 } from "../actionTypes";
 import { Folder, UserDispatchType, UserType } from "./userInterfaces";
 
@@ -77,6 +81,24 @@ export const editProfileAction = (
   };
 };
 
+export const addFolderAction = (
+  user_id: number,
+  fname: string,
+  callbackFunc: (value: boolean) => void
+) => {
+  return (dispatch: Redux.Dispatch<UserDispatchType>) => {
+    return axios
+      .post<{ folder: Folder }>(`/user/${user_id}/folder/new/`, { folder_name: fname })
+      .then((res) => {
+        dispatch({ type: ADD_FOLDER_SUCCESS, payload: res.data.folder });
+        callbackFunc(true);
+      })
+      .catch(() => {
+        dispatch({ type: ADD_FOLDER_FAIL });
+      });
+  };
+};
+
 export const editFolderAction = (
   user_id: number,
   fid: number,
@@ -92,6 +114,22 @@ export const editFolderAction = (
       })
       .catch(() => {
         dispatch({ type: EDIT_FOLDER_FAIL });
+      });
+  };
+};
+
+export const deleteFolderAction = (
+  user_id: number,
+  fid: number,
+) => {
+  return (dispatch: Redux.Dispatch<UserDispatchType>) => {
+    return axios
+      .delete(`/user/${user_id}/folder/${fid}/delete/`)
+      .then(() => {
+        dispatch({ type: DELETE_FOLDER_SUCCESS, payload: fid });
+      })
+      .catch(() => {
+        dispatch({ type: DELETE_FOLDER_FAIL });
       });
   };
 };

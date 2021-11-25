@@ -5,8 +5,12 @@ import {
   SIGNOUT_FAIL,
   EDIT_PROFILE_SUCCESS,
   EDIT_PROFILE_FAIL,
+  ADD_FOLDER_SUCCESS,
+  ADD_FOLDER_FAIL,
   EDIT_FOLDER_SUCCESS,
   EDIT_FOLDER_FAIL,
+  DELETE_FOLDER_SUCCESS,
+  DELETE_FOLDER_FAIL,
 } from '../actionTypes';
 
 export interface UserType {
@@ -48,6 +52,15 @@ export interface EditProfileFail {
   type: typeof EDIT_PROFILE_FAIL
 }
 
+export interface AddFolderSuccess {
+  type: typeof ADD_FOLDER_SUCCESS
+  payload: Folder
+}
+
+export interface AddFolderFail {
+  type: typeof ADD_FOLDER_FAIL
+}
+
 export interface EditFolderSuccess {
   type: typeof EDIT_FOLDER_SUCCESS
   payload: Folder
@@ -57,6 +70,15 @@ export interface EditFolderFail {
   type: typeof EDIT_FOLDER_FAIL
 }
 
+export interface DeleteFolderSuccess {
+  type: typeof DELETE_FOLDER_SUCCESS
+  payload: number
+}
+
+export interface DeleteFolderFail {
+  type: typeof DELETE_FOLDER_FAIL
+}
+
 export type UserDispatchType =
   SigninSuccess |
   SigninFail |
@@ -64,5 +86,9 @@ export type UserDispatchType =
   SignoutFail |
   EditProfileSuccess |
   EditProfileFail |
+  AddFolderSuccess |
+  AddFolderFail |
   EditFolderSuccess |
-  EditFolderFail;
+  EditFolderFail |
+  DeleteFolderSuccess |
+  DeleteFolderFail;
