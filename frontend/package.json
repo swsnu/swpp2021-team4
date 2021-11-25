@@ -14,6 +14,7 @@
     "@types/react-dom": "^17.0.11",
     "@types/react-router-dom": "^5.3.2",
     "axios": "^0.24.0",
+    "connected-react-router": "^6.9.1",
     "eslint-config-prettier": "^8.3.0",
     "node-sass": "^6.0.1",
     "react": "^17.0.2",
@@ -72,9 +73,9 @@
   "jest": {
     "resetMocks": false,
     "collectCoverageFrom": [
-        "src/**/*.{js,jsx,tsx}",
-        "!src/index.tsx",
-        "!src/serviceWorker.js"
+      "src/**/*.{js,jsx,tsx}",
+      "!src/index.tsx",
+      "!src/serviceWorker.js"
     ]
-}
+  }
 }
