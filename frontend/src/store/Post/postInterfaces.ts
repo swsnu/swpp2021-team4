@@ -64,6 +64,7 @@ export interface CommentType {
   profile_image: string;
   id: number;
   created_at: string;
+  author_id: number;
 }
 
 export interface PathType {
@@ -110,8 +111,8 @@ export interface CartPostFail {
 export interface SearchSuccess {
   type: typeof SEARCH_SUCCESS;
   ordinary: SearchType[];
-  like: SearchType[],
-  date: SearchType[]
+  like: SearchType[];
+  date: SearchType[];
 }
 export interface SearchFail {
   type: typeof SEARCH_FAIL;

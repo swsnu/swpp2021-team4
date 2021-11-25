@@ -200,6 +200,7 @@ def post_spec_get(request, post_id):
     for comment in post.comment_set.all():
         comments.append({
             'content': comment.content,
+            'author_id':comment.author.id,
             'username':comment.author.username,
             'profile_image': f'{comment.author.profile_image.url if comment.author.profile_image else ""}',
             'id': comment.id,
@@ -385,7 +386,7 @@ def post_comment_get(request, post_id):
     post=Post.objects.get(id=post_id)
     comments=[]
     for comment in post.comment_set.all():
-        comments.append({'id': comment.id, 'content': comment.content, 'username':comment.author.username, 'created_at': comment.created_at.strftime("%Y. %m. %d. %H:%M"), 'profile_image':f'{comment.author.profile_image.url if comment.author.profile_image else ""}'})
+        comments.append({'id': comment.id, 'content': comment.content, 'author_id': comment.author.id, 'username':comment.author.username, 'created_at': comment.created_at.strftime("%Y. %m. %d. %H:%M"), 'profile_image':f'{comment.author.profile_image.url if comment.author.profile_image else ""}'})
     return JsonResponse(comments, safe=False)
 
 @require_POST

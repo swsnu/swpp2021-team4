@@ -249,13 +249,13 @@ function PostDetail() {
                 <img className="post-like-icon unliked" src={unlike_icon} />
               ) : post.liked ? (
                 <img
-                  className="post-like-icon liked"
+                  className="post-like-icon liked logged"
                   onClick={() => onClickPostLikeButton()}
                   src={like_icon}
                 />
               ) : (
                 <img
-                  className="post-like-icon unliked"
+                  className="post-like-icon unliked logged"
                   onClick={() => onClickPostLikeButton()}
                   src={unlike_icon}
                 />
@@ -288,7 +288,7 @@ function PostDetail() {
               >
                 {post.liked ? (
                   <img
-                    className="post-like-icon liked"
+                    className="post-like-icon liked logged"
                     onClick={() => onClickPostLikeButton()}
                     src={like_icon}
                   />
@@ -323,9 +323,9 @@ function PostDetail() {
                             className="each-profile-image"
                             src={comment.profile_image || profile_image}
                           />
-                          <span className="each-comment-author">
+                          <NavLink to={`/user_info/${comment.author_id}/`} className="each-comment-author">
                             {comment.username}
-                          </span>
+                          </NavLink>
                           <span className="each-comment-content">
                             {comment.content}&nbsp;&nbsp;&nbsp;
                           </span>
