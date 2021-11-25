@@ -61,7 +61,6 @@ function CreateEditPost() {
   }
 
   const [selectedTab, setSelectedTab] = useState<'place' | 'search'>('place');
-  // const [searchResults, setSearchResults] = useState<any>([]);
 
   const onClickCreateButton = () => {
     const {
@@ -158,15 +157,6 @@ function CreateEditPost() {
   const onClickTabButton = (type: "search" | "place") => {
     setSelectedTab(type);
   };
-
-  // const onChangeSearchTabQuery = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-  //   e.preventDefault();
-  //   setSearchTabQuery(e.target.value);
-  // }, []);
-
-  // const onChangeSearchResults = useCallback((results: any) => {
-  //   setSearchResults(results);
-  // }, []);
 
   return (
     <div>
