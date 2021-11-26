@@ -1,7 +1,8 @@
 import React from "react";
-import "../styles/components/PostItem.scss";
 import { NavLink } from "react-router-dom";
 import "../styles/components/PostItem.css";
+import comment_icon from "../static/comment-icon.svg";
+import unlike_icon from "../static/unlike-icon.svg";
 
 interface PropType {
   id: number;
@@ -9,30 +10,40 @@ interface PropType {
   title: string;
   author_name: string;
   author_id: number;
+  like_count: number;
+  comment_count: number;
 }
 
 function PostItem(props: PropType) {
   return (
     <div className="postitem-container">
-      <div className="info">
-        <div className="title">
-          <NavLink
-            to={`/post/${props.id}/`}
-            className="nav-mypage-btn nav-btn-font"
-          >
-            {props.title}
-          </NavLink>
-        </div>
-        <div className="author_name">
-          <NavLink to={`/user_info/${props.author_id}/`}>
-            {props.author_name}
-          </NavLink>
-        </div>
+      <div className="title-container">
+        <NavLink
+          to={`/post/${props.id}/`}
+          className="nav-mypage-btn nav-btn-font title"
+        >
+          {props.title}
+        </NavLink>
       </div>
       <div className="thumbnail">
         <NavLink to={`/post/${props.id}/`}>
           <img src={props.thumbnail_image} />
         </NavLink>
+      </div>
+      <div className="content">
+        <div className="info">
+          <div className="author">
+            <NavLink to={`/user_info/${props.author_id}/`} className="author_name">
+              {props.author_name}
+            </NavLink>
+          </div>
+          <div className="counts">
+            <img className="post-like-icon unliked" src={unlike_icon} />
+            {props.like_count}
+            <img className="post-comment-icon" src={comment_icon} />
+            {props.comment_count}
+          </div>
+        </div>
       </div>
     </div>
   );
