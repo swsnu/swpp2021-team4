@@ -1,10 +1,12 @@
 import React from "react";
 import { PostInfoDataType } from "../containers/CreateEditPost";
 import { PostType } from "../store/Post/postInterfaces";
+import { Folder } from "../store/User/userInterfaces";
 import '../styles/components/CreateEditHeader.scss';
 
 interface PropType {
   post: PostType
+  folder: Folder
   headerImage: string
   postInfoData: PostInfoDataType
   onChangePostInfoData: (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => void
@@ -32,7 +34,7 @@ function CreateEditHeader(props: PropType) {
 
         <div className="post-ce-info-container">
           <div className="post-ce-info-first-line">
-            <div className="post-ce-folder-name">{ true && 'Folder Name' }</div>
+            <div className="post-ce-folder-name">{props.folder.name}</div>
           </div>
           
           <div className="post-ce-info-second-line">

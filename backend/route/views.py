@@ -97,7 +97,7 @@ def post_create(request):
             author_id=logged_user_id,
             header_image=post_header_image,
             thumbnail_image=post_thumbnail_image,
-            # folder_id = post_folder_id,
+            folder_id = post_folder_id,
             days=post_days, 
             is_shared=post_is_shared,
             location=post_location,

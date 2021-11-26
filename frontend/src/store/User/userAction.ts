@@ -84,7 +84,8 @@ export const editProfileAction = (
 export const addFolderAction = (
   user_id: number,
   fname: string,
-  callbackFunc: (value: boolean) => void
+  callbackFunc: (value: boolean) => void,
+  callbackFunc2?: (newFolder: Folder) => void
 ) => {
   return (dispatch: Redux.Dispatch<UserDispatchType>) => {
     return axios
@@ -92,6 +93,10 @@ export const addFolderAction = (
       .then((res) => {
         dispatch({ type: ADD_FOLDER_SUCCESS, payload: res.data.folder });
         callbackFunc(true);
+
+        if (callbackFunc2) {
+          callbackFunc2(res.data?.folder);
+        }
       })
       .catch(() => {
         dispatch({ type: ADD_FOLDER_FAIL });

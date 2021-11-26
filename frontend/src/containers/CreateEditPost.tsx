@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import CreateEditHeader from "../components/CreateEditHeader";
 import Map from "../components/Map";
@@ -7,6 +7,7 @@ import PlaceSearchSection from "../components/PlaceSearchSection";
 import { usePostState } from "../hooks/usePostState";
 import { createPostAction } from "../store/Post/postAction";
 import { PlaceDayType, PlaceType } from "../store/Post/postInterfaces";
+import { Folder } from "../store/User/userInterfaces";
 import "../styles/components/CreateEditPost.scss";
 
 export interface PostInfoDataType {
@@ -34,7 +35,11 @@ const initialFolderData: PostInfoDataType = {
 
 const defaultImage = "https://media.triple.guide/triple-cms/c_limit,f_auto,h_1024,w_1024/73968eea-cbbe-49cd-b001-353e9e962cbf.jpeg";
 
-function CreateEditPost() {
+interface PropsType {
+  folder: Folder
+}
+
+function CreateEditPost(props: PropsType) {
   const dispatch = useDispatch();
   const post = usePostState();
   const [postInfoData, setPostInfoData] = useState<PostInfoDataType>(initialFolderData);
@@ -42,6 +47,13 @@ function CreateEditPost() {
   const [selectedDay, setSelectedDay] = useState(1);
 
   const [routePlaces, setRoutePlaces] = useState<PlaceDayType[]>([]);
+
+  useEffect(() => {
+    setPostInfoData({
+      ...postInfoData,
+      folderId: props.folder?.id || 0
+    });
+  }, [props.folder]);
 
   const onAddPlace = (place: any) => {
     setRoutePlaces([ ...routePlaces, { place, day: selectedDay } ]);
@@ -162,6 +174,7 @@ function CreateEditPost() {
     <div>
       <CreateEditHeader
         post={post}
+        folder={props.folder}
         headerImage={postInfoData.headerImage || defaultImage}
         postInfoData={postInfoData}
         onChangePostInfoData={onChangePostInfoData}
