@@ -17,7 +17,7 @@ export interface UserType {
   id: number,
   email: string,
   username: string,
-  profileImage: string
+  profile_image: string,
   folders: Folder[]
 }
 
