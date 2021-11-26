@@ -15,7 +15,7 @@ import {
 } from "../actionTypes";
 import { Folder } from "../User/userInterfaces";
 import { PostDispatchType, PostType, CommentType, SearchType } from "./postInterfaces";
-interface SearchForm {
+export interface SearchForm {
   keyword: string;
   season: string;
   location: string;

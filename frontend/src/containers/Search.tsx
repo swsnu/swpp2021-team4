@@ -5,9 +5,7 @@ import { getPostsAction, searchAction } from "../store/Post/postAction";
 import "../styles/components/Search.scss";
 import { SearchType } from "../store/Post/postInterfaces";
 import PostItem from "../components/PostItem";
-import {
-  useSearchPostState,
-} from "../hooks/usePostsState";
+import { useSearchPostState } from "../hooks/usePostsState";
 
 function Search() {
   const dispatch = useDispatch();
@@ -26,21 +24,6 @@ function Search() {
   }, [dispatch]);
 
   const searchedPosts = useSearchPostState(sorting);
-  useEffect(() => {
-    dispatch(
-      searchAction(
-        {
-          keyword: userInputs.keyword,
-          season: userInputs.season,
-          location: userInputs.location,
-          days: userInputs.days,
-          theme: userInputs.theme,
-          transportation: userInputs.transportation,
-        },
-        (value) => SetSearch(value)
-      )
-    );
-  }, [dispatch]);
 
   const onChangeInputs = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
@@ -276,12 +259,14 @@ function Search() {
         <div className="search-title">
           <div className="search-research">Routes</div>
           <button
+            id="sorting-method"
             className={`sorting${sorting == "like" ? "-clicked" : ""}`}
             onClick={() => setSorting("like")}
           >
             좋아요 순
           </button>
           <button
+            id="sorting-method"
             className={`sorting${sorting == "date" ? "-clicked" : ""}`}
             onClick={() => setSorting("date")}
           >
