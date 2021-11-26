@@ -38,7 +38,7 @@ function Place(props: PropsType) {
         </div>
         <button
           className="place-cart-button"
-          onClick={() => props.onClickButton()}
+          onClick={() => props.onClickButton(props.place.id)}
         >
           <img src={props.icon} />
         </button>
