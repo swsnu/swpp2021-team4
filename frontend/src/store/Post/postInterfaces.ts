@@ -37,6 +37,16 @@ export interface PostType {
   liked: boolean;
 }
 
+export interface SimplePostType {
+  id: number;
+  thumbnail_image: string;
+  title: string;
+  author: string;
+  author_id: number;
+  like_count: number;
+  comment_count: number;
+}
+
 export interface PlaceInfoType {
   name: string;
   address: string;
@@ -72,6 +82,8 @@ export interface CommentType {
   content: string;
   profile_image: string;
   id: number;
+  created_at: string;
+  author_id: number;
 }
 
 export interface PathType {
@@ -92,7 +104,7 @@ export interface SearchType {
   thumbnail_image: string;
   author_name: string;
   author_id: number;
-  title: string, 
+  title: string;
   is_shared: boolean;
 }
 export interface GetPostsSuccess {
@@ -134,13 +146,12 @@ export interface CreatePostFail {
 export interface SearchSuccess {
   type: typeof SEARCH_SUCCESS;
   ordinary: SearchType[];
-  like: SearchType[],
-  date: SearchType[]
+  like: SearchType[];
+  date: SearchType[];
 }
 export interface SearchFail {
   type: typeof SEARCH_FAIL;
 }
-
 
 export interface GetCommentsSucess {
   type: typeof GET_COMMENTS_SUCCESS;

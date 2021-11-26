@@ -1,0 +1,180 @@
+.post-header {
+  width: 100%;
+  border-radius: 6px;
+  -webkit-box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
+          box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
+  height: 160px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  margin: 0px auto;
+}
+
+.post-header .header-image {
+  display: inline-block;
+}
+
+.post-header .header-image img {
+  width: 210px;
+  height: 160px;
+}
+
+.post-header .header-content-left {
+  width: 60%;
+}
+
+.post-header .header-content-left .header-top {
+  margin-top: 10px;
+}
+
+.post-header .header-content-left .header-top .post-folder-name {
+  font-family: "Noto Sans CJK KR", Monospace;
+  font-size: 22px;
+  margin-left: 2vh;
+  margin-top: 15px;
+}
+
+.post-header .header-content-left .header-middle {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  -webkit-box-align: baseline;
+      -ms-flex-align: baseline;
+          align-items: baseline;
+}
+
+.post-header .header-content-left .header-middle .post-title-name {
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  margin: 15px 8vh 0px 2vh;
+  font-family: "Noto Sans CJK KR", Monospace;
+  font-weight: bold;
+  color: #57ceb9;
+  font-size: 32px;
+}
+
+.post-header .header-content-left .header-middle .post-info-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.post-header .header-content-left .header-middle .post-info-container .post-info {
+  font-family: "Noto Sans CJK KR", Monospace;
+  font-size: 20px;
+  font-weight: 500;
+  margin-right: 20px;
+  margin-left: 20px;
+}
+
+.post-header .header-content-left .header-bottom {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin-top: 25px;
+}
+
+.post-header .header-content-left .header-bottom .post-author {
+  font-family: "Montserrat", Monospace;
+  font-weight: bold;
+  font-size: 20px;
+  color: #95ecdc;
+  margin-left: 2.5vh;
+  margin-right: 10vh;
+}
+
+.post-header .header-content-left .header-bottom .post-author a {
+  color: #95ecdc;
+}
+
+.post-header .header-content-left .header-bottom .post-tag-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: space-evenly;
+      -ms-flex-pack: space-evenly;
+          justify-content: space-evenly;
+}
+
+.post-header .header-content-left .header-bottom .post-tag-container .post-tag {
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  background-color: transparent;
+  border: 0.8px solid black;
+  border-radius: 16px;
+  display: inline-block;
+  text-align: center;
+  margin-left: 3vh;
+  margin-right: 0px;
+  font-family: "Montserrat", Monospace;
+  font-weight: 400;
+  font-size: 13px;
+  padding: 10px;
+  line-height: 80%;
+  overflow: hidden;
+}
+
+.post-header .header-content-left .header-bottom .post-tag-container .false {
+  visibility: None;
+}
+
+.post-header .header-content-right {
+  margin-top: 10px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.post-header .header-content-right .header-top {
+  margin-bottom: 4vh;
+}
+
+.post-header .header-content-right .post-cart-button {
+  margin-left: 5vh;
+  background-color: #95ecdc;
+  border-radius: 6px;
+  padding: 10px 20px 10px 20px;
+  line-height: 80%;
+  cursor: pointer;
+  border: none;
+  font-family: "Montserrat", Monospace;
+  margin-bottom: 0.2vh;
+  color: #ffffff;
+}
+
+.post-header .header-content-right .post-cart-button:hover {
+  background-color: #57ceb9;
+}
+
+.post-header .header-content-right .post-created-at {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: end;
+      -ms-flex-align: end;
+          align-items: flex-end;
+}
+
+.post-header .header-content-right .post-created-at .time-icon {
+  margin-left: 5vh;
+  margin-right: 1vh;
+  width: 20px;
+  height: 20px;
+}
+/*# sourceMappingURL=PostHeader.css.map */
