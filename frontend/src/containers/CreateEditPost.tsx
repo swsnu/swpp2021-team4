@@ -94,7 +94,7 @@ function CreateEditPost(props: PropsType) {
         day,
         index,
         name: place.name,
-        description : place.description,
+        description: place.description,
         latitude: place.lat || place.latitude || '',
         longitude: place.lon || place.longitude || '',
         homepage: place.homepage,
@@ -115,7 +115,7 @@ function CreateEditPost(props: PropsType) {
     formData.append('location', location);
     formData.append('availableWithoutCar', isAvailableWithoutCar.toString())
     formData.append('folder_id', folderId ? folderId.toString() : '172637238622223');
-    formData.append('places', new Blob([ JSON.stringify(placeListData)], {type: 'application/json'}));
+    formData.append('places', JSON.stringify(placeListData));
     formData.append("enctype", 'multipart/form-data');
 
     dispatch(createPostAction(formData));

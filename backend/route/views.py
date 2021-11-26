@@ -89,8 +89,8 @@ def post_create(request):
         post_season=form.cleaned_data['season']
         post_location=form.cleaned_data['location']
         post_available_without_car=form.cleaned_data['availableWithoutCar']
-        
-        places = form.cleaned_data['places']
+
+        places = json.loads(form.cleaned_data['places'])
 
         post = Post.objects.create(
             title=post_title,
