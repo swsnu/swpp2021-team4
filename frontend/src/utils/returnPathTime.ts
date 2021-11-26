@@ -32,7 +32,8 @@ export default async (origin: string, destination: string, type: 'car'|'pub'|'vi
       result += `${hour}시간 `;
       distance %= hour*meterPerHour;
     }
-    
-    return result += `${Math.floor(distance/(meterPerHour/60))}분`
+    let minutes = Math.floor(distance/(meterPerHour/60));
+    result += `${minutes}분`;
+    return result;
   }).catch(() => '');
 };
