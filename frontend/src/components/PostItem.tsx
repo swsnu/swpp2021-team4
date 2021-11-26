@@ -17,20 +17,20 @@ interface PropType {
 function PostItem(props: PropType) {
   return (
     <div className="postitem-container">
+      <div className="title-container">
+        <NavLink
+          to={`/post/${props.id}/`}
+          className="nav-mypage-btn nav-btn-font title"
+        >
+          {props.title}
+        </NavLink>
+      </div>
       <div className="thumbnail">
         <NavLink to={`/post/${props.id}/`}>
           <img src={props.thumbnail_image} />
         </NavLink>
       </div>
       <div className="content">
-        <div className="title">
-          <NavLink
-            to={`/post/${props.id}/`}
-            className="nav-mypage-btn nav-btn-font"
-          >
-            {props.title}
-          </NavLink>
-        </div>
         <div className="info">
           <div className="author">
             <NavLink to={`/user_info/${props.author_id}/`} className="author_name">

@@ -8,9 +8,13 @@
 }
 
 .postitem-container {
-  margin: 20px;
-  width: 35vh;
+  margin: 15px;
+  padding: 15px 10px;
+  width: 300px;
   overflow: hidden;
+  background-color: white;
+  -webkit-box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
+          box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -24,12 +28,31 @@
 }
 
 .postitem-container .thumbnail img {
-  width: 30vh;
-  height: 30vh;
+  width: 260px;
+  height: 230px;
+}
+
+.postitem-container .title-container {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+}
+
+.postitem-container .title-container .title {
+  margin: 0 20px 5px 20px;
+  font-family: "Noto Sans CJK KR", Monospace;
+  font-style: normal;
+  font-weight: 600px;
+  font-size: 20px;
 }
 
 .postitem-container .content {
-  width: 25vh;
+  width: 100%;
+  padding: 0 20px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -42,14 +65,6 @@
           align-items: flex-start;
 }
 
-.postitem-container .content .title {
-  margin: 5px;
-  font-family: "Noto Sans CJK KR", Monospace;
-  font-style: normal;
-  font-weight: 600px;
-  font-size: 25px;
-}
-
 .postitem-container .content .info {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -60,8 +75,8 @@
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  width: 25vh;
-  margin-top: 1vh;
+  width: 100%;
+  margin-top: 10px;
 }
 
 .postitem-container .content .info .author_name {
@@ -77,7 +92,6 @@
       -ms-flex-pack: end;
           justify-content: end;
   height: 20px;
-  margin-left: 1vh;
 }
 
 .postitem-container .content .info .counts {

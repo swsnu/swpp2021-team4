@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Redirect } from "react-router-dom";
-import "../styles/components/Userinfo.css";
+import "../styles/components/MyPage.css";
 import { useDispatch } from "react-redux";
 import axios from "axios";
 import button_up from "../static/chevron-down.svg";

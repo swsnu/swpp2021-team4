@@ -6,44 +6,52 @@
   font-weight: 600;
   font-size: 28px;
   line-height: 34px;
-
   color: $darkMintColor;
 }
 .postitem-container {
-  margin: 20px;
-  width: 35vh;
+  margin: 15px;
+  padding: 15px 10px;
+  width: 300px;
   overflow: hidden;
+  background-color: white;
+  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
 
   display: flex;
   flex-direction: column;
   align-items: center;
 
   .thumbnail img {
-    width: 30vh;
-    height: 30vh;
+    width: 260px;
+    height: 230px;
   }
 
-  .content {
-    width: 25vh;
+  .title-container {
+    width: 100%;
     display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    // justify-content: start;
+    justify-content: flex-start;
 
     .title {
-      margin: 5px;
+      margin: 0 20px 5px 20px;
       font-family: $koreanFont;
       font-style: normal;
       font-weight: 600px;
-      font-size: 25px;
+      font-size: 20px;
     }
+  }
+
+  .content {
+    width: 100%;
+    padding: 0 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
     
     .info {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      width: 25vh;
-      margin-top: 1vh;
+      width: 100%;
+      margin-top: 10px;
 
       .author_name {
         font-family: $mainFont;
@@ -56,7 +64,6 @@
         border-radius: 10%;
         justify-content: end;
         height: 20px;
-        margin-left: 1vh;
       }
 
       .counts {
