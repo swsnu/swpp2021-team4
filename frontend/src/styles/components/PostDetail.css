@@ -267,15 +267,6 @@ input:focus::-webkit-input-placeholder {
   display: none;
 }
 
-.post-comment-icon {
-  margin-left: 15px;
-  margin-right: 3px;
-}
-
-.post-like-icon {
-  margin-right: 3px;
-}
-
 .logged {
   cursor: pointer;
 }

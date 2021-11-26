@@ -16,13 +16,13 @@
     }
   }
   .header-content-left {
-    width: 60%;
+    width: 45vw;
     .header-top {
       margin-top: 10px;
       .post-folder-name {
         font-family: $koreanFont;
         font-size: 22px;
-        margin-left: 2vh;
+        margin-left: 1.5vw;
         margin-top: 15px;
       }
     }
@@ -30,9 +30,10 @@
       display: flex;
       flex-wrap: wrap;
       align-items: baseline;
+      justify-content: space-between;
       .post-title-name {
         justify-content: flex-start;
-        margin: 15px 8vh 0px 2vh;
+        margin: 15px 4vw 0px 1.5vw;
         font-family: $koreanFont;
         font-weight: bold;
         color: $darkMintColor;
@@ -54,13 +55,14 @@
       display: flex;
       align-items: center;
       margin-top: 25px;
+      justify-content: space-between;
       .post-author {
         font-family: $mainFont;
         font-weight: bold;
         font-size: 20px;
         color: $regularMintColor;
-        margin-left: 2.5vh;
-        margin-right: 10vh;
+        margin-left: 1.5vw;
+        margin-right: 5vw;
         a {
           color: $regularMintColor;
         }
@@ -75,7 +77,7 @@
           border-radius: 16px;
           display: inline-block;
           text-align: center;
-          margin-left: 3vh;
+          margin-left: 1vw;
           margin-right: 0px;
           font-family: $mainFont;
           font-weight: 400;
@@ -91,36 +93,56 @@
     }
   }
   .header-content-right {
-    margin-top: 10px;
+    padding-top: 15px;
+
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: flex-end;
+    justify-content: space-between;
+    
     .header-top {
-      margin-bottom: 4vh;
-    }
-    .post-cart-button {
-      margin-left: 5vh;
-      background-color: $regularMintColor;
-      border-radius: 6px;
-      padding: 10px 20px 10px 20px;
-      line-height: 80%;
-      cursor: pointer;
-      border: none;
-      font-family: $mainFont;
-      margin-bottom: 0.2vh;
-      color: #ffffff;
-      &:hover {
-        background-color: $darkMintColor;
+
+      .post-cart-button {
+        margin-left: 5vw;
+        background-color: $regularMintColor;
+        border-radius: 6px;
+        padding: 10px 20px 10px 20px;
+        line-height: 80%;
+        cursor: pointer;
+        border: none;
+        font-family: $mainFont;
+        margin-bottom: 0.2vw;
+        color: #ffffff;
+        &:hover {
+          background-color: $darkMintColor;
+        }
+        margin-bottom: 8px;
+      }
+
+      .post-created-at {
+        display: flex;
+        align-items: flex-end;
+        .time-icon {
+          margin-left: 6vw;
+          margin-right: 0.5vw;
+          width: 20px;
+          height: 20px;
+        }
       }
     }
-    .post-created-at {
+    
+    .header-bottom {
       display: flex;
-      align-items: flex-end;
-      .time-icon {
-        margin-left: 5vh;
-        margin-right: 1vh;
-        width: 20px;
-        height: 20px;
+      align-items: center;
+      margin-bottom: 1.5vw;
+      margin-right: 1vw;
+
+      .post-comment-icon {
+        margin-left: 15px;
+        margin-right: 5px;
+      }
+      .post-like-icon {
+        margin-right: 5px;
       }
     }
   }

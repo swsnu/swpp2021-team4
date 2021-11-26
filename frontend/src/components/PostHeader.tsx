@@ -24,7 +24,7 @@ interface HeaderPostType {
   comment_counts?: number;
   availableWithoutCar: boolean;
   liked?: boolean;
-  created_at:string;
+  created_at: string;
 }
 
 interface PropType {
