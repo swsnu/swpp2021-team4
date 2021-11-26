@@ -1,36 +1,3 @@
-.info {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: row;
-          flex-direction: row;
-}
-
-.author_name {
-  font-family: "Montserrat", Monospace;
-  font-style: normal;
-  font-weight: 400px;
-  font-size: 15px;
-  color: #ffffff;
-  padding: 2px 2px 2px 2px;
-  background-color: #57ceb9;
-  border-radius: 10%;
-  -webkit-box-pack: end;
-      -ms-flex-pack: end;
-          justify-content: end;
-  height: 20px;
-}
-
-.title {
-  margin: 5px;
-  font-family: "Noto Sans CJK KR", Monospace;
-  font-style: normal;
-  font-weight: 600px;
-  font-size: 25px;
-}
-
 .search-research {
   font-family: "Montserrat", Monospace;
   font-style: normal;
@@ -42,14 +9,97 @@
 
 .postitem-container {
   margin: 20px;
-  width: 40vh;
-  height: 30vh;
+  width: 35vh;
   overflow: hidden;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
 .postitem-container .thumbnail img {
-  width: 200px;
-  height: 200px;
+  width: 30vh;
+  height: 30vh;
+}
+
+.postitem-container .content {
+  width: 25vh;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+}
+
+.postitem-container .content .title {
+  margin: 5px;
+  font-family: "Noto Sans CJK KR", Monospace;
+  font-style: normal;
+  font-weight: 600px;
+  font-size: 25px;
+}
+
+.postitem-container .content .info {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: 25vh;
+  margin-top: 1vh;
+}
+
+.postitem-container .content .info .author_name {
+  font-family: "Montserrat", Monospace;
+  font-style: normal;
+  font-weight: 400px;
+  font-size: 15px;
+  color: #ffffff;
+  padding: 3px 3px 3px 3px;
+  background-color: #57ceb9;
+  border-radius: 10%;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: end;
+  height: 20px;
+  margin-left: 1vh;
+}
+
+.postitem-container .content .info .counts {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.postitem-container .content .info .counts .post-comment-icon {
+  margin-left: 10px;
+  margin-right: 4px;
+}
+
+.postitem-container .content .info .counts .post-like-icon {
+  margin-right: 4px;
 }
 
 .search-research-content {

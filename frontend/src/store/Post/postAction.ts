@@ -14,7 +14,7 @@ import {
 
 } from "../actionTypes";
 import { Folder } from "../User/userInterfaces";
-import { PostDispatchType, PostType, CommentType, SearchType } from "./postInterfaces";
+import { PostDispatchType, PostType, CommentType, SimplePostType } from "./postInterfaces";
 interface SearchForm {
   keyword: string;
   season: string;
@@ -61,9 +61,9 @@ export const searchAction = (
 ) => {
   return (dispatch: Redux.Dispatch<PostDispatchType>) => {
     return axios
-      .post<{ordinary: SearchType[], like: SearchType[], date: SearchType[]}>(`/post/search/`, searchForm)
+      .post<{ ordinary: SimplePostType[], like: SimplePostType[], date: SimplePostType[] }>(`/post/search/`, searchForm)
       .then((res) => {
-        dispatch({ type: SEARCH_SUCCESS, ordinary: res.data.ordinary, like: res.data.like, date: res.data.date});
+        dispatch({ type: SEARCH_SUCCESS, ordinary: res.data.ordinary, like: res.data.like, date: res.data.date });
         callbackFunc(true);
       })
       .catch(() => dispatch({ type: SEARCH_FAIL }));
