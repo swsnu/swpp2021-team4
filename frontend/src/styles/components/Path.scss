@@ -1,0 +1,12 @@
+@import "../../Variables/Variables.scss";
+
+.path-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin: 0.73vw 0 0.73vw 3vw;
+
+  .path-select-container {
+    margin: 0 1.6vw;
+  }
+}

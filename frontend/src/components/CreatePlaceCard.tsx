@@ -5,16 +5,21 @@ import { PlaceType } from "../store/Post/postInterfaces";
 import '../styles/components/CreatePlaceCard.scss';
 
 interface PropsType {
-  place: PlaceType;
-  icon: string;
-  onClickButton: (place:any) => void
+  place: PlaceType
+  icon: string
+  type: 'search' | 'place' | 'route'
+  isPlaceInCart: (id: number) => boolean
+  isPlaceInRoute?: (place: any) => boolean
+  onClickCartButton?: (place: PlaceType) => void
 }
 
 function CreatePlaceCard(props: PropsType) {
   const [isExpanded, setIsExpanded] = useState(false);
 
   const onClickCartButton = () => {
-    props.onClickButton(props.place);
+    if (props.onClickCartButton) {
+      props.onClickCartButton(props.place);
+    }
   }
 
   return (
@@ -24,7 +29,7 @@ function CreatePlaceCard(props: PropsType) {
           {props.place.name}
         </div>
         <button
-          className="place-cart-button"
+          className={`place-cart-button ${props.type}`.concat(props.isPlaceInCart(props.place.id) ? ' selected' : '')}
           onClick={onClickCartButton}
         >
           <img src={props.icon} />

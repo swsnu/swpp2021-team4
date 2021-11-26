@@ -190,6 +190,7 @@ function PostDetail() {
           <div className="body-route-container">{placeMapping()}</div>
           <div className="body-left-container">
             <Map
+              fromWhere={'detail'}
               location={post.location}
               placeList={post.places.map((place: any) => {
                 place.lat = place.latitude;

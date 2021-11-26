@@ -9,6 +9,8 @@ import {
   SEARCH_FAIL,
   GET_COMMENTS_SUCCESS,
   GET_COMMENTS_FAIL,
+  CREATE_POST_SUCCESS,
+  CREATE_POST_FAIL,
 } from "../actionTypes";
 import { Folder } from "../User/userInterfaces";
 
@@ -61,12 +63,19 @@ export interface PlaceType {
   description: string;
   day: number;
   folder_id: number;
-  latitude: string;
-  longitude: string;
+  latitude?: string;
+  longitude?: string;
+  lat: string;
+  lon: string;
   homepage: string;
   phone_number: string;
   address: string;
   category: string;
+}
+
+export interface PlaceDayType {
+  day: number|string,
+  place: PlaceType
 }
 
 export interface CommentType {
@@ -82,6 +91,22 @@ export interface PathType {
   from: PlaceType;
   to: PlaceType;
   transportation: string;
+}
+
+export interface PathListType {
+  [from: string]: {
+    to: string,
+    transportation: 'car'|'pub'|'vic'|'wal'
+  }
+}
+
+export interface SearchType {
+  id: number;
+  thumbnail_image: string;
+  author_name: string;
+  author_id: number;
+  title: string;
+  is_shared: boolean;
 }
 
 export interface GetPostsSuccess {
@@ -111,6 +136,15 @@ export interface CartPostFail {
   type: typeof CART_POST_FAIL;
 }
 
+export interface CreatePostSuccess {
+  type: typeof CREATE_POST_SUCCESS
+  payload: any
+}
+
+export interface CreatePostFail {
+  type: typeof CREATE_POST_FAIL
+}
+
 export interface SearchSuccess {
   type: typeof SEARCH_SUCCESS;
   ordinary: SimplePostType[];
@@ -137,6 +171,8 @@ export type PostDispatchType =
   | GetPostFail
   | CartPostSuccess
   | CartPostFail
+  | CreatePostSuccess
+  | CreatePostFail
   | SearchSuccess
   | SearchFail
   | GetCommentsSucess

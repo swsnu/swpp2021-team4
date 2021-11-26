@@ -9,6 +9,7 @@ import {
   GET_POST_FAIL,
   CART_POST_SUCCESS,
   CART_POST_FAIL,
+  CREATE_POST_SUCCESS,
   GET_COMMENTS_SUCCESS,
   GET_COMMENTS_FAIL,
 
@@ -54,6 +55,19 @@ export const cartPostAction = (postId: number, folderId: number) => {
   };
 };
 
+export const createPostAction = (formData: FormData) => {
+  return (dispatch: Redux.Dispatch<PostDispatchType>) => {
+    return axios.post('/post/create/', formData, {
+      headers: { "content-type": "multipart/form-data" }
+    })
+    .then((res) => {
+      dispatch({ type: CREATE_POST_SUCCESS, payload: res.data });
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+  }
+}
 
 export const searchAction = (
   searchForm: SearchForm,
