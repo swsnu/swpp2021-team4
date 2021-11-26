@@ -9,6 +9,7 @@ import {
   SEARCH_FAIL,
   GET_COMMENTS_SUCCESS,
   GET_COMMENTS_FAIL,
+  CREATE_POST_SUCCESS,
 } from "../actionTypes";
 import { Folder } from "../User/userInterfaces";
 import { PostDispatchType, PostType, SimplePostType } from "./postInterfaces";
@@ -86,6 +87,8 @@ export default (
       };
     case GET_COMMENTS_FAIL:
       return { ...state };
+    case CREATE_POST_SUCCESS:
+      return { ...state, detailedPost: action.payload };
     default:
       return { ...state };
   }
