@@ -8,7 +8,7 @@ import json
 from json.decoder import JSONDecodeError
 
 from .models import User
-from route.models import Folder, Post, Comment, Like, PostInFolder
+from route.models import Folder, Post, Comment, Like, PostInFolder, Place, PlaceInFolder
 from .forms import UserForm
 
 @require_http_methods(["POST"])
@@ -191,10 +191,25 @@ def user_folder(request, user_id, fid):
     except Folder.DoesNotExist:   # Wrong id
         return HttpResponse(status=401)
 
+    my_posts = Post.objects.filter(folder_id=fid)
+
     post_in_folder_ids = PostInFolder.objects.filter(folder=folder).values_list('post_id', flat=True)
     posts_in_folder = Post.objects.filter(id__in=list(post_in_folder_ids))
 
+    place_in_folder_ids = PlaceInFolder.objects.filter(folder=folder).values_list('place_id', flat=True)
+    places_in_folder = Place.objects.filter(id__in=list(place_in_folder_ids))
+
     response_dict = {
+        'my_posts': [ {
+            'id': post.id,
+            'thumbnail_image': post.thumbnail_image.url if post.thumbnail_image else None,
+            'title': post.title,
+            'author_name': post.author.username,
+            'author_id': post.author.id,
+            'like_count': post.like_users.count(), 
+            'comment_count': Comment.objects.filter(post=post).count(),
+            'is_shared': post.is_shared
+        } for post in my_posts ],
         'posts': [ {
             'id': post.id,
             'thumbnail_image': post.thumbnail_image.url if post.thumbnail_image else None,
@@ -204,8 +219,15 @@ def user_folder(request, user_id, fid):
             'like_count': post.like_users.count(), 
             'comment_count': Comment.objects.filter(post=post).count(),
             'is_shared': post.is_shared
-        } for post in posts_in_folder ]
+        } for post in posts_in_folder ],
+        'places': [ {
+            'id': place.id,
+            'name': place.name,
+            'description': place.description
+        } for place in places_in_folder ]
     }
+
+    print(response_dict)
 
     return JsonResponse(response_dict, safe=False)
 

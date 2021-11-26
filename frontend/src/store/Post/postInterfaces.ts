@@ -73,8 +73,14 @@ export interface PlaceType {
   category: string;
 }
 
+export interface SimplePlaceType {
+  id: number;
+  name: string;
+  description: string;
+}
+
 export interface PlaceDayType {
-  day: number|string,
+  day: number | string,
   place: PlaceType
 }
 
@@ -96,7 +102,7 @@ export interface PathType {
 export interface PathListType {
   [from: string]: {
     to: string,
-    transportation: 'car'|'pub'|'vic'|'wal'
+    transportation: 'car' | 'pub' | 'vic' | 'wal'
   }
 }
 
