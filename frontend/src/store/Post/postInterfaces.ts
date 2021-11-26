@@ -9,6 +9,8 @@ import {
   SEARCH_FAIL,
   GET_COMMENTS_SUCCESS,
   GET_COMMENTS_FAIL,
+  CREATE_POST_SUCCESS,
+  CREATE_POST_FAIL,
 } from "../actionTypes";
 import { Folder } from "../User/userInterfaces";
 
@@ -35,6 +37,17 @@ export interface PostType {
   liked: boolean;
 }
 
+export interface SimplePostType {
+  id: number;
+  thumbnail_image: string;
+  title: string;
+  author_name: string;
+  author_id: number;
+  like_count: number;
+  comment_count: number;
+  is_shared: boolean;
+}
+
 export interface PlaceInfoType {
   name: string;
   address: string;
@@ -50,12 +63,19 @@ export interface PlaceType {
   description: string;
   day: number;
   folder_id: number;
-  latitude: string;
-  longitude: string;
+  latitude?: string;
+  longitude?: string;
+  lat: string;
+  lon: string;
   homepage: string;
   phone_number: string;
   address: string;
   category: string;
+}
+
+export interface PlaceDayType {
+  day: number|string,
+  place: PlaceType
 }
 
 export interface CommentType {
@@ -63,6 +83,8 @@ export interface CommentType {
   content: string;
   profile_image: string;
   id: number;
+  created_at: string;
+  author_id: number;
 }
 
 export interface PathType {
@@ -71,14 +93,22 @@ export interface PathType {
   transportation: string;
 }
 
+export interface PathListType {
+  [from: string]: {
+    to: string,
+    transportation: 'car'|'pub'|'vic'|'wal'
+  }
+}
+
 export interface SearchType {
   id: number;
   thumbnail_image: string;
   author_name: string;
   author_id: number;
-  title: string, 
+  title: string;
   is_shared: boolean;
 }
+
 export interface GetPostsSuccess {
   type: typeof GET_POSTS_SUCCESS;
   payload: PostType[];
@@ -106,17 +136,24 @@ export interface CartPostFail {
   type: typeof CART_POST_FAIL;
 }
 
+export interface CreatePostSuccess {
+  type: typeof CREATE_POST_SUCCESS
+  payload: any
+}
+
+export interface CreatePostFail {
+  type: typeof CREATE_POST_FAIL
+}
 
 export interface SearchSuccess {
   type: typeof SEARCH_SUCCESS;
-  ordinary: SearchType[];
-  like: SearchType[],
-  date: SearchType[]
+  ordinary: SimplePostType[];
+  like: SimplePostType[];
+  date: SimplePostType[];
 }
 export interface SearchFail {
   type: typeof SEARCH_FAIL;
 }
-
 
 export interface GetCommentsSucess {
   type: typeof GET_COMMENTS_SUCCESS;
@@ -134,6 +171,8 @@ export type PostDispatchType =
   | GetPostFail
   | CartPostSuccess
   | CartPostFail
+  | CreatePostSuccess
+  | CreatePostFail
   | SearchSuccess
   | SearchFail
   | GetCommentsSucess

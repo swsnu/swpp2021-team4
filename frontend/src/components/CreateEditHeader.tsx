@@ -1,10 +1,13 @@
 import React from "react";
 import { PostInfoDataType } from "../containers/CreateEditPost";
 import { PostType } from "../store/Post/postInterfaces";
+import { Folder } from "../store/User/userInterfaces";
 import '../styles/components/CreateEditHeader.scss';
 
 interface PropType {
   post: PostType
+  folder: Folder
+  headerImage: string
   postInfoData: PostInfoDataType
   onChangePostInfoData: (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => void
   onPressEnterLocation: (e: React.KeyboardEvent) => void
@@ -13,6 +16,7 @@ interface PropType {
 function CreateEditHeader(props: PropType) {
   const {
     post,
+    headerImage,
     postInfoData,
     onChangePostInfoData,
     onPressEnterLocation
@@ -25,12 +29,12 @@ function CreateEditHeader(props: PropType) {
     <div className="post-ce-container">
       <div className="post-ce-header">
         <div className="header-image">
-          <img src="https://media.triple.guide/triple-cms/c_limit,f_auto,h_1024,w_1024/73968eea-cbbe-49cd-b001-353e9e962cbf.jpeg" />
+          <img src={headerImage} />
         </div>
 
         <div className="post-ce-info-container">
           <div className="post-ce-info-first-line">
-            <div className="post-ce-folder-name">{ true && 'Folder Name' }</div>
+            <div className="post-ce-folder-name">{props.folder.name}</div>
           </div>
           
           <div className="post-ce-info-second-line">
@@ -55,6 +59,7 @@ function CreateEditHeader(props: PropType) {
             <input
               id="days"
               type="number"
+              min={1}
               placeholder="Days"
               style={{ maxWidth: '4.5vw' }}
               value={postInfoData.days}
@@ -63,7 +68,17 @@ function CreateEditHeader(props: PropType) {
           </div>
 
           <div style={{ display: 'flex', flexDirection: 'row' }}>
-            <div>{post?.author_name || 'Author'}</div>
+            <div style={{ display: 'flex', flexDirection: 'column' }}>
+              <span>Upload Image</span>
+              <input
+                style={{ width: 50, height: 50, fontSize: '10px', textOverflow: 'wrap' }}
+                id="profile_image"
+                type="file"
+                accept="image/*"
+                onChange={onChangePostInfoData}
+                placeholder="여행 대표 이미지"
+              />
+            </div>
             <select id="seasonRecommendation" name="seasonRecommendation" onChange={onChangePostInfoData}>
                 <option value="">추천 계절</option>
                 <option value="spr">봄</option>

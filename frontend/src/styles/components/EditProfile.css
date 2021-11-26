@@ -1,11 +1,100 @@
-.inputs {
-  width: 100%;
-  margin-left: 20%;
-  margin-bottom: 3%;
-  height: 30px;
+.edit-profile-container {
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  border-radius: 2%;
 }
 
-.inputs {
+.edit-profile-container .edit-profile-title {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  font-family: "Montserrat", Monospace;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 28px;
+  line-height: 34px;
+  color: #57ceb9;
+  margin: 50px 0 50px 15vw;
+}
+
+.edit-profile-container .edit-profile-content {
+  width: 65vw;
+  margin: 0 auto;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.edit-profile-container .edit-profile-content .edit-profile-image {
+  width: 25vw;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.edit-profile-container .edit-profile-content .edit-profile-image .profile-image-preview {
+  width: 20vw;
+  border-radius: 10vw;
+}
+
+.edit-profile-container .edit-profile-content .edit-profile-image #profile-image {
+  display: none;
+}
+
+.edit-profile-container .edit-profile-content .edit-profile-image button {
+  margin-top: 20px;
+  color: #57ceb9;
+  background: transparent;
+  -webkit-box-shadow: 0px 0px 0px transparent;
+          box-shadow: 0px 0px 0px transparent;
+  border: 0px solid transparent;
+  text-shadow: 0px 0px 0px transparent;
+  font-family: "Montserrat", Monospace;
+  font-style: normal;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.edit-profile-container .edit-profile-content .edit-profile-image button:hover {
+  background: #F5F6F9;
+  cursor: pointer;
+}
+
+.edit-profile-container .edit-profile-content .edit-profile-form-container {
+  width: 35vw;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: end;
+      -ms-flex-align: end;
+          align-items: end;
+  font-family: "Montserrat", Monospace;
+}
+
+.edit-profile-container .edit-profile-content .edit-profile-form-container .inputs {
+  width: 100%;
+  height: 30px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -13,36 +102,49 @@
   -webkit-box-direction: normal;
       -ms-flex-direction: row;
           flex-direction: row;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
-.label {
-  font-family: "Montserrat", Monospace;
-  font-style: normal;
-  color: #57ceb9;
+.edit-profile-container .edit-profile-content .edit-profile-form-container .inputs .label {
+  font-weight: 600;
+  color: #000000;
   width: 20%;
 }
 
-.edit-profile-btn {
+.edit-profile-container .edit-profile-content .edit-profile-form-container .inputs input {
+  margin-left: 20px;
+  width: 50%;
+  background-color: #F5F6F9;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  padding: 5px 10px;
+  border: none;
+  font-weight: 500;
+  font-size: 15px;
+  line-height: 1.625rem;
+  border-radius: 6px;
+  color: #000000;
+}
+
+.edit-profile-container .edit-profile-content .edit-profile-form-container .line {
+  width: 100%;
+  height: 0px;
+  border: 0.01px solid #caccd2;
+  margin: 17px 0;
+}
+
+.edit-profile-container .edit-profile-content .edit-profile-form-container .edit-profile-btn {
   background-color: #95ecdc;
-  padding: 0.647vw .76vw;
+  padding: 10px 20px;
   border-radius: 6px;
   font-weight: bold;
-  font-size: 1.125rem;
-  line-height: 1.375rem;
   color: #FFFFFF;
   float: right;
 }
 
-.edit-profile-container {
-  margin-top: 5%;
-  width: 80%;
-  background-color: #e2e3e9;
-  padding-top: 2%;
-  padding-bottom: 1%;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  margin-left: 10%;
-  border-radius: 2%;
+.edit-profile-container .edit-profile-content .edit-profile-form-container .edit-profile-btn:hover {
+  background-color: #57ceb9;
 }
 /*# sourceMappingURL=EditProfile.css.map */

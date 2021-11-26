@@ -3,13 +3,17 @@ import { PlaceType } from '../store/Post/postInterfaces';
 import '../styles/components/PlaceSearchSection.scss';
 import CreatePlaceCard from './CreatePlaceCard';
 import cart from "../static/cart-icon.svg";
+import deleteIcon from '../static/delete.svg';
+import addIcon from '../static/add_day_icon.svg';
 
 const { kakao } = window;
 interface PropType {
   selectedTab: 'place' | 'search'
+  selectedDay: number
   onClickTabButton: (type: 'place' | 'search') => void
   onAddPlace: (place: any) => void
-  selectedDay: number
+  onDeletePlace: (place: any) => void
+  isPlaceInRoute: (place: any) => boolean
   // searchTabQuery?: string
   // onChangeSearchTabQuery?: (e: React.ChangeEvent<HTMLInputElement>) => void
 }
@@ -18,7 +22,9 @@ function PlaceSearchSection(props: PropType) {
   const {
     selectedTab,
     onClickTabButton,
-    onAddPlace
+    onAddPlace,
+    onDeletePlace,
+    isPlaceInRoute
     // searchTabQuery,
     // onChangeSearchTabQuery
   } = props;
@@ -26,9 +32,7 @@ function PlaceSearchSection(props: PropType) {
   const [searchTabQuery, setSearchTabQuery] = useState('');
   const [isSearchRequested, setIsSearchRequested] = useState(false);
   const [searchResults, setSearchResults] = useState([]);
-  if (searchResults) {
-    console.log();
-  }
+  const [cartPlaceList, setCartPlaceList] = useState<PlaceType[]>([]);
 
   useEffect(() => {
     if (isSearchRequested) {
@@ -54,6 +58,7 @@ function PlaceSearchSection(props: PropType) {
             return {
               id: result.id,
               name: result.place_name,
+              description: result.place_name+'입니다',
               homepage: result.place_url,
               phone_number: result.phone,
               address: result.address_name,
@@ -72,6 +77,18 @@ function PlaceSearchSection(props: PropType) {
       places.keywordSearch(searchTabQuery, placesSearchCB);
     }
   }, [isSearchRequested, searchTabQuery]);
+
+  const isPlaceInCart = (id: number) => {
+    return cartPlaceList.some((p: PlaceType) => p.id === id);
+  }
+
+  const onClickCartButton = (place: PlaceType) => {
+    if (isPlaceInCart(place.id)) {
+      setCartPlaceList(cartPlaceList.filter((p: PlaceType) => p.id !== place.id));
+    } else {
+      setCartPlaceList([ ...cartPlaceList, place]);
+    }
+  }
 
   const onPressEnterSearch = (e: React.KeyboardEvent) => {
     if (e.key === 'Enter') {
@@ -103,7 +120,9 @@ function PlaceSearchSection(props: PropType) {
                   key={place.id}
                   place={place}
                   icon={cart}
-                  onClickButton={onAddPlace}
+                  type="search"
+                  onClickCartButton={onClickCartButton}
+                  isPlaceInCart={(id: number) => isPlaceInCart(id)}
                 />)
             })
           }
@@ -115,7 +134,20 @@ function PlaceSearchSection(props: PropType) {
   const renderPlaceTab = () => {
     return (
       <div>
-
+        {
+          cartPlaceList.map((place: PlaceType) => {
+            return (
+              <CreatePlaceCard
+                key={place.id}
+                place={place}
+                icon={isPlaceInRoute(place) ? deleteIcon : addIcon}
+                type="place"
+                onClickCartButton={isPlaceInRoute(place) ? onDeletePlace : onAddPlace}
+                isPlaceInCart={(id: number) => isPlaceInCart(id)}
+                isPlaceInRoute={isPlaceInRoute}
+              />)
+          })
+        }
       </div>
     )
   }

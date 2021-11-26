@@ -11,13 +11,13 @@ import {
   GET_COMMENTS_FAIL,
 } from "../actionTypes";
 import { Folder } from "../User/userInterfaces";
-import { PostDispatchType, PostType, SearchType } from "./postInterfaces";
+import { PostDispatchType, PostType, SimplePostType } from "./postInterfaces";
 
 export type PostStateType = {
   posts: PostType[];
-  search: SearchType[];
-  likeSorted: SearchType[];
-  dateSorted: SearchType[];
+  search: SimplePostType[];
+  likeSorted: SimplePostType[];
+  dateSorted: SimplePostType[];
   detailedPost: PostType;
   selectedFolder: Folder;
 };
@@ -52,8 +52,8 @@ const initialState: PostStateType = {
   },
 
   search: [],
-  likeSorted:[],
-  dateSorted:[]
+  likeSorted: [],
+  dateSorted: []
 };
 
 export default (

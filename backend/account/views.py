@@ -1,7 +1,8 @@
 from django.http import HttpResponse, JsonResponse, HttpResponseBadRequest
-from django.views.decorators.http import require_http_methods
+from django.views.decorators.http import require_GET, require_http_methods
 from django.contrib.auth import logout
 from django.contrib.auth.hashers import check_password
+from django.shortcuts import get_object_or_404
 
 import json
 from json.decoder import JSONDecodeError
@@ -198,7 +199,7 @@ def user_folder(request, user_id, fid):
             'id': post.id,
             'thumbnail_image': post.thumbnail_image.url if post.thumbnail_image else None,
             'title': post.title,
-            'author': post.author.username,
+            'author_name': post.author.username,
             'author_id': post.author.id,
             'like_count': post.like_users.count(), 
             'comment_count': Comment.objects.filter(post=post).count(),
@@ -266,7 +267,7 @@ def user_likes(request, user_id):
             'id': post.id,
             'thumbnail_image': post.thumbnail_image.url if post.thumbnail_image else None,
             'title': post.title,
-            'author': post.author.username,
+            'author_name': post.author.username,
             'author_id': post.author.id,
             'like_count': post.like_users.count(), 
             'comment_count': Comment.objects.filter(post=post).count(),
@@ -290,7 +291,7 @@ def user_shares(request, user_id):
             'id': post.id,
             'thumbnail_image': post.thumbnail_image.url if post.thumbnail_image else None,
             'title': post.title,
-            'author': post.author.username,
+            'author_name': post.author.username,
             'author_id': post.author.id,
             'like_count': post.like_users.count(), 
             'comment_count': Comment.objects.filter(post=post).count(),
@@ -298,4 +299,29 @@ def user_shares(request, user_id):
         } for post in share_posts ]
     }
     
+    return JsonResponse(response_dict, safe=False)
+
+@require_GET
+def user_posts(request, user_id):
+    user = get_object_or_404(User, id=user_id)
+    posts = Post.objects.filter(author=user)
+
+    response_dict = {
+        'posts': [ {
+            'id': post.id,
+            'thumbnail_image': post.thumbnail_image.url if post.thumbnail_image else None,
+            'title': post.title,
+            'author_name': post.author.username,
+            'author_id': post.author.id,
+            'like_counts': post.like_users.count(), 
+            'comment_counts': Comment.objects.filter(post=post).count(),
+            'location': post.location,
+            'days': post.days,
+            'season': post.season,
+            'theme': post.theme,
+            'availableWithoutCar': post.availableWithoutCar,
+            'created_at': post.created_at.strftime("%Y-%m-%d %H:%M")
+        } for post in posts ]
+    }
+
     return JsonResponse(response_dict, safe=False)

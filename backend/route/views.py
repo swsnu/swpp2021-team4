@@ -14,7 +14,7 @@ def posts(request):
     for post in Post.objects.all():
         comments=[]
         for comment in post.comment_set.all():
-            comments.append({'content': comment.content, 'usernmae':comment.author.username})
+            comments.append({'content': comment.content, 'username':comment.author.username})
         postlist.append({
             'id': post.id,
             'title': post.title,
@@ -89,7 +89,7 @@ def post_create(request):
         post_season=form.cleaned_data['season']
         post_location=form.cleaned_data['location']
         post_available_without_car=form.cleaned_data['availableWithoutCar']
-        
+
         places = json.loads(form.cleaned_data['places'])
 
         post = Post.objects.create(
@@ -116,7 +116,7 @@ def post_create(request):
             'header_image': post.header_image.url if post.header_image else None,
             'thumbnail_image': post.thumbnail_image.url if post.thumbnail_image else None, 
             'days': post.days,
-            'folder_id': post.folder.id,
+            'folder_id': post.folder.id if post.folder else '',
             'is_shared': post.is_shared,
             'theme': post.theme,
             'season': post.season, 
@@ -200,9 +200,11 @@ def post_spec_get(request, post_id):
     for comment in post.comment_set.all():
         comments.append({
             'content': comment.content,
+            'author_id':comment.author.id,
             'username':comment.author.username,
             'profile_image': f'{comment.author.profile_image.url if comment.author.profile_image else ""}',
-            'id': comment.id
+            'id': comment.id,
+            'created_at': comment.created_at.strftime("%Y-%m-%d %H:%M")
         })
 
     like_counts = post.like_users.count()
@@ -231,7 +233,8 @@ def post_spec_get(request, post_id):
         'folder_name':f'{post.folder.name if post.folder else ""}',
         'places': placelist,
         'like_counts': like_counts,
-        'liked': liked
+        'liked': liked,
+        'created_at': post.updated_at.strftime("%Y. %m. %d. %H:%M"),
         }
     return JsonResponse(response_dict, safe=False)
     
@@ -383,7 +386,7 @@ def post_comment_get(request, post_id):
     post=Post.objects.get(id=post_id)
     comments=[]
     for comment in post.comment_set.all():
-        comments.append({'id': comment.id, 'content': comment.content, 'username':comment.author.username, 'profile_image':f'{comment.author.profile_image.url if comment.author.profile_image else ""}'})
+        comments.append({'id': comment.id, 'content': comment.content, 'author_id': comment.author.id, 'username':comment.author.username, 'created_at': comment.created_at.strftime("%Y. %m. %d. %H:%M"), 'profile_image':f'{comment.author.profile_image.url if comment.author.profile_image else ""}'})
     return JsonResponse(comments, safe=False)
 
 @require_POST

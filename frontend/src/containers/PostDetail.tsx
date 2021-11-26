@@ -8,7 +8,6 @@ import {
   getPostAction,
   getCommentsAction,
 } from "../store/Post/postAction";
-import border from "../static/post_info_border.svg";
 import "../styles/components/PostDetail.css";
 import "../styles/components/Place.css";
 import Map from "../components/Map";
@@ -19,23 +18,20 @@ import { CommentType, PlaceType } from "../store/Post/postInterfaces";
 import Place from "../components/Place";
 import { useFolderState } from "../hooks/useFolderState";
 import { RootReducerType } from "../store/store";
-import comment_icon from "../static/comment-icon.svg";
-import like_icon from "../static/like-icon.svg";
-import unlike_icon from "../static/unlike-icon.svg";
 import profile_image from "../static/profile.png";
 import delete_icon from "../static/delete-icon.svg";
 import hover_delete_icon from "../static/hover-delete-icon.svg";
+import PostHeader from "../components/PostHeader";
+import like_icon from "../static/like-icon.svg";
+import unlike_icon from "../static/unlike-icon.svg";
 
 function PostDetail() {
-  interface String {
-    id: string;
-  }
   interface FolderType {
     id: number;
     name: string;
   }
   const dispatch = useDispatch();
-  const { id } = useParams<String>();
+  const { id } = useParams<any>();
   const { loggedUser } = useSelector((state: RootReducerType) => state.user);
   useEffect(() => {
     dispatch(getPostAction(Number(id)));
@@ -143,20 +139,7 @@ function PostDetail() {
       return placeList;
     } else return null;
   };
-  const postSeason = () => {
-    if (post.season === "spr") return "Spring";
-    else if (post.season === "sum") return "Summer";
-    else if (post.season === "aut") return "Autumn";
-    else if (post.season === "win") return "Winter";
-  };
 
-  const postTheme = () => {
-    if (post.theme === "friends") return "친구와 함께!";
-    else if (post.theme === "family") return "가족과 함께!";
-    else if (post.theme === "lover") return "연인과 함께!";
-    else if (post.theme === "alone") return "나홀로 여행!";
-  };
-  const withoutCar: boolean = post.availableWithoutCar;
   const onClickPostLikeButton = () => {
     axios
       .get(`/post/${id}/like/`)
@@ -186,83 +169,28 @@ function PostDetail() {
   };
 
   const onClickCommentDelete = (commentId: number) => {
-    if (commentId) {
+    if (commentId && window.confirm("댓글을 정말 삭제하시겠습니까?")) {
       return axios.delete(`/post/${id}/comment/${commentId}`).then(function () {
         dispatch(getCommentsAction(Number(id)));
       });
     }
   };
+
   return (
     <>
       <div className="post-detail-container">
-        <div className="post-detail-header">
-          <div className="header-image">
-            <img src="https://media.triple.guide/triple-cms/c_limit,f_auto,h_1024,w_1024/73968eea-cbbe-49cd-b001-353e9e962cbf.jpeg" />
-          </div>
-          <div className="header-content-left">
-            <div className="header-top">
-              <div className="post-folder-name">
-                {loggedUser.id == post.author_id && post.folder_name}
-              </div>
-            </div>
-            <div className="header-middle">
-              <div className="post-title-name">{post.title}</div>
-              <div className="post-info-container">
-                <span className="post-info">{post.location}</span>
-                <span className="post-info-border">
-                  <img src={border} />
-                </span>
-                <span className="post-info">{post.days}일 코스</span>
-              </div>
-            </div>
-            <div className="header-bottom">
-              <div className="post-author">
-                <NavLink to={`/user_info/${post.author_id}/`}>
-                  {post.author_name}
-                </NavLink>
-              </div>
-              <div className="post-tag-container">
-                <span className="post-tag">{postSeason()}</span>
-                <span className="post-tag">{postTheme()}</span>
-                <span className={`post-tag ${withoutCar}`}>
-                  뚜벅이 여행 가능
-                </span>
-              </div>
-            </div>
-          </div>
-          <div className="header-content-right">
-            <div className="header-top">
-              <button
-                className="post-cart-button"
-                onClick={() => onClickAddPostCartButton()}
-              >
-                Add this route to Cart
-              </button>
-            </div>
-            <div className="header-bottom">
-              {post.liked ? (
-                <img
-                  className="post-like-icon liked"
-                  onClick={() => onClickPostLikeButton()}
-                  src={like_icon}
-                />
-              ) : (
-                <img
-                  className="post-like-icon unliked"
-                  onClick={() => onClickPostLikeButton()}
-                  src={unlike_icon}
-                />
-              )}
-              {post.like_counts}
-              <img className="post-comment-icon" src={comment_icon} />
-              {post.comments.length}
-            </div>
-          </div>
-        </div>
+        <PostHeader
+          loggedUserId={loggedUser.id}
+          post={post}
+          isPostDetail={true}
+          onClickAddPostCartButton={onClickAddPostCartButton}
+          onClickPostLikeButton={onClickPostLikeButton}
+        />
         <div className="post-detail-body">
           <div className="body-route-container">{placeMapping()}</div>
           <div className="body-left-container">
             <Map
+              fromWhere={'detail'}
               location={post.location}
               placeList={post.places.map((place: any) => {
                 place.lat = place.latitude;
@@ -274,7 +202,24 @@ function PostDetail() {
               })}
             />
             <div className="body-comments-container">
-              <div className="comment-input-container">
+              <div
+                className={`comment-input-container ${
+                  loggedUser.id ? `visible` : `invisible`
+                }`}
+              >
+                {post.liked ? (
+                  <img
+                    className="post-like-icon liked logged"
+                    onClick={() => onClickPostLikeButton()}
+                    src={like_icon}
+                  />
+                ) : (
+                  <img
+                    className="post-like-icon unliked"
+                    onClick={() => onClickPostLikeButton()}
+                    src={unlike_icon}
+                  />
+                )}
                 <input
                   className="comment-input"
                   type="text"
@@ -294,26 +239,36 @@ function PostDetail() {
                   post.comments.map((comment: CommentType, index: number) => {
                     return (
                       <div className="each-comment-container" key={index}>
-                        <img
-                          className="each-profile-image"
-                          src={comment.profile_image || profile_image}
-                        />
-                        <span className="each-comment-author">
-                          {comment.username}
-                        </span>
-                        <span className="each-comment-content">
-                          {comment.content}&nbsp;&nbsp;&nbsp;
-                        </span>
-                        <button
-                          id="delete-comment-button"
-                          className={`visible-${
-                            loggedUser.username === comment.username
-                          }`}
-                          onClick={() => onClickCommentDelete(comment.id)}
-                        >
-                          <img src={delete_icon} />
-                          <img src={hover_delete_icon} />
-                        </button>
+                        <div className="each-comment-top">
+                          <img
+                            className="each-profile-image"
+                            src={comment.profile_image || profile_image}
+                          />
+                          <NavLink
+                            to={`/user_info/${comment.author_id}/`}
+                            className="each-comment-author"
+                          >
+                            {comment.username}
+                          </NavLink>
+                          <span className="each-comment-content">
+                            {comment.content}&nbsp;&nbsp;&nbsp;
+                          </span>
+                          <button
+                            id="delete-comment-button"
+                            className={`visible-${
+                              loggedUser.username === comment.username
+                            }`}
+                            onClick={() => onClickCommentDelete(comment.id)}
+                          >
+                            <img src={delete_icon} />
+                            <img src={hover_delete_icon} />
+                          </button>
+                        </div>
+                        <div className="each-comment-bottom">
+                          <div className="each-comment-created-at">
+                            {comment.created_at}
+                          </div>
+                        </div>
                       </div>
                     );
                   })}

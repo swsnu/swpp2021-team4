@@ -24,7 +24,7 @@ const initialState: UserStateType = {
     id: 0,
     email: "",
     username: "",
-    profileImage: "",
+    profile_image: "",
     folders: [],
   },
 };

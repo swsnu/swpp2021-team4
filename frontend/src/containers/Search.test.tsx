@@ -6,7 +6,7 @@ import { Route, Redirect, Switch, BrowserRouter } from "react-router-dom";
 import Search from "./Search";
 import { getMockStore } from "../test-utils/mocks";
 import { history } from "../store/store";
-import {  useDispatch } from 'react-redux';
+import { useDispatch } from "react-redux";
 const mockStore = getMockStore();
 jest.mock("../components/PostItem", () => {
   return jest.fn((props) => {
@@ -94,6 +94,4 @@ describe("<Search />", () => {
     const wrapper = component.find(".spyPost");
     expect(wrapper.length).toBe(1);
   });
-
-
 });

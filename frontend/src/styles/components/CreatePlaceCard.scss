@@ -1,8 +1,13 @@
 @import "../../Variables/Variables.scss";
 
+.place-search-container {
+  .create-place-container {
+    margin-bottom: 1.45vw;
+  }
+}
+
 .create-place-container {
   background-color: #FFFFFF;
-  margin-bottom: 1.45vw;
   padding: 1.04vw;
 
   .place-container-top {
@@ -27,9 +32,26 @@
       min-height: 35px;
       text-align: center;
       cursor: pointer;
-      background-color: $lightMintColor;
+
+      .search {
+        background-color: $lightMintColor;
+        &:hover {
+          background-color: $darkMintColor;
+        }
+      }
+    }
+
+    .place-cart-button.place {
+      background-color: #F5F6F9;
+    }
+    .place-cart-button.route {
+      background-color: #F5F6F9;
+    }
+
+    .place-cart-button.search.selected {
+      background-color: $darkMintColor;
       &:hover {
-        background-color: $darkMintColor;
+        background-color: $lightMintColor;
       }
     }
   }

@@ -1,4 +1,4 @@
-.profile {
+.title {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -8,47 +8,19 @@
   font-size: 28px;
   line-height: 34px;
   color: #57ceb9;
-  margin-top: 3%;
+  margin-top: 20px;
   margin-left: 10%;
-  margin-bottom: 3%;
+  margin-bottom: 20px;
 }
 
-.email,
-.name {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: row;
-          flex-direction: row;
-  margin-bottom: 2%;
+.route-list-title {
+  margin-top: 50px;
+  margin-bottom: 10px;
 }
 
-.name {
-  margin-top: 2%;
-}
-
-.edit-btn {
-  margin-top: 2%;
-  background: #f6f6f9;
-  border-radius: 6px;
-}
-
-.showProfile {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: row;
-          flex-direction: row;
-}
-
-.showProfile .basicInfo {
-  width: 70%;
-  margin-left: 20%;
-  margin-right: 20%;
+.user-posts {
+  width: 1120px;
+  margin: 0 auto;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -56,207 +28,6 @@
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-}
-
-.showProfile .profileImage {
-  border-radius: 50%;
-  width: 45vh;
-  height: 45vh;
-  margin-left: 50%;
-  -webkit-box-shadow: 5px 5px 5px #000;
-          box-shadow: 5px 5px 5px #000;
-}
-
-.field {
-  width: 40%;
-  font-family: "Montserrat", Monospace;
-  font-style: normal;
-  color: #000000;
-}
-
-.showProfile {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: row;
-          flex-direction: row;
-}
-
-.basicInfo {
-  width: 70%;
-  margin-left: 15%;
-  margin-right: 20%;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-}
-
-.profileImage {
-  border-radius: 50%;
-  width: 70%;
-  margin-left: 50%;
-}
-
-.field {
-  width: 40%;
-  font-family: "Montserrat", Monospace;
-  font-style: normal;
-  color: #000000;
-}
-
-.line {
-  width: 100%;
-  height: 0px;
-  border: 0.3px solid #969696;
-}
-
-.Folder {
-  margin-top: 5%;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: row;
-          flex-direction: row;
-}
-
-.folderHead {
-  font-family: "Montserrat", Monospace;
-  font-style: normal;
-  margin-left: 4%;
-  margin-top: 8%;
-  color: #57ceb9;
-}
-
-.folder-input-container {
-  width: 80%;
-  margin-top: 5%;
-  margin-left: 5%;
-  margin-bottom: 5%;
-  height: 100px;
-}
-
-.left {
-  width: 50vh;
-  height: 100%;
-  margin-left: 130px;
-  margin-bottom: 100px;
-  background: #f6f6f9;
-  border-radius: 6px;
-  margin-right: 20px;
-}
-
-.right {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  height: -webkit-max-content;
-  height: -moz-max-content;
-  height: max-content;
-  width: 100vh;
-  background: #f6f6f9;
-  border-radius: 6px;
-  margin-right: 10%;
-}
-
-.eachItem {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: row;
-          flex-direction: row;
-  background: #ffffff;
-  width: 90%;
-  margin-left: 5%;
-  margin-right: 5%;
-  margin-top: 5%;
-}
-
-.route_image {
-  width: 100%;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -ms-flex-wrap: wrap;
-      flex-wrap: wrap;
-  -webkit-box-pack: start;
-      -ms-flex-pack: start;
-          justify-content: flex-start;
-}
-
-.eachItem:hover {
-  background: #e2e3e9;
-  -webkit-box-shadow: 0px 0px 0px transparent;
-          box-shadow: 0px 0px 0px transparent;
-  border: 0px solid transparent;
-  text-shadow: 0px 0px 0px transparent;
-  cursor: pointer;
-}
-
-.folder_name {
-  width: 80%;
-  margin-top: 5%;
-  margin-left: 5%;
-  margin-bottom: 5%;
-}
-
-.icon {
-  width: 6%;
-  margin-right: 5%;
-}
-
-.folders {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: row;
-          flex-direction: row;
-}
-
-.left_button {
-  margin-bottom: 4%;
-}
-
-button {
-  background: transparent;
-  -webkit-box-shadow: 0px 0px 0px transparent;
-          box-shadow: 0px 0px 0px transparent;
-  border: 0px solid transparent;
-  text-shadow: 0px 0px 0px transparent;
-}
-
-button:hover {
-  background: #57ceb9;
-  -webkit-box-shadow: 0px 0px 0px transparent;
-          box-shadow: 0px 0px 0px transparent;
-  border: 0px solid transparent;
-  text-shadow: 0px 0px 0px transparent;
-  cursor: pointer;
-}
-
-button:active {
-  outline: none;
-  border: none;
-}
-
-button:focus {
-  outline: 0;
+  margin-top: 20px;
 }
 /*# sourceMappingURL=Userinfo.css.map */

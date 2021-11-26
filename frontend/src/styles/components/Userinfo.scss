@@ -1,192 +1,27 @@
 @import '../../Variables/Variables.scss';
 
-.profile {
-  display: flex;
+.title {
+    display: flex;
+    font-family: $mainFont;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 28px;
+    line-height: 34px;
+    color: $darkMintColor;
+    margin-top: 20px;
+    margin-left: 10%;
+    margin-bottom: 20px;
+  }
 
-  font-family: $mainFont;
-  font-style: normal;
-  font-weight: 600;
-  font-size: 28px;
-  line-height: 34px;
-  color: $darkMintColor;
-  margin-top: 3%;
-  margin-left: 10%;
-  margin-bottom: 3%;
-}
-.email,
-.name {
-  display: flex;
-  flex-direction: row;
-  margin-bottom: 2%;
-}
-.name {
-  margin-top: 2%;
-}
-.edit-btn {
-  margin-top: 2%;
-  background: $whiteColor;
-  border-radius: 6px;
+.route-list-title {
+    margin-top: 50px;
+    margin-bottom: 10px;
 }
 
-.showProfile {
-  display: flex;
-  flex-direction: row;
-
-  .basicInfo {
-    width: 70%;
-    margin-left: 20%;
-    margin-right: 20%;
+.user-posts {
+    width: 1120px;
+    margin: 0 auto;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-  }
-  .profileImage {
-    border-radius: 50%;
-    width: 45vh;
-    height: 45vh;
-    margin-left: 50%;
-    box-shadow: 5px 5px 5px #000;
-  }
-}
-.field {
-  width: 40%;
-  font-family: $mainFont;
-  font-style: normal;
-  color: #000000;
-}
-
-.showProfile {
-  display: flex;
-  flex-direction: row;
-}
-.basicInfo {
-  width: 70%;
-  margin-left: 15%;
-  margin-right: 20%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-.profileImage {
-  border-radius: 50%;
-  width: 70%;
-  margin-left: 50%;
-}
-.field {
-  width: 40%;
-  font-family: $mainFont;
-  font-style: normal;
-  color: #000000;
-}
-
-.line {
-  width: 100%;
-  height: 0px;
-  border: 0.3px solid #969696;
-}
-
-.Folder {
-  margin-top: 5%;
-  display: flex;
-  flex-direction: row;
-}
-.folderHead {
-  font-family: $mainFont;
-  font-style: normal;
-  margin-left: 4%;
-  margin-top: 8%;
-  color: $darkMintColor;
-}
-.folder-input-container {
-  width: 80%;
-  margin-top: 5%;
-  margin-left: 5%;
-  margin-bottom: 5%;
-  height: 100px;
-}
-
-.left {
-  width: 50vh;
-  height: 100%;
-  margin-left: 130px;
-  margin-bottom: 100px;
-  background:  $whiteColor;
-  border-radius: 6px;
-  margin-right: 20px;
-}
-
-.right {
-  display: flex;
-  height: max-content;
-  width: 100vh;
-  background: $whiteColor;
-  border-radius: 6px;
-  margin-right: 10%;
-}
-.eachItem {
-  display: flex;
-  flex-direction: row;
-  background: #ffffff;
-  width: 90%;
-  margin-left: 5%;
-  margin-right: 5%;
-  margin-top: 5%;
-}
-.route_image {
-  width: 100%;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: flex-start;
-}
-
-.eachItem:hover {
-  background: #e2e3e9;
-  box-shadow: 0px 0px 0px transparent;
-  border: 0px solid transparent;
-  text-shadow: 0px 0px 0px transparent;
-  cursor: pointer;
-}
-
-.folder_name {
-  width: 80%;
-  margin-top: 5%;
-  margin-left: 5%;
-  margin-bottom: 5%;
-}
-
-.icon {
-  width: 6%;
-  margin-right: 5%;
-}
-.folders {
-  display: flex;
-  flex-direction: row;
-}
-
-.left_button {
-  margin-bottom: 4%;
-}
-
-button {
-  background: transparent;
-  box-shadow: 0px 0px 0px transparent;
-  border: 0px solid transparent;
-  text-shadow: 0px 0px 0px transparent;
-}
-
-button:hover {
-  background: $darkMintColor;
-  box-shadow: 0px 0px 0px transparent;
-  border: 0px solid transparent;
-  text-shadow: 0px 0px 0px transparent;
-  cursor: pointer;
-}
-
-button:active {
-  outline: none;
-  border: none;
-}
-
-button:focus {
-  outline: 0;
+    margin-top: 20px;
 }
