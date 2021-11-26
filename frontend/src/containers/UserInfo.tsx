@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import "../styles/components/Userinfo.scss";
+import "../styles/components/Userinfo.css";
 import { useDispatch } from "react-redux";
 import axios from "axios";
 import PostHeader from "../components/PostHeader";
@@ -68,7 +68,7 @@ function UserInfo(props: PropType) {
 
   return (
     <div className="userinfo-container">
-      <div className="profile">Profile</div>
+      <div className="title">Profile</div>
       <BasicUserInfo
         loggedUserId={props.loggedUser.id}
         id={props.id}
@@ -76,17 +76,19 @@ function UserInfo(props: PropType) {
         username={userInfo.username}
         profile_image={userInfo.profile_image}
       />
-      {posts.map((post) => {
-        return (
-          <PostHeader
-            key={post.id}
-            loggedUserId={props.loggedUser.id}
-            post={post}
-            isPostDetail={false}
-            onClickPostLikeButton={onClickPostLikeButton}
-          />);
-      })}
-
+      <div className="title route-list-title">Route List</div>
+      <div className="user-posts">
+        {posts.map((post) => {
+          return (
+            <PostHeader
+              key={post.id}
+              loggedUserId={props.loggedUser.id}
+              post={post}
+              isPostDetail={false}
+              onClickPostLikeButton={onClickPostLikeButton}
+            />);
+        })}
+      </div>
     </div>
   );
 }

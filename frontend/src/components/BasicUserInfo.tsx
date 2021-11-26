@@ -14,15 +14,13 @@ interface PropType {
 function BasicUserInfo(props: PropType) {
     return (
         <div className="showProfile">
-            <div className="image-wrapper">
-                <div className="image">
-                    {props.profile_image == null && (
-                        <img className="profileImage" src={logo} />
-                    )}
-                    {props.profile_image != null && (
-                        <img className="profileImage" src={props.profile_image} />
-                    )}
-                </div>
+            <div className="image">
+                {props.profile_image === null && (
+                    <img className="profileImage" src={logo} />
+                )}
+                {props.profile_image !== null && (
+                    <img className="profileImage" src={props.profile_image} />
+                )}
             </div>
             <div className="basicInfo">
                 <div className="email">

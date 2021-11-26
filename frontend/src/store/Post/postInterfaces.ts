@@ -41,10 +41,11 @@ export interface SimplePostType {
   id: number;
   thumbnail_image: string;
   title: string;
-  author: string;
+  author_name: string;
   author_id: number;
   like_count: number;
   comment_count: number;
+  is_shared: boolean;
 }
 
 export interface PlaceInfoType {
@@ -107,6 +108,7 @@ export interface SearchType {
   title: string;
   is_shared: boolean;
 }
+
 export interface GetPostsSuccess {
   type: typeof GET_POSTS_SUCCESS;
   payload: PostType[];
@@ -145,9 +147,9 @@ export interface CreatePostFail {
 
 export interface SearchSuccess {
   type: typeof SEARCH_SUCCESS;
-  ordinary: SearchType[];
-  like: SearchType[];
-  date: SearchType[];
+  ordinary: SimplePostType[];
+  like: SimplePostType[];
+  date: SimplePostType[];
 }
 export interface SearchFail {
   type: typeof SEARCH_FAIL;

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Redirect } from "react-router-dom";
-import "../styles/components/Userinfo.css";
+import "../styles/components/MyPage.css";
 import { useDispatch } from "react-redux";
 import axios from "axios";
 import button_up from "../static/chevron-down.svg";
@@ -187,8 +187,10 @@ function MyPage(props: PropType) {
                       id={post.id}
                       thumbnail_image={post.thumbnail_image}
                       title={post.title}
-                      author_name={post.author}
+                      author_name={post.author_name}
                       author_id={post.author_id}
+                      like_count={post.like_count}
+                      comment_count={post.comment_count}
                     />
                   );
                 })}

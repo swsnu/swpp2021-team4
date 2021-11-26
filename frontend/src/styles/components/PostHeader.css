@@ -20,7 +20,7 @@
 }
 
 .post-header .header-content-left {
-  width: 60%;
+  width: 45vw;
 }
 
 .post-header .header-content-left .header-top {
@@ -30,7 +30,7 @@
 .post-header .header-content-left .header-top .post-folder-name {
   font-family: "Noto Sans CJK KR", Monospace;
   font-size: 22px;
-  margin-left: 2vh;
+  margin-left: 1.5vw;
   margin-top: 15px;
 }
 
@@ -43,13 +43,16 @@
   -webkit-box-align: baseline;
       -ms-flex-align: baseline;
           align-items: baseline;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
 }
 
 .post-header .header-content-left .header-middle .post-title-name {
   -webkit-box-pack: start;
       -ms-flex-pack: start;
           justify-content: flex-start;
-  margin: 15px 8vh 0px 2vh;
+  margin: 15px 4vw 0px 1.5vw;
   font-family: "Noto Sans CJK KR", Monospace;
   font-weight: bold;
   color: #57ceb9;
@@ -81,6 +84,9 @@
       -ms-flex-align: center;
           align-items: center;
   margin-top: 25px;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
 }
 
 .post-header .header-content-left .header-bottom .post-author {
@@ -88,8 +94,8 @@
   font-weight: bold;
   font-size: 20px;
   color: #95ecdc;
-  margin-left: 2.5vh;
-  margin-right: 10vh;
+  margin-left: 1.5vw;
+  margin-right: 5vw;
 }
 
 .post-header .header-content-left .header-bottom .post-author a {
@@ -113,7 +119,7 @@
   border-radius: 16px;
   display: inline-block;
   text-align: center;
-  margin-left: 3vh;
+  margin-left: 1vw;
   margin-right: 0px;
   font-family: "Montserrat", Monospace;
   font-weight: 400;
@@ -128,7 +134,7 @@
 }
 
 .post-header .header-content-right {
-  margin-top: 10px;
+  padding-top: 15px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -136,17 +142,16 @@
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  -webkit-box-align: end;
+      -ms-flex-align: end;
+          align-items: flex-end;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
 }
 
-.post-header .header-content-right .header-top {
-  margin-bottom: 4vh;
-}
-
-.post-header .header-content-right .post-cart-button {
-  margin-left: 5vh;
+.post-header .header-content-right .header-top .post-cart-button {
+  margin-left: 5vw;
   background-color: #95ecdc;
   border-radius: 6px;
   padding: 10px 20px 10px 20px;
@@ -154,15 +159,15 @@
   cursor: pointer;
   border: none;
   font-family: "Montserrat", Monospace;
-  margin-bottom: 0.2vh;
   color: #ffffff;
+  margin-bottom: 8px;
 }
 
-.post-header .header-content-right .post-cart-button:hover {
+.post-header .header-content-right .header-top .post-cart-button:hover {
   background-color: #57ceb9;
 }
 
-.post-header .header-content-right .post-created-at {
+.post-header .header-content-right .header-top .post-created-at {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -171,10 +176,30 @@
           align-items: flex-end;
 }
 
-.post-header .header-content-right .post-created-at .time-icon {
-  margin-left: 5vh;
-  margin-right: 1vh;
+.post-header .header-content-right .header-top .post-created-at .time-icon {
+  margin-left: 6vw;
+  margin-right: 0.5vw;
   width: 20px;
   height: 20px;
+}
+
+.post-header .header-content-right .header-bottom {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin-bottom: 1.5vw;
+  margin-right: 1vw;
+}
+
+.post-header .header-content-right .header-bottom .post-comment-icon {
+  margin-left: 15px;
+  margin-right: 5px;
+}
+
+.post-header .header-content-right .header-bottom .post-like-icon {
+  margin-right: 5px;
 }
 /*# sourceMappingURL=PostHeader.css.map */
