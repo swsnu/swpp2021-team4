@@ -55,13 +55,14 @@ export const cartPostAction = (postId: number, folderId: number) => {
   };
 };
 
-export const createPostAction = (formData: FormData) => {
+export const createPostAction = (formData: FormData, callbackFunc: (isCreated: boolean, postId: number) => void) => {
   return (dispatch: Redux.Dispatch<PostDispatchType>) => {
     return axios.post('/post/create/', formData, {
       headers: { "content-type": "multipart/form-data" }
     })
     .then((res) => {
       dispatch({ type: CREATE_POST_SUCCESS, payload: res.data });
+      callbackFunc(true, res.data.id);
     })
     .catch((err) => {
       console.log(err);
@@ -83,6 +84,7 @@ export const searchAction = (
       .catch(() => dispatch({ type: SEARCH_FAIL }));
   }
 }
+
 export const getCommentsAction = (postId: number) => {
   return (dispatch: Redux.Dispatch<PostDispatchType>) => {
     return axios
