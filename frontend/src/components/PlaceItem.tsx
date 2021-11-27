@@ -8,9 +8,9 @@ interface PropsType {
 
 function PlaceItem(props: PropsType) {
     return (
-        <div className="place-container">
-            <div className="place-title">{props.place.name}</div>
-            <div className="place-description">{props.place.description}</div>
+        <div className="place-item-container">
+            <div className="place-item--title">{props.place.name}</div>
+            <div className="place-item--description">{props.place.description}</div>
         </div>
     );
 }
