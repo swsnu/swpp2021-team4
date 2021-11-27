@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
+import { useHistory } from "react-router-dom";
 import CreateEditHeader from "../components/CreateEditHeader";
 import Map from "../components/Map";
 import MyRoutesSection from "../components/MyRoutesSection";
@@ -41,12 +42,22 @@ interface PropsType {
 
 function CreateEditPost(props: PropsType) {
   const dispatch = useDispatch();
+  const history = useHistory();
   const post = usePostState();
   const [postInfoData, setPostInfoData] = useState<PostInfoDataType>(initialFolderData);
   const [locationQuery, setLocationQuery] = useState("");
   const [selectedDay, setSelectedDay] = useState(1);
 
+  const [isPostCreated, setIsPostCreated] = useState(false);
+  const [createdPostId, setCreatedPostId] = useState<number>(0);
+
   const [routePlaces, setRoutePlaces] = useState<PlaceDayType[]>([]);
+
+  useEffect(() => {
+    if (isPostCreated && createdPostId) {
+      history.push(`/post/${createdPostId}/`);
+    }
+  }, [isPostCreated, createdPostId]);
 
   useEffect(() => {
     setPostInfoData({
@@ -118,7 +129,10 @@ function CreateEditPost(props: PropsType) {
     formData.append('places', JSON.stringify(placeListData));
     formData.append("enctype", 'multipart/form-data');
 
-    dispatch(createPostAction(formData));
+    dispatch(createPostAction(formData, (isCreated: boolean, postId: number) => {
+      setIsPostCreated(isCreated);
+      setCreatedPostId(postId);
+    }));
   }
 
   const onChangePostInfoData = useCallback(
