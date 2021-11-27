@@ -21,7 +21,7 @@
   height: 600px;
   width: 400px;
   padding-top: 30px;
-  // overflow-y: scroll;
+  overflow-y: auto;
 
   .modal-title {
     font-family: $mainFont;
