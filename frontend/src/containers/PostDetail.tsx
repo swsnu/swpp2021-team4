@@ -33,7 +33,6 @@ function PostDetail() {
     dispatch(getPostAction(Number(id)));
   }, [dispatch, id]);
 
-  // const [clicked, setClicked] = useState(true);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [isPostAddedToCart, setIsPostAddedToCart] = useState(false);
   const [selectedPlaceId, setSelectedPlaceId] = useState(0); // tracks which place user try to put in cart
@@ -86,7 +85,6 @@ function PostDetail() {
   
   // place의 타입 정의 후 any 고치기
   const post = usePostState();
-  // const folders = useFolderState();
 
   const placeMapping = () => {
     if (post.places) {
