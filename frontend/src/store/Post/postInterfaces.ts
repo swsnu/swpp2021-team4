@@ -68,9 +68,11 @@ export interface PlaceType {
   phone_number: string;
   address: string;
   category: string;
+  index?: number;
 }
 
 export interface PlaceDayType {
+  index: number;
   day: number | string;
   place: PlaceType;
 }

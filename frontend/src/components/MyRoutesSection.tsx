@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import "../styles/components/MyRoutesSection.scss";
 import addIcon from "../static/add_day_icon.svg";
 import { PlaceDayType, PlaceType } from "../store/Post/postInterfaces";
@@ -7,6 +7,7 @@ import CreatePlaceCard from "./CreatePlaceCard";
 import Path from "./Path";
 import { useDrop } from "react-dnd";
 import ItemTypes from "../utils/items";
+import update from "immutability-helper";
 
 interface PropType {
   days: number;
@@ -41,6 +42,21 @@ function MyRoutesSection(props: PropType) {
       routePlaces.filter((p: PlaceDayType) => p.day == selectedDay)
     );
   }, [selectedDay, routePlaces]);
+
+  const movePlace = useCallback(
+    (dragIndex: number, hoverIndex: number) => {
+      const dragCard = todayPlaceList[dragIndex];
+      setTodayPlaceList(
+        update(todayPlaceList, {
+          $splice: [
+            [dragIndex, 1],
+            [hoverIndex, 0, dragCard],
+          ],
+        })
+      );
+    },
+    [todayPlaceList]
+  );
 
   const renderDayButtons = () => {
     const results = [];
@@ -104,6 +120,7 @@ function MyRoutesSection(props: PropType) {
                 type="route"
                 onClickCartButton={onDeletePlace}
                 isPlaceInCart={() => true}
+                movePlace={movePlace}
               />
               {index !== todayPlaceList.length - 1 && (
                 <Path

@@ -35,8 +35,8 @@ function CreateEditPost() {
 
   const [routePlaces, setRoutePlaces] = useState<PlaceDayType[]>([]);
 
-  const onAddPlace = (place: any) => {
-    setRoutePlaces([...routePlaces, { place, day: selectedDay }]);
+  const onAddPlace = (place: any, index: number) => {
+    setRoutePlaces([...routePlaces, { place, day: selectedDay, index: index }]);
   };
 
   // const onDropPlace = (place:: any)=>{
