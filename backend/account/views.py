@@ -125,7 +125,7 @@ def edit_user_info(request, user_id):
                 'id': user.id,
                 'email': user.email,
                 'username': user.username,
-                'profile_image': user.profile_image.url if user.profile_image else None,
+                'profile_image': user.profile_image.url if user.profile_image else '',
                 'folders': folders
             }
         }
@@ -146,7 +146,7 @@ def user_folders(request, user_id):
         'name': folder.name,
         'posts': [ {
             'id': post.id,
-            'thumbnail_image': post.thumbnail_image.url if post.thumbnail_image else None,
+            'thumbnail_image': post.thumbnail_image.url if post.thumbnail_image else '',
             'title': post.title,
             'author': post.author.username,
             'like_count': post.like_users.count(), 
@@ -202,7 +202,7 @@ def user_folder(request, user_id, fid):
     response_dict = {
         'my_posts': [ {
             'id': post.id,
-            'thumbnail_image': post.thumbnail_image.url if post.thumbnail_image else None,
+            'thumbnail_image': post.thumbnail_image.url if post.thumbnail_image else '',
             'title': post.title,
             'author_name': post.author.username,
             'author_id': post.author.id,
@@ -212,7 +212,7 @@ def user_folder(request, user_id, fid):
         } for post in my_posts ],
         'posts': [ {
             'id': post.id,
-            'thumbnail_image': post.thumbnail_image.url if post.thumbnail_image else None,
+            'thumbnail_image': post.thumbnail_image.url if post.thumbnail_image else '',
             'title': post.title,
             'author_name': post.author.username,
             'author_id': post.author.id,
@@ -226,8 +226,6 @@ def user_folder(request, user_id, fid):
             'description': place.description
         } for place in places_in_folder ]
     }
-
-    print(response_dict)
 
     return JsonResponse(response_dict, safe=False)
 
@@ -287,7 +285,7 @@ def user_likes(request, user_id):
     response_dict = {
         'liked_posts': [ {
             'id': post.id,
-            'thumbnail_image': post.thumbnail_image.url if post.thumbnail_image else None,
+            'thumbnail_image': post.thumbnail_image.url if post.thumbnail_image else '',
             'title': post.title,
             'author_name': post.author.username,
             'author_id': post.author.id,
@@ -311,7 +309,7 @@ def user_shares(request, user_id):
     response_dict = {
         'shared_posts': [ {
             'id': post.id,
-            'thumbnail_image': post.thumbnail_image.url if post.thumbnail_image else None,
+            'thumbnail_image': post.thumbnail_image.url if post.thumbnail_image else '',
             'title': post.title,
             'author_name': post.author.username,
             'author_id': post.author.id,
@@ -331,7 +329,7 @@ def user_posts(request, user_id):
     response_dict = {
         'posts': [ {
             'id': post.id,
-            'thumbnail_image': post.thumbnail_image.url if post.thumbnail_image else None,
+            'thumbnail_image': post.thumbnail_image.url if post.thumbnail_image else '',
             'title': post.title,
             'author_name': post.author.username,
             'author_id': post.author.id,
