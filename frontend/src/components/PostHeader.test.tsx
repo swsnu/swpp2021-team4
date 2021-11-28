@@ -44,7 +44,7 @@ describe('<PostHeader />', () => {
             isPostDetail={true}
             onClickAddPostCartButton={() => { }}
             onClickPostLikeButton={() => { }} />);
-        let wrapper = component.find('.post-header');
+        let wrapper = component.find('.unliked');
         expect(wrapper.length).toBe(1);
 
         post.liked = true;
@@ -55,7 +55,7 @@ describe('<PostHeader />', () => {
             isPostDetail={true}
             onClickAddPostCartButton={() => { }}
             onClickPostLikeButton={() => { }} />);
-        wrapper = component.find('.post-header');
+        wrapper = component.find('.liked');
         expect(wrapper.length).toBe(1);
     });
 
@@ -67,7 +67,6 @@ describe('<PostHeader />', () => {
             loggedUserId={1}
             post={post}
             isPostDetail={true}
-            onClickAddPostCartButton={() => { }}
             onClickPostLikeButton={() => { }} />);
         let wrapper = component.find('.season');
         expect(wrapper.text()).toEqual('Spring');
@@ -79,10 +78,9 @@ describe('<PostHeader />', () => {
             loggedUserId={1}
             post={post}
             isPostDetail={true}
-            onClickAddPostCartButton={() => { }}
             onClickPostLikeButton={() => { }} />);
         wrapper = component.find('.season');
-        expect(wrapper.length).toBe(1);
+        expect(wrapper.text()).toEqual('Summer');
 
         post.season = 'aut';
         post.theme = 'lover';
@@ -91,10 +89,9 @@ describe('<PostHeader />', () => {
             loggedUserId={1}
             post={post}
             isPostDetail={true}
-            onClickAddPostCartButton={() => { }}
             onClickPostLikeButton={() => { }} />);
         wrapper = component.find('.season');
-        expect(wrapper.length).toBe(1);
+        expect(wrapper.text()).toEqual('Autumn');
 
         post.season = 'win';
         post.theme = 'alone';
@@ -103,9 +100,8 @@ describe('<PostHeader />', () => {
             loggedUserId={1}
             post={post}
             isPostDetail={true}
-            onClickAddPostCartButton={() => { }}
             onClickPostLikeButton={() => { }} />);
         wrapper = component.find('.season');
-        expect(wrapper.length).toBe(1);
+        expect(wrapper.text()).toEqual('Winter');
     });
 })
