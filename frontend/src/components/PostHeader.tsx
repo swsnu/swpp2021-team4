@@ -55,7 +55,7 @@ function PostHeader(props: PropType) {
   return (
     <div className="post-header">
       <div className="header-image">
-        <img src="https://media.triple.guide/triple-cms/c_limit,f_auto,h_1024,w_1024/73968eea-cbbe-49cd-b001-353e9e962cbf.jpeg" />
+        <img src={props.post.thumbnail_image ? props.post.thumbnail_image : "https://media.triple.guide/triple-cms/c_limit,f_auto,h_1024,w_1024/73968eea-cbbe-49cd-b001-353e9e962cbf.jpeg"} />
       </div>
       <div className="header-content-left">
         <div className="header-top">
