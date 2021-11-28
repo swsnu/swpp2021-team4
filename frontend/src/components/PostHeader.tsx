@@ -90,8 +90,8 @@ function PostHeader(props: PropType) {
             </NavLink>
           </div>
           <div className="post-tag-container">
-            <span className="post-tag">{postSeason()}</span>
-            <span className="post-tag">{postTheme()}</span>
+            <span className="post-tag season">{postSeason()}</span>
+            <span className="post-tag theme">{postTheme()}</span>
             <span className={`post-tag ${props.post.availableWithoutCar}`}>
               뚜벅이 여행 가능
             </span>
