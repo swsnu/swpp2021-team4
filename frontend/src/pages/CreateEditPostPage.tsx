@@ -16,11 +16,11 @@ function CreateEditPostPage() {
 
   const onClickSelectButton = useCallback(
     (folder: Folder|null) => {
-      if (!selectedFolder) {
-        alert('폴더를 선택하거나, 새로 만든 후 Select 버튼을 눌러주세요.');
-      } else {
+      if (folder?.id) {
         setIsModalVisible(false);
         setSelectedFolder(folder);
+      } else {
+        alert('폴더를 선택하거나, 새로 만든 후 Select 버튼을 눌러주세요.');
       }
     },
     []
