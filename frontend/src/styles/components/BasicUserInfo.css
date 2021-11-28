@@ -79,6 +79,7 @@
   background-color: #F5F6F9;
   border-radius: 6px;
   cursor: pointer;
+  border: none;
 }
 
 .showProfile .basicInfo .edit-btn:hover {
