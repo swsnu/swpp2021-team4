@@ -3,34 +3,10 @@ import { shallow } from 'enzyme';
 import PostHeader from './PostHeader';
 
 describe('<PostHeader />', () => {
-    it('should render without errors when not logged in', () => {
-        const component = shallow(<PostHeader
-            loggedUserId={0}
-            post={{
-                id: 1,
-                thumbnail_image: '',
-                folder_name: '',
-                title: '',
-                author_name: '',
-                author_id: 1,
-                location: '',
-                days: 1,
-                season: '',
-                theme: '',
-                like_counts: 1,
-                comment_counts: 1,
-                availableWithoutCar: true,
-                liked: true,
-                created_at: ''
-            }}
-            isPostDetail={false}
-            onClickPostLikeButton={() => { }} />);
-        const wrapper = component.find('.post-header');
-        expect(wrapper.length).toBe(1);
-    });
+    let post: any;
 
-    it('should render without errors when logged in', () => {
-        const post = {
+    beforeEach(() => {
+        post = {
             id: 1,
             thumbnail_image: '',
             folder_name: '',
@@ -47,7 +23,21 @@ describe('<PostHeader />', () => {
             liked: false,
             created_at: ''
         }
+    })
 
+    it('should render without errors when not logged in', () => {
+        post.comment_counts = 1;
+        post.comments = null;
+        const component = shallow(<PostHeader
+            loggedUserId={0}
+            post={post}
+            isPostDetail={false}
+            onClickPostLikeButton={() => { }} />);
+        const wrapper = component.find('.post-header');
+        expect(wrapper.length).toBe(1);
+    });
+
+    it('should render without errors when logged in', () => {
         let component = shallow(<PostHeader
             loggedUserId={1}
             post={post}
@@ -70,23 +60,8 @@ describe('<PostHeader />', () => {
     });
 
     it('should render post tags properly', () => {
-        const post = {
-            id: 1,
-            thumbnail_image: '',
-            folder_name: '',
-            title: '',
-            author_name: '',
-            author_id: 1,
-            location: '',
-            days: 1,
-            season: 'spr',
-            theme: 'friends',
-            like_counts: 1,
-            comments: [],
-            availableWithoutCar: true,
-            liked: false,
-            created_at: ''
-        }
+        post.season = 'spr';
+        post.theme = 'friends'
 
         let component = shallow(<PostHeader
             loggedUserId={1}
