@@ -13,7 +13,7 @@
   margin-bottom: 20px;
 }
 
-.Folder {
+.folder {
   margin-top: 5%;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -24,23 +24,7 @@
           flex-direction: row;
 }
 
-.folderHead {
-  font-family: "Montserrat", Monospace;
-  font-style: normal;
-  margin-left: 4%;
-  margin-top: 8%;
-  color: #57ceb9;
-}
-
-.folder-input-container {
-  width: 80%;
-  margin-top: 5%;
-  margin-left: 5%;
-  margin-bottom: 5%;
-  height: 100px;
-}
-
-.left {
+.folder .left {
   width: 25vw;
   height: 100%;
   margin-left: 130px;
@@ -50,21 +34,23 @@
   margin-right: 20px;
 }
 
-.right {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  height: -webkit-max-content;
-  height: -moz-max-content;
-  height: max-content;
-  width: 75vw;
-  min-height: 300px;
-  background: #F5F6F9;
-  border-radius: 6px;
-  margin-right: 10%;
+.folder .left .folderHead {
+  font-family: "Montserrat", Monospace;
+  font-style: normal;
+  margin-left: 4%;
+  margin-top: 8%;
+  color: #57ceb9;
 }
 
-.eachItem {
+.folder .left .folder-input-container {
+  width: 80%;
+  margin-top: 5%;
+  margin-left: 5%;
+  margin-bottom: 5%;
+  height: 100px;
+}
+
+.folder .left .eachItem {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -79,19 +65,7 @@
   margin-top: 5%;
 }
 
-.route_image {
-  width: 100%;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -ms-flex-wrap: wrap;
-      flex-wrap: wrap;
-  -webkit-box-pack: start;
-      -ms-flex-pack: start;
-          justify-content: flex-start;
-}
-
-.eachItem:hover {
+.folder .left .eachItem:hover {
   background: #e2e3e9;
   -webkit-box-shadow: 0px 0px 0px transparent;
           box-shadow: 0px 0px 0px transparent;
@@ -100,42 +74,24 @@
   cursor: pointer;
 }
 
-.folder_name {
+.folder .left .eachItem .folder-name {
   width: 80%;
   margin-top: 5%;
   margin-left: 5%;
   margin-bottom: 5%;
 }
 
-.icon {
+.folder .left .eachItem .icon {
   width: 6%;
   margin-right: 5%;
 }
 
-.folders {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: row;
-          flex-direction: row;
-}
-
-.left_button {
+.folder .left .left_button {
   margin-bottom: 4%;
 }
 
-button {
+.folder .left button {
   background: transparent;
-  -webkit-box-shadow: 0px 0px 0px transparent;
-          box-shadow: 0px 0px 0px transparent;
-  border: 0px solid transparent;
-  text-shadow: 0px 0px 0px transparent;
-}
-
-button:hover {
-  background: #57ceb9;
   -webkit-box-shadow: 0px 0px 0px transparent;
           box-shadow: 0px 0px 0px transparent;
   border: 0px solid transparent;
@@ -143,12 +99,49 @@ button:hover {
   cursor: pointer;
 }
 
-button:active {
+.folder .left button:hover {
+  background: #57ceb9;
+}
+
+.folder .left button:active {
   outline: none;
   border: none;
 }
 
-button:focus {
+.folder .left button:focus {
   outline: 0;
+}
+
+.folder .right {
+  height: -webkit-max-content;
+  height: -moz-max-content;
+  height: max-content;
+  width: 100vw;
+  min-height: 300px;
+  background: #F5F6F9;
+  border-radius: 6px;
+  margin-right: 10%;
+}
+
+.folder .right .posts-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.folder .right .posts-container .folder-my-posts,
+.folder .right .posts-container .folder-posts,
+.folder .right .posts-container .folder-places {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.folder .right .posts-container .folder-my-posts {
+  background-color: #c7eee7;
 }
 /*# sourceMappingURL=MyPage.css.map */

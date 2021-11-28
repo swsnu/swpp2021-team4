@@ -13,7 +13,7 @@ function Search() {
     keyword: "",
     season: "",
     location: "",
-    days: "1",
+    days: "",
     theme: "",
     transportation: "",
   });
@@ -150,7 +150,7 @@ function Search() {
             id="days"
             className="search-days"
             type="number"
-            placeholder="1"
+            placeholder="0"
             min="1"
             value={userInputs.days}
             onChange={onChangeInputs}
