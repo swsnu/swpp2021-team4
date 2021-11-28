@@ -81,17 +81,13 @@
       border-radius: 6px;
       padding-left: 1%;
       padding-right: 1%;
+      color: #57ceb9;
     }
     .season:hover,
     .season-clicked:hover,
     .theme:hover,
     .theme-clicked:hover {
       background-color: #f3f4f5;
-    }
-    
-    .season-clicked,
-    .theme-clicked {
-      color: #57ceb9;
     }
   }
 

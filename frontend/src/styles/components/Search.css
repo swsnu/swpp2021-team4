@@ -108,6 +108,7 @@
   border-radius: 6px;
   padding-left: 1%;
   padding-right: 1%;
+  color: #57ceb9;
 }
 
 .filter .seasons .season:hover,
@@ -123,15 +124,6 @@
 .filter .transportation .theme:hover,
 .filter .transportation .theme-clicked:hover {
   background-color: #f3f4f5;
-}
-
-.filter .seasons .season-clicked,
-.filter .seasons .theme-clicked,
-.filter .themes .season-clicked,
-.filter .themes .theme-clicked,
-.filter .transportation .season-clicked,
-.filter .transportation .theme-clicked {
-  color: #57ceb9;
 }
 
 .filter .season,
