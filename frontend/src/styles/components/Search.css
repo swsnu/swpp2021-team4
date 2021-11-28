@@ -5,21 +5,22 @@
   -webkit-box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
           box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
   border-radius: 6px;
-}
-
-.search {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
 }
 
-.search-keyword {
+.search .search-svg {
+  margin-left: 3%;
+}
+
+.search .search-keyword {
   border: none;
   margin-left: 10%;
   width: 80%;
 }
 
-.search-button {
+.search .search-button {
   background-color: #57ceb9;
   margin-top: 1%;
   margin-bottom: 1%;
@@ -31,33 +32,22 @@
   color: #ffffff;
 }
 
-.search-svg {
-  margin-left: 3%;
-}
-
 .filter {
   margin-top: 3%;
   margin-left: 10%;
   margin-right: 10%;
   margin-bottom: 3%;
-  background: #ffffff;
+  background-color: #ffffff;
   -webkit-box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
           box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
   border-radius: 6px;
 }
 
-.category {
-  font-family: "Montserrat", Monospace;
-  font-style: normal;
-  font-weight: 600;
-  font-size: 18px;
-  line-height: 27px;
-  margin-left: 5%;
-  color: #000000;
-  width: 20%;
+.filter button {
+  background-color: #ffffff;
 }
 
-.location {
+.filter .location {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -68,18 +58,24 @@
   padding-top: 2%;
 }
 
-.transportation {
-  padding-bottom: 2%;
+.filter .category {
+  font-family: "Montserrat", Monospace;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 27px;
+  margin-left: 5%;
+  color: #000000;
+  width: 20%;
 }
 
-.search-location {
+.filter .search-location {
   border: none;
-  width: 80%;
   margin-right: 4%;
 }
 
-.lines {
-  border: 0.5px solid #969696;
+.filter .lines {
+  border: 0.1px solid #969696;
   width: 90%;
   margin-left: auto;
   margin-right: auto;
@@ -87,9 +83,9 @@
   margin-bottom: 1.3%;
 }
 
-.seasons,
-.themes,
-.transportation {
+.filter .seasons,
+.filter .themes,
+.filter .transportation {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -99,8 +95,39 @@
           flex-direction: row;
 }
 
-.season,
-.theme {
+.filter .seasons .season-clicked, .filter .seasons .theme-clicked,
+.filter .themes .season-clicked,
+.filter .themes .theme-clicked,
+.filter .transportation .season-clicked,
+.filter .transportation .theme-clicked {
+  font-family: "Noto Sans CJK KR", Monospace;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  margin-right: 5%;
+  border-radius: 6px;
+  padding-left: 1%;
+  padding-right: 1%;
+  color: #57ceb9;
+}
+
+.filter .seasons .season:hover,
+.filter .seasons .season-clicked:hover,
+.filter .seasons .theme:hover,
+.filter .seasons .theme-clicked:hover,
+.filter .themes .season:hover,
+.filter .themes .season-clicked:hover,
+.filter .themes .theme:hover,
+.filter .themes .theme-clicked:hover,
+.filter .transportation .season:hover,
+.filter .transportation .season-clicked:hover,
+.filter .transportation .theme:hover,
+.filter .transportation .theme-clicked:hover {
+  background-color: #f3f4f5;
+}
+
+.filter .season,
+.filter .theme {
   font-family: "Noto Sans CJK KR", Monospace;
   font-style: normal;
   font-weight: 400;
@@ -112,38 +139,19 @@
   color: #9f9f9f;
 }
 
-.season-clicked, .theme-clicked {
-  font-family: "Noto Sans CJK KR", Monospace;
-  font-style: normal;
-  font-weight: 400;
-  font-size: 14px;
-  margin-right: 5%;
-  border-radius: 6px;
-  padding-left: 1%;
-  padding-right: 1%;
+.filter .transportation {
+  padding-bottom: 2%;
 }
 
-.season:hover,
-.season-clicked:hover,
-.theme:hover,
-.theme-clicked:hover {
-  background-color: #f3f4f5;
-}
-
-.season-clicked,
-.theme-clicked {
-  color: #57ceb9;
-}
-
-.days {
+.filter .days {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
 }
 
-.search-days {
+.filter .days .search-days {
   border: none;
-  width: 50%;
+  width: 10%;
 }
 
 .sorting {
@@ -154,6 +162,8 @@
   -webkit-box-align: end;
       -ms-flex-align: end;
           align-items: flex-end;
+  background-color: white;
+  padding: 0 10px;
 }
 
 .sorting-clicked {
