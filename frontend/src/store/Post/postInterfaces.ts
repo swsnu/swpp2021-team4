@@ -48,6 +48,26 @@ export interface SimplePostType {
   is_shared: boolean;
 }
 
+export interface HeaderPostType {
+  id: number;
+  thumbnail_image: string;
+  folder_name?: string;
+  title: string;
+  author_name: string;
+  author_id: number;
+  is_shared: boolean;
+  location: string;
+  days: number;
+  season: string;
+  theme: string;
+  like_counts: number;
+  comments?: Array<CommentType>;
+  comment_counts?: number;
+  availableWithoutCar: boolean;
+  liked?: boolean;
+  created_at: string;
+}
+
 export interface PlaceInfoType {
   name: string;
   address: string;

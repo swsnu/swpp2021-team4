@@ -202,4 +202,15 @@
 .post-header .header-content-right .header-bottom .post-like-icon {
   margin-right: 5px;
 }
+
+.post-header .header-content-right .header-bottom .post-share-button {
+  background-color: #57ceb9;
+  border-radius: 4px;
+  padding: 10px 20px;
+  font-family: "Montserrat", Monospace;
+  font-style: normal;
+  font-size: 15px;
+  color: #ffffff;
+  cursor: pointer;
+}
 /*# sourceMappingURL=PostHeader.css.map */
