@@ -1,12 +1,11 @@
 import React, { useState } from "react";
 import { shallow, mount } from "enzyme";
-import { Provider } from "react-redux";
+import { Provider, useDispatch } from "react-redux";
 import { connectRouter, ConnectedRouter } from "connected-react-router";
 import { Route, Redirect, Switch, BrowserRouter } from "react-router-dom";
 import Search from "./Search";
 import { getMockStore } from "../test-utils/mocks";
 import { history } from "../store/store";
-import { useDispatch } from "react-redux";
 const mockStore = getMockStore();
 jest.mock("../components/PostItem", () => {
   return jest.fn((props) => {
