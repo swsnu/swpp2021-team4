@@ -14,7 +14,7 @@ interface PropsType {
   type: "search" | "place" | "route";
   isPlaceInCart: (id: number) => boolean;
   isPlaceInRoute?: (place: any) => boolean;
-  onClickCartButton?: (place: PlaceType) => void;
+  onClickCartButton?: ((place: PlaceType) => void) | null;
   selectedDay: number | null;
   movePlace?: (dragIndex: number, hoverIndex: number) => void;
   setRoutePlaces?: (value: React.SetStateAction<PlaceDayType[]>) => void;
@@ -24,7 +24,6 @@ interface ItemType {
   place: PlaceType;
   index: number;
   day: number;
-
 }
 
 function CreatePlaceCard(props: PropsType) {
@@ -53,7 +52,6 @@ function CreatePlaceCard(props: PropsType) {
     },
     collect: (monitor) => ({
       opacity: monitor.isDragging() ? 0.5 : 1,
-      
     }),
   });
   const [, drop] = useDrop({
@@ -86,9 +84,7 @@ function CreatePlaceCard(props: PropsType) {
       // Dragging upwards
       if (dragIndex > hoverIndex && hoverClientY > hoverMiddleY) {
         return;
-      }
-
-      else if (props.movePlace) {
+      } else if (props.movePlace) {
         props.movePlace(dragIndex, hoverIndex);
       }
       // console.log(shouldAdd);

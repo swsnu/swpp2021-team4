@@ -134,7 +134,6 @@ function PlaceSearchSection(props: PropType) {
                 type="search"
                 onClickCartButton={onClickCartButton}
                 isPlaceInCart={(id: number) => isPlaceInCart(id)}
-                // setItems={setItems}
               />
             );
           })}
@@ -157,7 +156,7 @@ function PlaceSearchSection(props: PropType) {
               icon={isPlaceInRoute(result.place) ? deleteIcon : addIcon}
               type="place"
               onClickCartButton={
-                isPlaceInRoute(result.place) ? onDeletePlace : onDeletePlace
+                isPlaceInRoute(result.place) ? onDeletePlace : null
               }
               isPlaceInCart={(id: number) => isPlaceInCart(id)}
               isPlaceInRoute={isPlaceInRoute}
