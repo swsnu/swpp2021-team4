@@ -27,7 +27,6 @@ interface ItemType {
 }
 
 function CreatePlaceCard(props: PropsType) {
-  // const [shouldAdd, setShouldAdd] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
   const [{ opacity }, drag] = useDrag({
     type: ItemTypes.CARD,
@@ -87,14 +86,7 @@ function CreatePlaceCard(props: PropsType) {
       } else if (props.movePlace) {
         props.movePlace(dragIndex, hoverIndex);
       }
-      // console.log(shouldAdd);
-
-      // if (props.movePlace && props.onAddPlace) {
-      //   props.onAddPlace(item.place);
-      //   props.movePlace(dragIndex, hoverIndex);
-      // } else if (props.movePlace) {
-      //   props.movePlace(dragIndex, hoverIndex);
-      // }
+      
       item.index = hoverIndex;
     },
   });

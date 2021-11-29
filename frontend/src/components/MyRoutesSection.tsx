@@ -19,11 +19,6 @@ interface PropType {
   setRoutePlaces: (value: React.SetStateAction<PlaceDayType[]>) => void;
 }
 
-// interface ItemType {
-//   type: string;
-//   place: PlaceType;
-//   selectedDay: number | null;
-// }
 
 function MyRoutesSection(props: PropType) {
   const {

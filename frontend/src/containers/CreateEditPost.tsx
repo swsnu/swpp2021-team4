@@ -48,17 +48,6 @@ function CreateEditPost(props: PropsType) {
   const [locationQuery, setLocationQuery] = useState("");
   const [selectedDay, setSelectedDay] = useState(1);
   const [routePlaces, setRoutePlaces] = useState<PlaceDayType[]>([]);
-
-  // const onAddPlace = (place: PlaceType) => {
-  //   setRoutePlaces([...routePlaces, { place, day: selectedDay }]);
-  // };
-
-  // const onDropPlace = (place:: any)=>{
-  //   setRoutePlaces([...routePlaces, {place, day: selectedDay}])
-  // }
-
-  // const [searchResults, setSearchResults] = useState<any>([]);
-
   const [isPostCreated, setIsPostCreated] = useState(false);
   const [createdPostId, setCreatedPostId] = useState<number>(0);
 
