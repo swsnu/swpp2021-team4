@@ -143,6 +143,16 @@
       .post-like-icon {
         margin-right: 5px;
       }
+      .post-share-button {
+        background-color: $darkMintColor;
+        border-radius: 4px;
+        padding: 10px 20px;
+        font-family: $mainFont;
+        font-style: normal;
+        font-size: 15px;
+        color: #ffffff;
+        cursor: pointer;
+      }
     }
   }
 }

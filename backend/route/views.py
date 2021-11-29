@@ -141,7 +141,7 @@ def search(request):
     except (KeyError, JSONDecodeError):
         return HttpResponseBadRequest()   
     postlist=[]
-    for post in Post.objects.all():
+    for post in Post.objects.filter(is_shared=True):
         place_exist=False
         for place in post.place_set.all().order_by('day', 'index'):
             if keyword!='' and keyword in place.description:
@@ -238,7 +238,7 @@ def post_spec_get(request, post_id):
         }
     return JsonResponse(response_dict, safe=False)
     
-@require_POST
+@require_GET
 def post_share(request, post_id):
     logged_user_id=request.session.get('user', None)
 

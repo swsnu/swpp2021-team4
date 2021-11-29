@@ -324,7 +324,7 @@ def user_shares(request, user_id):
 @require_GET
 def user_posts(request, user_id):
     user = get_object_or_404(User, id=user_id)
-    posts = Post.objects.filter(author=user)
+    posts = Post.objects.filter(author=user, is_shared=True)
 
     response_dict = {
         'posts': [ {
@@ -333,6 +333,7 @@ def user_posts(request, user_id):
             'title': post.title,
             'author_name': post.author.username,
             'author_id': post.author.id,
+            'is_shared': post.is_shared,
             'like_counts': post.like_users.count(), 
             'comment_counts': Comment.objects.filter(post=post).count(),
             'location': post.location,

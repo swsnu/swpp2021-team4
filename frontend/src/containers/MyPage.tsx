@@ -205,6 +205,7 @@ function MyPage(props: PropType) {
                       author_id={post.author_id}
                       like_count={post.like_count}
                       comment_count={post.comment_count}
+                      is_shared={post.is_shared}
                     />
                   );
                 })}
@@ -222,6 +223,7 @@ function MyPage(props: PropType) {
                       author_id={post.author_id}
                       like_count={post.like_count}
                       comment_count={post.comment_count}
+                      is_shared={post.is_shared}
                     />
                   );
                 })}
@@ -250,6 +252,7 @@ function MyPage(props: PropType) {
                     author_id={post.author_id}
                     like_count={post.like_count}
                     comment_count={post.comment_count}
+                    is_shared={post.is_shared}
                   />
                 );
               })
@@ -266,6 +269,7 @@ function MyPage(props: PropType) {
                     author_id={post.author_id}
                     like_count={post.like_count}
                     comment_count={post.comment_count}
+                    is_shared={post.is_shared}
                   />
                 );
               })
