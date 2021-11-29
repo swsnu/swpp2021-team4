@@ -1,0 +1,10 @@
+{
+    "version": 3,
+    "mappings": "AAEA,AAAA,qBAAqB,CAAC;EAClB,MAAM,EAAE,IAAI;EACZ,OAAO,EAAE,SAAS;EAClB,KAAK,EAAE,KAAK;EACZ,QAAQ,EAAE,MAAM;EAChB,gBAAgB,EAAE,KAAK;EACvB,UAAU,EAAE,GAAG,CAAC,GAAG,CAAC,IAAI,CAAC,kBAAkB;CAC9C",
+    "sources": [
+        "PlaceItem.scss",
+        "../../Variables/Variables.scss"
+    ],
+    "names": [],
+    "file": "PlaceItem.css"
+}

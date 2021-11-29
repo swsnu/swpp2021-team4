@@ -24,6 +24,7 @@ interface ItemType {
   place: PlaceType;
   index: number;
   day: number;
+
 }
 
 function CreatePlaceCard(props: PropsType) {

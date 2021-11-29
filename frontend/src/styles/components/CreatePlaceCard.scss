@@ -1,8 +1,13 @@
 @import "../../Variables/Variables.scss";
 
+.place-search-container {
+  .create-place-container {
+    margin-bottom: 1.45vw;
+  }
+}
+
 .create-place-container {
   background-color: #FFFFFF;
-  margin-bottom: 1.45vw;
   padding: 1.04vw;
 
   .place-container-top {

@@ -6,7 +6,7 @@ class PostForm(forms.Form):
     thumbnail_image = forms.ImageField(required=False)
     folder_id = forms.IntegerField()
     days = forms.IntegerField()
-    is_shared = forms.BooleanField(initial=False)
+    is_shared = forms.BooleanField(initial=False, required=False)
     season = forms.CharField(max_length=10, required=False)
     theme = forms.CharField(max_length=10, required=False)
     location = forms.CharField(max_length=256, required=False)

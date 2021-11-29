@@ -40,4 +40,9 @@ module.exports = {
     ],
   },
   ignorePatterns: [".eslintrc.js"],
+  settings: {
+    react: {
+      version: 'detect',
+    },
+  },
 };

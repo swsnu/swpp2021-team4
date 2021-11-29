@@ -1,27 +1,12 @@
 import React, { useState, useEffect } from "react";
-import "../styles/components/Userinfo.scss";
+import "../styles/components/Userinfo.css";
 import { useDispatch } from "react-redux";
 import axios from "axios";
 import PostHeader from "../components/PostHeader";
 import { getPostAction } from "../store/Post/postAction";
 import { UserType } from "../store/User/userInterfaces";
 import BasicUserInfo from "../components/BasicUserInfo";
-
-interface HeaderPostType {
-  id: number;
-  thumbnail_image: string;
-  title: string;
-  author_name: string;
-  author_id: number;
-  location: string;
-  days: number;
-  season: string;
-  theme: string;
-  like_counts: number;
-  comment_counts: number;
-  availableWithoutCar: boolean;
-  created_at: string;
-}
+import { HeaderPostType } from "../store/Post/postInterfaces";
 
 interface PropType {
   loggedUser: UserType;
@@ -68,7 +53,7 @@ function UserInfo(props: PropType) {
 
   return (
     <div className="userinfo-container">
-      <div className="profile">Profile</div>
+      <div className="title">Profile</div>
       <BasicUserInfo
         loggedUserId={props.loggedUser.id}
         id={props.id}
@@ -76,17 +61,20 @@ function UserInfo(props: PropType) {
         username={userInfo.username}
         profile_image={userInfo.profile_image}
       />
-      {posts.map((post) => {
-        return (
-          <PostHeader
-            key={post.id}
-            loggedUserId={props.loggedUser.id}
-            post={post}
-            isPostDetail={false}
-            onClickPostLikeButton={onClickPostLikeButton}
-          />);
-      })}
-
+      <div className="title route-list-title">Route List</div>
+      <div className="user-posts">
+        {posts.map((post) => {
+          return (
+            <div key={post.id} className="user-post">
+              <PostHeader
+                loggedUserId={props.loggedUser.id}
+                post={post}
+                isPostDetail={false}
+                onClickPostLikeButton={onClickPostLikeButton}
+              />
+            </div>);
+        })}
+      </div>
     </div>
   );
 }

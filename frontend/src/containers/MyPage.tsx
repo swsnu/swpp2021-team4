@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Redirect } from "react-router-dom";
-import "../styles/components/Userinfo.css";
+import "../styles/components/MyPage.css";
 import { useDispatch } from "react-redux";
 import axios from "axios";
 import button_up from "../static/chevron-down.svg";
@@ -10,8 +10,9 @@ import delete_btn from "../static/delete-icon.svg";
 import { deleteFolderAction, editFolderAction } from "../store/User/userAction";
 import PostItem from "../components/PostItem";
 import { Folder, UserType } from "../store/User/userInterfaces";
-import { SimplePostType } from "../store/Post/postInterfaces";
+import { SimplePlaceType, SimplePostType } from "../store/Post/postInterfaces";
 import BasicUserInfo from "../components/BasicUserInfo";
+import PlaceItem from "../components/PlaceItem";
 
 interface PropType {
   loggedUser: UserType;
@@ -23,8 +24,15 @@ function MyPage(props: PropType) {
 
   const [toggle, setToggle] = useState(true);
   const [isSubmitted, setIsSubmitted] = useState(false);
-  const [posts, setPosts] = useState<SimplePostType[]>();
+  const [folderInfo, setFolderInfo] = useState<{ my_posts: SimplePostType[], posts: SimplePostType[], places: SimplePlaceType[] }>({
+    my_posts: [],
+    posts: [],
+    places: []
+  });
+  const [sharedPosts, setSharedPosts] = useState<SimplePostType[]>();
+  const [likedPosts, setLikedPosts] = useState<SimplePostType[]>();
 
+  const [selected, setSelected] = useState(0);
   const [isFolderEdited, setIsFolderEdited] = useState(false);
   const [folderInputs, setFolderInputs] = useState({
     folderId: 0,
@@ -75,18 +83,13 @@ function MyPage(props: PropType) {
 
   const onClickFolder = (folder_id: number) => {
     axios
-      .get<{ posts: SimplePostType[] }>(`/user/${props.id}/folder/${folder_id}`)
+      .get<{
+        my_posts: SimplePostType[],
+        posts: SimplePostType[],
+        places: SimplePlaceType[]
+      }>(`/user/${props.id}/folder/${folder_id}`)
       .then(function (response) {
-        setPosts(response.data.posts);
-      })
-      .catch((err) => err.response);
-  };
-
-  const onClickShare = () => {
-    axios
-      .get<{ shared_posts: SimplePostType[] }>(`/user/${props.id}/share/`)
-      .then(function (response) {
-        setPosts(response.data.shared_posts);
+        setFolderInfo(response.data);
       })
       .catch((err) => err.response);
   };
@@ -95,7 +98,18 @@ function MyPage(props: PropType) {
     axios
       .get<{ liked_posts: SimplePostType[] }>(`/user/${props.id}/like/`)
       .then(function (response) {
-        setPosts(response.data.liked_posts);
+        setLikedPosts(response.data.liked_posts);
+        setSelected(1);
+      })
+      .catch((err) => err.response);
+  };
+
+  const onClickShare = () => {
+    axios
+      .get<{ shared_posts: SimplePostType[] }>(`/user/${props.id}/share/`)
+      .then(function (response) {
+        setSharedPosts(response.data.shared_posts)
+        setSelected(2);
       })
       .catch((err) => err.response);
   };
@@ -115,102 +129,156 @@ function MyPage(props: PropType) {
         profile_image={props.loggedUser.profile_image}
         onEditProfile={onEditProfile}
       />
-      {props.loggedUser.id === props.id && (
-        <div className="Folder">
-          <div className="left">
-            <div className="folderHead">
-              Folders
-              {toggle && (
-                <img
-                  className="icon"
-                  src={button_up}
-                  onClick={() => setToggle(!toggle)}
-                />
-              )}
-              {!toggle && (
-                <img
-                  className="icon"
-                  src={button_down}
-                  onClick={() => setToggle(!toggle)}
-                />
-              )}
-            </div>
-            {toggle &&
-              props.loggedUser.folders &&
-              props.loggedUser.folders.map((fold: Folder) => {
-                if (folderInputs.folderId === fold.id) {
-                  return (
-                    <div className="folder_input_container eachItem">
-                      <input
-                        id="edit_folder_input"
-                        type="text"
-                        value={folderInputs.folderName}
-                        onChange={onChangeEditFolder}
-                        placeholder="변경할 폴더 이름"
-                      />
-                      <img
-                        className="icon"
-                        src={edit_btn}
-                        onClick={() => onEditFolder(fold.id)}
-                      />
-                    </div>
-                  );
-                } else {
-                  return (
-                    <div className="eachItem" key={fold.id}>
-                      <div
-                        className="folder_name"
-                        onClick={() => {
-                          onClickFolder(fold.id);
-                        }}
-                      >
-                        {fold.name}{" "}
-                      </div>
-                      <img
-                        className="icon"
-                        src={edit_btn}
-                        onClick={() => onClickEditFolder(fold.id, fold.name)}
-                      />
-                      <img
-                        className="icon"
-                        src={delete_btn}
-                        onClick={() => onDeleteFolder(fold.id)}
-                      />
-                    </div>
-                  );
-                }
-              })}
-            <div className="left_button">
-              <button onClick={onClickLike} className="folderHead">
-                Like Routes
-              </button>
-            </div>
-            <div className="left_button">
-              <button onClick={onClickShare} className="folderHead">
-                Shared Routes
-              </button>
-            </div>
+      <div className="folder">
+        <div className="left">
+          <div className="folderHead">
+            Folders
+            {toggle && (
+              <img
+                className="icon"
+                src={button_up}
+                onClick={() => setToggle(!toggle)}
+              />
+            )}
+            {!toggle && (
+              <img
+                className="icon"
+                src={button_down}
+                onClick={() => setToggle(!toggle)}
+              />
+            )}
           </div>
+          {toggle && props.loggedUser.folders &&
+            props.loggedUser.folders.map((fold: Folder) => {
+              if (folderInputs.folderId === fold.id) {
+                return (
+                  <div className="folder_input_container eachItem">
+                    <input
+                      id="edit_folder_input"
+                      type="text"
+                      value={folderInputs.folderName}
+                      onChange={onChangeEditFolder}
+                      placeholder="변경할 폴더 이름"
+                    />
+                    <img className="icon" src={edit_btn} onClick={() => onEditFolder(fold.id)} />
+                  </div>
+                )
+              } else {
+                return (
+                  <div className="eachItem" key={fold.id}>
+                    <div
+                      className="folder-name"
+                      onClick={() => {
+                        onClickFolder(fold.id);
+                      }}
+                    >
+                      {fold.name}{" "}
+                    </div>
+                    <img className="icon" src={edit_btn} onClick={() => onClickEditFolder(fold.id, fold.name)} />
+                    <img className="icon" src={delete_btn} onClick={() => onDeleteFolder(fold.id)} />
+                  </div>
+                );
+              }
+            })}
+          <div className="left_button">
+            <button onClick={onClickLike} className="folderHead">
+              Like Routes
+            </button>
+          </div>
+          <div className="left_button">
+            <button onClick={onClickShare} className="folderHead">
+              Shared Routes
+            </button>
+          </div>
+        </div>
 
-          <div className="right">
-            <div className="route_image">
-              {posts &&
-                posts.map((post) => {
+        <div className="right">
+          <div className="posts-container">
+            <div className="folder-my-posts">
+              {(selected === 0) &&
+                folderInfo.my_posts?.map((post) => {
                   return (
                     <PostItem
                       key={post.id}
                       id={post.id}
                       thumbnail_image={post.thumbnail_image}
                       title={post.title}
-                      author_name={post.author}
+                      author_name={post.author_name}
                       author_id={post.author_id}
+                      like_count={post.like_count}
+                      comment_count={post.comment_count}
+                      is_shared={post.is_shared}
                     />
                   );
                 })}
             </div>
+            <div className="folder-posts">
+              {(selected === 0) &&
+                folderInfo.posts?.map((post) => {
+                  return (
+                    <PostItem
+                      key={post.id}
+                      id={post.id}
+                      thumbnail_image={post.thumbnail_image}
+                      title={post.title}
+                      author_name={post.author_name}
+                      author_id={post.author_id}
+                      like_count={post.like_count}
+                      comment_count={post.comment_count}
+                      is_shared={post.is_shared}
+                    />
+                  );
+                })}
+            </div>
+            <div className="folder-places">
+              {(selected === 0) &&
+                folderInfo.places?.map((place) => {
+                  return (
+                    <PlaceItem
+                      key={place.id}
+                      place={place}
+                    />
+                  );
+                })}
+
+            </div>
+            {(selected === 1) && likedPosts &&
+              likedPosts.map((post) => {
+                return (
+                  <PostItem
+                    key={post.id}
+                    id={post.id}
+                    thumbnail_image={post.thumbnail_image}
+                    title={post.title}
+                    author_name={post.author_name}
+                    author_id={post.author_id}
+                    like_count={post.like_count}
+                    comment_count={post.comment_count}
+                    is_shared={post.is_shared}
+                  />
+                );
+              })
+            }
+            {(selected === 2) && sharedPosts &&
+              sharedPosts.map((post) => {
+                return (
+                  <PostItem
+                    key={post.id}
+                    id={post.id}
+                    thumbnail_image={post.thumbnail_image}
+                    title={post.title}
+                    author_name={post.author_name}
+                    author_id={post.author_id}
+                    like_count={post.like_count}
+                    comment_count={post.comment_count}
+                    is_shared={post.is_shared}
+                  />
+                );
+              })
+            }
           </div>
         </div>
-      )}
+      </div>
     </div>
   );
 }

@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import search from "../static/search.svg";
 import { getPostsAction, searchAction } from "../store/Post/postAction";
 import "../styles/components/Search.scss";
-import { SearchType } from "../store/Post/postInterfaces";
+import { SimplePostType } from "../store/Post/postInterfaces";
 import PostItem from "../components/PostItem";
 import { useSearchPostState } from "../hooks/usePostsState";
 
@@ -13,7 +13,7 @@ function Search() {
     keyword: "",
     season: "",
     location: "",
-    days: "1",
+    days: "",
     theme: "",
     transportation: "",
   });
@@ -107,9 +107,9 @@ function Search() {
             onClick={() =>
               userInputs.season != "spr"
                 ? setUserInputs({
-                    ...userInputs,
-                    season: "spr",
-                  })
+                  ...userInputs,
+                  season: "spr",
+                })
                 : setUserInputs({ ...userInputs, season: "" })
             }
           >
@@ -121,9 +121,9 @@ function Search() {
             onClick={() =>
               userInputs.season != "sum"
                 ? setUserInputs({
-                    ...userInputs,
-                    season: "sum",
-                  })
+                  ...userInputs,
+                  season: "sum",
+                })
                 : setUserInputs({ ...userInputs, season: "" })
             }
           >
@@ -135,9 +135,9 @@ function Search() {
             onClick={() =>
               userInputs.season != "aut"
                 ? setUserInputs({
-                    ...userInputs,
-                    season: "aut",
-                  })
+                  ...userInputs,
+                  season: "aut",
+                })
                 : setUserInputs({ ...userInputs, season: "" })
             }
           >
@@ -149,9 +149,9 @@ function Search() {
             onClick={() =>
               userInputs.season != "win"
                 ? setUserInputs({
-                    ...userInputs,
-                    season: "win",
-                  })
+                  ...userInputs,
+                  season: "win",
+                })
                 : setUserInputs({ ...userInputs, season: "" })
             }
           >
@@ -165,7 +165,7 @@ function Search() {
             id="days"
             className="search-days"
             type="number"
-            placeholder="1"
+            placeholder="0"
             min="1"
             value={userInputs.days}
             onChange={onChangeInputs}
@@ -180,13 +180,13 @@ function Search() {
             onClick={() =>
               userInputs.theme != "lover"
                 ? setUserInputs({
-                    ...userInputs,
-                    theme: "lover",
-                  })
+                  ...userInputs,
+                  theme: "lover",
+                })
                 : setUserInputs({
-                    ...userInputs,
-                    theme: "",
-                  })
+                  ...userInputs,
+                  theme: "",
+                })
             }
           >
             연인과 함께
@@ -197,32 +197,31 @@ function Search() {
             onClick={() =>
               userInputs.theme != "family"
                 ? setUserInputs({
-                    ...userInputs,
-                    theme: "family",
-                  })
+                  ...userInputs,
+                  theme: "family",
+                })
                 : setUserInputs({
-                    ...userInputs,
-                    theme: "",
-                  })
+                  ...userInputs,
+                  theme: "",
+                })
             }
           >
             가족과 함께
           </button>
           <button
             id="theme"
-            className={`theme${
-              userInputs.theme == "friends" ? "-clicked" : ""
-            }`}
+            className={`theme${userInputs.theme == "friends" ? "-clicked" : ""
+              }`}
             onClick={() =>
               userInputs.theme != "friends"
                 ? setUserInputs({
-                    ...userInputs,
-                    theme: "friends",
-                  })
+                  ...userInputs,
+                  theme: "friends",
+                })
                 : setUserInputs({
-                    ...userInputs,
-                    theme: "",
-                  })
+                  ...userInputs,
+                  theme: "",
+                })
             }
           >
             친구와 함께
@@ -233,13 +232,13 @@ function Search() {
             onClick={() =>
               userInputs.theme != "alone"
                 ? setUserInputs({
-                    ...userInputs,
-                    theme: "alone",
-                  })
+                  ...userInputs,
+                  theme: "alone",
+                })
                 : setUserInputs({
-                    ...userInputs,
-                    theme: "",
-                  })
+                  ...userInputs,
+                  theme: "",
+                })
             }
           >
             나홀로 여행
@@ -250,20 +249,19 @@ function Search() {
           <div className="category">Transportation</div>
           <button
             id="transportation"
-            className={`theme${
-              userInputs.transportation == "True" ? "-clicked" : ""
-            }`}
+            className={`theme${userInputs.transportation == "True" ? "-clicked" : ""
+              }`}
             onClick={() =>
               userInputs.transportation == "False" ||
-              userInputs.transportation == ""
+                userInputs.transportation == ""
                 ? setUserInputs({
-                    ...userInputs,
-                    transportation: "True",
-                  })
+                  ...userInputs,
+                  transportation: "True",
+                })
                 : setUserInputs({
-                    ...userInputs,
-                    transportation: "False",
-                  })
+                  ...userInputs,
+                  transportation: "False",
+                })
             }
           >
             뚜벅이 여행 가능
@@ -287,7 +285,7 @@ function Search() {
           </button>
         </div>
         <div className="search-research-content">
-          {searchedPosts.map((post: SearchType) => {
+          {searchedPosts.map((post: SimplePostType) => {
             return (
               <PostItem
                 key={post.id}
@@ -296,6 +294,9 @@ function Search() {
                 title={post.title}
                 author_name={post.author_name}
                 author_id={post.author_id}
+                like_count={post.like_count}
+                comment_count={post.comment_count}
+                is_shared={post.is_shared}
               />
             );
           })}

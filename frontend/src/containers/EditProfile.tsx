@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { editProfileAction } from "../store/User/userAction";
 import { RootReducerType } from "../store/store";
 import { useHistory } from "react-router-dom";
-import "../styles/components/EditProfile.scss";
+import "../styles/components/EditProfile.css";
 function EditProfile() {
   const dispatch = useDispatch();
   const history = useHistory();
@@ -73,61 +73,62 @@ function EditProfile() {
 
   return (
     <div className="edit-profile-container">
-      <div className="edit-profile-image">
-        {userInputs.profile_image_url &&
-          <img className="profile-image-preview" src={userInputs.profile_image_url} />}
-      </div>
-      <div className="edit-profile-form-container">
-        <div className="inputs">
-          <div className="label">Username</div>
+      <div className="edit-profile-title">Profile</div>
+      <div className="edit-profile-content">
+        <div className="edit-profile-image">
+          {userInputs.profile_image_url &&
+            <img className="profile-image-preview" src={userInputs.profile_image_url} />}
           <input
-            id="username"
-            type="text"
-            value={userInputs.username}
-            onChange={onChangeInputs}
-            placeholder="변경할 닉네임를 입력해 주세요."
-          />
-        </div>
-        <div className="inputs">
-          <div className="label">Password</div>
-          <input
-            id="password"
-            type="password"
-            value={userInputs.password}
-            onChange={onChangeInputs}
-            placeholder="변경할 비밀번호를 입력해 주세요."
-          />
-        </div>
-        <div className="inputs">
-          <div className="label">Password</div>
-          <input
-            id="password2"
-            type="password"
-            value={userInputs.password2}
-            onChange={onChangeInputs}
-            placeholder="변경할 비밀번호를 다시 입력해 주세요."
-          />
-        </div>
-        <div className="inputs">
-          <div className="label">Profile Image</div>
-          <input
-            id="profile_image"
+            id="profile-image"
             type="file"
             accept="image/*"
             onChange={onChangeFile}
-            placeholder="프로필 사진"
-          />
+            placeholder="프로필 사진" />
+          <label htmlFor="profile-image">
+            <button className="upload-image-button">Change Image</button>
+          </label>
         </div>
-        <div>
+        <div className="edit-profile-form-container">
           <div className="inputs">
-            <button
-              onClick={onClickEditProfileButton}
-              disabled={!userInputs.username || !userInputs.password}
-              className="edit-profile-btn"
-            >
-              Update
-            </button>
+            <div className="label">Username</div>
+            <input
+              id="username"
+              type="text"
+              value={userInputs.username}
+              onChange={onChangeInputs}
+              placeholder="변경할 닉네임를 입력해 주세요."
+            />
           </div>
+          <div className="line"></div>
+          <div className="inputs">
+            <div className="label">Password</div>
+            <input
+              id="password"
+              type="password"
+              value={userInputs.password}
+              onChange={onChangeInputs}
+              placeholder="변경할 비밀번호를 입력해 주세요."
+            />
+          </div>
+          <div className="line"></div>
+          <div className="inputs">
+            <div className="label">Password</div>
+            <input
+              id="password2"
+              type="password"
+              value={userInputs.password2}
+              onChange={onChangeInputs}
+              placeholder="변경할 비밀번호를 다시 입력해 주세요."
+            />
+          </div>
+          <div className="line"></div>
+          <button
+            onClick={onClickEditProfileButton}
+            disabled={!userInputs.username || !userInputs.password}
+            className="edit-profile-btn"
+          >
+            Edit
+          </button>
         </div>
       </div>
     </div>

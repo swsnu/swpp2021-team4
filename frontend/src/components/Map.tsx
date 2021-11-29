@@ -16,24 +16,22 @@ const dummyPlaces = [
   { day: 1, name: '서운중학교', lat: 37.493508152438245, lon: 127.0247135738803 },
 ]
 
-// interface DummyPlace {
-//   day: number
-//   name: string
-//   lat: number
-//   lon: number
-// }
-
 interface PropType {
-  // marks: any
-  // fromWhere: string // create | edit
-  // days: number
+  fromWhere: 'create'|'edit'|'detail'
   location?: string
   selectedDay?: number
   placeList?: any[]
+  onClickButton?: () => void
 }
 
 function Map(props: PropType) {
-  const { location, selectedDay, placeList = dummyPlaces } = props;
+  const {
+    fromWhere,
+    location,
+    selectedDay,
+    placeList = dummyPlaces,
+    onClickButton,
+  } = props;
   const [locationCenter, setLocationCenter] = useState<any>(null);
   const [markers, setMarkers] = useState<any>([]);
   const map = useRef<any>();
@@ -101,7 +99,10 @@ function Map(props: PropType) {
     <div className="map-container">
       <div className="map-title">Map</div>
       <div id="map" />
-      <div className="map-create-btn">Create</div>
+      {
+        fromWhere !== 'detail' &&
+        <div className="map-create-btn" onClick={onClickButton}>{fromWhere}</div>
+      }
     </div>
   );
 }

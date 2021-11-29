@@ -1,0 +1,147 @@
+.profile {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  font-family: "Montserrat", Monospace;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 28px;
+  line-height: 34px;
+  color: #57ceb9;
+  margin-top: 20px;
+  margin-left: 10%;
+  margin-bottom: 20px;
+}
+
+.folder {
+  margin-top: 5%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+}
+
+.folder .left {
+  width: 25vw;
+  height: 100%;
+  margin-left: 130px;
+  margin-bottom: 100px;
+  background: #F5F6F9;
+  border-radius: 6px;
+  margin-right: 20px;
+}
+
+.folder .left .folderHead {
+  font-family: "Montserrat", Monospace;
+  font-style: normal;
+  margin-left: 4%;
+  margin-top: 8%;
+  color: #57ceb9;
+}
+
+.folder .left .folder-input-container {
+  width: 80%;
+  margin-top: 5%;
+  margin-left: 5%;
+  margin-bottom: 5%;
+  height: 100px;
+}
+
+.folder .left .eachItem {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  background: #ffffff;
+  width: 90%;
+  margin-left: 5%;
+  margin-right: 5%;
+  margin-top: 5%;
+}
+
+.folder .left .eachItem:hover {
+  background: #e2e3e9;
+  -webkit-box-shadow: 0px 0px 0px transparent;
+          box-shadow: 0px 0px 0px transparent;
+  border: 0px solid transparent;
+  text-shadow: 0px 0px 0px transparent;
+  cursor: pointer;
+}
+
+.folder .left .eachItem .folder-name {
+  width: 80%;
+  margin-top: 5%;
+  margin-left: 5%;
+  margin-bottom: 5%;
+}
+
+.folder .left .eachItem .icon {
+  width: 6%;
+  margin-right: 5%;
+}
+
+.folder .left .left_button {
+  margin-bottom: 4%;
+}
+
+.folder .left button {
+  background: transparent;
+  -webkit-box-shadow: 0px 0px 0px transparent;
+          box-shadow: 0px 0px 0px transparent;
+  border: 0px solid transparent;
+  text-shadow: 0px 0px 0px transparent;
+  cursor: pointer;
+}
+
+.folder .left button:hover {
+  background: #57ceb9;
+}
+
+.folder .left button:active {
+  outline: none;
+  border: none;
+}
+
+.folder .left button:focus {
+  outline: 0;
+}
+
+.folder .right {
+  height: -webkit-max-content;
+  height: -moz-max-content;
+  height: max-content;
+  width: 100vw;
+  min-height: 300px;
+  background: #F5F6F9;
+  border-radius: 6px;
+  margin-right: 10%;
+}
+
+.folder .right .posts-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.folder .right .posts-container .folder-my-posts,
+.folder .right .posts-container .folder-posts,
+.folder .right .posts-container .folder-places {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.folder .right .posts-container .folder-my-posts {
+  background-color: #c7eee7;
+}
+/*# sourceMappingURL=MyPage.css.map */
