@@ -35,9 +35,9 @@ function CreateEditPost() {
 
   const [routePlaces, setRoutePlaces] = useState<PlaceDayType[]>([]);
 
-  const onAddPlace = (place: any, index: number) => {
-    setRoutePlaces([...routePlaces, { place, day: selectedDay, index: index }]);
-  };
+  // const onAddPlace = (place: PlaceType) => {
+  //   setRoutePlaces([...routePlaces, { place, day: selectedDay }]);
+  // };
 
   // const onDropPlace = (place:: any)=>{
   //   setRoutePlaces([...routePlaces, {place, day: selectedDay}])
@@ -108,6 +108,7 @@ function CreateEditPost() {
   // const onChangeSearchResults = useCallback((results: any) => {
   //   setSearchResults(results);
   // }, []);
+  
 
   return (
     <div>
@@ -124,7 +125,7 @@ function CreateEditPost() {
             <PlaceSearchSection
               selectedTab={selectedTab}
               onClickTabButton={onClickTabButton}
-              onAddPlace={onAddPlace}
+              setRoutePlaces={setRoutePlaces}
               onDeletePlace={onDeletePlace}
               selectedDay={selectedDay}
               isPlaceInRoute={isPlaceInRoute}
@@ -140,7 +141,7 @@ function CreateEditPost() {
               onClickAddIcon={onClickAddIcon}
               routePlaces={routePlaces}
               onDeletePlace={onDeletePlace}
-              onAddPlace={onAddPlace}
+              setRoutePlaces={setRoutePlaces}
             />
           </div>
         </div>

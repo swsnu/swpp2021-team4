@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { PlaceType } from "../store/Post/postInterfaces";
+import { PlaceType, PlaceDayType } from "../store/Post/postInterfaces";
 import "../styles/components/PlaceSearchSection.scss";
 import CreatePlaceCard from "./CreatePlaceCard";
 import cart from "../static/cart-icon.svg";
@@ -11,9 +11,10 @@ interface PropType {
   selectedTab: "place" | "search";
   selectedDay: number;
   onClickTabButton: (type: "place" | "search") => void;
-  onAddPlace: (place: any) => void;
+  // onAddPlace: (place: any) => void;
   onDeletePlace: (place: any) => void;
   isPlaceInRoute: (place: any) => boolean;
+  setRoutePlaces?: (value: React.SetStateAction<PlaceDayType[]>) => void;
   // searchTabQuery?: string
   // onChangeSearchTabQuery?: (e: React.ChangeEvent<HTMLInputElement>) => void
 }
@@ -22,9 +23,10 @@ function PlaceSearchSection(props: PropType) {
   const {
     selectedTab,
     onClickTabButton,
-    onAddPlace,
+    // onAddPlace,
     onDeletePlace,
     isPlaceInRoute,
+    setRoutePlaces,
     // searchTabQuery,
     // onChangeSearchTabQuery
   } = props;
@@ -32,7 +34,7 @@ function PlaceSearchSection(props: PropType) {
   const [searchTabQuery, setSearchTabQuery] = useState("");
   const [isSearchRequested, setIsSearchRequested] = useState(false);
   const [searchResults, setSearchResults] = useState([]);
-  const [cartPlaceList, setCartPlaceList] = useState<PlaceType[]>([]);
+  const [cartPlaceList, setCartPlaceList] = useState<PlaceDayType[]>([]);
 
   useEffect(() => {
     if (isSearchRequested) {
@@ -78,16 +80,16 @@ function PlaceSearchSection(props: PropType) {
   }, [isSearchRequested, searchTabQuery]);
 
   const isPlaceInCart = (id: number) => {
-    return cartPlaceList.some((p: PlaceType) => p.id === id);
+    return cartPlaceList.some((p: PlaceDayType) => p.place.id === id);
   };
 
   const onClickCartButton = (place: PlaceType) => {
     if (isPlaceInCart(place.id)) {
       setCartPlaceList(
-        cartPlaceList.filter((p: PlaceType) => p.id !== place.id)
+        cartPlaceList.filter((p: PlaceDayType) => p.place.id !== place.id)
       );
     } else {
-      setCartPlaceList([...cartPlaceList, place]);
+      setCartPlaceList([...cartPlaceList, { place: place, day: null }]);
     }
   };
 
@@ -123,6 +125,7 @@ function PlaceSearchSection(props: PropType) {
           {searchResults.map((place: PlaceType) => {
             return (
               <CreatePlaceCard
+                selectedDay={null}
                 id={place.id}
                 key={place.id}
                 place={place}
@@ -130,6 +133,7 @@ function PlaceSearchSection(props: PropType) {
                 type="search"
                 onClickCartButton={onClickCartButton}
                 isPlaceInCart={(id: number) => isPlaceInCart(id)}
+                // setItems={setItems}
               />
             );
           })}
@@ -141,19 +145,22 @@ function PlaceSearchSection(props: PropType) {
   const renderPlaceTab = () => {
     return (
       <div>
-        {cartPlaceList.map((place: PlaceType) => {
+        {cartPlaceList.map((result: PlaceDayType, index) => {
           return (
             <CreatePlaceCard
-              id={place.id}
-              key={place.id}
-              place={place}
-              icon={isPlaceInRoute(place) ? deleteIcon : addIcon}
+              selectedDay={null}
+              index={index}
+              id={result.place.id}
+              key={result.place.id}
+              place={result.place}
+              icon={isPlaceInRoute(result.place) ? deleteIcon : addIcon}
               type="place"
               onClickCartButton={
-                isPlaceInRoute(place) ? onDeletePlace : onAddPlace
+                isPlaceInRoute(result.place) ? onDeletePlace : onDeletePlace
               }
               isPlaceInCart={(id: number) => isPlaceInCart(id)}
               isPlaceInRoute={isPlaceInRoute}
+              setRoutePlaces={setRoutePlaces}
             />
           );
         })}

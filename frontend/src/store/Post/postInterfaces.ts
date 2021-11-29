@@ -72,9 +72,8 @@ export interface PlaceType {
 }
 
 export interface PlaceDayType {
-  index: number;
-  day: number | string;
   place: PlaceType;
+  day?: number | string | null;
 }
 
 export interface CommentType {

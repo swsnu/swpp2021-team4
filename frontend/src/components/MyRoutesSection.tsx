@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useCallback } from "react";
 import "../styles/components/MyRoutesSection.scss";
 import addIcon from "../static/add_day_icon.svg";
-import { PlaceDayType, PlaceType } from "../store/Post/postInterfaces";
+import { PlaceDayType } from "../store/Post/postInterfaces";
 import deleteIcon from "../static/delete.svg";
 import CreatePlaceCard from "./CreatePlaceCard";
 import Path from "./Path";
@@ -16,13 +16,14 @@ interface PropType {
   onClickDay: (value: number) => void;
   onClickAddIcon: (value: number) => void;
   onDeletePlace: (place: any) => void;
-  onAddPlace: (place: any) => void;
+  setRoutePlaces: (value: React.SetStateAction<PlaceDayType[]>) => void;
 }
 
-interface ItemType {
-  type: string;
-  place: PlaceType;
-}
+// interface ItemType {
+//   type: string;
+//   place: PlaceType;
+//   selectedDay: number | null;
+// }
 
 function MyRoutesSection(props: PropType) {
   const {
@@ -32,7 +33,6 @@ function MyRoutesSection(props: PropType) {
     onClickAddIcon,
     routePlaces,
     onDeletePlace,
-    onAddPlace,
   } = props;
 
   const [todayPlaceList, setTodayPlaceList] = useState<PlaceDayType[]>([]);
@@ -46,14 +46,19 @@ function MyRoutesSection(props: PropType) {
   const movePlace = useCallback(
     (dragIndex: number, hoverIndex: number) => {
       const dragCard = todayPlaceList[dragIndex];
-      setTodayPlaceList(
-        update(todayPlaceList, {
-          $splice: [
-            [dragIndex, 1],
-            [hoverIndex, 0, dragCard],
-          ],
-        })
-      );
+      if (dragCard) {
+        props.setRoutePlaces(
+          update(
+            routePlaces.filter((p: PlaceDayType) => p.day == selectedDay),
+            {
+              $splice: [
+                [dragIndex, 1],
+                [hoverIndex, 0, dragCard],
+              ],
+            }
+          )
+        );
+      }
     },
     [todayPlaceList]
   );
@@ -78,11 +83,12 @@ function MyRoutesSection(props: PropType) {
 
   const [{ background }, drop] = useDrop({
     accept: ItemTypes.CARD,
-    drop: (item: ItemType) => onAddPlace(item.place),
+    drop: () => ({ day: props.selectedDay }),
     collect: (monitor) => ({
       background: monitor.isOver() ? "#e2e3e9" : "#f6f6f9",
     }),
   });
+  console.log(todayPlaceList);
 
   return (
     <div className="my-routes-container">
@@ -108,12 +114,15 @@ function MyRoutesSection(props: PropType) {
         style={{ background }}
         ref={drop}
       >
-        {todayPlaceList.map((result: PlaceDayType, index: number) => {
+        {todayPlaceList.map((result: PlaceDayType, index) => {
           const { place } = result;
           return (
             <>
               <CreatePlaceCard
-                key={index}
+                setRoutePlaces={props.setRoutePlaces}
+                selectedDay={props.selectedDay}
+                index={index}
+                key={place.id}
                 id={place.id}
                 place={place}
                 icon={deleteIcon}
