@@ -13,6 +13,7 @@ describe('<PostHeader />', () => {
             title: '',
             author_name: '',
             author_id: 1,
+            is_shared: true,
             location: '',
             days: 1,
             season: '',
@@ -56,6 +57,17 @@ describe('<PostHeader />', () => {
             onClickAddPostCartButton={() => { }}
             onClickPostLikeButton={() => { }} />);
         wrapper = component.find('.liked');
+        expect(wrapper.length).toBe(1);
+
+        post.is_shared = false;
+
+        component = shallow(<PostHeader
+            loggedUserId={1}
+            post={post}
+            isPostDetail={true}
+            onClickAddPostCartButton={() => { }}
+            onClickPostLikeButton={() => { }} />);
+        wrapper = component.find('.post-share-button');
         expect(wrapper.length).toBe(1);
     });
 
