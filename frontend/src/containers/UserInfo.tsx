@@ -6,22 +6,7 @@ import PostHeader from "../components/PostHeader";
 import { getPostAction } from "../store/Post/postAction";
 import { UserType } from "../store/User/userInterfaces";
 import BasicUserInfo from "../components/BasicUserInfo";
-
-interface HeaderPostType {
-  id: number;
-  thumbnail_image: string;
-  title: string;
-  author_name: string;
-  author_id: number;
-  location: string;
-  days: number;
-  season: string;
-  theme: string;
-  like_counts: number;
-  comment_counts: number;
-  availableWithoutCar: boolean;
-  created_at: string;
-}
+import { HeaderPostType } from "../store/Post/postInterfaces";
 
 interface PropType {
   loggedUser: UserType;
@@ -80,13 +65,14 @@ function UserInfo(props: PropType) {
       <div className="user-posts">
         {posts.map((post) => {
           return (
-            <PostHeader
-              key={post.id}
-              loggedUserId={props.loggedUser.id}
-              post={post}
-              isPostDetail={false}
-              onClickPostLikeButton={onClickPostLikeButton}
-            />);
+            <div key={post.id} className="user-post">
+              <PostHeader
+                loggedUserId={props.loggedUser.id}
+                post={post}
+                isPostDetail={false}
+                onClickPostLikeButton={onClickPostLikeButton}
+              />
+            </div>);
         })}
       </div>
     </div>

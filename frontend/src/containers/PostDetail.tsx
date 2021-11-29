@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
-import { useParams, NavLink } from "react-router-dom";
+import { useParams, NavLink, useHistory } from "react-router-dom";
 import { usePostState } from "../hooks/usePostState";
 import {
   cartPostAction,
@@ -26,6 +26,7 @@ import { Folder } from "../store/User/userInterfaces";
 
 function PostDetail() {
   const dispatch = useDispatch();
+  const history = useHistory();
   const { id } = useParams<any>();
   const { loggedUser } = useSelector((state: RootReducerType) => state.user);
 
@@ -60,15 +61,15 @@ function PostDetail() {
       setSelectedPlaceId(0);
     }
   }
-  
-  const onClickFolderSelect = (folder: Folder|null) => {
+
+  const onClickFolderSelect = (folder: Folder | null) => {
     if (!folder?.id) {
       alert("서버 에러!");
       setIsModalVisible(false);
       return;
     }
 
-    alert("장바구니에 성공적으로 담겼습니다!");    
+    alert("장바구니에 성공적으로 담겼습니다!");
     if (isPostAddedToCart) {
       // add current post to cart
       dispatch(cartPostAction(Number(id), folder.id));
@@ -76,13 +77,12 @@ function PostDetail() {
     } else {
       // add selected place to cart
       axios.post(`/place/${selectedPlaceId}/cart/${folder.id}/`)
-      .then(() => setSelectedPlaceId(0))
-      .catch(() => alert('문제가 발생하여 카트에 저장되지 않았습니다!'));
+        .then(() => setSelectedPlaceId(0))
+        .catch(() => alert('문제가 발생하여 카트에 저장되지 않았습니다!'));
     }
     setIsModalVisible(false);
   };
 
-  
   // place의 타입 정의 후 any 고치기
   const post = usePostState();
 
@@ -112,6 +112,23 @@ function PostDetail() {
       }
       return placeList;
     } else return null;
+  };
+
+  const onClickPostShareButton = () => {
+    if (!post.location || !post.days || !post.season || !post.theme) {
+      alert('모든 필드를 다 채워야 공유할 수 있습니다!');
+      return;
+    }
+
+    if (confirm('이 루트를 다른 사용자에게 공유하시겠습니까?')) {
+      axios
+        .get(`/post/${post.id}/share/`)
+        .then(function () {
+          post.is_shared = true;
+          history.push(`/post/${post.id}/`)
+        })
+        .catch((err) => err.response);
+    }
   };
 
   const onClickPostLikeButton = () => {
@@ -161,6 +178,7 @@ function PostDetail() {
           post={post}
           isPostDetail={true}
           onClickAddPostCartButton={onClickAddPostCartButton}
+          onClickPostShareButton={onClickPostShareButton}
           onClickPostLikeButton={onClickPostLikeButton}
         />
         <div className="post-detail-body">
@@ -178,11 +196,10 @@ function PostDetail() {
                 };
               })}
             />
-            <div className="body-comments-container">
+            <div className="body-comments-container" hidden={!post.is_shared}>
               <div
-                className={`comment-input-container ${
-                  loggedUser.id ? `visible` : `invisible`
-                }`}
+                className={`comment-input-container ${loggedUser.id ? `visible` : `invisible`
+                  }`}
               >
                 {post.liked ? (
                   <img
@@ -232,9 +249,8 @@ function PostDetail() {
                           </span>
                           <button
                             id="delete-comment-button"
-                            className={`visible-${
-                              loggedUser.username === comment.username
-                            }`}
+                            className={`visible-${loggedUser.username === comment.username
+                              }`}
                             onClick={() => onClickCommentDelete(comment.id)}
                           >
                             <img src={delete_icon} />
