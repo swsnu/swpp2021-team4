@@ -4,33 +4,15 @@ import border from "../static/post_info_border.svg";
 import comment_icon from "../static/comment-icon.svg";
 import like_icon from "../static/like-icon.svg";
 import unlike_icon from "../static/unlike-icon.svg";
-import { CommentType } from "../store/Post/postInterfaces";
 import "../styles/components/PostHeader.css";
 import created_at_icon from "../static/created-at-icon.svg";
-
-interface HeaderPostType {
-  id: number;
-  thumbnail_image: string;
-  folder_name?: string;
-  title: string;
-  author_name: string;
-  author_id: number;
-  location: string;
-  days: number;
-  season: string;
-  theme: string;
-  like_counts: number;
-  comments?: Array<CommentType>;
-  comment_counts?: number;
-  availableWithoutCar: boolean;
-  liked?: boolean;
-  created_at: string;
-}
+import { HeaderPostType } from "../store/Post/postInterfaces";
 
 interface PropType {
   loggedUserId: number;
   post: HeaderPostType;
   isPostDetail: boolean;
+  onClickPostShareButton?: () => void;
   onClickAddPostCartButton?: () => void;
   onClickPostLikeButton: () => void;
 }
@@ -55,7 +37,7 @@ function PostHeader(props: PropType) {
   return (
     <div className="post-header">
       <div className="header-image">
-        <img src="https://media.triple.guide/triple-cms/c_limit,f_auto,h_1024,w_1024/73968eea-cbbe-49cd-b001-353e9e962cbf.jpeg" />
+        <img src={props.post.thumbnail_image ? props.post.thumbnail_image : "https://media.triple.guide/triple-cms/c_limit,f_auto,h_1024,w_1024/73968eea-cbbe-49cd-b001-353e9e962cbf.jpeg"} />
       </div>
       <div className="header-content-left">
         <div className="header-top">
@@ -90,8 +72,8 @@ function PostHeader(props: PropType) {
             </NavLink>
           </div>
           <div className="post-tag-container">
-            <span className="post-tag">{postSeason()}</span>
-            <span className="post-tag">{postTheme()}</span>
+            <span className="post-tag season">{postSeason()}</span>
+            <span className="post-tag theme">{postTheme()}</span>
             <span className={`post-tag ${props.post.availableWithoutCar}`}>
               뚜벅이 여행 가능
             </span>
@@ -100,7 +82,7 @@ function PostHeader(props: PropType) {
       </div>
       <div className="header-content-right">
         <div className="header-top">
-          {isAuthenticated && props.isPostDetail && (
+          {isAuthenticated && props.isPostDetail && props.post.is_shared && (
             <button
               className="post-cart-button"
               onClick={props.onClickAddPostCartButton}
@@ -114,28 +96,38 @@ function PostHeader(props: PropType) {
           </div>
         </div>
         <div className="header-bottom">
-          {isAuthenticated && props.isPostDetail && props.post.liked && (
+          {props.post.is_shared && isAuthenticated && props.isPostDetail && props.post.liked && (
             <img
               className="post-like-icon liked"
               onClick={props.onClickPostLikeButton}
               src={like_icon}
             />
           )}
-          {isAuthenticated && props.isPostDetail && !props.post.liked && (
+          {props.post.is_shared && isAuthenticated && props.isPostDetail && !props.post.liked && (
             <img
               className="post-like-icon unliked"
               onClick={props.onClickPostLikeButton}
               src={unlike_icon}
             />
           )}
-          {!(isAuthenticated && props.isPostDetail) && (
+          {props.post.is_shared && !(isAuthenticated && props.isPostDetail) && (
             <img className="post-like-icon unliked" src={unlike_icon} />
           )}
-          {props.post.like_counts}
-          <img className="post-comment-icon" src={comment_icon} />
+          {props.post.is_shared && props.post.like_counts}
+          {props.post.is_shared && (
+            <img className="post-comment-icon" src={comment_icon} />
+          )}
           {props.post.comments
-            ? props.post.comments.length
-            : props.post.comment_counts}
+            ? props.post.is_shared && props.post.comments.length
+            : props.post.is_shared && props.post.comment_counts}
+          {props.isPostDetail && !props.post.is_shared && (
+            <button
+              className="post-share-button"
+              onClick={props.onClickPostShareButton}
+            >
+              Share
+            </button>
+          )}
         </div>
       </div>
     </div>

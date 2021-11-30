@@ -16,13 +16,6 @@ const dummyPlaces = [
   { day: 1, name: '서운중학교', lat: 37.493508152438245, lon: 127.0247135738803 },
 ]
 
-// interface DummyPlace {
-//   day: number
-//   name: string
-//   lat: number
-//   lon: number
-// }
-
 interface PropType {
   fromWhere: 'create'|'edit'|'detail'
   location?: string

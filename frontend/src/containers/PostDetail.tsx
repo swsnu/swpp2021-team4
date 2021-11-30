@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
-import { useParams, NavLink } from "react-router-dom";
+import { useParams, NavLink, useHistory } from "react-router-dom";
 import { usePostState } from "../hooks/usePostState";
 import {
   cartPostAction,
@@ -12,11 +12,8 @@ import "../styles/components/PostDetail.css";
 import "../styles/components/Place.css";
 import Map from "../components/Map";
 import cart from "../static/cart-icon.svg";
-import edit_btn from "../static/edit-icon.svg";
-import { addFolderAction, editFolderAction } from "../store/User/userAction";
 import { CommentType, PlaceType } from "../store/Post/postInterfaces";
 import Place from "../components/Place";
-import { useFolderState } from "../hooks/useFolderState";
 import { RootReducerType } from "../store/store";
 import profile_image from "../static/profile.png";
 import delete_icon from "../static/delete-icon.svg";
@@ -24,94 +21,71 @@ import hover_delete_icon from "../static/hover-delete-icon.svg";
 import PostHeader from "../components/PostHeader";
 import like_icon from "../static/like-icon.svg";
 import unlike_icon from "../static/unlike-icon.svg";
+import SelectFolderModal from "./SelectFolderModal";
+import { Folder } from "../store/User/userInterfaces";
 
 function PostDetail() {
-  interface FolderType {
-    id: number;
-    name: string;
-  }
   const dispatch = useDispatch();
+  const history = useHistory();
   const { id } = useParams<any>();
   const { loggedUser } = useSelector((state: RootReducerType) => state.user);
+
   useEffect(() => {
     dispatch(getPostAction(Number(id)));
   }, [dispatch, id]);
-  const [clicked, setClicked] = useState(true);
+
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [isPostAddedToCart, setIsPostAddedToCart] = useState(false);
+  const [selectedPlaceId, setSelectedPlaceId] = useState(0); // tracks which place user try to put in cart
+
   const onClickAddPostCartButton = () => {
-    setClicked(false);
-    return clicked;
+    // executed when user clicks 'Add this route to cart' button
+    setIsPostAddedToCart(true);
+    setIsModalVisible(true);
   };
-  const onClickFolderSelect = (folderId: number) => {
+
+  const onClickAddPlaceCartButton = (placeId: number) => {
+    // executed when user clicks place's cart icon
+    setIsModalVisible(true);
+    setSelectedPlaceId(placeId);
+  }
+
+  const onClickModalBackground = () => {
+    if (isModalVisible) {
+      setIsModalVisible(false);
+    }
+    if (isPostAddedToCart) {
+      setIsPostAddedToCart(false);
+    }
+    if (selectedPlaceId) {
+      setSelectedPlaceId(0);
+    }
+  }
+
+  const onClickFolderSelect = (folder: Folder | null) => {
+    if (!folder?.id) {
+      alert("서버 에러!");
+      setIsModalVisible(false);
+      return;
+    }
+
     alert("장바구니에 성공적으로 담겼습니다!");
-    setClicked(true);
-    dispatch(cartPostAction(Number(id), folderId));
-  };
-
-  const [isFolderAdding, setIsFolderAdding] = useState(false);
-  const [folderInputs, setFolderInputs] = useState({
-    folderId: 0,
-    folderName: "",
-    newFolderName: "",
-  });
-
-  const onChangeEditFolder = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFolderInputs({
-      ...folderInputs,
-      folderName: e.target.value,
-    });
-  };
-
-  const onChangeAddFolder = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFolderInputs({
-      ...folderInputs,
-      newFolderName: e.target.value,
-    });
-  };
-
-  const onClickAddFolder = () => {
-    setIsFolderAdding(true);
-  };
-
-  const onClickEditFolder = (folder_id: number, folder_name: string) => {
-    setFolderInputs({
-      ...folderInputs,
-      folderId: folder_id,
-      folderName: folder_name,
-    });
-  };
-
-  const onEditFolder = (folder_id: number) => {
-    dispatch(
-      editFolderAction(
-        loggedUser.id,
-        folder_id,
-        { folder_name: folderInputs.folderName },
-        (value) => {
-          if (value)
-            setFolderInputs({ ...folderInputs, folderId: 0, folderName: "" });
-        }
-      )
-    );
-  };
-
-  const onAddFolder = () => {
-    dispatch(
-      addFolderAction(loggedUser.id, folderInputs.newFolderName, (value) =>
-        setIsFolderAdding(!value)
-      )
-    );
-    setFolderInputs({ ...folderInputs, newFolderName: "" });
+    if (isPostAddedToCart) {
+      // add current post to cart
+      dispatch(cartPostAction(Number(id), folder.id));
+      setIsPostAddedToCart(false);
+    } else {
+      // add selected place to cart
+      axios.post(`/place/${selectedPlaceId}/cart/${folder.id}/`)
+        .then(() => setSelectedPlaceId(0))
+        .catch(() => alert('문제가 발생하여 카트에 저장되지 않았습니다!'));
+    }
+    setIsModalVisible(false);
   };
 
   // place의 타입 정의 후 any 고치기
   const post = usePostState();
-  const folders = useFolderState();
-  // console.log(post);
-  // const folderMapping = () => {
-  //   folders.map((folder: FolderType) => {
-  //     return <div key={folder.id}>{folder.name}</div>;
-  //   });
-  // };
+
   const placeMapping = () => {
     if (post.places) {
       const places = post.places;
@@ -129,7 +103,7 @@ function PostDetail() {
                     key={days.index}
                     place={dayPlace}
                     icon={cart}
-                    onClickButton={() => onClickAddPostCartButton()}
+                    onClickButton={onClickAddPlaceCartButton}
                   />
                 );
               })}
@@ -138,6 +112,23 @@ function PostDetail() {
       }
       return placeList;
     } else return null;
+  };
+
+  const onClickPostShareButton = () => {
+    if (!post.location || !post.days || !post.season || !post.theme) {
+      alert('모든 필드를 다 채워야 공유할 수 있습니다!');
+      return;
+    }
+
+    if (confirm('이 루트를 다른 사용자에게 공유하시겠습니까?')) {
+      axios
+        .get(`/post/${post.id}/share/`)
+        .then(function () {
+          post.is_shared = true;
+          history.push(`/post/${post.id}/`)
+        })
+        .catch((err) => err.response);
+    }
   };
 
   const onClickPostLikeButton = () => {
@@ -178,12 +169,16 @@ function PostDetail() {
 
   return (
     <>
-      <div className="post-detail-container">
+      <div
+        className="post-detail-container"
+        onClick={onClickModalBackground}
+      >
         <PostHeader
           loggedUserId={loggedUser.id}
           post={post}
           isPostDetail={true}
           onClickAddPostCartButton={onClickAddPostCartButton}
+          onClickPostShareButton={onClickPostShareButton}
           onClickPostLikeButton={onClickPostLikeButton}
         />
         <div className="post-detail-body">
@@ -201,11 +196,10 @@ function PostDetail() {
                 };
               })}
             />
-            <div className="body-comments-container">
+            <div className="body-comments-container" hidden={!post.is_shared}>
               <div
-                className={`comment-input-container ${
-                  loggedUser.id ? `visible` : `invisible`
-                }`}
+                className={`comment-input-container ${loggedUser.id ? `visible` : `invisible`
+                  }`}
               >
                 {post.liked ? (
                   <img
@@ -255,9 +249,8 @@ function PostDetail() {
                           </span>
                           <button
                             id="delete-comment-button"
-                            className={`visible-${
-                              loggedUser.username === comment.username
-                            }`}
+                            className={`visible-${loggedUser.username === comment.username
+                              }`}
                             onClick={() => onClickCommentDelete(comment.id)}
                           >
                             <img src={delete_icon} />
@@ -277,78 +270,11 @@ function PostDetail() {
           </div>
         </div>
       </div>
-      <div className={`folder-select-modal ${clicked && `invisible`}`}>
-        <div className="folder-modal-top">
-          <div className="folder-modal-title">Select a Folder!</div>
-          <button className="close-button" onClick={() => setClicked(true)}>
-            X
-          </button>
-        </div>
-        <div className="folder-modal-middle">
-          {folders &&
-            folders.map((folder: FolderType) => {
-              if (folderInputs.folderId === folder.id) {
-                return (
-                  <div className="folder-modal-name">
-                    <input
-                      id="edit-folder-input"
-                      type="text"
-                      value={folderInputs.folderName}
-                      onChange={onChangeEditFolder}
-                    />
-                    <img
-                      className="icon"
-                      src={edit_btn}
-                      onClick={() => onEditFolder(folder.id)}
-                    />
-                  </div>
-                );
-              } else {
-                return (
-                  <div key={folder.id}>
-                    <div
-                      className="folder-modal-name"
-                      onClick={() => onClickFolderSelect(folder.id)}
-                    >
-                      {folder.name}
-                    </div>
-                    <img
-                      className="icon"
-                      src={edit_btn}
-                      onClick={() => onClickEditFolder(folder.id, folder.name)}
-                    />
-                  </div>
-                );
-              }
-            })}
-          {isFolderAdding && (
-            <div className="add-folder">
-              <input
-                id="add-folder-input"
-                type="text"
-                value={folderInputs.newFolderName}
-                onChange={onChangeAddFolder}
-              />
-              <img
-                className="icon"
-                src={edit_btn}
-                onClick={() => onAddFolder()}
-              />
-            </div>
-          )}
-          <div className="add-folder" onClick={() => onClickAddFolder()}>
-            Add Folder
-          </div>
-        </div>
-        <div className="folder-modal-bottom">
-          {/* <button
-            className="folder-select-button"
-            onClick={() => onClickFolderSelect()}
-          >
-            Select
-          </button> */}
-        </div>
-      </div>
+
+      <SelectFolderModal
+        isModalVisible={isModalVisible}
+        onClickSelectButton={onClickFolderSelect}
+      />
     </>
   );
 }

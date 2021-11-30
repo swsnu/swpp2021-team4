@@ -12,6 +12,7 @@ interface PropType {
   author_id: number;
   like_count: number;
   comment_count: number;
+  is_shared: boolean;
 }
 
 function PostItem(props: PropType) {
@@ -37,12 +38,14 @@ function PostItem(props: PropType) {
               {props.author_name}
             </NavLink>
           </div>
-          <div className="counts">
-            <img className="post-like-icon unliked" src={unlike_icon} />
-            {props.like_count}
-            <img className="post-comment-icon" src={comment_icon} />
-            {props.comment_count}
-          </div>
+          {props.is_shared && (
+            <div className="counts">
+              <img className="post-like-icon unliked" src={unlike_icon} />
+              {props.like_count}
+              <img className="post-comment-icon" src={comment_icon} />
+              {props.comment_count}
+            </div>
+          )}
         </div>
       </div>
     </div>

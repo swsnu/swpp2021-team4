@@ -1,18 +1,13 @@
 import { createStore, combineReducers, applyMiddleware, compose } from "redux";
-import thunk from "redux-thunk";
-import { connectRouter, routerMiddleware } from "connected-react-router";
-import { createBrowserHistory } from "history";
-
+import { connectRouter } from "connected-react-router";
 import { history, middlewares } from "../store/store";
-import * as actionTypes from "../store/actionTypes";
-import postReducer from "../store/Post/postReducer";
-import userReducer from "../store/User/userReducer";
+
 declare global {
   interface Window {
     __REDUX_DEVTOOLS_EXTENSION_COMPOSE__?: typeof compose;
   }
 }
-const getMockTodoReducer = jest.fn(
+const getMockUserReducer = jest.fn(
   (initialState) =>
     (state = initialState, action: { type: any }) => {
       switch (action.type) {
@@ -23,8 +18,29 @@ const getMockTodoReducer = jest.fn(
     }
 );
 
-export const getMockStore = () => {
-  const postReducer = getMockTodoReducer({
+const getMockPostReducer = jest.fn(
+  (initialState) =>
+    (state = initialState, action: { type: any }) => {
+      switch (action.type) {
+        default:
+          break;
+      }
+      return state;
+    }
+);
+
+export const getMockStore = (initialState?: any) => {
+  const userReducer = getMockUserReducer(initialState ? initialState : {
+    loggedUser: {
+      id: 0,
+      email: "",
+      username: "",
+      profile_image: "",
+      folders: [],
+    },
+  });
+
+  const postReducer = getMockPostReducer(initialState ? initialState : {
     posts: [],
     detailedPost: {
       id: 0,
@@ -70,6 +86,7 @@ export const getMockStore = () => {
     likeSorted: [],
     dateSorted: [],
   });
+
   const rootReducer = combineReducers({
     user: userReducer,
     post: postReducer,

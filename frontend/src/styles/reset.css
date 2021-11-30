@@ -48,4 +48,8 @@ input {
   -webkit-appearance: none;
   border-radius: 0;
 }
+
+button {
+  border: none;
+}
 /*# sourceMappingURL=reset.css.map */

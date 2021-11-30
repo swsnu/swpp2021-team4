@@ -1,11 +1,12 @@
-import React, { useState } from "react";
-import { shallow, mount } from "enzyme";
-import { Provider, useDispatch } from "react-redux";
-import { connectRouter, ConnectedRouter } from "connected-react-router";
-import { Route, Redirect, Switch, BrowserRouter } from "react-router-dom";
+import React from "react";
+import { mount } from "enzyme";
+import { Provider } from "react-redux";
+import { ConnectedRouter } from "connected-react-router";
+import { Route, Switch, BrowserRouter } from "react-router-dom";
 import Search from "./Search";
 import { getMockStore } from "../test-utils/mocks";
 import { history } from "../store/store";
+
 const mockStore = getMockStore();
 jest.mock("../components/PostItem", () => {
   return jest.fn((props) => {
@@ -45,8 +46,8 @@ describe("<Search />", () => {
 
   it("should click search button", () => {
     const component = mount(search);
-    const ps_input = component.find(".search-keyword");
-    ps_input.simulate("change", { target: { value: "s" } });
+    const psInput = component.find(".search-keyword");
+    psInput.simulate("change", { target: { value: "s" } });
     const button = component.find(".search-button");
     button.simulate("click");
   });
