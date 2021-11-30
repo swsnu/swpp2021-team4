@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
+import { useHistory } from "react-router-dom";
 import CreateEditHeader from "../components/CreateEditHeader";
 import Map from "../components/Map";
 import MyRoutesSection from "../components/MyRoutesSection";
@@ -16,7 +17,7 @@ export interface PostInfoDataType {
   days: number;
   seasonRecommendation: string;
   theme: string;
-  headerImage: string;
+  thumbnailImage: string;
   isAvailableWithoutCar: boolean;
   folderId: number;
   isShared: false;
@@ -27,7 +28,7 @@ const initialFolderData: PostInfoDataType = {
   days: 3,
   seasonRecommendation: "",
   theme: "",
-  headerImage: "",
+  thumbnailImage: "",
   isAvailableWithoutCar: false,
   folderId: 0,
   isShared: false
@@ -41,12 +42,22 @@ interface PropsType {
 
 function CreateEditPost(props: PropsType) {
   const dispatch = useDispatch();
+  const history = useHistory();
   const post = usePostState();
   const [postInfoData, setPostInfoData] = useState<PostInfoDataType>(initialFolderData);
   const [locationQuery, setLocationQuery] = useState("");
   const [selectedDay, setSelectedDay] = useState(1);
 
+  const [isPostCreated, setIsPostCreated] = useState(false);
+  const [createdPostId, setCreatedPostId] = useState<number>(0);
+
   const [routePlaces, setRoutePlaces] = useState<PlaceDayType[]>([]);
+
+  useEffect(() => {
+    if (isPostCreated && createdPostId) {
+      history.push(`/post/${createdPostId}/`);
+    }
+  }, [isPostCreated, createdPostId]);
 
   useEffect(() => {
     setPostInfoData({
@@ -56,7 +67,7 @@ function CreateEditPost(props: PropsType) {
   }, [props.folder]);
 
   const onAddPlace = (place: any) => {
-    setRoutePlaces([ ...routePlaces, { place, day: selectedDay } ]);
+    setRoutePlaces([...routePlaces, { place, day: selectedDay }]);
   }
 
   const onDeletePlace = useCallback(
@@ -68,8 +79,8 @@ function CreateEditPost(props: PropsType) {
 
   const isPlaceInRoute = (place: PlaceType) => {
     return routePlaces
-    .filter((p: PlaceDayType) => p.day === selectedDay)
-    .some((p: PlaceDayType) => p.place.id === place.id);
+      .filter((p: PlaceDayType) => p.day === selectedDay)
+      .some((p: PlaceDayType) => p.place.id === place.id);
   }
 
   const [selectedTab, setSelectedTab] = useState<'place' | 'search'>('place');
@@ -77,7 +88,7 @@ function CreateEditPost(props: PropsType) {
   const onClickCreateButton = () => {
     const {
       title,
-      headerImage,
+      thumbnailImage,
       days,
       theme,
       seasonRecommendation,
@@ -104,11 +115,11 @@ function CreateEditPost(props: PropsType) {
       }
     });
 
-    const defaultHeaderImage = 'https://media.triple.guide/triple-cms/c_limit,f_auto,h_1024,w_1024/73968eea-cbbe-49cd-b001-353e9e962cbf.jpeg';
+    const defaultthumbnailImage = 'https://media.triple.guide/triple-cms/c_limit,f_auto,h_1024,w_1024/73968eea-cbbe-49cd-b001-353e9e962cbf.jpeg';
     const formData = new FormData();
     formData.append("title", title);
     formData.append("is_shared", isShared?.toString() || 'false');
-    formData.append('header_image', headerImage || defaultHeaderImage);
+    formData.append('thumbnail_image', thumbnailImage || defaultthumbnailImage);
     formData.append('days', days?.toString());
     formData.append('theme', theme);
     formData.append('season', seasonRecommendation);
@@ -118,7 +129,10 @@ function CreateEditPost(props: PropsType) {
     formData.append('places', JSON.stringify(placeListData));
     formData.append("enctype", 'multipart/form-data');
 
-    dispatch(createPostAction(formData));
+    dispatch(createPostAction(formData, (isCreated: boolean, postId: number) => {
+      setIsPostCreated(isCreated);
+      setCreatedPostId(postId);
+    }));
   }
 
   const onChangePostInfoData = useCallback(
@@ -130,7 +144,7 @@ function CreateEditPost(props: PropsType) {
         reader.onloadend = () => {
           setPostInfoData({
             ...postInfoData,
-            headerImage: reader.result?.toString() || ''
+            thumbnailImage: reader.result?.toString() || ''
           })
         }
         reader.readAsDataURL(e.target.files[0]);
@@ -175,7 +189,7 @@ function CreateEditPost(props: PropsType) {
       <CreateEditHeader
         post={post}
         folder={props.folder}
-        headerImage={postInfoData.headerImage || defaultImage}
+        thumbnailImage={postInfoData.thumbnailImage || defaultImage}
         postInfoData={postInfoData}
         onChangePostInfoData={onChangePostInfoData}
         onPressEnterLocation={onPressEnterLocation}

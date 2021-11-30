@@ -8,7 +8,7 @@ import json
 from json.decoder import JSONDecodeError
 
 from .models import User
-from route.models import Folder, Post, Comment, Like, PostInFolder
+from route.models import Folder, Post, Comment, Like, PostInFolder, Place, PlaceInFolder
 from .forms import UserForm
 
 @require_http_methods(["POST"])
@@ -125,7 +125,7 @@ def edit_user_info(request, user_id):
                 'id': user.id,
                 'email': user.email,
                 'username': user.username,
-                'profile_image': user.profile_image.url if user.profile_image else None,
+                'profile_image': user.profile_image.url if user.profile_image else '',
                 'folders': folders
             }
         }
@@ -146,7 +146,7 @@ def user_folders(request, user_id):
         'name': folder.name,
         'posts': [ {
             'id': post.id,
-            'thumbnail_image': post.thumbnail_image.url if post.thumbnail_image else None,
+            'thumbnail_image': post.thumbnail_image.url if post.thumbnail_image else '',
             'title': post.title,
             'author': post.author.username,
             'like_count': post.like_users.count(), 
@@ -191,20 +191,40 @@ def user_folder(request, user_id, fid):
     except Folder.DoesNotExist:   # Wrong id
         return HttpResponse(status=401)
 
+    my_posts = Post.objects.filter(folder_id=fid)
+
     post_in_folder_ids = PostInFolder.objects.filter(folder=folder).values_list('post_id', flat=True)
     posts_in_folder = Post.objects.filter(id__in=list(post_in_folder_ids))
 
+    place_in_folder_ids = PlaceInFolder.objects.filter(folder=folder).values_list('place_id', flat=True)
+    places_in_folder = Place.objects.filter(id__in=list(place_in_folder_ids))
+
     response_dict = {
-        'posts': [ {
+        'my_posts': [ {
             'id': post.id,
-            'thumbnail_image': post.thumbnail_image.url if post.thumbnail_image else None,
+            'thumbnail_image': post.thumbnail_image.url if post.thumbnail_image else '',
             'title': post.title,
             'author_name': post.author.username,
             'author_id': post.author.id,
             'like_count': post.like_users.count(), 
             'comment_count': Comment.objects.filter(post=post).count(),
             'is_shared': post.is_shared
-        } for post in posts_in_folder ]
+        } for post in my_posts ],
+        'posts': [ {
+            'id': post.id,
+            'thumbnail_image': post.thumbnail_image.url if post.thumbnail_image else '',
+            'title': post.title,
+            'author_name': post.author.username,
+            'author_id': post.author.id,
+            'like_count': post.like_users.count(), 
+            'comment_count': Comment.objects.filter(post=post).count(),
+            'is_shared': post.is_shared
+        } for post in posts_in_folder ],
+        'places': [ {
+            'id': place.id,
+            'name': place.name,
+            'description': place.description
+        } for place in places_in_folder ]
     }
 
     return JsonResponse(response_dict, safe=False)
@@ -265,7 +285,7 @@ def user_likes(request, user_id):
     response_dict = {
         'liked_posts': [ {
             'id': post.id,
-            'thumbnail_image': post.thumbnail_image.url if post.thumbnail_image else None,
+            'thumbnail_image': post.thumbnail_image.url if post.thumbnail_image else '',
             'title': post.title,
             'author_name': post.author.username,
             'author_id': post.author.id,
@@ -289,7 +309,7 @@ def user_shares(request, user_id):
     response_dict = {
         'shared_posts': [ {
             'id': post.id,
-            'thumbnail_image': post.thumbnail_image.url if post.thumbnail_image else None,
+            'thumbnail_image': post.thumbnail_image.url if post.thumbnail_image else '',
             'title': post.title,
             'author_name': post.author.username,
             'author_id': post.author.id,
@@ -304,15 +324,16 @@ def user_shares(request, user_id):
 @require_GET
 def user_posts(request, user_id):
     user = get_object_or_404(User, id=user_id)
-    posts = Post.objects.filter(author=user)
+    posts = Post.objects.filter(author=user, is_shared=True)
 
     response_dict = {
         'posts': [ {
             'id': post.id,
-            'thumbnail_image': post.thumbnail_image.url if post.thumbnail_image else None,
+            'thumbnail_image': post.thumbnail_image.url if post.thumbnail_image else '',
             'title': post.title,
             'author_name': post.author.username,
             'author_id': post.author.id,
+            'is_shared': post.is_shared,
             'like_counts': post.like_users.count(), 
             'comment_counts': Comment.objects.filter(post=post).count(),
             'location': post.location,

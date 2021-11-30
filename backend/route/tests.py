@@ -52,7 +52,7 @@ class RouteTestCase(TestCase):
         header_image=File(open("./grape.jpg", "rb")), thumbnail_image=File(open("./grape.jpg", "rb")))
         new_post.save()
         
-        response = client.post('/post/1/share/')
+        response = client.get('/post/1/share/')
         self.assertEqual(response.status_code, 401)
 
         response = client.post('/user/signin/', json.dumps({
@@ -61,13 +61,13 @@ class RouteTestCase(TestCase):
             }), content_type='application/json')
 
 
-        response = client.post('/post/23243/share/')
+        response = client.get('/post/23243/share/')
         self.assertEqual(response.status_code, 404)
         
-        response = client.post('/post/1/share/')
+        response = client.get('/post/1/share/')
         self.assertEqual(response.status_code, 204)
 
-        response = client.post('/post/1/share/')
+        response = client.get('/post/1/share/')
         self.assertEqual(response.status_code, 400)
 
         place1 = Place(name="Place1", post=new_post, description="desc", folder=folder, day=1, index=1, latitude='2', longitude='2', address='road2')
