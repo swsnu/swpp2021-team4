@@ -73,7 +73,6 @@
         .post-tag {
           flex-wrap: wrap;
           background-color: transparent;
-          border: 0.8px solid black;
           border-radius: 16px;
           display: inline-block;
           text-align: center;
@@ -85,6 +84,13 @@
           padding: 10px;
           line-height: 80%;
           overflow: hidden;
+        }
+        .post-tag.filled{
+          border: 0.8px solid black;
+        }
+        .post-tag.empty{
+          border: 0.8px solid $darkGrayColor;
+          color: $darkGrayColor;
         }
         .false {
           visibility: None;

@@ -115,7 +115,6 @@
   -ms-flex-wrap: wrap;
       flex-wrap: wrap;
   background-color: transparent;
-  border: 0.8px solid black;
   border-radius: 16px;
   display: inline-block;
   text-align: center;
@@ -127,6 +126,15 @@
   padding: 10px;
   line-height: 80%;
   overflow: hidden;
+}
+
+.post-header .header-content-left .header-bottom .post-tag-container .post-tag.filled {
+  border: 0.8px solid black;
+}
+
+.post-header .header-content-left .header-bottom .post-tag-container .post-tag.empty {
+  border: 0.8px solid #a7a9af;
+  color: #a7a9af;
 }
 
 .post-header .header-content-left .header-bottom .post-tag-container .false {
