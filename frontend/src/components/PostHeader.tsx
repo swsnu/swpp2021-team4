@@ -27,7 +27,6 @@ function PostHeader(props: PropType) {
     else if (props.post.season === "sum") return "Summer";
     else if (props.post.season === "aut") return "Autumn";
     else if (props.post.season === "win") return "Winter";
-    else return "Season";
   };
 
   const postTheme = () => {
@@ -35,7 +34,6 @@ function PostHeader(props: PropType) {
     else if (props.post.theme === "family") return "가족과 함께!";
     else if (props.post.theme === "lover") return "연인과 함께!";
     else if (props.post.theme === "alone") return "나홀로 여행!";
-    else return "Theme";
   };
 
   return (
@@ -76,8 +74,18 @@ function PostHeader(props: PropType) {
             </NavLink>
           </div>
           <div className="post-tag-container">
-            <span className={`post-tag ${props.post.season ? `filled` : `empty`}`}>{postSeason()}</span>
-            <span className={`post-tag ${props.post.theme ? `filled` : `empty`}`}>{postTheme()}</span>
+            {props.post.season && (
+              <span className="post-tag filled">{postSeason()}</span>
+            )}
+            {!props.post.season && (
+              <span className="post-tag empty">Season</span>
+            )}
+            {props.post.theme && (
+              <span className="post-tag filled">{postTheme()}</span>
+            )}
+            {!props.post.theme && (
+              <span className="post-tag empty">Theme</span>
+            )}
             <span className={`post-tag filled ${props.post.availableWithoutCar}`}>
               뚜벅이 여행 가능
             </span>
