@@ -5,9 +5,7 @@ import { getPostsAction, searchAction } from "../store/Post/postAction";
 import "../styles/components/Search.scss";
 import { SimplePostType } from "../store/Post/postInterfaces";
 import PostItem from "../components/PostItem";
-import {
-  useSearchPostState,
-} from "../hooks/usePostsState";
+import { useSearchPostState } from "../hooks/usePostsState";
 
 function Search() {
   const dispatch = useDispatch();

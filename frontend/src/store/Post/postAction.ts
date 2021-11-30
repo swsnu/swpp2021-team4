@@ -12,7 +12,6 @@ import {
   CREATE_POST_SUCCESS,
   GET_COMMENTS_SUCCESS,
   GET_COMMENTS_FAIL,
-
 } from "../actionTypes";
 import { Folder } from "../User/userInterfaces";
 import { PostDispatchType, PostType, CommentType, SimplePostType } from "./postInterfaces";
@@ -24,7 +23,6 @@ interface SearchForm {
   theme: string;
   transportation: string;
 }
-
 
 export const getPostsAction = () => {
   return (dispatch: Redux.Dispatch<PostDispatchType>) => {
@@ -93,6 +91,5 @@ export const getCommentsAction = (postId: number) => {
         dispatch({ type: GET_COMMENTS_SUCCESS, payload: res.data })
       )
       .catch(() => dispatch({ type: GET_COMMENTS_FAIL }));
-
   };
 };

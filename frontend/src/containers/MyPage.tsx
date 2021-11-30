@@ -36,8 +36,8 @@ function MyPage(props: PropType) {
   const [isFolderEdited, setIsFolderEdited] = useState(false);
   const [folderInputs, setFolderInputs] = useState({
     folderId: 0,
-    folderName: ""
-  })
+    folderName: "",
+  });
 
   const onEditProfile = () => {
     setIsSubmitted(true);
@@ -47,37 +47,39 @@ function MyPage(props: PropType) {
     if (isFolderEdited) {
       setFolderInputs({ folderId: 0, folderName: "" });
     }
-  }, [isFolderEdited])
+  }, [isFolderEdited]);
 
   const onChangeEditFolder = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
     setFolderInputs({
       ...folderInputs,
-      folderName: e.target.value
-    })
+      folderName: e.target.value,
+    });
   };
 
   const onClickEditFolder = (folder_id: number, folder_name: string) => {
     setFolderInputs({
       folderId: folder_id,
-      folderName: folder_name
-    })
-  }
+      folderName: folder_name,
+    });
+  };
 
   const onEditFolder = (folder_id: number) => {
-    dispatch(editFolderAction(
-      props.loggedUser.id,
-      folder_id,
-      { folder_name: folderInputs.folderName },
-      (value) => setIsFolderEdited(value))
-    )
-  }
+    dispatch(
+      editFolderAction(
+        props.loggedUser.id,
+        folder_id,
+        { folder_name: folderInputs.folderName },
+        (value) => setIsFolderEdited(value)
+      )
+    );
+  };
 
   const onDeleteFolder = (folder_id: number) => {
     if (confirm("정말 삭제하시겠습니까?")) {
       dispatch(deleteFolderAction(props.loggedUser.id, folder_id));
     }
-  }
+  };
 
   const onClickFolder = (folder_id: number) => {
     axios
@@ -90,7 +92,7 @@ function MyPage(props: PropType) {
         setFolderInfo(response.data);
       })
       .catch((err) => err.response);
-  }
+  };
 
   const onClickLike = () => {
     axios
@@ -100,7 +102,7 @@ function MyPage(props: PropType) {
         setSelected(1);
       })
       .catch((err) => err.response);
-  }
+  };
 
   const onClickShare = () => {
     axios
@@ -110,7 +112,7 @@ function MyPage(props: PropType) {
         setSelected(2);
       })
       .catch((err) => err.response);
-  }
+  };
 
   if (isSubmitted) {
     return <Redirect to="/edit_profile/" />;
