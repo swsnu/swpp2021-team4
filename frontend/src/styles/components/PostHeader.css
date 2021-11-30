@@ -142,16 +142,38 @@
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
-  -webkit-box-align: end;
-      -ms-flex-align: end;
-          align-items: flex-end;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
+  margin-left: auto;
+  padding-right: 2vw;
 }
 
-.post-header .header-content-right .header-top .post-cart-button {
-  margin-left: 5vw;
+.post-header .header-content-right .header-top {
+  width: 100%;
+}
+
+.post-header .header-content-right .header-top .header-top-buttons {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: reverse;
+      -ms-flex-direction: row-reverse;
+          flex-direction: row-reverse;
+}
+
+.post-header .header-content-right .header-top .header-top-buttons .header-top-icons {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.post-header .header-content-right .header-top .header-top-buttons .header-top-icons .icon {
+  width: 17px;
+  margin-right: 13px;
+  margin-bottom: 5px;
+}
+
+.post-header .header-content-right .header-top .header-top-buttons .post-share-button,
+.post-header .header-content-right .header-top .header-top-buttons .post-cart-button {
   background-color: #95ecdc;
   border-radius: 6px;
   padding: 10px 20px 10px 20px;
@@ -161,24 +183,31 @@
   font-family: "Montserrat", Monospace;
   color: #ffffff;
   margin-bottom: 8px;
+  margin-left: 7px;
 }
 
-.post-header .header-content-right .header-top .post-cart-button:hover {
+.post-header .header-content-right .header-top .header-top-buttons .post-share-button:hover,
+.post-header .header-content-right .header-top .header-top-buttons .post-cart-button:hover {
   background-color: #57ceb9;
 }
 
-.post-header .header-content-right .header-top .post-created-at {
+.post-header .header-content-right .header-top .post-created-at-container {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-align: end;
-      -ms-flex-align: end;
-          align-items: flex-end;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: reverse;
+      -ms-flex-direction: row-reverse;
+          flex-direction: row-reverse;
+  width: 100%;
+  margin-right: 1vw;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
-.post-header .header-content-right .header-top .post-created-at .time-icon {
-  margin-left: 6vw;
-  margin-right: 0.5vw;
+.post-header .header-content-right .header-top .post-created-at-container .time-icon {
+  margin-right: 5px;
   width: 20px;
   height: 20px;
 }
@@ -190,8 +219,7 @@
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  margin-bottom: 1.5vw;
-  margin-right: 1vw;
+  margin: 45px 0 1.5vw 12vw;
 }
 
 .post-header .header-content-right .header-bottom .post-comment-icon {
@@ -201,16 +229,5 @@
 
 .post-header .header-content-right .header-bottom .post-like-icon {
   margin-right: 5px;
-}
-
-.post-header .header-content-right .header-bottom .post-share-button {
-  background-color: #57ceb9;
-  border-radius: 4px;
-  padding: 10px 20px;
-  font-family: "Montserrat", Monospace;
-  font-style: normal;
-  font-size: 15px;
-  color: #ffffff;
-  cursor: pointer;
 }
 /*# sourceMappingURL=PostHeader.css.map */
