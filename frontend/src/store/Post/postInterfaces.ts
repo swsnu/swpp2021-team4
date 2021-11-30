@@ -96,7 +96,7 @@ export interface PlaceType {
 
 export interface PlaceDayType {
   place: PlaceType;
-  day?: number | string | null;
+  day?: number | string;
 }
 
 export interface SimplePlaceType {

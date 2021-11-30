@@ -90,7 +90,7 @@ function PlaceSearchSection(props: PropType) {
         cartPlaceList.filter((p: PlaceDayType) => p.place.id !== place.id)
       );
     } else {
-      setCartPlaceList([...cartPlaceList, { place: place, day: null }]);
+      setCartPlaceList([...cartPlaceList, { place: place, day: 0 }]);
     }
   };
 
