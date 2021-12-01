@@ -16,7 +16,6 @@ function App() {
 
   const authorized = () => {
     return (
-      <BrowserRouter>
         <Switch>
           <Route
             exact
@@ -28,7 +27,6 @@ function App() {
           <Route exact path="/edit_profile/" component={EditProfilePage} />
           <Route path={["/", "/main/"]} component={MainPage} />
         </Switch>
-      </BrowserRouter>
     );
   };
 
