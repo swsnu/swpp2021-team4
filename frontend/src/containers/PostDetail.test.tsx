@@ -121,9 +121,9 @@ describe("<PostDetail/>", () => {
   jest.mock("axios");
   let postDetail: any;
   let spyGetPostAction: any;
-  let spyCartPostAction: any;
-  let spyGetCommentsAction: any;
-  let spyPush: any;
+  // let spyCartPostAction: any;
+  // let spyGetCommentsAction: any;
+  // let spyPush: any;
   beforeEach(() => {
     postDetail = (
       <Provider store={mockStore}>
@@ -138,15 +138,15 @@ describe("<PostDetail/>", () => {
       .spyOn(postAction, "getPostAction")
       .mockImplementation(() => jest.fn());
 
-    spyCartPostAction = jest
-      .spyOn(postAction, "cartPostAction")
-      .mockImplementation(() => jest.fn());
+    // spyCartPostAction = jest
+    //   .spyOn(postAction, "cartPostAction")
+    //   .mockImplementation(() => jest.fn());
 
-    spyGetCommentsAction = jest
-      .spyOn(postAction, "getCommentsAction")
-      .mockImplementation(() => jest.fn());
+    // spyGetCommentsAction = jest
+    //   .spyOn(postAction, "getCommentsAction")
+    //   .mockImplementation(() => jest.fn());
 
-    spyPush = jest.spyOn(history, "push").mockImplementation(() => {});
+    // spyPush = jest.spyOn(history, "push").mockImplementation(() => {});
   });
   afterEach(() => {
     jest.clearAllMocks();
