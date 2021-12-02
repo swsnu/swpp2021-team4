@@ -4,7 +4,7 @@ import { Provider } from "react-redux";
 import { ConnectedRouter } from "connected-react-router";
 import PostDetail from "./PostDetail";
 import { getMockStore } from "../test-utils/mocks";
-import store, { history } from "../store/store";
+import { history } from "../store/store";
 import * as postAction from "../store/Post/postAction";
 import * as reactRedux from "react-redux";
 import { BrowserRouter } from "react-router-dom";
@@ -192,13 +192,13 @@ describe("<PostDetail/>", () => {
       .spyOn(reactRedux, "useSelector")
       .mockImplementation((callback) => callback(stubInitialState));
     const component = mount(postDetail);
-    let spyUseState: any;
-    spyUseState = jest.spyOn(React, "useState");
-    const spySetComment = jest.fn();
-    spyUseState.mockImplementation((newComment: any) => [
-      newComment,
-      spySetComment,
-    ]);
+    // let spyUseState: any;
+    // // spyUseState = jest.spyOn(React, "useState");
+    // // const spySetComment = jest.fn();
+    // // spyUseState.mockImplementation((newComment: any) => [
+    // //   newComment,
+    // //   spySetComment,
+    // // ]);
     component
       .find(".comment-input")
       .simulate("change", { target: { value: "ex1" } });
@@ -208,6 +208,7 @@ describe("<PostDetail/>", () => {
       .mockImplementation(() => Promise.resolve({ status: 201 }));
     wrapper.simulate("click");
     expect(axios.post).toHaveBeenCalled();
+    expect(component.find(".comment-input").text()).toBe("");
   });
   it("should not post new comments when empty", () => {
     jest
