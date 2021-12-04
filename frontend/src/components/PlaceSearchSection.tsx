@@ -60,7 +60,7 @@ function PlaceSearchSection(props: PropType) {
             return {
               id: result.id,
               name: result.place_name,
-              description: result.place_name + "입니다",
+              description: '',
               homepage: result.place_url,
               phone_number: result.phone,
               address: result.address_name,

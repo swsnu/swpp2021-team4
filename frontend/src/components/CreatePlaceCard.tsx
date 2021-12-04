@@ -1,6 +1,7 @@
 import React, { useRef, useState } from "react";
 import buttonUp from "../static/chevron-down.svg";
 import buttonDown from "../static/chevron-up.svg";
+import edit_btn from "../static/edit-icon.svg";
 import { PlaceType, PlaceDayType } from "../store/Post/postInterfaces";
 import "../styles/components/CreatePlaceCard.scss";
 import ItemTypes from "../utils/items";
@@ -15,6 +16,7 @@ interface PropsType {
   isPlaceInCart: (id: number) => boolean;
   isPlaceInRoute?: (place: any) => boolean;
   onClickCartButton?: ((place: PlaceType) => void) | null;
+  onEditPlace?: (place: PlaceType) => void;
   selectedDay: number | null;
   movePlace?: (dragIndex: number, hoverIndex: number) => void;
   setRoutePlaces?: (value: React.SetStateAction<PlaceDayType[]>) => void;
@@ -110,11 +112,20 @@ function CreatePlaceCard(props: PropsType) {
           )}
           onClick={onClickCartButton}
         >
-          <img src={props.icon} />
+          <img className="post-icon" src={props.icon} />
         </button>
       </div>
       <div className="place-container-middle">
-        <div className="place-description">{props.place.name}입니다.</div>
+        <div className="place-description">{props.place.description}</div>
+        {(props.type === "route") && (
+          <img
+            className="post-icon"
+            src={edit_btn}
+            onClick={() => {
+              if (props.onEditPlace) props.onEditPlace(props.place)
+            }}
+          />
+        )}
         <img
           className="post-icon"
           src={isExpanded ? buttonUp : buttonDown}

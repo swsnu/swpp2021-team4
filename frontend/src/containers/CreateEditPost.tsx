@@ -65,6 +65,13 @@ function CreateEditPost(props: PropsType) {
     });
   }, [props.folder]);
 
+  const onEditPlace = useCallback(
+    (place: PlaceType) => {
+      // setRoutePlaces(routePlaces.filter((p: PlaceDayType) => p.day !== selectedDay || p.place.id !== place.id));
+      console.log('place', place);
+    },
+    [routePlaces, selectedDay]
+  );
 
   const onDeletePlace = useCallback(
     (place: PlaceType) => {
@@ -212,6 +219,7 @@ function CreateEditPost(props: PropsType) {
               onClickDay={onClickDay}
               onClickAddIcon={onClickAddIcon}
               routePlaces={routePlaces}
+              onEditPlace={onEditPlace}
               onDeletePlace={onDeletePlace}
               setRoutePlaces={setRoutePlaces}
             />

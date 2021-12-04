@@ -1,88 +1,66 @@
+.place-search-container .create-place-container {
+  margin-bottom: 1.45vw; }
+
 .create-place-container {
   background-color: #FFFFFF;
-  margin-bottom: 1.45vw;
-  padding: 1.04vw;
-}
-
-.create-place-container .place-container-top {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  margin-bottom: 10px;
-}
-
-.create-place-container .place-container-top .place-title {
-  font-family: "Noto Sans CJK KR", Monospace;
-  font-weight: 600;
-  font-size: 1.25rem;
-  line-height: 1.5rem;
-  color: #000000;
-}
-
-.create-place-container .place-container-top .place-cart-button {
-  border: none;
-  border-radius: 50%;
-  padding: 6px;
-  min-width: 35px;
-  min-height: 35px;
-  text-align: center;
-  cursor: pointer;
-  background-color: #c7eee7;
-}
-
-.create-place-container .place-container-top .place-cart-button:hover {
-  background-color: #57ceb9;
-}
-
-.create-place-container .place-container-middle {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  margin-bottom: 10px;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-}
-
-.create-place-container .place-container-middle .place-description {
-  font-weight: normal;
-  font-size: 1.125rem;
-  line-height: 1.375rem;
-  color: #000000;
-  word-wrap: break-word;
-  word-break: break-all;
-}
-
-.create-place-container .place-container-middle .post-icon {
-  width: 3vh;
-  height: 3vh;
-  cursor: pointer;
-}
-
-.create-place-container .place-info-container .place-info {
-  margin-bottom: 20px;
-  min-height: 40px;
-}
-
-.create-place-container .place-info-container .place-info .place-info-column {
-  margin-bottom: 10px;
-  font-family: "Montserrat", Monospace;
-  font-size: 1rem;
-  line-height: 1.25rem;
-  font-weight: 500;
-  color: #9867ff;
-}
-
-.create-place-container .place-info-container + .invisible {
-  display: none;
-}
-/*# sourceMappingURL=CreatePlaceCard.css.map */
+  padding: 1.04vw; }
+  .create-place-container .place-container-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px; }
+    .create-place-container .place-container-top .place-title {
+      font-family: "Noto Sans CJK KR", Monospace;
+      font-weight: 600;
+      font-size: 1.25rem;
+      line-height: 1.5rem;
+      color: #000000; }
+    .create-place-container .place-container-top .place-cart-button {
+      border: none;
+      border-radius: 50%;
+      padding: 6px;
+      min-width: 35px;
+      min-height: 35px;
+      text-align: center;
+      cursor: pointer; }
+      .create-place-container .place-container-top .place-cart-button .search {
+        background-color: #c7eee7; }
+        .create-place-container .place-container-top .place-cart-button .search:hover {
+          background-color: #57ceb9; }
+    .create-place-container .place-container-top .place-cart-button.place {
+      background-color: #F5F6F9; }
+    .create-place-container .place-container-top .place-cart-button.route {
+      background-color: #F5F6F9; }
+    .create-place-container .place-container-top .place-cart-button.search.selected {
+      background-color: #57ceb9; }
+      .create-place-container .place-container-top .place-cart-button.search.selected:hover {
+        background-color: #c7eee7; }
+  .create-place-container .place-container-middle {
+    display: flex;
+    margin-bottom: 10px;
+    justify-content: space-between;
+    align-items: center; }
+    .create-place-container .place-container-middle .place-description {
+      width: 80%;
+      font-weight: normal;
+      font-size: 1.125rem;
+      line-height: 1.375rem;
+      color: #000000;
+      word-wrap: break-word;
+      word-break: break-all; }
+    .create-place-container .place-container-middle .post-icon {
+      width: 3vh;
+      height: 3vh;
+      cursor: pointer; }
+  .create-place-container .place-info-container .place-info {
+    margin-bottom: 20px;
+    min-height: 40px; }
+    .create-place-container .place-info-container .place-info .place-info-column {
+      margin-bottom: 10px;
+      font-family: "Montserrat", Monospace;
+      font-size: 1rem;
+      line-height: 1.25rem;
+      font-weight: 500;
+      color: #9867ff; }
+  .create-place-container .place-info-container + .invisible {
+    display: none; }

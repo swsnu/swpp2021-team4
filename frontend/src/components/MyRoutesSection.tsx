@@ -15,6 +15,7 @@ interface PropType {
   routePlaces: any[];
   onClickDay: (value: number) => void;
   onClickAddIcon: (value: number) => void;
+  onEditPlace: (place: any) => void;
   onDeletePlace: (place: any) => void;
   setRoutePlaces: (value: React.SetStateAction<PlaceDayType[]>) => void;
 }
@@ -27,6 +28,7 @@ function MyRoutesSection(props: PropType) {
     onClickDay,
     onClickAddIcon,
     routePlaces,
+    onEditPlace,
     onDeletePlace,
   } = props;
 
@@ -83,7 +85,6 @@ function MyRoutesSection(props: PropType) {
       background: monitor.isOver() ? "#e2e3e9" : "#f6f6f9",
     }),
   });
-  console.log(todayPlaceList);
 
   return (
     <div className="my-routes-container">
@@ -122,6 +123,7 @@ function MyRoutesSection(props: PropType) {
                 place={place}
                 icon={deleteIcon}
                 type="route"
+                onEditPlace={onEditPlace}
                 onClickCartButton={onDeletePlace}
                 isPlaceInCart={() => true}
                 movePlace={movePlace}

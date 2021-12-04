@@ -54,15 +54,20 @@
         background-color: $lightMintColor;
       }
     }
+    .post-icon {
+      width: 23px;
+      height: 23px;
+      cursor: pointer;
+    }
   }
 
   .place-container-middle {
     display: flex;
-    margin-bottom: 10px;
     justify-content: space-between;
     align-items: center;
 
     .place-description {
+      width: 70%;
       font-weight: normal;
       font-size: 1.125rem;
       line-height: 1.375rem;
@@ -72,15 +77,15 @@
     }
 
     .post-icon {
-      width: 3vh;
-      height: 3vh;
+      width: 20px;
+      height: 20px;
       cursor: pointer;
     }
   }
 
   .place-info-container {
     .place-info {
-      margin-bottom: 20px;
+      margin-top: 10px;
       min-height: 40px;
       .place-info-column {
         margin-bottom: 10px;
