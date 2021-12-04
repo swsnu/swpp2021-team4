@@ -7,7 +7,7 @@ import MyRoutesSection from "../components/MyRoutesSection";
 import PlaceSearchSection from "../components/PlaceSearchSection";
 import { usePostState } from "../hooks/usePostState";
 import { createPostAction } from "../store/Post/postAction";
-import { PlaceDayType, PlaceType } from "../store/Post/postInterfaces";
+import { PathListType, PlaceDayType, PlaceType } from "../store/Post/postInterfaces";
 import { Folder } from "../store/User/userInterfaces";
 import "../styles/components/CreateEditPost.scss";
 
@@ -50,7 +50,20 @@ function CreateEditPost(props: PropsType) {
   const [routePlaces, setRoutePlaces] = useState<PlaceDayType[]>([]);
   const [isPostCreated, setIsPostCreated] = useState(false);
   const [createdPostId, setCreatedPostId] = useState<number>(0);
-
+  const [pathList, setPathList] = useState<PathListType>({});
+  
+  const onChangePath = useCallback(
+    (e: React.ChangeEvent<HTMLSelectElement>, origin: PlaceType, destination: PlaceType) => {
+      setPathList({
+        ...pathList,
+        [origin.id]: {
+          to: destination.id,
+          transportation: e.target.value
+        }
+      });
+    },
+    [pathList]
+  );
 
   useEffect(() => {
     if (isPostCreated && createdPostId) {
@@ -209,6 +222,8 @@ function CreateEditPost(props: PropsType) {
             <MyRoutesSection
               days={postInfoData.days}
               selectedDay={selectedDay}
+              pathList={pathList}
+              onChangePath={onChangePath}
               onClickDay={onClickDay}
               onClickAddIcon={onClickAddIcon}
               routePlaces={routePlaces}

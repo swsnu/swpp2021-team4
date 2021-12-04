@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import arrowDownIcon from '../static/arrow_down.svg';
 import '../styles/components/Path.scss';
 import { PathListType, PlaceType } from '../store/Post/postInterfaces';
@@ -7,6 +7,8 @@ import returnPathTime from '../utils/returnPathTime';
 interface PropsType {
   from: PlaceType
   to: PlaceType
+  pathList: PathListType
+  onChangePath: (e: React.ChangeEvent<HTMLSelectElement>, origin: PlaceType, destination: PlaceType) => void
 }
 
 const transportationTypes = [
@@ -21,9 +23,10 @@ function Path(props: PropsType) {
   const {
     from,
     to,
+    pathList,
+    onChangePath
   } = props;
 
-  const [pathList, setPathList] = useState<PathListType>({});
   const [posFrom, setPosFrom] = useState('');
   const [posTo, setPosTo] = useState('');
   const [time, setTime] = useState('');
@@ -42,19 +45,6 @@ function Path(props: PropsType) {
     setPosFrom(`${from.lon},${from.lat}`);
     setPosTo(`${to.lon},${to.lat}`);
   }, [from, to]);
-
-  const onChangePath = useCallback(
-    (e: React.ChangeEvent<HTMLSelectElement>, origin: PlaceType, destination: PlaceType) => {
-      setPathList({
-        ...pathList,
-        [origin.id]: {
-          to: destination.id,
-          transportation: e.target.value
-        }
-      });
-    },
-    [pathList]
-  );
 
   return (
     <div className="path-container">

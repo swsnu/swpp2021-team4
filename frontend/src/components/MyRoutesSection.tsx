@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useCallback } from "react";
 import "../styles/components/MyRoutesSection.scss";
 import addIcon from "../static/add_day_icon.svg";
-import { PlaceDayType } from "../store/Post/postInterfaces";
+import { PathListType, PlaceDayType, PlaceType } from "../store/Post/postInterfaces";
 import deleteIcon from "../static/delete.svg";
 import CreatePlaceCard from "./CreatePlaceCard";
 import Path from "./Path";
@@ -13,6 +13,8 @@ interface PropType {
   days: number;
   selectedDay: number;
   routePlaces: any[];
+  pathList: PathListType
+  onChangePath: (e: React.ChangeEvent<HTMLSelectElement>, origin: PlaceType, destination: PlaceType) => void
   onClickDay: (value: number) => void;
   onClickAddIcon: (value: number) => void;
   onDeletePlace: (place: any) => void;
@@ -24,6 +26,8 @@ function MyRoutesSection(props: PropType) {
   const {
     days,
     selectedDay,
+    pathList,
+    onChangePath,
     onClickDay,
     onClickAddIcon,
     routePlaces,
@@ -83,7 +87,6 @@ function MyRoutesSection(props: PropType) {
       background: monitor.isOver() ? "#e2e3e9" : "#f6f6f9",
     }),
   });
-  console.log(todayPlaceList);
 
   return (
     <div className="my-routes-container">
@@ -131,6 +134,8 @@ function MyRoutesSection(props: PropType) {
                   key={index}
                   from={place}
                   to={todayPlaceList[index + 1].place}
+                  pathList={pathList}
+                  onChangePath={onChangePath}
                 />
               )}
             </>
