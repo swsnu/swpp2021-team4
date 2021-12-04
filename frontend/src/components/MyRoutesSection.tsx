@@ -21,7 +21,6 @@ interface PropType {
   setRoutePlaces: (value: React.SetStateAction<PlaceDayType[]>) => void;
 }
 
-
 function MyRoutesSection(props: PropType) {
   const {
     days,
@@ -46,9 +45,9 @@ function MyRoutesSection(props: PropType) {
     (dragIndex: number, hoverIndex: number) => {
       const dragCard = todayPlaceList[dragIndex];
       if (dragCard) {
-        props.setRoutePlaces(
+        setTodayPlaceList(
           update(
-            routePlaces.filter((p: PlaceDayType) => p.day == selectedDay),
+            todayPlaceList,
             {
               $splice: [
                 [dragIndex, 1],
