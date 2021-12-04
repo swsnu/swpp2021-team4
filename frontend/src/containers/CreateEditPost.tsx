@@ -47,11 +47,10 @@ function CreateEditPost(props: PropsType) {
   const [postInfoData, setPostInfoData] = useState<PostInfoDataType>(initialFolderData);
   const [locationQuery, setLocationQuery] = useState("");
   const [selectedDay, setSelectedDay] = useState(1);
-
+  const [routePlaces, setRoutePlaces] = useState<PlaceDayType[]>([]);
   const [isPostCreated, setIsPostCreated] = useState(false);
   const [createdPostId, setCreatedPostId] = useState<number>(0);
 
-  const [routePlaces, setRoutePlaces] = useState<PlaceDayType[]>([]);
 
   useEffect(() => {
     if (isPostCreated && createdPostId) {
@@ -66,9 +65,6 @@ function CreateEditPost(props: PropsType) {
     });
   }, [props.folder]);
 
-  const onAddPlace = (place: any) => {
-    setRoutePlaces([...routePlaces, { place, day: selectedDay }]);
-  }
 
   const onDeletePlace = useCallback(
     (place: PlaceType) => {
@@ -195,14 +191,13 @@ function CreateEditPost(props: PropsType) {
         onPressEnterLocation={onPressEnterLocation}
       />
       <div className="create-edit-content-container">
-
         <div className="create-edit-place-section">
           <div className="create-edit-places-section">
             <div className="my-routes-title">Places</div>
             <PlaceSearchSection
               selectedTab={selectedTab}
               onClickTabButton={onClickTabButton}
-              onAddPlace={onAddPlace}
+              setRoutePlaces={setRoutePlaces}
               onDeletePlace={onDeletePlace}
               selectedDay={selectedDay}
               isPlaceInRoute={isPlaceInRoute}
@@ -218,6 +213,7 @@ function CreateEditPost(props: PropsType) {
               onClickAddIcon={onClickAddIcon}
               routePlaces={routePlaces}
               onDeletePlace={onDeletePlace}
+              setRoutePlaces={setRoutePlaces}
             />
           </div>
         </div>

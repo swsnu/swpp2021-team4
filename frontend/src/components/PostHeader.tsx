@@ -4,6 +4,8 @@ import border from "../static/post_info_border.svg";
 import comment_icon from "../static/comment-icon.svg";
 import like_icon from "../static/like-icon.svg";
 import unlike_icon from "../static/unlike-icon.svg";
+import edit_btn from "../static/edit-icon.svg";
+import delete_btn from "../static/delete-icon.svg";
 import "../styles/components/PostHeader.css";
 import created_at_icon from "../static/created-at-icon.svg";
 import { HeaderPostType } from "../store/Post/postInterfaces";
@@ -72,9 +74,19 @@ function PostHeader(props: PropType) {
             </NavLink>
           </div>
           <div className="post-tag-container">
-            <span className="post-tag">{postSeason()}</span>
-            <span className="post-tag">{postTheme()}</span>
-            <span className={`post-tag ${props.post.availableWithoutCar}`}>
+            {props.post.season && (
+              <span className="post-tag filled">{postSeason()}</span>
+            )}
+            {!props.post.season && (
+              <span className="post-tag empty">Season</span>
+            )}
+            {props.post.theme && (
+              <span className="post-tag filled">{postTheme()}</span>
+            )}
+            {!props.post.theme && (
+              <span className="post-tag empty">Theme</span>
+            )}
+            <span className={`post-tag filled ${props.post.availableWithoutCar}`}>
               뚜벅이 여행 가능
             </span>
           </div>
@@ -82,17 +94,33 @@ function PostHeader(props: PropType) {
       </div>
       <div className="header-content-right">
         <div className="header-top">
-          {isAuthenticated && props.isPostDetail && props.post.is_shared && (
-            <button
-              className="post-cart-button"
-              onClick={props.onClickAddPostCartButton}
-            >
-              Add this route to Cart
-            </button>
-          )}
-          <div className="post-created-at">
-            <img className="time-icon" src={created_at_icon} />
+          <div className="header-top-buttons">
+            {isAuthenticated && props.isPostDetail && props.post.is_shared && (
+              <button
+                className="post-cart-button"
+                onClick={props.onClickAddPostCartButton}
+              >
+                Add this route to Cart
+              </button>
+            )}
+            {props.isPostDetail && !props.post.is_shared && (
+              <button
+                className="post-share-button"
+                onClick={props.onClickPostShareButton}
+              >
+                Share
+              </button>
+            )}
+            {props.loggedUserId === props.post.author_id && (
+              <div className="header-top-icons">
+                <img className="icon" src={edit_btn} />
+                <img className="icon" src={delete_btn} />
+              </div>
+            )}
+          </div>
+          <div className="post-created-at-container">
             <span className="post-created-at">{props.post.created_at}</span>
+            <img className="time-icon" src={created_at_icon} />
           </div>
         </div>
         <div className="header-bottom">
@@ -120,14 +148,6 @@ function PostHeader(props: PropType) {
           {props.post.comments
             ? props.post.is_shared && props.post.comments.length
             : props.post.is_shared && props.post.comment_counts}
-          {props.isPostDetail && !props.post.is_shared && (
-            <button
-              className="post-share-button"
-              onClick={props.onClickPostShareButton}
-            >
-              Share
-            </button>
-          )}
         </div>
       </div>
     </div>

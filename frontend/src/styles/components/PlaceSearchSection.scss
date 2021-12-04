@@ -1,4 +1,4 @@
-@import '../../Variables/Variables.scss';
+@import "../../Variables/Variables.scss";
 
 .place-search-container {
   background-color: $whiteColor;
@@ -9,12 +9,15 @@
   .place-search-tab-container {
     display: flex;
     flex-direction: row;
-    
+
     .tab-title {
       font-weight: 600;
       font-size: 1.375rem;
       line-height: 1.6875rem;
       color: #000000;
+      &:hover {
+        cursor: pointer;
+      }
     }
 
     .tab-title.selected {
