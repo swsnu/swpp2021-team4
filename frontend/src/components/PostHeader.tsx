@@ -75,7 +75,7 @@ function PostHeader(props: PropType) {
           </div>
           <div className="post-tag-container">
             {props.post.season && (
-              <span className="post-tag filled">{postSeason()}</span>
+              <span className="post-tag filled season">{postSeason()}</span>
             )}
             {!props.post.season && (
               <span className="post-tag empty">Season</span>
