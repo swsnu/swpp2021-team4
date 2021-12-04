@@ -91,17 +91,18 @@ export interface PlaceType {
   phone_number: string;
   address: string;
   category: string;
+  index?: number;
+}
+
+export interface PlaceDayType {
+  place: PlaceType;
+  day?: number | string;
 }
 
 export interface SimplePlaceType {
   id: number;
   name: string;
   description: string;
-}
-
-export interface PlaceDayType {
-  day: number | string,
-  place: PlaceType
 }
 
 export interface CommentType {

@@ -1,19 +1,20 @@
-import React, { useEffect, useState } from 'react';
-import { PlaceType } from '../store/Post/postInterfaces';
-import '../styles/components/PlaceSearchSection.scss';
-import CreatePlaceCard from './CreatePlaceCard';
+import React, { useEffect, useState } from "react";
+import { PlaceType, PlaceDayType } from "../store/Post/postInterfaces";
+import "../styles/components/PlaceSearchSection.scss";
+import CreatePlaceCard from "./CreatePlaceCard";
 import cart from "../static/cart-icon.svg";
-import deleteIcon from '../static/delete.svg';
-import addIcon from '../static/add_day_icon.svg';
+import deleteIcon from "../static/delete.svg";
+import addIcon from "../static/add_day_icon.svg";
 
 const { kakao } = window;
 interface PropType {
-  selectedTab: 'place' | 'search'
-  selectedDay: number
-  onClickTabButton: (type: 'place' | 'search') => void
-  onAddPlace: (place: any) => void
-  onDeletePlace: (place: any) => void
-  isPlaceInRoute: (place: any) => boolean
+  selectedTab: "place" | "search";
+  selectedDay: number;
+  onClickTabButton: (type: "place" | "search") => void;
+  // onAddPlace: (place: any) => void;
+  onDeletePlace: (place: any) => void;
+  isPlaceInRoute: (place: any) => boolean;
+  setRoutePlaces?: (value: React.SetStateAction<PlaceDayType[]>) => void;
   // searchTabQuery?: string
   // onChangeSearchTabQuery?: (e: React.ChangeEvent<HTMLInputElement>) => void
 }
@@ -22,17 +23,18 @@ function PlaceSearchSection(props: PropType) {
   const {
     selectedTab,
     onClickTabButton,
-    onAddPlace,
+    // onAddPlace,
     onDeletePlace,
-    isPlaceInRoute
+    isPlaceInRoute,
+    setRoutePlaces,
     // searchTabQuery,
     // onChangeSearchTabQuery
   } = props;
 
-  const [searchTabQuery, setSearchTabQuery] = useState('');
+  const [searchTabQuery, setSearchTabQuery] = useState("");
   const [isSearchRequested, setIsSearchRequested] = useState(false);
   const [searchResults, setSearchResults] = useState([]);
-  const [cartPlaceList, setCartPlaceList] = useState<PlaceType[]>([]);
+  const [cartPlaceList, setCartPlaceList] = useState<PlaceDayType[]>([]);
 
   useEffect(() => {
     if (isSearchRequested) {
@@ -58,121 +60,136 @@ function PlaceSearchSection(props: PropType) {
             return {
               id: result.id,
               name: result.place_name,
-              description: result.place_name+'입니다',
+              description: result.place_name + "입니다",
               homepage: result.place_url,
               phone_number: result.phone,
               address: result.address_name,
               category: result.category_group_name,
               lon: result.x,
-              lat: result.y
-            }
+              lat: result.y,
+            };
           });
           setSearchResults(convertedPlaces);
         } else if (status === kakao.maps.services.Status.ZERO_RESULT) {
-          alert('검색 결과가 존재하지 않습니다.');
+          alert("검색 결과가 존재하지 않습니다.");
         } else if (status === kakao.maps.services.Status.ERROR) {
-          alert('검색 중 오류가 발생했습니다.');
+          alert("검색 중 오류가 발생했습니다.");
         }
-      }
+      };
       places.keywordSearch(searchTabQuery, placesSearchCB);
     }
   }, [isSearchRequested, searchTabQuery]);
 
   const isPlaceInCart = (id: number) => {
-    return cartPlaceList.some((p: PlaceType) => p.id === id);
-  }
+    return cartPlaceList.some((p: PlaceDayType) => p.place.id === id);
+  };
 
   const onClickCartButton = (place: PlaceType) => {
     if (isPlaceInCart(place.id)) {
-      setCartPlaceList(cartPlaceList.filter((p: PlaceType) => p.id !== place.id));
+      setCartPlaceList(
+        cartPlaceList.filter((p: PlaceDayType) => p.place.id !== place.id)
+      );
     } else {
-      setCartPlaceList([ ...cartPlaceList, place]);
+      setCartPlaceList([...cartPlaceList, { place: place, day: 0 }]);
     }
-  }
+  };
 
   const onPressEnterSearch = (e: React.KeyboardEvent) => {
-    if (e.key === 'Enter') {
+    if (e.key === "Enter") {
       setIsSearchRequested(true);
       setTimeout(() => setIsSearchRequested(false), 100);
     }
-  }
+  };
 
   const onChangeSearchTabQuery = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
     setSearchTabQuery(e.target.value);
-  }
+  };
 
   const renderSearchTab = () => {
     return (
       <div>
         <input
-          style={{ marginTop: '20px' }}
+          style={{ marginTop: "20px" }}
           type="text"
           value={searchTabQuery}
           onChange={onChangeSearchTabQuery}
           onKeyPress={onPressEnterSearch}
         />
-        <div style={{ maxHeight: '70vw', overflowY: 'scroll', paddingBottom: '30px' }}>
-          {
-            searchResults.map((place: PlaceType) => {
-              return (
-                <CreatePlaceCard
-                  key={place.id}
-                  place={place}
-                  icon={cart}
-                  type="search"
-                  onClickCartButton={onClickCartButton}
-                  isPlaceInCart={(id: number) => isPlaceInCart(id)}
-                />)
-            })
-          }
+        <div
+          style={{
+            maxHeight: "70vw",
+            overflowY: "scroll",
+            paddingBottom: "30px",
+          }}
+        >
+          {searchResults.map((place: PlaceType) => {
+            return (
+              <CreatePlaceCard
+                selectedDay={null}
+                id={place.id}
+                key={place.id}
+                place={place}
+                icon={cart}
+                type="search"
+                onClickCartButton={onClickCartButton}
+                isPlaceInCart={(id: number) => isPlaceInCart(id)}
+              />
+            );
+          })}
         </div>
       </div>
-    )
-  }
+    );
+  };
 
   const renderPlaceTab = () => {
     return (
       <div>
-        {
-          cartPlaceList.map((place: PlaceType) => {
-            return (
-              <CreatePlaceCard
-                key={place.id}
-                place={place}
-                icon={isPlaceInRoute(place) ? deleteIcon : addIcon}
-                type="place"
-                onClickCartButton={isPlaceInRoute(place) ? onDeletePlace : onAddPlace}
-                isPlaceInCart={(id: number) => isPlaceInCart(id)}
-                isPlaceInRoute={isPlaceInRoute}
-              />)
-          })
-        }
+        {cartPlaceList.map((result: PlaceDayType, index) => {
+          return (
+            <CreatePlaceCard
+              selectedDay={null}
+              index={index}
+              id={result.place.id}
+              key={result.place.id}
+              place={result.place}
+              icon={isPlaceInRoute(result.place) ? deleteIcon : addIcon}
+              type="place"
+              onClickCartButton={
+                isPlaceInRoute(result.place) ? onDeletePlace : null
+              }
+              isPlaceInCart={(id: number) => isPlaceInCart(id)}
+              isPlaceInRoute={isPlaceInRoute}
+              setRoutePlaces={setRoutePlaces}
+            />
+          );
+        })}
       </div>
-    )
-  }
+    );
+  };
 
   return (
     <div className="place-search-container">
       <div className="place-search-tab-container">
         <div
           id="place"
-          className={"tab-title" + (selectedTab === 'place' ? ' selected' : '')}
-          onClick={() => onClickTabButton('place')}
+          className={"tab-title" + (selectedTab === "place" ? " selected" : "")}
+          onClick={() => onClickTabButton("place")}
         >
           Places
         </div>
 
         <div
           id="search"
-          className={"tab-title" + (selectedTab === 'search' ? ' selected' : '')}
-          onClick={() => onClickTabButton('search')}
+          className={
+            "tab-title" + (selectedTab === "search" ? " selected" : "")
+          }
+          onClick={() => onClickTabButton("search")}
         >
           Search
         </div>
       </div>
-
-      { selectedTab === 'search' ? renderSearchTab() : renderPlaceTab() }
+      {selectedTab === "search" ? renderSearchTab() : renderPlaceTab()}
     </div>
   );
 }
