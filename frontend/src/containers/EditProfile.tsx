@@ -4,6 +4,7 @@ import { editProfileAction } from "../store/User/userAction";
 import { RootReducerType } from "../store/store";
 import { useHistory } from "react-router-dom";
 import "../styles/components/EditProfile.css";
+
 function EditProfile() {
   const dispatch = useDispatch();
   const history = useHistory();
