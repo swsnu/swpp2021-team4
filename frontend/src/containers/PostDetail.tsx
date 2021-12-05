@@ -154,8 +154,8 @@ function PostDetail() {
         content: newComment,
       };
       return axios.post(`/post/${id}/comment/create/`, body).then(function () {
-        dispatch(getCommentsAction(Number(id)));
         setComment("");
+        dispatch(getCommentsAction(Number(id)));
       });
     }
   };
