@@ -113,6 +113,7 @@ function CreateEditPost(props: PropsType) {
       return {
         day,
         index,
+        kakao_id: place.id,
         name: place.name,
         description: place.description,
         latitude: place.lat || place.latitude || '',
@@ -123,6 +124,8 @@ function CreateEditPost(props: PropsType) {
         phone_number: place.phone_number,
       }
     });
+
+    const pathListData = Object.entries(pathList).map(([key, value]) => ({ from: key, to: value.to, transportation: value.transportation }));
 
     const defaultthumbnailImage = 'https://media.triple.guide/triple-cms/c_limit,f_auto,h_1024,w_1024/73968eea-cbbe-49cd-b001-353e9e962cbf.jpeg';
     const formData = new FormData();
@@ -136,6 +139,7 @@ function CreateEditPost(props: PropsType) {
     formData.append('availableWithoutCar', isAvailableWithoutCar.toString())
     formData.append('folder_id', folderId ? folderId.toString() : '172637238622223');
     formData.append('places', JSON.stringify(placeListData));
+    formData.append('path_list', JSON.stringify(pathListData));
     formData.append("enctype", 'multipart/form-data');
 
     dispatch(createPostAction(formData, (isCreated: boolean, postId: number) => {
