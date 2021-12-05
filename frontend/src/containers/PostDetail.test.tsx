@@ -1,5 +1,5 @@
 import React from "react";
-import { mount, ReactWrapper } from "enzyme";
+import { mount} from "enzyme";
 import { Provider } from "react-redux";
 import { ConnectedRouter } from "connected-react-router";
 import PostDetail from "./PostDetail";
@@ -12,8 +12,6 @@ import { BrowserRouter } from "react-router-dom";
 import axios from "axios";
 import Place from "../components/Place";
 import SelectFolderModal from "./SelectFolderModal";
-import { usePostState } from "../hooks/usePostState";
-import { resolve } from "path/posix";
 // import { waitFor } from "@testing-library/dom";
 // import { act } from "react-dom/test-utils";
 
@@ -167,8 +165,6 @@ describe("<PostDetail/>", () => {
   jest.mock("axios");
   let postDetail: any;
   let spyGetPostAction: any;
-  // let spyCartPostAction: any;
-  let spyGetCommentsAction: any;
   let spyPush: any;
   beforeEach(() => {
     postDetail = (
@@ -184,14 +180,6 @@ describe("<PostDetail/>", () => {
     spyGetPostAction = jest
       .spyOn(postAction, "getPostAction")
       .mockImplementation(() => jest.fn());
-
-    // spyCartPostAction = jest
-    //   .spyOn(postAction, "cartPostAction")
-    //   .mockImplementation(() => jest.fn());
-
-    // spyGetCommentsAction = jest
-    //   .spyOn(postAction, "getCommentsAction")
-    //   .mockImplementation(() => jest.fn());
 
     spyPush = jest.spyOn(history, "push").mockImplementation(() => {});
   });
@@ -217,11 +205,6 @@ describe("<PostDetail/>", () => {
     wrapper.simulate("click");
     expect(axios.get).toHaveBeenCalled();
     expect(spyGetPostAction).toHaveBeenCalled();
-    // jest
-    //   .spyOn(reactRedux, "useSelector")
-    //   .mockImplementation((callback) => callback(stubInitialState));
-    // component.find("#unlike-icon").simulate("click");
-    // expect(axios.get).toHaveBeenCalled();
   });
 
   it("should not render like function when rejected", async () => {
@@ -239,13 +222,6 @@ describe("<PostDetail/>", () => {
       .spyOn(reactRedux, "useSelector")
       .mockImplementation((callback) => callback(stubInitialState));
     const component = mount(postDetail);
-    // let spyUseState: any;
-    // spyUseState = jest.spyOn(React, "useState");
-    // const spySetComment = jest.spyOn(PostDetail, "setComment");
-    // spyUseState.mockImplementation((newComment: any) => [
-    //   newComment,
-    //   spySetComment,
-    // ]);
     const setComment = jest.fn();
     let spyUseState: any;
     spyUseState = jest.spyOn(React, "useState");
@@ -305,7 +281,6 @@ describe("<PostDetail/>", () => {
     const component = mount(postDetail);
     const wrapper = component.find(".post-detail-container");
     wrapper.simulate("click");
-    // jest.spyOn();
   });
 
   it("should render onClickAddPostCartButton when button clicked", () => {
@@ -357,7 +332,6 @@ describe("<PostDetail/>", () => {
       like_counts: 1,
       liked: true,
       created_at: "ex1",
-      // updated_at:"ex1",
     };
     jest.spyOn(reactRedux, "useSelector").mockImplementation((callback) =>
       callback({
