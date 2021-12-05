@@ -107,7 +107,7 @@ function CreateEditPost(props: PropsType) {
       isShared
     } = postInfoData;
 
-    const placeListData = routePlaces.map((p: PlaceDayType, index: number) => {
+    const placeListData = routePlaces.filter((p: PlaceDayType) => p.day).map((p: PlaceDayType, index: number) => {
       const { day, place } = p;
 
       return {
