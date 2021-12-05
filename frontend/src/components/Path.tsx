@@ -26,7 +26,7 @@ function Path(props: PropsType) {
     to,
     transportation = '',
     pathList = {},
-    onChangePath = () => {}
+    onChangePath
   } = props;
 
   const [posFrom, setPosFrom] = useState('');
@@ -71,10 +71,6 @@ function Path(props: PropsType) {
       case 'wal':
         transportationName = '걷기';
         velocity = 4;
-        break;
-      default:
-        transportationName = '';
-        velocity = 0;
     }
     if (velocity && transportationName) {
       setPathInfoData({
@@ -82,7 +78,13 @@ function Path(props: PropsType) {
         velocity
       });
     }
-  }, [transportation])
+  }, [transportation]);
+
+  const onChangeSelectOption = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    if (onChangePath) {
+      onChangePath(event, from, to);
+    }
+  }
 
   return (
     <div className="path-container">
@@ -94,7 +96,7 @@ function Path(props: PropsType) {
             id="path"
             className="path-select-container"
             name="path"
-            onChange={(event: React.ChangeEvent<HTMLSelectElement>) => onChangePath(event, from, to)}
+            onChange={onChangeSelectOption}
           >
             {
               transportationTypes.map((t: {name: string, value: string}) => {
