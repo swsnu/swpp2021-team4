@@ -89,7 +89,7 @@ function CreateEditPost(props: PropsType) {
   const isPlaceInRoute = (place: PlaceType) => {
     return routePlaces
       .filter((p: PlaceDayType) => p.day === selectedDay)
-      .some((p: PlaceDayType) => p.place.id === place.id);
+      .some((p: PlaceDayType) => p.place.id.toString().startsWith(place.id.toString()));
   }
 
   const [selectedTab, setSelectedTab] = useState<'place' | 'search'>('place');
