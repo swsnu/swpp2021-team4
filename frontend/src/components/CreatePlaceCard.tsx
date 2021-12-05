@@ -1,7 +1,7 @@
 import React, { useRef, useState } from "react";
 import buttonUp from "../static/chevron-down.svg";
 import buttonDown from "../static/chevron-up.svg";
-import { PlaceType, PlaceDayType } from "../store/Post/postInterfaces";
+import { PlaceType, PlaceDayType, PathListType } from "../store/Post/postInterfaces";
 import "../styles/components/CreatePlaceCard.scss";
 import ItemTypes from "../utils/items";
 import { useDrag, useDrop } from "react-dnd";
@@ -9,6 +9,7 @@ import { XYCoord } from "dnd-core/dist/types/interfaces";
 interface PropsType {
   id: Number;
   index?: number;
+  todayPlaceList?: PlaceDayType[]
   place: PlaceType;
   icon: string;
   type: "search" | "place" | "route";
@@ -17,6 +18,7 @@ interface PropsType {
   onClickCartButton?: ((place: PlaceType) => void) | null;
   selectedDay: number | null;
   movePlace?: (dragIndex: number, hoverIndex: number) => void;
+  setPathList?: (value: React.SetStateAction<PathListType>) => void;
   setRoutePlaces?: (value: React.SetStateAction<PlaceDayType[]>) => void;
 }
 interface ItemType {
@@ -24,6 +26,11 @@ interface ItemType {
   place: PlaceType;
   index: number;
   day: number;
+}
+
+interface PathValueType {
+  to: string,
+  transportation: 'car' | 'pub' | 'vic' | 'wal'
 }
 
 function CreatePlaceCard(props: PropsType) {
@@ -43,10 +50,27 @@ function CreatePlaceCard(props: PropsType) {
         dropResult &&
         dropResult.day !== props.selectedDay &&
         setRoutePlaces
-      ) {
+        ) {
+        // drag place from cart to my route
         setRoutePlaces((prevState: any) => {
           return [...prevState, { place: props.place, day: dropResult.day }];
         });
+      } else if (dropResult && setRoutePlaces && dropResult.day === props.selectedDay) {
+        if (props.setPathList && props.index) {
+          props.setPathList((prevState: PathListType) => {
+            Object.entries(prevState).forEach(([key, value]: [string, PathValueType]) => {
+              if (
+                key === item.place.id.toString() ||
+                value.to === item.place.id.toString() ||
+                props.todayPlaceList && key === props.todayPlaceList[(item?.index || 1)-1].place.id.toString()
+              ) {
+                // removes path objects related to the dragged place and hovered place.
+                delete prevState[key];
+              }
+            });
+            return { ...prevState };
+          });
+        }
       }
     },
     collect: (monitor) => ({

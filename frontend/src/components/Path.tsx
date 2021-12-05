@@ -64,7 +64,7 @@ function Path(props: PropsType) {
         }
       </select>
       <span>{
-        pathList[from.id]?.transportation && typeof time === 'string'
+        pathList[from.id]?.transportation && !time.includes('NaN')
         ? `약 ${time}`
         : ''
       }</span>

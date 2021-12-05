@@ -3,17 +3,18 @@ import "../styles/components/MyRoutesSection.scss";
 import addIcon from "../static/add_day_icon.svg";
 import { PathListType, PlaceDayType, PlaceType } from "../store/Post/postInterfaces";
 import deleteIcon from "../static/delete.svg";
-import CreatePlaceCard from "./CreatePlaceCard";
 import Path from "./Path";
 import { useDrop } from "react-dnd";
 import ItemTypes from "../utils/items";
 import update from "immutability-helper";
+import CreatePlaceCard from "./CreatePlaceCard";
 
 interface PropType {
   days: number;
   selectedDay: number;
   routePlaces: any[];
   pathList: PathListType
+  setPathList: (value: React.SetStateAction<PathListType>) => void;
   onChangePath: (e: React.ChangeEvent<HTMLSelectElement>, origin: PlaceType, destination: PlaceType) => void
   onClickDay: (value: number) => void;
   onClickAddIcon: (value: number) => void;
@@ -25,8 +26,6 @@ function MyRoutesSection(props: PropType) {
   const {
     days,
     selectedDay,
-    pathList,
-    onChangePath,
     onClickDay,
     onClickAddIcon,
     routePlaces,
@@ -117,7 +116,9 @@ function MyRoutesSection(props: PropType) {
             <>
               <CreatePlaceCard
                 setRoutePlaces={props.setRoutePlaces}
+                setPathList={props.setPathList}
                 selectedDay={props.selectedDay}
+                todayPlaceList={todayPlaceList}
                 index={index}
                 key={place.id}
                 id={place.id}
@@ -131,10 +132,10 @@ function MyRoutesSection(props: PropType) {
               {index !== todayPlaceList.length - 1 && (
                 <Path
                   key={index}
+                  pathList={props.pathList}
+                  onChangePath={props.onChangePath}
                   from={place}
                   to={todayPlaceList[index + 1].place}
-                  pathList={pathList}
-                  onChangePath={onChangePath}
                 />
               )}
             </>

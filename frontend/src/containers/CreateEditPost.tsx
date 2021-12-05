@@ -51,19 +51,6 @@ function CreateEditPost(props: PropsType) {
   const [isPostCreated, setIsPostCreated] = useState(false);
   const [createdPostId, setCreatedPostId] = useState<number>(0);
   const [pathList, setPathList] = useState<PathListType>({});
-  
-  const onChangePath = useCallback(
-    (e: React.ChangeEvent<HTMLSelectElement>, origin: PlaceType, destination: PlaceType) => {
-      setPathList({
-        ...pathList,
-        [origin.id]: {
-          to: destination.id,
-          transportation: e.target.value
-        }
-      });
-    },
-    [pathList]
-  );
 
   useEffect(() => {
     if (isPostCreated && createdPostId) {
@@ -77,6 +64,19 @@ function CreateEditPost(props: PropsType) {
       folderId: props.folder?.id || 0
     });
   }, [props.folder]);
+
+  const onChangePath = useCallback(
+    (e: React.ChangeEvent<HTMLSelectElement>, origin: PlaceType, destination: PlaceType) => {
+      setPathList({
+        ...pathList,
+        [origin.id]: {
+          to: destination.id,
+          transportation: e.target.value
+        }
+      });
+    },
+    [pathList]
+  );
 
 
   const onDeletePlace = useCallback(
@@ -223,6 +223,7 @@ function CreateEditPost(props: PropsType) {
               days={postInfoData.days}
               selectedDay={selectedDay}
               pathList={pathList}
+              setPathList={setPathList}
               onChangePath={onChangePath}
               onClickDay={onClickDay}
               onClickAddIcon={onClickAddIcon}
