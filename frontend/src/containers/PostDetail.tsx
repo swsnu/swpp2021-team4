@@ -23,6 +23,7 @@ import like_icon from "../static/like-icon.svg";
 import unlike_icon from "../static/unlike-icon.svg";
 import SelectFolderModal from "./SelectFolderModal";
 import { Folder } from "../store/User/userInterfaces";
+import Path from "../components/Path";
 
 function PostDetail() {
   const dispatch = useDispatch();
@@ -95,18 +96,37 @@ function PostDetail() {
         placeList.push(
           <div className="route-day-info">
             Day{day}
-            {places
+            {
+              places
               .filter((place: any) => place.day == day)
-              .map((dayPlace: PlaceType) => {
+              .map((dayPlace: PlaceType, index: number, array: PlaceType[]) => {
+                const pathFromCurrentPlace = post.pathList.find((path: any) =>  {
+                  return path.from_place_id === dayPlace.id &&
+                  index < array.length &&
+                  path.to_place_id == array[index+1].id
+                });
+
                 return (
-                  <Place
-                    key={days.index}
-                    place={dayPlace}
-                    icon={cart}
-                    onClickButton={onClickAddPlaceCartButton}
-                  />
+                  <>
+                    <Place
+                      key={days.index}
+                      place={dayPlace}
+                      icon={cart}
+                      onClickButton={onClickAddPlaceCartButton}
+                    />
+                    {
+                      pathFromCurrentPlace &&
+                      <Path
+                        key={dayPlace.id+array[index+1].id}
+                        from={dayPlace}
+                        to={array[index+1]}
+                        transportation={pathFromCurrentPlace.transportation}
+                      />
+                    }
+                  </>
                 );
-              })}
+              })
+            }
           </div>
         );
       }

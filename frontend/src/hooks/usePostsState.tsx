@@ -28,6 +28,7 @@ const initialState: PostStateType = {
     title: "",
     like_counts: 0,
     liked: false,
+    pathList: [],
   },
   selectedFolder: {
     id: 0,
