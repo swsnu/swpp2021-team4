@@ -89,7 +89,7 @@ function CreateEditPost(props: PropsType) {
   const isPlaceInRoute = (place: PlaceType) => {
     return routePlaces
       .filter((p: PlaceDayType) => p.day === selectedDay)
-      .some((p: PlaceDayType) => p.place.id === place.id);
+      .some((p: PlaceDayType) => p.place.id.toString().startsWith(place.id.toString()));
   }
 
   const [selectedTab, setSelectedTab] = useState<'place' | 'search'>('place');
@@ -107,7 +107,7 @@ function CreateEditPost(props: PropsType) {
       isShared
     } = postInfoData;
 
-    const placeListData = routePlaces.map((p: PlaceDayType, index: number) => {
+    const placeListData = routePlaces.filter((p: PlaceDayType) => p.day).map((p: PlaceDayType, index: number) => {
       const { day, place } = p;
 
       return {

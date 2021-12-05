@@ -6,6 +6,7 @@ import "../styles/components/CreatePlaceCard.scss";
 import ItemTypes from "../utils/items";
 import { useDrag, useDrop } from "react-dnd";
 import { XYCoord } from "dnd-core/dist/types/interfaces";
+
 interface PropsType {
   id: Number;
   index?: number;
@@ -53,7 +54,7 @@ function CreatePlaceCard(props: PropsType) {
         ) {
         // drag place from cart to my route
         setRoutePlaces((prevState: any) => {
-          return [...prevState, { place: props.place, day: dropResult.day }];
+          return [...prevState, { place: { ...props.place, id: props.place.id+Date.now() }, day: dropResult.day }];
         });
       } else if (dropResult && setRoutePlaces && dropResult.day === props.selectedDay) {
         if (props.setPathList && props.index) {
