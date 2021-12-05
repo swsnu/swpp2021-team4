@@ -37,6 +37,7 @@ function PostDetail() {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [isPostAddedToCart, setIsPostAddedToCart] = useState(false);
   const [selectedPlaceId, setSelectedPlaceId] = useState(0); // tracks which place user try to put in cart
+  const [selectedDay, setSelectedDay] = useState(0);
 
   const onClickAddPostCartButton = () => {
     // executed when user clicks 'Add this route to cart' button
@@ -93,7 +94,7 @@ function PostDetail() {
       const placeList = [];
       for (let day = 1; day <= days; day++) {
         placeList.push(
-          <div className="route-day-info">
+          <div className="route-day-info" onClick={() => setSelectedDay(day)}>
             Day{day}
             {places
               .filter((place: any) => place.day == day)
@@ -186,6 +187,7 @@ function PostDetail() {
           <div className="body-left-container">
             <Map
               fromWhere={'detail'}
+              selectedDay={selectedDay}
               location={post.location}
               placeList={post.places.map((place: any) => {
                 place.lat = place.latitude;

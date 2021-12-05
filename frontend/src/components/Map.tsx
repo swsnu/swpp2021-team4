@@ -53,7 +53,7 @@ function Map(props: PropType) {
       return {
         day,
         marker: new kakao.maps.Marker({
-          map: day === selectedDay ? map.current : null,
+          map: day === selectedDay || (fromWhere === 'detail' && selectedDay === 0) ? map.current : null,
           position: new kakao.maps.LatLng(place.lat, place.lon),
         })
       };
