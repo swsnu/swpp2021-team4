@@ -17,6 +17,7 @@ interface PropType {
   onClickPostShareButton?: () => void;
   onClickAddPostCartButton?: () => void;
   onClickPostLikeButton: () => void;
+  onClickPostDeleteButton?: () => void;
 }
 
 function PostHeader(props: PropType) {
@@ -114,7 +115,7 @@ function PostHeader(props: PropType) {
             {props.loggedUserId === props.post.author_id && (
               <div className="header-top-icons">
                 <img className="icon" src={edit_btn} />
-                <img className="icon" src={delete_btn} />
+                <img className="icon" src={delete_btn} onClick={props.onClickPostDeleteButton} />
               </div>
             )}
           </div>

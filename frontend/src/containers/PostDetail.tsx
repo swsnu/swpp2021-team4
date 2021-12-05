@@ -7,6 +7,7 @@ import {
   cartPostAction,
   getPostAction,
   getCommentsAction,
+  deletePostAction,
 } from "../store/Post/postAction";
 import "../styles/components/PostDetail.css";
 import "../styles/components/Place.css";
@@ -167,6 +168,13 @@ function PostDetail() {
     }
   };
 
+  const onClickPostDeleteButton = () => {
+    if (window.confirm("정말로 삭제하시겠습니까?")) {
+      dispatch(deletePostAction(post.id, () => history.goBack()));
+    }
+  }
+
+
   return (
     <>
       <div
@@ -180,6 +188,7 @@ function PostDetail() {
           onClickAddPostCartButton={onClickAddPostCartButton}
           onClickPostShareButton={onClickPostShareButton}
           onClickPostLikeButton={onClickPostLikeButton}
+          onClickPostDeleteButton={onClickPostDeleteButton}
         />
         <div className="post-detail-body">
           <div className="body-route-container">{placeMapping()}</div>
