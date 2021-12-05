@@ -11,6 +11,8 @@ import {
   GET_COMMENTS_FAIL,
   CREATE_POST_SUCCESS,
   CREATE_POST_FAIL,
+  DELETE_POST_SUCCESS,
+  DELETE_POST_FAIL,
 } from "../actionTypes";
 import { Folder } from "../User/userInterfaces";
 
@@ -191,6 +193,14 @@ export interface GetCommentsFail {
   type: typeof GET_COMMENTS_FAIL;
 }
 
+export interface DeletePostSuccess {
+  type: typeof DELETE_POST_SUCCESS;
+}
+
+export interface DeletePostFail {
+  type: typeof DELETE_POST_FAIL;
+}
+
 export type PostDispatchType =
   | GetPostsSuccess
   | GetPostsFail
@@ -203,4 +213,6 @@ export type PostDispatchType =
   | SearchSuccess
   | SearchFail
   | GetCommentsSucess
-  | GetCommentsFail;
+  | GetCommentsFail
+  | DeletePostSuccess
+  | DeletePostFail;

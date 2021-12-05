@@ -68,6 +68,19 @@ export const createPostAction = (formData: FormData, callbackFunc: (isCreated: b
   }
 }
 
+export const deletePostAction = (postId: number, callbackFunc: () => void) => {
+  return (dispatch: Redux.Dispatch<PostDispatchType>) => {
+    return axios.delete(`/post/${postId}/edit/`)
+    .then((res) => {
+      dispatch({ type: CREATE_POST_SUCCESS, payload: res.data });
+      callbackFunc();
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+  }
+}
+
 export const searchAction = (
   searchForm: SearchForm,
   callbackFunc: (value: boolean) => void
