@@ -64,6 +64,7 @@ class Post(models.Model):
 
 class Place(models.Model):
     name = models.CharField(max_length=256, blank=True)
+    kakao_id = models.CharField(max_length=256, blank=True)
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
     description = models.TextField()
     day = models.IntegerField()
