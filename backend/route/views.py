@@ -1,6 +1,6 @@
 from django.http import HttpResponse, JsonResponse,HttpResponseBadRequest
 import json
-from .models import Post, Comment, Place, Like, Folder, PostInFolder, PlaceInFolder
+from .models import Post, Comment, Place, Like, Folder, PostInFolder, PlaceInFolder, Path
 from json.decoder import JSONDecodeError
 from django.views.decorators.http import require_http_methods
 from django.views.decorators.http import require_POST, require_GET
@@ -41,6 +41,7 @@ def create_place_list(places, post):
         new_place = Place.objects.create(
             name = place['name'],
             post = post,
+            kakao_id = place['kakao_id'],
             description = place['description'],
             day = place['day'],
             index = place['index'],
@@ -91,6 +92,7 @@ def post_create(request):
         post_available_without_car=form.cleaned_data['availableWithoutCar']
 
         places = json.loads(form.cleaned_data['places'])
+        path_list = json.loads(form.cleaned_data['path_list'])
 
         post = Post.objects.create(
             title=post_title,
@@ -107,6 +109,21 @@ def post_create(request):
         )
 
         place_list = create_place_list(places, post)
+
+        for path in path_list:
+            origin_kakao_id = path['from']
+            origin_place = Place.objects.filter(kakao_id=origin_kakao_id).first()
+            
+            destination_kakao_id = path['to']
+            destination_place = Place.objects.filter(kakao_id=destination_kakao_id).first()
+            transportation = path['transportation']
+
+            if origin_place is not None and destination_place is not None:
+                Path.objects.create(
+                    from_place=origin_place,
+                    to_place=destination_place,
+                    transportation=transportation
+                )
 
         response_dict = {
             'id': post.id,

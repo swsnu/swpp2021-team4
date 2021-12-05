@@ -99,6 +99,7 @@ class RouteTestCase(TestCase):
         places = json.dumps([
                 {
                     'name': 'Place1',
+                    'kakao_id': '111',
                     'description': 'desc1',
                     'day': 1,
                     'index': 1,
@@ -111,6 +112,7 @@ class RouteTestCase(TestCase):
                 },
                 {
                     'name': 'Place2',
+                    'kakao_id': '222',
                     'description': 'desc2',
                     'day': 1,
                     'index': 2,
@@ -121,7 +123,14 @@ class RouteTestCase(TestCase):
                     'address': '서울 관악구 관악로 2',
                     'category': '학교'
                 }
-            ])
+            ]),
+        path_list = json.dumps([
+            {
+                'from': '111',
+                'to':  '222',
+                'transportation': 'pub'
+            },
+        ])
         response = client.post('/post/create/', ({
             'title':'testPost',
             'header_image': './grape.jpg',
@@ -133,7 +142,8 @@ class RouteTestCase(TestCase):
             'season':'sum',
             'location':'korea',
             'availableWithoutCar': False,
-            'places': places
+            'places': places,
+            'path_list': path_list
             }), format='multipart')
         self.assertEqual(response.status_code, 200)
         self.assertEqual(str(Post.objects.get(title='testPost')), 'testPost')
@@ -184,6 +194,7 @@ class RouteTestCase(TestCase):
         places = json.dumps([
                 {
                     'name': 'Place1',
+                    'kakao_id': '111',
                     'description': 'desc1',
                     'day': 1,
                     'index': 1,
@@ -196,6 +207,7 @@ class RouteTestCase(TestCase):
                 },
                 {
                     'name': 'Place2',
+                    'kakao_id': '222',
                     'description': 'desc2',
                     'day': 1,
                     'index': 2,
@@ -207,6 +219,14 @@ class RouteTestCase(TestCase):
                     'category': '학교'
                 }
             ])
+
+        path_list = json.dumps([
+            {
+                'from': '111',
+                'to':  '222',
+                'transportation': 'pub'
+            },
+        ])
 
         response = client.post('/post/1/edit/', ({
             'title':'testPost',
@@ -270,7 +290,8 @@ class RouteTestCase(TestCase):
             'season':'sum',
             'location':'korea',
             'availableWithOutCar': False,
-            'places': places
+            'places': places,
+            'path_list': path_list
             }), format='multipart')
         self.assertEqual(response.status_code, 200)
 
