@@ -120,6 +120,7 @@ def post_create(request):
 
             if origin_place is not None and destination_place is not None:
                 Path.objects.create(
+                    post=post,
                     from_place=origin_place,
                     to_place=destination_place,
                     transportation=transportation
@@ -224,6 +225,8 @@ def post_spec_get(request, post_id):
             'created_at': comment.created_at.strftime("%Y-%m-%d %H:%M")
         })
 
+    path_list = [path for path in Path.objects.filter(post_id=post_id).values()]
+
     like_counts = post.like_users.count()
     
     logged_user_id=request.session.get('user', None)
@@ -252,6 +255,7 @@ def post_spec_get(request, post_id):
         'like_counts': like_counts,
         'liked': liked,
         'created_at': post.updated_at.strftime("%Y. %m. %d. %H:%M"),
+        'pathList': path_list
         }
     return JsonResponse(response_dict, safe=False)
     
