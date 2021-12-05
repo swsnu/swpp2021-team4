@@ -4,18 +4,19 @@ import FolderList from '../components/FolderList';
 import { RootReducerType } from '../store/store';
 import { addFolderAction, editFolderAction } from '../store/User/userAction';
 import { Folder } from '../store/User/userInterfaces';
-import "../styles/components/SelectFolderModal.scss";
+import "../styles/components/SelectFolderModal.css";
+import add_icon from "../static/add_day_icon.svg";
 
 interface PropsType {
   isModalVisible: boolean
-  onClickSelectButton: (folder: Folder|null) => void
+  onClickSelectButton: (folder: Folder | null) => void
 }
 
 function SelectFolderModal(props: PropsType) {
   const dispatch = useDispatch();
   const { loggedUser } = useSelector((state: RootReducerType) => state.user);
-  const [selectedFolder, setSelectedFolder] = useState<Folder|null>(null);
-  const [editingFolder, setEditingFolder] = useState<Folder|null>(null);
+  const [selectedFolder, setSelectedFolder] = useState<Folder | null>(null);
+  const [editingFolder, setEditingFolder] = useState<Folder | null>(null);
   const [editText, setEditText] = useState<string>('');
 
   const [newFolderText, setNewFolderText] = useState('');
@@ -150,15 +151,17 @@ function SelectFolderModal(props: PropsType) {
 
       {
         !isMakeFolderBtnClicked
-        ? <div onClick={onClickMakeFolder}>
-            Make a new one
+          ? <div className="make-folder" onClick={onClickMakeFolder}>
+            <img className="icon" src={add_icon} />
+            <div className="make-folder-title">Make a new one</div>
           </div>
-        : <div>
+          : <div>
             <input
               className="make-folder-input"
               value={newFolderText}
               onChange={onChangeMakeFolder}
               onKeyPress={onPressEnterMakeFolder}
+              placeholder="새로운 폴더 이름을 입력해주세요"
             />
           </div>
       }

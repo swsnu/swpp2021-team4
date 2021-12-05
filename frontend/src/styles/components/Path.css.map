@@ -1,0 +1,10 @@
+{
+    "version": 3,
+    "mappings": "AAEA,AAAA,eAAe,CAAC;EACd,OAAO,EAAE,IAAI;EACb,cAAc,EAAE,GAAG;EACnB,WAAW,EAAE,MAAM;EACnB,MAAM,EAAE,mBAAmB;CAK5B;;AATD,AAME,eANa,CAMb,sBAAsB,CAAC;EACrB,MAAM,EAAE,OAAO;CAChB",
+    "sources": [
+        "Path.scss",
+        "../../Variables/Variables.scss"
+    ],
+    "names": [],
+    "file": "Path.css"
+}
