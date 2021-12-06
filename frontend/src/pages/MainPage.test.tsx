@@ -9,10 +9,6 @@ describe("<MainPage />", () => {
         expect(wrapper.length).toBe(1);
         wrapper = component.find("Search");
         expect(wrapper.length).toBe(1);
-        wrapper = component.find("SearchResultList");
-        expect(wrapper.length).toBe(1);
-        wrapper = component.find("SearchInfo");
-        expect(wrapper.length).toBe(1);
         wrapper = component.find("Footer");
         expect(wrapper.length).toBe(1);
     });
