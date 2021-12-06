@@ -7,7 +7,7 @@ import MyRoutesSection from "../components/MyRoutesSection";
 import PlaceSearchSection from "../components/PlaceSearchSection";
 import { usePostState } from "../hooks/usePostState";
 import { CreateEditPostLocationType } from "../pages/CreateEditPostPage";
-import { createPostAction } from "../store/Post/postAction";
+import { createPostAction, editPostAction } from "../store/Post/postAction";
 import { PathListType, PlaceDayType, PlaceType, ServerPathType } from "../store/Post/postInterfaces";
 import { Folder } from "../store/User/userInterfaces";
 import "../styles/components/CreateEditPost.scss";
@@ -74,7 +74,7 @@ function CreateEditPost(props: PropsType) {
       
       const placeList = post.places.map((place: PlaceType) => ({ day: place.day, place}));
       const convertedPathList: PathListType = {};
-      post.pathList.forEach((path: ServerPathType) => convertedPathList[path.from_place_id] = { to: path.to_place_id.toString(), transportation: path.transportation});
+      post.pathList?.forEach((path: ServerPathType) => convertedPathList[path.from_place_id] = { to: path.to_place_id.toString(), transportation: path.transportation});
 
       setPathList(convertedPathList);
       setRoutePlaces(placeList);
@@ -153,7 +153,7 @@ function CreateEditPost(props: PropsType) {
 
   const [selectedTab, setSelectedTab] = useState<'place' | 'search'>('place');
 
-  const onClickCreateButton = () => {
+  const onClickCreateEditButton = () => {
     const {
       title,
       thumbnailImage,
@@ -201,10 +201,16 @@ function CreateEditPost(props: PropsType) {
     formData.append('path_list', JSON.stringify(pathListData));
     formData.append("enctype", 'multipart/form-data');
 
-    dispatch(createPostAction(formData, (isCreated: boolean, postId: number) => {
-      setIsPostCreated(isCreated);
-      setCreatedPostId(postId);
-    }));
+    if (post?.id) {
+      // edit
+      dispatch(editPostAction(formData, post.id, () => history.push(`/post/${createdPostId}/`)));
+    } else {
+      //create
+      dispatch(createPostAction(formData, (isCreated: boolean, postId: number) => {
+        setIsPostCreated(isCreated);
+        setCreatedPostId(postId);
+      }));
+    }
   }
 
   const onChangePostInfoData = useCallback(
@@ -300,11 +306,11 @@ function CreateEditPost(props: PropsType) {
         </div>
 
         <Map
-          fromWhere={'create'}
+          fromWhere={pageLocation.state?.from === 'edit' ? 'edit' : 'create'}
           location={locationQuery}
           selectedDay={selectedDay}
           placeList={routePlaces}
-          onClickButton={onClickCreateButton}
+          onClickButton={onClickCreateEditButton}
         />
       </div>
     </div>
