@@ -6,8 +6,7 @@
 .nav-btn-font {
   font-family: "Montserrat", Monospace;
   font-weight: 600;
-  font-size: 1.125rem;
-  line-height: 1.375rem;
+  font-size: 15px;
   color: #000000;
 }
 
@@ -35,7 +34,12 @@
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  padding: 2.29vw 3.28vw 2.29vw 2.4vw;
+  padding: 30px 50px;
+  border-bottom: 0.3px solid #e2e3e9;
+}
+
+.nav-container .logo {
+  width: 150px;
 }
 
 .vague {
@@ -79,9 +83,9 @@
 
 .nav-sign-btn {
   background-color: #FFFFFF;
-  min-width: 5.2vw;
   text-align: center;
-  padding: 0.626vw 0;
+  padding: 7px 13px;
+  font-size: 13px;
   border: 1px solid #a7a9af;
   border-radius: 6px;
 }

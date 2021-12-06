@@ -10,7 +10,7 @@ import { CreateEditPostLocationType } from "../pages/CreateEditPostPage";
 import { createPostAction, editPostAction } from "../store/Post/postAction";
 import { PathListType, PlaceDayType, PlaceType, ServerPathType } from "../store/Post/postInterfaces";
 import { Folder } from "../store/User/userInterfaces";
-import "../styles/components/CreateEditPost.scss";
+import "../styles/components/CreateEditPost.css";
 
 export interface PostInfoDataType {
   title: string;
@@ -245,6 +245,13 @@ function CreateEditPost(props: PropsType) {
     [postInfoData.location]
   );
 
+  const onClickAvailableWithoutCar = () => {
+    setPostInfoData({
+      ...postInfoData,
+      isAvailableWithoutCar: !postInfoData.isAvailableWithoutCar
+    })
+  }
+
   const onClickDay = useCallback((value: number) => {
     setSelectedDay(value);
   }, []);
@@ -268,6 +275,7 @@ function CreateEditPost(props: PropsType) {
         folder={props.folder}
         thumbnailImage={postInfoData.thumbnailImage || defaultImage}
         postInfoData={postInfoData}
+        onClickAvailableWithoutCar={onClickAvailableWithoutCar}
         onChangePostInfoData={onChangePostInfoData}
         onPressEnterLocation={onPressEnterLocation}
       />

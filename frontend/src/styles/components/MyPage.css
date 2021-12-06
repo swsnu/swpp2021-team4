@@ -14,7 +14,6 @@
 }
 
 .folder {
-  margin-top: 5%;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -22,24 +21,37 @@
   -webkit-box-direction: normal;
       -ms-flex-direction: row;
           flex-direction: row;
+  width: 85vw;
+  margin: 50px auto;
 }
 
 .folder .left {
-  width: 25vw;
+  width: 30vw;
   height: 100%;
-  margin-left: 130px;
   margin-bottom: 100px;
   background: #F5F6F9;
   border-radius: 6px;
   margin-right: 20px;
+  font-weight: 600;
+  padding: 0 20px;
 }
 
 .folder .left .folderHead {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
   font-family: "Montserrat", Monospace;
   font-style: normal;
-  margin-left: 4%;
-  margin-top: 8%;
+  padding: 20px 0;
   color: #57ceb9;
+}
+
+.folder .left .folderHead .icon {
+  width: 20px;
+  margin-right: 5%;
 }
 
 .folder .left .folder-input-container {
@@ -58,11 +70,17 @@
   -webkit-box-direction: normal;
       -ms-flex-direction: row;
           flex-direction: row;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
   background: #ffffff;
-  width: 90%;
-  margin-left: 5%;
-  margin-right: 5%;
-  margin-top: 5%;
+  width: 100%;
+  padding: 10px;
+  font-weight: 400;
+  font-family: "Noto Sans CJK KR", Monospace;
 }
 
 .folder .left .eachItem:hover {
@@ -75,19 +93,12 @@
 }
 
 .folder .left .eachItem .folder-name {
-  width: 80%;
-  margin-top: 5%;
-  margin-left: 5%;
-  margin-bottom: 5%;
+  padding: 10px;
 }
 
 .folder .left .eachItem .icon {
-  width: 6%;
-  margin-right: 5%;
-}
-
-.folder .left .left_button {
-  margin-bottom: 4%;
+  width: 15px;
+  margin-right: 10px;
 }
 
 .folder .left button {
@@ -120,7 +131,6 @@
   min-height: 300px;
   background: #F5F6F9;
   border-radius: 6px;
-  margin-right: 10%;
 }
 
 .folder .right .posts-container {
