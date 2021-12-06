@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { PlaceType, PlaceDayType } from "../store/Post/postInterfaces";
-import "../styles/components/PlaceSearchSection.scss";
+import "../styles/components/PlaceSearchSection.css";
 import CreatePlaceCard from "./CreatePlaceCard";
 import cart from "../static/cart-icon.svg";
 import deleteIcon from "../static/delete.svg";
+import searchIcon from "../static/search.svg";
 import addIcon from "../static/add_day_icon.svg";
 
 const { kakao } = window;
@@ -108,14 +109,18 @@ function PlaceSearchSection(props: PropType) {
 
   const renderSearchTab = () => {
     return (
-      <div>
-        <input
-          style={{ marginTop: "20px" }}
-          type="text"
-          value={searchTabQuery}
-          onChange={onChangeSearchTabQuery}
-          onKeyPress={onPressEnterSearch}
-        />
+      <div className="place-search-tab">
+        <div className="place-search-input-container">
+          <img className="search-icon" src={searchIcon} />
+          <input
+            className="place-search-input"
+            type="text"
+            value={searchTabQuery}
+            onChange={onChangeSearchTabQuery}
+            onKeyPress={onPressEnterSearch}
+            placeholder="장소 이름을 입력하세요"
+          />
+        </div>
         <div
           style={{
             maxHeight: "70vw",

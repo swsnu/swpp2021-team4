@@ -51,7 +51,6 @@ function CreateEditPost(props: PropsType) {
   const [isPostCreated, setIsPostCreated] = useState(false);
   const [createdPostId, setCreatedPostId] = useState<number>(0);
 
-
   useEffect(() => {
     if (isPostCreated && createdPostId) {
       history.push(`/post/${createdPostId}/`);
@@ -65,13 +64,39 @@ function CreateEditPost(props: PropsType) {
     });
   }, [props.folder]);
 
-  const onEditPlace = useCallback(
-    (place: PlaceType) => {
-      // setRoutePlaces(routePlaces.filter((p: PlaceDayType) => p.day !== selectedDay || p.place.id !== place.id));
-      console.log('place', place);
-    },
-    [routePlaces, selectedDay]
-  );
+  const [editPlace, setEditedPlace] = useState<{ id: number, description: string }>({
+    id: 0,
+    description: ''
+  });
+
+  const onChangePlaceDescription = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setEditedPlace({
+      ...editPlace,
+      description: e.target.value
+    });
+  }
+
+  const onEditPlace = (place: PlaceType) => {
+    if (editPlace.id === 0) {
+      setEditedPlace({
+        id: place.id,
+        description: place.description
+      });
+      return;
+    }
+
+    setRoutePlaces(routePlaces.map((p: PlaceDayType) => {
+      if (p.place.id === editPlace.id && p.day === selectedDay) {
+        p.place.description = editPlace.description;
+      }
+      return p;
+    }));
+    setEditedPlace({
+      id: 0,
+      description: ''
+    });
+
+  };
 
   const onDeletePlace = useCallback(
     (place: PlaceType) => {
@@ -219,6 +244,8 @@ function CreateEditPost(props: PropsType) {
               onClickDay={onClickDay}
               onClickAddIcon={onClickAddIcon}
               routePlaces={routePlaces}
+              editPlace={editPlace}
+              onChangePlaceDescription={onChangePlaceDescription}
               onEditPlace={onEditPlace}
               onDeletePlace={onDeletePlace}
               setRoutePlaces={setRoutePlaces}

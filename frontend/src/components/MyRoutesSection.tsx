@@ -15,6 +15,8 @@ interface PropType {
   routePlaces: any[];
   onClickDay: (value: number) => void;
   onClickAddIcon: (value: number) => void;
+  editPlace: { id: number, description: string };
+  onChangePlaceDescription?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onEditPlace: (place: any) => void;
   onDeletePlace: (place: any) => void;
   setRoutePlaces: (value: React.SetStateAction<PlaceDayType[]>) => void;
@@ -123,7 +125,9 @@ function MyRoutesSection(props: PropType) {
                 place={place}
                 icon={deleteIcon}
                 type="route"
+                editPlace={props.editPlace}
                 onEditPlace={onEditPlace}
+                onChangePlaceDescription={props.onChangePlaceDescription}
                 onClickCartButton={onDeletePlace}
                 isPlaceInCart={() => true}
                 movePlace={movePlace}

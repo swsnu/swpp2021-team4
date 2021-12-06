@@ -80,11 +80,12 @@
           align-items: center;
 }
 
-.create-place-container .place-container-middle .place-description {
+.create-place-container .place-container-middle .place-description,
+.create-place-container .place-container-middle .place-description-input {
   width: 70%;
   font-weight: normal;
-  font-size: 1.125rem;
-  line-height: 1.375rem;
+  font-size: 15px;
+  font-family: "Montserrat", Monospace;
   color: #000000;
   word-wrap: break-word;
   word-break: break-all;
