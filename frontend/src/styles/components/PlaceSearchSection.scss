@@ -5,10 +5,12 @@
   padding: 1.04vw;
   min-height: 700px;
   width: 22vw;
+  font-family: $mainFont;
 
   .place-search-tab-container {
     display: flex;
     flex-direction: row;
+    margin-bottom: 20px;
 
     .tab-title {
       font-weight: 600;
@@ -26,6 +28,24 @@
 
     .tab-title + .tab-title {
       margin-left: 39px;
+    }
+  }
+
+  .place-search-tab {
+    .place-search-input-container {
+      display: flex;
+      flex-direction: row;
+      margin-bottom: 20px;
+  
+      .search-icon {
+        width: 20px;
+        margin-right: 10px;
+      }
+      .place-search-input {
+        border: none;
+        padding: 10px 20px;
+        font-size: 15px;
+      }
     }
   }
 }

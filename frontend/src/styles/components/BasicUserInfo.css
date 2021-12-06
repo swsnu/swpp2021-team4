@@ -1,4 +1,4 @@
-.showProfile {
+.basic-user-info {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -8,11 +8,11 @@
           flex-direction: row;
 }
 
-.showProfile .image {
+.basic-user-info .image {
   margin-left: 20vw;
 }
 
-.showProfile .image .profileImage {
+.basic-user-info .image .profileImage {
   border-radius: 50%;
   width: 18vw;
   height: 18vw;
@@ -20,7 +20,7 @@
           box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
 }
 
-.showProfile .basicInfo {
+.basic-user-info .basicInfo {
   margin-right: 20vw;
   margin-left: 10vw;
   padding-top: 5vh;
@@ -40,15 +40,15 @@
           align-items: end;
 }
 
-.showProfile .basicInfo .line {
+.basic-user-info .basicInfo .line {
   width: 100%;
   height: 0px;
   border: 0.3px solid #caccd2;
   margin: 8px 0;
 }
 
-.showProfile .basicInfo .email,
-.showProfile .basicInfo .name {
+.basic-user-info .basicInfo .email,
+.basic-user-info .basicInfo .name {
   width: 100%;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -60,18 +60,18 @@
   margin-bottom: 2%;
 }
 
-.showProfile .basicInfo .name {
+.basic-user-info .basicInfo .name {
   margin-top: 2%;
 }
 
-.showProfile .basicInfo .field {
+.basic-user-info .basicInfo .field {
   width: 40%;
   font-family: "Montserrat", Monospace;
   font-style: normal;
   color: #000000;
 }
 
-.showProfile .basicInfo .edit-btn {
+.basic-user-info .basicInfo .edit-btn {
   margin-top: 2%;
   width: 80px;
   padding: 10px 20px 10px 20px;
@@ -79,10 +79,9 @@
   background-color: #F5F6F9;
   border-radius: 6px;
   cursor: pointer;
-  border: none;
 }
 
-.showProfile .basicInfo .edit-btn:hover {
+.basic-user-info .basicInfo .edit-btn:hover {
   color: #57ceb9;
 }
 /*# sourceMappingURL=BasicUserInfo.css.map */

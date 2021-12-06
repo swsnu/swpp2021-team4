@@ -39,6 +39,10 @@ module.exports = {
         tsx: "never",
       },
     ],
+    "import/no-unresolved": [
+      2, 
+      { "caseSensitive": false }
+    ]
   },
   ignorePatterns: [".eslintrc.js"],
   settings: {

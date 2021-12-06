@@ -1,0 +1,121 @@
+.select-folder-modal-container {
+  background-color: #ffffff;
+  position: fixed;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  left: 50%;
+  top: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  -webkit-box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.15);
+          box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.15);
+  border-radius: 6px;
+  height: 600px;
+  width: 400px;
+  padding-top: 30px;
+  overflow-y: auto;
+}
+
+.select-folder-modal-container input {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+.select-folder-modal-container .modal-title {
+  font-family: "Montserrat", Monospace;
+  font-size: 2.18rem;
+  color: #57ceb9;
+  font-weight: bold;
+  margin-bottom: 30px;
+}
+
+.select-folder-modal-container .folder-container {
+  background-color: #F8F8F8;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: 340px;
+  height: 50px;
+  cursor: pointer;
+  font-family: "Montserrat", Monospace;
+  font-size: 20px;
+  padding: 10px 20px;
+  line-height: 30px;
+  text-overflow: ellipsis;
+}
+
+.select-folder-modal-container .folder-container:hover {
+  background-color: #D9D9D9;
+}
+
+.select-folder-modal-container .folder-container .icon {
+  -webkit-filter: invert(0%) sepia(94%) saturate(13%) hue-rotate(327deg) brightness(89%) contrast(100%);
+          filter: invert(0%) sepia(94%) saturate(13%) hue-rotate(327deg) brightness(89%) contrast(100%);
+}
+
+.select-folder-modal-container .make-folder {
+  background-color: #F5F6F9;
+  padding: 10px 20px;
+  border-radius: 6px;
+  font-family: "Montserrat", Monospace;
+  cursor: pointer;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-line-pack: center;
+      align-content: center;
+}
+
+.select-folder-modal-container .make-folder .icon {
+  width: 20px;
+  margin-right: 10px;
+}
+
+.select-folder-modal-container .make-folder .make-folder-title {
+  margin-top: 3px;
+  color: #57ceb9;
+}
+
+.select-folder-modal-container .make-folder-input {
+  width: 250px;
+  border: none;
+  border-radius: 6px;
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #F5F6F9;
+}
+
+.select-folder-modal-container .folder-container.selected {
+  background-color: #c7eee7;
+}
+
+.select-folder-modal-container .folder-container.folder-container {
+  margin-bottom: 20px;
+}
+
+.select-folder-modal-container .select-folder-modal-select-btn {
+  position: absolute;
+  bottom: 30px;
+  background-color: #57ceb9;
+  border-radius: 4px;
+  padding: 10px 20px;
+  font-family: "Montserrat", Monospace;
+  font-style: normal;
+  color: #ffffff;
+}
+/*# sourceMappingURL=SelectFolderModal.css.map */

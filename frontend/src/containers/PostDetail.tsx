@@ -23,6 +23,7 @@ import like_icon from "../static/like-icon.svg";
 import unlike_icon from "../static/unlike-icon.svg";
 import SelectFolderModal from "./SelectFolderModal";
 import { Folder } from "../store/User/userInterfaces";
+import Path from "../components/Path";
 
 function PostDetail() {
   const dispatch = useDispatch();
@@ -37,6 +38,7 @@ function PostDetail() {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [isPostAddedToCart, setIsPostAddedToCart] = useState(false);
   const [selectedPlaceId, setSelectedPlaceId] = useState(0); // tracks which place user try to put in cart
+  const [selectedDay, setSelectedDay] = useState(0);
 
   const onClickAddPostCartButton = () => {
     // executed when user clicks 'Add this route to cart' button
@@ -48,7 +50,7 @@ function PostDetail() {
     // executed when user clicks place's cart icon
     setIsModalVisible(true);
     setSelectedPlaceId(placeId);
-  }
+  };
 
   const onClickModalBackground = () => {
     if (isModalVisible) {
@@ -60,7 +62,7 @@ function PostDetail() {
     if (selectedPlaceId) {
       setSelectedPlaceId(0);
     }
-  }
+  };
 
   const onClickFolderSelect = (folder: Folder | null) => {
     if (!folder?.id) {
@@ -76,16 +78,16 @@ function PostDetail() {
       setIsPostAddedToCart(false);
     } else {
       // add selected place to cart
-      axios.post(`/place/${selectedPlaceId}/cart/${folder.id}/`)
+      axios
+        .post(`/place/${selectedPlaceId}/cart/${folder.id}/`)
         .then(() => setSelectedPlaceId(0))
-        .catch(() => alert('문제가 발생하여 카트에 저장되지 않았습니다!'));
+        .catch(() => alert("문제가 발생하여 카트에 저장되지 않았습니다!"));
     }
     setIsModalVisible(false);
   };
 
   // place의 타입 정의 후 any 고치기
   const post = usePostState();
-
   const placeMapping = () => {
     if (post.places) {
       const places = post.places;
@@ -93,18 +95,40 @@ function PostDetail() {
       const placeList = [];
       for (let day = 1; day <= days; day++) {
         placeList.push(
-          <div className="route-day-info">
+          <div
+            key={day}
+            className="route-day-info"
+            onClick={() => setSelectedDay(day)}
+          >
             Day{day}
             {places
               .filter((place: any) => place.day == day)
-              .map((dayPlace: PlaceType) => {
+              .map((dayPlace: PlaceType, index: number, array: PlaceType[]) => {
+                const pathFromCurrentPlace = post.pathList.find((path: any) => {
+                  return (
+                    path.from_place_id === dayPlace.id &&
+                    index < array.length &&
+                    path.to_place_id == array[index + 1].id
+                  );
+                });
+
                 return (
-                  <Place
-                    key={days.index}
-                    place={dayPlace}
-                    icon={cart}
-                    onClickButton={onClickAddPlaceCartButton}
-                  />
+                  <>
+                    <Place
+                      key={days.index}
+                      place={dayPlace}
+                      icon={cart}
+                      onClickButton={onClickAddPlaceCartButton}
+                    />
+                    {pathFromCurrentPlace && (
+                      <Path
+                        key={dayPlace.id + array[index + 1].id}
+                        from={dayPlace}
+                        to={array[index + 1]}
+                        transportation={pathFromCurrentPlace.transportation}
+                      />
+                    )}
+                  </>
                 );
               })}
           </div>
@@ -116,16 +140,16 @@ function PostDetail() {
 
   const onClickPostShareButton = () => {
     if (!post.location || !post.days || !post.season || !post.theme) {
-      alert('모든 필드를 다 채워야 공유할 수 있습니다!');
+      alert("모든 필드를 다 채워야 공유할 수 있습니다!");
       return;
     }
 
-    if (confirm('이 루트를 다른 사용자에게 공유하시겠습니까?')) {
+    if (confirm("이 루트를 다른 사용자에게 공유하시겠습니까?")) {
       axios
         .get(`/post/${post.id}/share/`)
         .then(function () {
           post.is_shared = true;
-          history.push(`/post/${post.id}/`)
+          history.push(`/post/${post.id}/`);
         })
         .catch((err) => err.response);
     }
@@ -153,8 +177,8 @@ function PostDetail() {
         content: newComment,
       };
       return axios.post(`/post/${id}/comment/create/`, body).then(function () {
-        dispatch(getCommentsAction(Number(id)));
         setComment("");
+        dispatch(getCommentsAction(Number(id)));
       });
     }
   };
@@ -169,10 +193,7 @@ function PostDetail() {
 
   return (
     <>
-      <div
-        className="post-detail-container"
-        onClick={onClickModalBackground}
-      >
+      <div className="post-detail-container" onClick={onClickModalBackground}>
         <PostHeader
           loggedUserId={loggedUser.id}
           post={post}
@@ -185,7 +206,8 @@ function PostDetail() {
           <div className="body-route-container">{placeMapping()}</div>
           <div className="body-left-container">
             <Map
-              fromWhere={'detail'}
+              fromWhere={"detail"}
+              selectedDay={selectedDay}
               location={post.location}
               placeList={post.places.map((place: any) => {
                 place.lat = place.latitude;
@@ -198,17 +220,20 @@ function PostDetail() {
             />
             <div className="body-comments-container" hidden={!post.is_shared}>
               <div
-                className={`comment-input-container ${loggedUser.id ? `visible` : `invisible`
-                  }`}
+                className={`comment-input-container ${
+                  loggedUser.id ? `visible` : `invisible`
+                }`}
               >
                 {post.liked ? (
                   <img
+                    id="like-icon"
                     className="post-like-icon liked logged"
                     onClick={() => onClickPostLikeButton()}
                     src={like_icon}
                   />
                 ) : (
                   <img
+                    id="unlike-icon"
                     className="post-like-icon unliked"
                     onClick={() => onClickPostLikeButton()}
                     src={unlike_icon}
@@ -249,8 +274,9 @@ function PostDetail() {
                           </span>
                           <button
                             id="delete-comment-button"
-                            className={`visible-${loggedUser.username === comment.username
-                              }`}
+                            className={`visible-${
+                              loggedUser.username === comment.username
+                            }`}
                             onClick={() => onClickCommentDelete(comment.id)}
                           >
                             <img src={delete_icon} />
