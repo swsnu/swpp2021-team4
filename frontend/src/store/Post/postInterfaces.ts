@@ -81,6 +81,7 @@ export interface PlaceInfoType {
 
 export interface PlaceType {
   id: number;
+  kakao_id: number;
   name: string;
   post_id: number;
   description: string;

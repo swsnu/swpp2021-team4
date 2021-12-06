@@ -200,6 +200,7 @@ def post_spec_get(request, post_id):
     for place in post.place_set.all().order_by('day', 'index'):
         placelist.append({
             'id':place.id,
+            'kakao_id': place.kakao_id if place.kakao_id else 0,
             'name':place.name,
             'post_id':place.post_id,
             'description':place.description,
