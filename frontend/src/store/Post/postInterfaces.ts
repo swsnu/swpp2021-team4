@@ -124,6 +124,15 @@ export interface PathType {
   transportation: string;
 }
 
+export interface ServerPathType {
+  // path Object type which used in server
+  id: number;
+  post_id: number;
+  from_place_id: number;
+  to_place_id: number;
+  transportation: 'car' | 'pub' | 'vic' | 'wal'
+}
+
 export interface PathListType {
   [from: string]: {
     to: string,
