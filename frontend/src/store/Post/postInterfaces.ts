@@ -35,6 +35,7 @@ export interface PostType {
   places: PlaceType[];
   like_counts: number;
   liked: boolean;
+  pathList: PathType[]
 }
 
 export interface SimplePostType {

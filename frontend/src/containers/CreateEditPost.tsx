@@ -7,7 +7,7 @@ import MyRoutesSection from "../components/MyRoutesSection";
 import PlaceSearchSection from "../components/PlaceSearchSection";
 import { usePostState } from "../hooks/usePostState";
 import { createPostAction } from "../store/Post/postAction";
-import { PlaceDayType, PlaceType } from "../store/Post/postInterfaces";
+import { PathListType, PlaceDayType, PlaceType } from "../store/Post/postInterfaces";
 import { Folder } from "../store/User/userInterfaces";
 import "../styles/components/CreateEditPost.scss";
 
@@ -50,6 +50,7 @@ function CreateEditPost(props: PropsType) {
   const [routePlaces, setRoutePlaces] = useState<PlaceDayType[]>([]);
   const [isPostCreated, setIsPostCreated] = useState(false);
   const [createdPostId, setCreatedPostId] = useState<number>(0);
+  const [pathList, setPathList] = useState<PathListType>({});
 
   useEffect(() => {
     if (isPostCreated && createdPostId) {
@@ -97,6 +98,19 @@ function CreateEditPost(props: PropsType) {
     }
   };
 
+  const onChangePath = useCallback(
+    (e: React.ChangeEvent<HTMLSelectElement>, origin: PlaceType, destination: PlaceType) => {
+      setPathList({
+        ...pathList,
+        [origin.id]: {
+          to: destination.id,
+          transportation: e.target.value
+        }
+      });
+    },
+    [pathList]
+  );
+
   const onDeletePlace = useCallback(
     (place: PlaceType) => {
       setRoutePlaces(routePlaces.filter((p: PlaceDayType) => p.day !== selectedDay || p.place.id !== place.id));
@@ -107,7 +121,7 @@ function CreateEditPost(props: PropsType) {
   const isPlaceInRoute = (place: PlaceType) => {
     return routePlaces
       .filter((p: PlaceDayType) => p.day === selectedDay)
-      .some((p: PlaceDayType) => p.place.id === place.id);
+      .some((p: PlaceDayType) => p.place.id.toString().startsWith(place.id.toString()));
   }
 
   const [selectedTab, setSelectedTab] = useState<'place' | 'search'>('place');
@@ -125,12 +139,13 @@ function CreateEditPost(props: PropsType) {
       isShared
     } = postInfoData;
 
-    const placeListData = routePlaces.map((p: PlaceDayType, index: number) => {
+    const placeListData = routePlaces.filter((p: PlaceDayType) => p.day).map((p: PlaceDayType, index: number) => {
       const { day, place } = p;
 
       return {
         day,
         index,
+        kakao_id: place.id,
         name: place.name,
         description: place.description,
         latitude: place.lat || place.latitude || '',
@@ -141,6 +156,8 @@ function CreateEditPost(props: PropsType) {
         phone_number: place.phone_number,
       }
     });
+
+    const pathListData = Object.entries(pathList).map(([key, value]) => ({ from: key, to: value.to, transportation: value.transportation }));
 
     const defaultthumbnailImage = 'https://media.triple.guide/triple-cms/c_limit,f_auto,h_1024,w_1024/73968eea-cbbe-49cd-b001-353e9e962cbf.jpeg';
     const formData = new FormData();
@@ -154,6 +171,7 @@ function CreateEditPost(props: PropsType) {
     formData.append('availableWithoutCar', isAvailableWithoutCar.toString())
     formData.append('folder_id', folderId ? folderId.toString() : '172637238622223');
     formData.append('places', JSON.stringify(placeListData));
+    formData.append('path_list', JSON.stringify(pathListData));
     formData.append("enctype", 'multipart/form-data');
 
     dispatch(createPostAction(formData, (isCreated: boolean, postId: number) => {
@@ -240,6 +258,9 @@ function CreateEditPost(props: PropsType) {
             <MyRoutesSection
               days={postInfoData.days}
               selectedDay={selectedDay}
+              pathList={pathList}
+              setPathList={setPathList}
+              onChangePath={onChangePath}
               onClickDay={onClickDay}
               onClickAddIcon={onClickAddIcon}
               routePlaces={routePlaces}

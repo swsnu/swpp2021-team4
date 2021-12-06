@@ -12,3 +12,4 @@ class PostForm(forms.Form):
     location = forms.CharField(max_length=256, required=False)
     availableWithoutCar = forms.BooleanField(required=False)
     places = forms.CharField(required=False)
+    path_list = forms.CharField(required=False)
