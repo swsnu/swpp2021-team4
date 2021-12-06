@@ -54,6 +54,36 @@
     }
   }
 
+  .make-folder {
+    background-color: $whiteColor;
+    padding: 10px 20px;
+    border-radius: 6px;
+    font-family: $mainFont;
+    cursor: pointer;
+
+    display: flex;
+    align-content: center;
+
+    .icon {
+      width: 20px;
+      margin-right: 10px;
+    }
+
+    .make-folder-title {
+      margin-top: 3px;
+      color: $darkMintColor;
+    }
+  }
+
+  .make-folder-input {
+    width: 250px;
+    border: none;
+    border-radius: 6px;
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: $whiteColor;
+  }
+
   .folder-container.selected {
     background-color: $lightMintColor;
   }
@@ -65,5 +95,12 @@
   .select-folder-modal-select-btn {
     position: absolute;
     bottom: 30px;
+
+    background-color: $darkMintColor;
+    border-radius: 4px;
+    padding: 10px 20px;
+    font-family: $mainFont;
+    font-style: normal;
+    color: #ffffff;
   }
 }

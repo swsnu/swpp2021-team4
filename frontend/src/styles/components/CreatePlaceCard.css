@@ -1,6 +1,9 @@
+.place-search-container .create-place-container {
+  margin-bottom: 1.45vw;
+}
+
 .create-place-container {
   background-color: #FFFFFF;
-  margin-bottom: 1.45vw;
   padding: 1.04vw;
 }
 
@@ -33,18 +36,42 @@
   min-height: 35px;
   text-align: center;
   cursor: pointer;
+}
+
+.create-place-container .place-container-top .place-cart-button .search {
   background-color: #c7eee7;
 }
 
-.create-place-container .place-container-top .place-cart-button:hover {
+.create-place-container .place-container-top .place-cart-button .search:hover {
   background-color: #57ceb9;
+}
+
+.create-place-container .place-container-top .place-cart-button.place {
+  background-color: #F5F6F9;
+}
+
+.create-place-container .place-container-top .place-cart-button.route {
+  background-color: #F5F6F9;
+}
+
+.create-place-container .place-container-top .place-cart-button.search.selected {
+  background-color: #57ceb9;
+}
+
+.create-place-container .place-container-top .place-cart-button.search.selected:hover {
+  background-color: #c7eee7;
+}
+
+.create-place-container .place-container-top .post-icon {
+  width: 23px;
+  height: 23px;
+  cursor: pointer;
 }
 
 .create-place-container .place-container-middle {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  margin-bottom: 10px;
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
@@ -53,23 +80,25 @@
           align-items: center;
 }
 
-.create-place-container .place-container-middle .place-description {
+.create-place-container .place-container-middle .place-description,
+.create-place-container .place-container-middle .place-description-input {
+  width: 70%;
   font-weight: normal;
-  font-size: 1.125rem;
-  line-height: 1.375rem;
+  font-size: 15px;
+  font-family: "Montserrat", Monospace;
   color: #000000;
   word-wrap: break-word;
   word-break: break-all;
 }
 
 .create-place-container .place-container-middle .post-icon {
-  width: 3vh;
-  height: 3vh;
+  width: 20px;
+  height: 20px;
   cursor: pointer;
 }
 
 .create-place-container .place-info-container .place-info {
-  margin-bottom: 20px;
+  margin-top: 10px;
   min-height: 40px;
 }
 

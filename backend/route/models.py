@@ -97,6 +97,7 @@ class Like(models.Model):
     created_at=models.DateTimeField(default=timezone.now)
 
 class Path(models.Model):
+    post=models.ForeignKey(Post, related_name='path_list', null=True, on_delete=models.CASCADE)
     from_place=models.ForeignKey(Place, related_name='from_place_path', on_delete=models.CASCADE)
     to_place=models.ForeignKey(Place,related_name='to_place_path', on_delete=models.CASCADE)
     transportations=[
