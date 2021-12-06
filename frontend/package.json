@@ -18,16 +18,10 @@
     "@types/react-dom": "^17.0.11",
     "@types/react-router-dom": "^5.3.2",
     "axios": "^0.24.0",
-<<<<<<< HEAD
-    "dnd-core": "^14.0.1",
-    "eslint-config-prettier": "^8.3.0",
-    "immutability-helper": "^3.1.1",
-=======
     "connected-react-router": "^6.9.1",
     "dnd-core": "^14.0.1",
     "eslint-config-prettier": "^8.3.0",
     "history": "^4.10.1",
->>>>>>> eaac9a4858938b2a0c455e4456a027e30eb8bdd1
     "http-proxy-middleware": "^2.0.1",
     "immutability-helper": "^3.1.1",
     "node-sass": "^6.0.1",
