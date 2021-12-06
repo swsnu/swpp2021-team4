@@ -71,7 +71,7 @@ export const createPostAction = (formData: FormData, callbackFunc: (isCreated: b
 
 export const editPostAction = (formData: FormData, postId: number, callbackFunc: () => void) => {
   return (dispatch: Redux.Dispatch<PostDispatchType>) => {
-    return axios.put(`/post/${postId}/edit/`, formData, {
+    return axios.post(`/post/${postId}/edit/`, formData, {
       headers: { "content-type": "multipart/form-data" }
     })
     .then((res) => {
