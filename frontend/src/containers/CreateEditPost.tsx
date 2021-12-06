@@ -1,13 +1,14 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { useHistory } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 import CreateEditHeader from "../components/CreateEditHeader";
 import Map from "../components/Map";
 import MyRoutesSection from "../components/MyRoutesSection";
 import PlaceSearchSection from "../components/PlaceSearchSection";
 import { usePostState } from "../hooks/usePostState";
+import { CreateEditPostLocationType } from "../pages/CreateEditPostPage";
 import { createPostAction } from "../store/Post/postAction";
-import { PathListType, PlaceDayType, PlaceType } from "../store/Post/postInterfaces";
+import { PathListType, PlaceDayType, PlaceType, ServerPathType } from "../store/Post/postInterfaces";
 import { Folder } from "../store/User/userInterfaces";
 import "../styles/components/CreateEditPost.scss";
 
@@ -43,7 +44,9 @@ interface PropsType {
 function CreateEditPost(props: PropsType) {
   const dispatch = useDispatch();
   const history = useHistory();
+  const pageLocation = useLocation<CreateEditPostLocationType>();
   const post = usePostState();
+
   const [postInfoData, setPostInfoData] = useState<PostInfoDataType>(initialFolderData);
   const [locationQuery, setLocationQuery] = useState("");
   const [selectedDay, setSelectedDay] = useState(1);
@@ -64,6 +67,30 @@ function CreateEditPost(props: PropsType) {
       folderId: props.folder?.id || 0
     });
   }, [props.folder]);
+
+  useEffect(() => {
+    if (pageLocation.state?.from === 'edit' && post.id === pageLocation.state?.postId) {
+      // when post is edited, set post info datas as edited post's datas.
+      
+      const placeList = post.places.map((place: PlaceType) => ({ day: place.day, place}));
+      const convertedPathList: PathListType = {};
+      post.pathList.forEach((path: ServerPathType) => convertedPathList[path.from_place_id] = { to: path.to_place_id.toString(), transportation: path.transportation});
+
+      setPathList(convertedPathList);
+      setRoutePlaces(placeList);
+      setPostInfoData({
+        title: post.title,
+        location: post.location,
+        days: post.days,
+        seasonRecommendation: post.season,
+        theme: post.theme,
+        thumbnailImage: post.header_image,
+        isAvailableWithoutCar: post.availableWithoutCar,
+        folderId: post.folder_id,
+        isShared: post.is_shared
+      });
+    }
+  }, [pageLocation, post]);
 
   const [editPlace, setEditedPlace] = useState<{ id: number, description: string }>({
     id: 0,
@@ -232,7 +259,6 @@ function CreateEditPost(props: PropsType) {
   return (
     <div>
       <CreateEditHeader
-        post={post}
         folder={props.folder}
         thumbnailImage={postInfoData.thumbnailImage || defaultImage}
         postInfoData={postInfoData}
