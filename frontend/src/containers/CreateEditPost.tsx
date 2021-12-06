@@ -77,25 +77,24 @@ function CreateEditPost(props: PropsType) {
   }
 
   const onEditPlace = (place: PlaceType) => {
-    if (editPlace.id === 0) {
-      setEditedPlace({
-        id: place.id,
-        description: place.description
-      });
-      return;
-    }
-
     setRoutePlaces(routePlaces.map((p: PlaceDayType) => {
-      if (p.place.id === editPlace.id && p.day === selectedDay) {
+      if (p.place.id === editPlace.id) {
         p.place.description = editPlace.description;
       }
       return p;
     }));
-    setEditedPlace({
-      id: 0,
-      description: ''
-    });
 
+    if (editPlace.id === place.id) {
+      setEditedPlace({
+        id: 0,
+        description: ''
+      });
+    } else {
+      setEditedPlace({
+        id: place.id,
+        description: place.description
+      });
+    }
   };
 
   const onDeletePlace = useCallback(
