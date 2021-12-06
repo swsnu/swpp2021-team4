@@ -27,14 +27,15 @@
 
 .map-create-btn {
   background-color: #57ceb9;
+  font-family: "Montserrat", Monospace;
   margin: 0 auto;
-  padding: 0.625vw 3.23vw;
+  padding: 8px 50px;
   width: -webkit-max-content;
   width: -moz-max-content;
   width: max-content;
   border-radius: 6px;
-  font-weight: 600;
-  font-size: 1.125rem;
+  font-weight: 400;
+  font-size: 15px;
   line-height: 1.375rem;
   color: #FFFFFF;
 }

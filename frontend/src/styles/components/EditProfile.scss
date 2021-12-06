@@ -48,10 +48,10 @@
         font-style: normal;
         padding: 10px;
         border-radius: 10px;
+        cursor: pointer;
   
         &:hover {
           background: $whiteColor;
-          cursor: pointer;
         }
       }
     }

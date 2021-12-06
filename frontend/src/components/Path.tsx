@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import arrowDownIcon from '../static/arrow_down.svg';
-import '../styles/components/Path.scss';
+import '../styles/components/Path.css';
 import { PathListType, PlaceType } from '../store/Post/postInterfaces';
 import returnPathTime from '../utils/returnPathTime';
 
@@ -99,7 +99,7 @@ function Path(props: PropsType) {
             onChange={onChangeSelectOption}
           >
             {
-              transportationTypes.map((t: {name: string, value: string}) => {
+              transportationTypes.map((t: { name: string, value: string }) => {
                 return pathList[from.id] && pathList[from.id].transportation === t.value
                   ? <option key={t.value} value={t.value} selected>{t.name}</option>
                   : <option key={t.value} value={t.value}>{t.name}</option>;
@@ -109,8 +109,8 @@ function Path(props: PropsType) {
           <span>
             {
               pathList[from.id]?.transportation && !time.includes('NaN')
-              ? `약 ${time}`
-              : ''
+                ? `약 ${time}`
+                : ''
             }
           </span>
         </>
@@ -120,8 +120,8 @@ function Path(props: PropsType) {
         <span style={{ marginLeft: 20, fontSize: '0.75rem' }}>
           {
             transportation && !time.includes('NaN')
-            ? `약 ${time} (${pathInfoData.transportation}, 시속 ${pathInfoData.velocity}km 기준)`
-            : ''
+              ? `약 ${time} (${pathInfoData.transportation}, 시속 ${pathInfoData.velocity}km 기준)`
+              : ''
           }
         </span>
       }

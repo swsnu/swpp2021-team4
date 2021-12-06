@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import search from "../static/search.svg";
 import { getPostsAction, searchAction } from "../store/Post/postAction";
-import "../styles/components/Search.scss";
+import "../styles/components/Search.css";
 import { SimplePostType } from "../store/Post/postInterfaces";
 import PostItem from "../components/PostItem";
 import { useSearchPostState } from "../hooks/usePostsState";
@@ -88,7 +88,7 @@ function Search() {
           <div className="category">Season</div>
           <button
             id="season"
-            className={`season${userInputs.season == "spr" ? "-clicked" : ""}`}
+            className={`season${userInputs.season === "spr" ? "-clicked" : ""}`}
             onClick={() =>
               userInputs.season != "spr"
                 ? setUserInputs({
@@ -102,7 +102,7 @@ function Search() {
           </button>
           <button
             id="season"
-            className={`season${userInputs.season == "sum" ? "-clicked" : ""}`}
+            className={`season${userInputs.season === "sum" ? "-clicked" : ""}`}
             onClick={() =>
               userInputs.season != "sum"
                 ? setUserInputs({
@@ -116,7 +116,7 @@ function Search() {
           </button>
           <button
             id="season"
-            className={`season${userInputs.season == "aut" ? "-clicked" : ""}`}
+            className={`season${userInputs.season === "aut" ? "-clicked" : ""}`}
             onClick={() =>
               userInputs.season != "aut"
                 ? setUserInputs({
@@ -130,7 +130,7 @@ function Search() {
           </button>
           <button
             id="season"
-            className={`season${userInputs.season == "win" ? "-clicked" : ""}`}
+            className={`season${userInputs.season === "win" ? "-clicked" : ""}`}
             onClick={() =>
               userInputs.season != "win"
                 ? setUserInputs({
@@ -161,7 +161,7 @@ function Search() {
           <div className="category">Theme</div>
           <button
             id="theme"
-            className={`theme${userInputs.theme == "lover" ? "-clicked" : ""}`}
+            className={`theme${userInputs.theme === "lover" ? "-clicked" : ""}`}
             onClick={() =>
               userInputs.theme != "lover"
                 ? setUserInputs({
@@ -178,7 +178,7 @@ function Search() {
           </button>
           <button
             id="theme"
-            className={`theme${userInputs.theme == "family" ? "-clicked" : ""}`}
+            className={`theme${userInputs.theme === "family" ? "-clicked" : ""}`}
             onClick={() =>
               userInputs.theme != "family"
                 ? setUserInputs({
@@ -195,7 +195,7 @@ function Search() {
           </button>
           <button
             id="theme"
-            className={`theme${userInputs.theme == "friends" ? "-clicked" : ""
+            className={`theme${userInputs.theme === "friends" ? "-clicked" : ""
               }`}
             onClick={() =>
               userInputs.theme != "friends"
@@ -213,7 +213,7 @@ function Search() {
           </button>
           <button
             id="theme"
-            className={`theme${userInputs.theme == "alone" ? "-clicked" : ""}`}
+            className={`theme${userInputs.theme === "alone" ? "-clicked" : ""}`}
             onClick={() =>
               userInputs.theme != "alone"
                 ? setUserInputs({
@@ -234,11 +234,11 @@ function Search() {
           <div className="category">Transportation</div>
           <button
             id="transportation"
-            className={`theme${userInputs.transportation == "True" ? "-clicked" : ""
+            className={`theme${userInputs.transportation === "True" ? "-clicked" : ""
               }`}
             onClick={() =>
-              userInputs.transportation == "False" ||
-                userInputs.transportation == ""
+              userInputs.transportation === "False" ||
+                userInputs.transportation === ""
                 ? setUserInputs({
                   ...userInputs,
                   transportation: "True",
@@ -254,24 +254,24 @@ function Search() {
         </div>
       </div>
       <div className="search-result-container">
-        <div className="search-title">
-          <div className="search-research">Routes</div>
-          <button
-            id="sorting-method"
-            className={`sorting${sorting == "like" ? "-clicked" : ""}`}
-            onClick={() => setSorting("like")}
-          >
-            좋아요 순
-          </button>
-          <button
-            id="sorting-method"
-            className={`sorting${sorting == "date" ? "-clicked" : ""}`}
-            onClick={() => setSorting("date")}
-          >
-            최신게시물 순
-          </button>
+        <div className="search-result-header">
+          <div className="search-result-title">Search Results</div>
+          <div className="search-result-sorting">
+            <button
+              className={`sorting${sorting === "like" ? "-clicked" : ""}`}
+              onClick={() => setSorting("like")}
+            >
+              좋아요 순
+            </button>
+            <button
+              className={`sorting${sorting === "date" ? "-clicked" : ""}`}
+              onClick={() => setSorting("date")}
+            >
+              최신게시물 순
+            </button>
+          </div>
         </div>
-        <div className="search-research-content">
+        <div className="search-result-content">
           {searchedPosts.map((post: SimplePostType) => {
             return (
               <PostItem
