@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
-import '../styles/components/NavBar.scss';
+import '../styles/components/NavBar.css';
 import logo from '../static/nav_logo.svg';
 import { useDispatch, useSelector } from "react-redux";
 import { RootReducerType } from "../store/store";
@@ -48,15 +48,15 @@ function NavBar(props: PropType) {
     } else {
       return (
         <>
-        {
-          props.location?.pathname !== '/signup/' &&
-          <NavLink
-            to="/signup/"
-            className="nav-sign-btn nav-sign-font"
-          >
-            Sign up
-          </NavLink>
-        }
+          {
+            props.location?.pathname !== '/signup/' &&
+            <NavLink
+              to="/signup/"
+              className="nav-sign-btn nav-sign-font"
+            >
+              Sign up
+            </NavLink>
+          }
 
           {
             props.location?.pathname !== '/signin/' &&
@@ -79,7 +79,7 @@ function NavBar(props: PropType) {
       }
     >
       <NavLink to="/main/">
-        <img src={logo} />
+        <img className="logo" src={logo} />
       </NavLink>
       <div className="nav-btn-container">
 
@@ -94,16 +94,16 @@ function NavBar(props: PropType) {
         {
           isLogged &&
           <div className="nav-mypage-btn nav-btn-font">
-          <NavLink
-            to={`/user_info/${loggedUser?.id ?? 0}/`}
-            className="nav-mypage-btn nav-btn-font"
-            activeClassName="nav-btn-font-active"
-          >
-            My Page
-          </NavLink>
+            <NavLink
+              to={`/user_info/${loggedUser?.id ?? 0}/`}
+              className="nav-mypage-btn nav-btn-font"
+              activeClassName="nav-btn-font-active"
+            >
+              My Page
+            </NavLink>
           </div>
         }
-        
+
         {renderSignBtn()}
       </div>
     </div>

@@ -19,8 +19,8 @@
           box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.15);
   border-radius: 6px;
   height: 600px;
-  width: 400px;
-  padding-top: 30px;
+  width: 350px;
+  padding: 25px;
   overflow-y: auto;
 }
 
@@ -32,13 +32,18 @@
 
 .select-folder-modal-container .modal-title {
   font-family: "Montserrat", Monospace;
-  font-size: 2.18rem;
+  font-size: 25px;
   color: #57ceb9;
   font-weight: bold;
   margin-bottom: 30px;
+  width: 100%;
 }
 
-.select-folder-modal-container .folder-container {
+.select-folder-modal-container .folder-list-container {
+  width: 100%;
+}
+
+.select-folder-modal-container .folder-list-container .folder-container {
   background-color: #F8F8F8;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -49,29 +54,35 @@
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  width: 340px;
+  width: 100%;
   height: 50px;
   cursor: pointer;
   font-family: "Montserrat", Monospace;
-  font-size: 20px;
-  padding: 10px 20px;
+  font-size: 18px;
+  padding: 35px 20px;
   line-height: 30px;
   text-overflow: ellipsis;
 }
 
-.select-folder-modal-container .folder-container:hover {
+.select-folder-modal-container .folder-list-container .folder-container:hover {
   background-color: #D9D9D9;
 }
 
-.select-folder-modal-container .folder-container .icon {
+.select-folder-modal-container .folder-list-container .folder-container .icon {
   -webkit-filter: invert(0%) sepia(94%) saturate(13%) hue-rotate(327deg) brightness(89%) contrast(100%);
           filter: invert(0%) sepia(94%) saturate(13%) hue-rotate(327deg) brightness(89%) contrast(100%);
+  width: 20px;
 }
 
-.select-folder-modal-container .make-folder {
-  background-color: #F5F6F9;
-  padding: 10px 20px;
+.select-folder-modal-container .make-folder-container {
+  width: 100%;
+  padding: 10px 0;
+}
+
+.select-folder-modal-container .make-folder-container .make-folder {
+  width: 150px;
   border-radius: 6px;
+  padding: 10px;
   font-family: "Montserrat", Monospace;
   cursor: pointer;
   display: -webkit-box;
@@ -81,41 +92,48 @@
       align-content: center;
 }
 
-.select-folder-modal-container .make-folder .icon {
+.select-folder-modal-container .make-folder-container .make-folder .icon {
+  -webkit-filter: invert(0%) sepia(94%) saturate(13%) hue-rotate(327deg) brightness(89%) contrast(100%);
+          filter: invert(0%) sepia(94%) saturate(13%) hue-rotate(327deg) brightness(89%) contrast(100%);
   width: 20px;
-  margin-right: 10px;
+  margin-right: 13px;
 }
 
-.select-folder-modal-container .make-folder .make-folder-title {
+.select-folder-modal-container .make-folder-container .make-folder .make-folder-title {
   margin-top: 3px;
-  color: #57ceb9;
+  color: #caccd2;
+  font-weight: 600;
 }
 
-.select-folder-modal-container .make-folder-input {
-  width: 250px;
+.select-folder-modal-container .make-folder-container .make-folder:hover {
+  background-color: #F5F6F9;
+}
+
+.select-folder-modal-container .make-folder-container .make-folder-input {
+  width: 100%;
   border: none;
   border-radius: 6px;
   padding: 10px 20px;
   font-size: 16px;
-  background-color: #F5F6F9;
 }
 
 .select-folder-modal-container .folder-container.selected {
   background-color: #c7eee7;
 }
 
-.select-folder-modal-container .folder-container.folder-container {
-  margin-bottom: 20px;
-}
-
 .select-folder-modal-container .select-folder-modal-select-btn {
   position: absolute;
   bottom: 30px;
-  background-color: #57ceb9;
+  background-color: #95ecdc;
   border-radius: 4px;
-  padding: 10px 20px;
+  padding: 10px 80px;
   font-family: "Montserrat", Monospace;
   font-style: normal;
   color: #ffffff;
+  cursor: pointer;
+}
+
+.select-folder-modal-container .select-folder-modal-select-btn:hover {
+  background-color: #57ceb9;
 }
 /*# sourceMappingURL=SelectFolderModal.css.map */

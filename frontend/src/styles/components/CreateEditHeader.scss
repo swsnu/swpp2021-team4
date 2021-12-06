@@ -15,7 +15,9 @@
     font-size: 1.25rem;
     line-height: 1.5rem;
     max-height: 41px;
+    border-radius: 6px;
     color: #000000;
+    border: none;
   }
   
   input::placeholder {
@@ -23,7 +25,7 @@
   }
   
   width: 100%;
-  min-height: 173px;
+  margin-top: 20px;
   border-radius: 6px;
   box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
   display: flex;
@@ -38,14 +40,17 @@
   }
 
   .post-ce-info-container {
-    padding: 1.2vw 18.23vw 1.2vw 2.47vw;
+    padding: 20px 30px;
     flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
   }
 
   .post-ce-folder-name {
+    font-family: $koreanFont;
     font-weight: 500;
-    font-size: 1.5rem;
-    line-height: 1.812rem;
+    font-size: 18px;
     color: #000000;
   }
 
@@ -53,140 +58,109 @@
     display: flex;
     flex-direction: row;
     align-items: center;
-    margin-top: 3px;
-    margin-bottom: 14px;
-
     input {
       font-weight: 600;
       font-size: 2rem;
       line-height: 2.437rem;
     }
-
     .post-ce-title {
-      // max-width: second
       flex-grow: 1;
       margin-right: auto;
       max-width: '26vw'
     }
-
   }
 
   .post-ce-info-second-line {
     display: flex;
     flex-direction: row;
     width: 100%;
+    align-items: center;
+
+    .line {
+      border-left: 3px solid $darkGrayColor;
+      height: 25px;
+      margin-right: 15px;
+    }
+    input {
+      padding: 10px;
+      background-color: $whiteColor;
+      margin-right: 15px;
+    }
   }
 
-  .post-ce-author-name {
+  .post-ce-info-third-line {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    
+    #thumbnail {
+      display: none;
+    }
+    .thumbnail-button {
+      color: $darkMintColor;
+      background: transparent;
+      box-shadow: 0px 0px 0px transparent;
+      border: 0px solid transparent;
+      text-shadow: 0px 0px 0px transparent;
+      font-family: $mainFont;
+      font-style: normal;
+      padding: 10px;
+      border-radius: 10px;
+      cursor: pointer;
 
+      &:hover {
+        background: $whiteColor;
+      }
+    }
+
+    select {
+      margin-left: 20px;
+      height: 35px;
+      padding: 5px 20px 5px 10px;
+      border-radius: 4px;
+      outline: 0 none;
+      border: none;
+      background-color: $whiteColor;
+      color: $darkGrayColor;
+      font-family: $mainFont;
+      font-size: 15px;
+      font-weight: 400;
+      option {
+        background-color: white;
+        color: $blackColor;
+        padding: 3px 0;
+      }
+    }
+
+    select.selected {
+      color: $blackColor;
+      font-family: $koreanFont;
+    }
+  
+    .availableWithoutCar {
+      display: flex;
+      margin-left: 40px;
+      font-family: $koreanFont;
+      #availableWithoutCar-checkbox {
+        display: inline-block;
+        width: 15px;
+        height: 15px;
+        border: 2px solid #bcbcbc;
+        border-radius: 2px;
+        cursor: pointer;
+      }
+      .check-icon {
+        position: relative;
+        width: 18px;
+        right: 15px;
+        bottom: 5px;
+      }
+      label {
+        position: relative;
+        right: 8px;
+      }
+    }
   }
 
-  // .header-content-left {
-  //   .header-top {
-  //     margin-top: 10px;
-  //     .post-folder-name {
-  //       font-family: $koreanFont;
-  //       font-size: 22px;
-  //       margin-left: 2vh;
-  //       margin-top: 15px;
-  //     }
-  //   }
-  //   .header-middle {
-  //     display: flex;
-  //     flex-wrap: wrap;
-  //     align-items: baseline;
-  //     .post-title-name {
-  //       justify-content: flex-start;
-  //       margin: 15px 8vh 0px 2vh;
-  //       font-family: $koreanFont;
-  //       font-weight: bold;
-  //       color: $darkMintColor;
-  //       font-size: 32px;
-  //     }
-  //     .post-info-container {
-  //       display: flex;
-  //       align-items: center;
-  //       .post-info {
-  //         font-family: $koreanFont;
-  //         font-size: 20px;
-  //         font-weight: 500;
-  //         margin-right: 20px;
-  //         margin-left: 20px;
-  //       }
-  //     }
-  //   }
-  //   .header-bottom {
-  //     width: 160%;
-  //     display: flex;
-  //     align-items: center;
-  //     justify-content: space-between;
-  //     flex-wrap: wrap;
-  //     margin-top: 25px;
-  //     width: 100%;
-  //     .post-author {
-  //       font-family: $mainFont;
-  //       font-weight: bold;
-  //       font-size: 20px;
-  //       color: $regularMintColor;
-  //       margin-left: 2.5vh;
-  //       margin-right: 20vh;
-  //     }
-  //     .post-tag-container {
-  //       display: flex;
-  //       justify-content: space-evenly;
-  //       .post-tag {
-  //         display: flex;
-  //         flex-wrap: wrap;
-  //         background-color: transparent;
-  //         border: 0.8px solid black;
-  //         border-radius: 16px;
-  //         height: 30px;
-  //         display: inline-block;
-  //         text-align: center;
-  //         margin-left: 3vh;
-  //         margin-right: 0px;
-  //         font-family: $mainFont;
-  //         font-weight: 400;
-  //         font-size: 15px;
-  //         padding: 10px;
-  //         line-height: 50%;
-  //       }
-  //       .false {
-  //         visibility: None;
-  //       }
-  //     }
-  //   }
-  // }
-  // .header-content-right {
-  //   margin-right: 0px;
-  //   .post-cart-button {
-  //     background-color: $regularMintColor;
-  //     border-radius: 6px;
-  //     height: 30px;
-  //     padding: 10px;
-  //     line-height: 50%;
-  //   }
-  // }
 }
-
-// .post-detail-body {
-//   display: flex;
-//   justify-content: space-between;
-//   .body-route-container {
-//     width: 60%;
-//     background: #ffffff;
-//     box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.15);
-//     border-radius: 6px;
-//     height: 200px;
-//     margin: 20px 0px;
-//   }
-
-//   .body-map-container {
-//     width: 38%;
-//     background: #ffffff;
-//     box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.15);
-//     border-radius: 6px;
-//     height: 200px;
-//     margin: 20px 0px;
-//   }
-// }
