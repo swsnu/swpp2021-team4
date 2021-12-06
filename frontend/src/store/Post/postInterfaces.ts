@@ -13,6 +13,8 @@ import {
   CREATE_POST_FAIL,
   DELETE_POST_SUCCESS,
   DELETE_POST_FAIL,
+  EDIT_POST_SUCCESS,
+  EDIT_POST_FAIL,
 } from "../actionTypes";
 import { Folder } from "../User/userInterfaces";
 
@@ -178,7 +180,7 @@ export interface CartPostFail {
 
 export interface CreatePostSuccess {
   type: typeof CREATE_POST_SUCCESS
-  payload: any
+  payload: PostType
 }
 
 export interface CreatePostFail {
@@ -212,6 +214,15 @@ export interface DeletePostFail {
   type: typeof DELETE_POST_FAIL;
 }
 
+export interface EditPostSuccess {
+  type: typeof EDIT_POST_SUCCESS;
+  payload: PostType
+}
+
+export interface EditPostFail {
+  type: typeof EDIT_POST_FAIL;
+}
+
 export type PostDispatchType =
   | GetPostsSuccess
   | GetPostsFail
@@ -226,4 +237,6 @@ export type PostDispatchType =
   | GetCommentsSucess
   | GetCommentsFail
   | DeletePostSuccess
-  | DeletePostFail;
+  | DeletePostFail
+  | EditPostSuccess
+  | EditPostFail;

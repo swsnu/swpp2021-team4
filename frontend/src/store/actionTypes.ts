@@ -27,3 +27,5 @@ export const GET_COMMENTS_SUCCESS = "post/get_comments_success" as const;
 export const GET_COMMENTS_FAIL = "post/get_comments_fail" as const;
 export const DELETE_POST_SUCCESS = 'post/delete_post_success' as const;
 export const DELETE_POST_FAIL = 'post/delete_post_fail' as const;
+export const EDIT_POST_SUCCESS = 'post/edit_post_success' as const;
+export const EDIT_POST_FAIL = 'post/edit_post_fail' as const;

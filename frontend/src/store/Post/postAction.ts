@@ -12,6 +12,7 @@ import {
   CREATE_POST_SUCCESS,
   GET_COMMENTS_SUCCESS,
   GET_COMMENTS_FAIL,
+  EDIT_POST_SUCCESS,
 } from "../actionTypes";
 import { Folder } from "../User/userInterfaces";
 import { PostDispatchType, PostType, CommentType, SimplePostType } from "./postInterfaces";
@@ -61,6 +62,21 @@ export const createPostAction = (formData: FormData, callbackFunc: (isCreated: b
     .then((res) => {
       dispatch({ type: CREATE_POST_SUCCESS, payload: res.data });
       callbackFunc(true, res.data.id);
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+  }
+}
+
+export const editPostAction = (formData: FormData, postId: number, callbackFunc: () => void) => {
+  return (dispatch: Redux.Dispatch<PostDispatchType>) => {
+    return axios.put(`/post/${postId}/edit/`, formData, {
+      headers: { "content-type": "multipart/form-data" }
+    })
+    .then((res) => {
+      dispatch({ type: EDIT_POST_SUCCESS, payload: res.data });
+      callbackFunc();
     })
     .catch((err) => {
       console.log(err);
