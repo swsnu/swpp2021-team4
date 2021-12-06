@@ -149,22 +149,24 @@ function SelectFolderModal(props: PropsType) {
         onPressEnterEditFolder={onPressEnterEditFolder}
       />
 
-      {
-        !isMakeFolderBtnClicked
-          ? <div className="make-folder" onClick={onClickMakeFolder}>
-            <img className="icon" src={add_icon} />
-            <div className="make-folder-title">Make a new one</div>
-          </div>
-          : <div>
-            <input
-              className="make-folder-input"
-              value={newFolderText}
-              onChange={onChangeMakeFolder}
-              onKeyPress={onPressEnterMakeFolder}
-              placeholder="새로운 폴더 이름을 입력해주세요"
-            />
-          </div>
-      }
+      <div className="make-folder-container">
+        {
+          !isMakeFolderBtnClicked
+            ? <div className="make-folder" onClick={onClickMakeFolder}>
+              <img className="icon" src={add_icon} />
+              <div className="make-folder-title">Add Folder</div>
+            </div>
+            : <div>
+              <input
+                className="make-folder-input"
+                value={newFolderText}
+                onChange={onChangeMakeFolder}
+                onKeyPress={onPressEnterMakeFolder}
+                placeholder="새로운 폴더 이름을 입력해주세요"
+              />
+            </div>
+        }
+      </div>
 
       <div
         className="select-folder-modal-select-btn"
