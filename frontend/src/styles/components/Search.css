@@ -1,6 +1,11 @@
+.search-container {
+  font-family: "Montserrat", Monospace;
+}
+
 .search-container .search {
-  margin-left: 20%;
-  margin-right: 20%;
+  margin: 50px auto;
+  width: 50vw;
+  padding: 13px;
   background: #ffffff;
   -webkit-box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
           box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
@@ -8,39 +13,40 @@
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
 }
 
 .search-container .search .search-svg {
-  margin-left: 3%;
+  width: 30px;
 }
 
 .search-container .search .search-keyword {
   border: none;
-  margin-left: 10%;
-  width: 80%;
+  margin: 0 15px;
+  padding: 5px 10px;
+  font-size: 14px;
+  width: 100%;
 }
 
 .search-container .search .search-button {
   background-color: #57ceb9;
-  margin-top: 1%;
-  margin-bottom: 1%;
-  margin-right: 2%;
   border-radius: 4px;
-  padding: 1.2% 1.2% 1.2% 1.2%;
+  padding: 10px 20px;
   font-family: "Montserrat", Monospace;
+  font-weight: 600;
   font-style: normal;
   color: #ffffff;
 }
 
 .search-container .filter {
-  margin-top: 3%;
-  margin-left: 10%;
-  margin-right: 10%;
-  margin-bottom: 3%;
+  margin: 80px 20vw;
   background-color: #ffffff;
   -webkit-box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
           box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
   border-radius: 6px;
+  padding: 13px 30px;
 }
 
 .search-container .filter button {
@@ -55,32 +61,28 @@
   -webkit-box-direction: normal;
       -ms-flex-direction: row;
           flex-direction: row;
-  padding-top: 2%;
 }
 
 .search-container .filter .category {
   font-family: "Montserrat", Monospace;
   font-style: normal;
   font-weight: 600;
-  font-size: 18px;
+  font-size: 15px;
   line-height: 27px;
-  margin-left: 5%;
   color: #000000;
   width: 20%;
 }
 
 .search-container .filter .search-location {
   border: none;
-  margin-right: 4%;
+  width: 60%;
+  font-size: 14px;
 }
 
 .search-container .filter .lines {
-  border: 0.1px solid #969696;
-  width: 90%;
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: 1.3%;
-  margin-bottom: 1.3%;
+  border-bottom: 0.1px solid #e2e3e9;
+  width: 100%;
+  margin: 13px auto;
 }
 
 .search-container .filter .seasons,
@@ -126,9 +128,16 @@
   background-color: #f3f4f5;
 }
 
-.search-container .filter .season,
+.search-container .filter .season, .search-container .filter .location {
+  font-family: "Montserrat", Monospace;
+}
+
 .search-container .filter .theme {
   font-family: "Noto Sans CJK KR", Monospace;
+}
+
+.search-container .filter .season,
+.search-container .filter .theme {
   font-style: normal;
   font-weight: 400;
   font-size: 14px;
@@ -137,10 +146,6 @@
   padding-left: 1%;
   padding-right: 1%;
   color: #9f9f9f;
-}
-
-.search-container .filter .transportation {
-  padding-bottom: 2%;
 }
 
 .search-container .filter .days {
@@ -154,37 +159,68 @@
   width: 10%;
 }
 
-.search-container .sorting {
-  margin-left: 2%;
-  border-radius: 3px;
+.search-container .filter input {
+  margin-left: 10px;
+  font-family: "Montserrat", Monospace;
+}
+
+.search-container .search-result-container {
+  margin: 0 auto;
+  width: 80vw;
+  padding-top: 30px;
+}
+
+.search-container .search-result-container .search-result-header {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  margin: 10px 15px;
+}
+
+.search-container .search-result-container .search-result-header .search-result-title {
+  font-family: "Montserrat", Monospace;
+  font-weight: 600;
+  font-size: 20px;
+  color: #57ceb9;
+}
+
+.search-container .search-result-container .search-result-header .search-result-sorting {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.search-container .search-result-container .search-result-header .search-result-sorting .sorting, .search-container .search-result-container .search-result-header .search-result-sorting .sorting-clicked {
+  margin-left: 10px;
+  border-radius: 6px;
   font-family: "Noto Sans CJK KR", Monospace;
   font-style: normal;
   -webkit-box-align: end;
       -ms-flex-align: end;
           align-items: flex-end;
   background-color: white;
-  padding: 0 10px;
+  padding: 8px 20px;
 }
 
-.search-container .sorting-clicked {
-  margin-left: 2%;
-  color: #57ceb9;
-  border-radius: 3px;
-  font-family: "Noto Sans CJK KR", Monospace;
-  font-style: normal;
-}
-
-.search-container .sorting:hover, .search-container .sorting-clicked:hover {
+.search-container .search-result-container .search-result-header .search-result-sorting .sorting:hover, .search-container .search-result-container .search-result-header .search-result-sorting .sorting-clicked:hover {
   background-color: #f3f4f5;
 }
 
-.search-container .search-title {
+.search-container .search-result-container .search-result-header .search-result-sorting .sorting-clicked {
+  color: #57ceb9;
+}
+
+.search-container .search-result-container .search-result-content {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: row;
-          flex-direction: row;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
 }
 /*# sourceMappingURL=Search.css.map */

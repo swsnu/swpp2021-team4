@@ -55,10 +55,10 @@ function CreatePlaceCard(props: PropsType) {
         dropResult &&
         dropResult.day !== props.selectedDay &&
         setRoutePlaces
-        ) {
+      ) {
         // drag place from cart to my route
         setRoutePlaces((prevState: any) => {
-          return [...prevState, { place: { ...props.place, id: props.place.id+Date.now() }, day: dropResult.day }];
+          return [...prevState, { place: { ...props.place, id: props.place.id + Date.now() }, day: dropResult.day }];
         });
       } else if (dropResult && setRoutePlaces && dropResult.day === props.selectedDay) {
         if (props.setPathList && props.index) {
@@ -67,7 +67,7 @@ function CreatePlaceCard(props: PropsType) {
               if (
                 key === item.place.id.toString() ||
                 value.to === item.place.id.toString() ||
-                props.todayPlaceList && key === props.todayPlaceList[(item?.index || 1)-1].place.id.toString()
+                props.todayPlaceList && key === props.todayPlaceList[(item?.index || 1) - 1].place.id.toString()
               ) {
                 // removes path objects related to the dragged place and hovered place.
                 delete prevState[key];

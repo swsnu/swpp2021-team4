@@ -67,11 +67,11 @@
   font-style: normal;
   padding: 10px;
   border-radius: 10px;
+  cursor: pointer;
 }
 
 .edit-profile-container .edit-profile-content .edit-profile-image button:hover {
   background: #F5F6F9;
-  cursor: pointer;
 }
 
 .edit-profile-container .edit-profile-content .edit-profile-form-container {
