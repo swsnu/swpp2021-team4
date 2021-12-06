@@ -1,4 +1,4 @@
-.search {
+.search-container .search {
   margin-left: 20%;
   margin-right: 20%;
   background: #ffffff;
@@ -10,17 +10,17 @@
   display: flex;
 }
 
-.search .search-svg {
+.search-container .search .search-svg {
   margin-left: 3%;
 }
 
-.search .search-keyword {
+.search-container .search .search-keyword {
   border: none;
   margin-left: 10%;
   width: 80%;
 }
 
-.search .search-button {
+.search-container .search .search-button {
   background-color: #57ceb9;
   margin-top: 1%;
   margin-bottom: 1%;
@@ -32,7 +32,7 @@
   color: #ffffff;
 }
 
-.filter {
+.search-container .filter {
   margin-top: 3%;
   margin-left: 10%;
   margin-right: 10%;
@@ -43,11 +43,11 @@
   border-radius: 6px;
 }
 
-.filter button {
+.search-container .filter button {
   background-color: #ffffff;
 }
 
-.filter .location {
+.search-container .filter .location {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -58,7 +58,7 @@
   padding-top: 2%;
 }
 
-.filter .category {
+.search-container .filter .category {
   font-family: "Montserrat", Monospace;
   font-style: normal;
   font-weight: 600;
@@ -69,12 +69,12 @@
   width: 20%;
 }
 
-.filter .search-location {
+.search-container .filter .search-location {
   border: none;
   margin-right: 4%;
 }
 
-.filter .lines {
+.search-container .filter .lines {
   border: 0.1px solid #969696;
   width: 90%;
   margin-left: auto;
@@ -83,9 +83,9 @@
   margin-bottom: 1.3%;
 }
 
-.filter .seasons,
-.filter .themes,
-.filter .transportation {
+.search-container .filter .seasons,
+.search-container .filter .themes,
+.search-container .filter .transportation {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -95,11 +95,11 @@
           flex-direction: row;
 }
 
-.filter .seasons .season-clicked, .filter .seasons .theme-clicked,
-.filter .themes .season-clicked,
-.filter .themes .theme-clicked,
-.filter .transportation .season-clicked,
-.filter .transportation .theme-clicked {
+.search-container .filter .seasons .season-clicked, .search-container .filter .seasons .theme-clicked,
+.search-container .filter .themes .season-clicked,
+.search-container .filter .themes .theme-clicked,
+.search-container .filter .transportation .season-clicked,
+.search-container .filter .transportation .theme-clicked {
   font-family: "Noto Sans CJK KR", Monospace;
   font-style: normal;
   font-weight: 400;
@@ -111,23 +111,23 @@
   color: #57ceb9;
 }
 
-.filter .seasons .season:hover,
-.filter .seasons .season-clicked:hover,
-.filter .seasons .theme:hover,
-.filter .seasons .theme-clicked:hover,
-.filter .themes .season:hover,
-.filter .themes .season-clicked:hover,
-.filter .themes .theme:hover,
-.filter .themes .theme-clicked:hover,
-.filter .transportation .season:hover,
-.filter .transportation .season-clicked:hover,
-.filter .transportation .theme:hover,
-.filter .transportation .theme-clicked:hover {
+.search-container .filter .seasons .season:hover,
+.search-container .filter .seasons .season-clicked:hover,
+.search-container .filter .seasons .theme:hover,
+.search-container .filter .seasons .theme-clicked:hover,
+.search-container .filter .themes .season:hover,
+.search-container .filter .themes .season-clicked:hover,
+.search-container .filter .themes .theme:hover,
+.search-container .filter .themes .theme-clicked:hover,
+.search-container .filter .transportation .season:hover,
+.search-container .filter .transportation .season-clicked:hover,
+.search-container .filter .transportation .theme:hover,
+.search-container .filter .transportation .theme-clicked:hover {
   background-color: #f3f4f5;
 }
 
-.filter .season,
-.filter .theme {
+.search-container .filter .season,
+.search-container .filter .theme {
   font-family: "Noto Sans CJK KR", Monospace;
   font-style: normal;
   font-weight: 400;
@@ -139,22 +139,22 @@
   color: #9f9f9f;
 }
 
-.filter .transportation {
+.search-container .filter .transportation {
   padding-bottom: 2%;
 }
 
-.filter .days {
+.search-container .filter .days {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
 }
 
-.filter .days .search-days {
+.search-container .filter .days .search-days {
   border: none;
   width: 10%;
 }
 
-.sorting {
+.search-container .sorting {
   margin-left: 2%;
   border-radius: 3px;
   font-family: "Noto Sans CJK KR", Monospace;
@@ -166,7 +166,7 @@
   padding: 0 10px;
 }
 
-.sorting-clicked {
+.search-container .sorting-clicked {
   margin-left: 2%;
   color: #57ceb9;
   border-radius: 3px;
@@ -174,11 +174,11 @@
   font-style: normal;
 }
 
-.sorting:hover, .sorting-clicked:hover {
+.search-container .sorting:hover, .search-container .sorting-clicked:hover {
   background-color: #f3f4f5;
 }
 
-.search-title {
+.search-container .search-title {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;

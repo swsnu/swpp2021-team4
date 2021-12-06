@@ -1,8 +1,9 @@
 import React, { useRef, useState } from "react";
 import buttonUp from "../static/chevron-down.svg";
 import buttonDown from "../static/chevron-up.svg";
+import edit_btn from "../static/edit-icon.svg";
 import { PlaceType, PlaceDayType, PathListType } from "../store/Post/postInterfaces";
-import "../styles/components/CreatePlaceCard.scss";
+import "../styles/components/CreatePlaceCard.css";
 import ItemTypes from "../utils/items";
 import { useDrag, useDrop } from "react-dnd";
 import { XYCoord } from "dnd-core/dist/types/interfaces";
@@ -17,6 +18,9 @@ interface PropsType {
   isPlaceInCart: (id: number) => boolean;
   isPlaceInRoute?: (place: any) => boolean;
   onClickCartButton?: ((place: PlaceType) => void) | null;
+  editPlace?: { id: number, description: string };
+  onEditPlace?: (place: PlaceType) => void;
+  onChangePlaceDescription?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   selectedDay: number | null;
   movePlace?: (dragIndex: number, hoverIndex: number) => void;
   setPathList?: (value: React.SetStateAction<PathListType>) => void;
@@ -111,7 +115,7 @@ function CreatePlaceCard(props: PropsType) {
       } else if (props.movePlace) {
         props.movePlace(dragIndex, hoverIndex);
       }
-      
+
       item.index = hoverIndex;
     },
   });
@@ -135,11 +139,32 @@ function CreatePlaceCard(props: PropsType) {
           )}
           onClick={onClickCartButton}
         >
-          <img src={props.icon} />
+          <img className="post-icon" src={props.icon} />
         </button>
       </div>
       <div className="place-container-middle">
-        <div className="place-description">{props.place.name}입니다.</div>
+        {(props.type === "route") && props.editPlace && props.editPlace.id === props.place.id && (
+          <input
+            className="place-description-input"
+            value={props.editPlace.description}
+            onChange={props.onChangePlaceDescription}
+            placeholder="장소에 관해 적어보세요!" />
+        )}
+        {(props.type === "route") && props.editPlace && props.editPlace.id !== props.place.id && (
+          <div className="place-description">{props.place.description}</div>
+        )}
+        {(props.type === "route") && (
+          <img
+            className="post-icon"
+            src={edit_btn}
+            onClick={() => {
+              if (props.onEditPlace) props.onEditPlace(props.place);
+            }}
+          />
+        )}
+        {(props.type === "search" || props.type === "place") && (
+          <div className="place-description">{props.place.address}</div>
+        )}
         <img
           className="post-icon"
           src={isExpanded ? buttonUp : buttonDown}

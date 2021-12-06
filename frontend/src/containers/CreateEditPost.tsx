@@ -65,6 +65,39 @@ function CreateEditPost(props: PropsType) {
     });
   }, [props.folder]);
 
+  const [editPlace, setEditedPlace] = useState<{ id: number, description: string }>({
+    id: 0,
+    description: ''
+  });
+
+  const onChangePlaceDescription = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setEditedPlace({
+      ...editPlace,
+      description: e.target.value
+    });
+  }
+
+  const onEditPlace = (place: PlaceType) => {
+    setRoutePlaces(routePlaces.map((p: PlaceDayType) => {
+      if (p.place.id === editPlace.id) {
+        p.place.description = editPlace.description;
+      }
+      return p;
+    }));
+
+    if (editPlace.id === place.id) {
+      setEditedPlace({
+        id: 0,
+        description: ''
+      });
+    } else {
+      setEditedPlace({
+        id: place.id,
+        description: place.description
+      });
+    }
+  };
+
   const onChangePath = useCallback(
     (e: React.ChangeEvent<HTMLSelectElement>, origin: PlaceType, destination: PlaceType) => {
       setPathList({
@@ -77,7 +110,6 @@ function CreateEditPost(props: PropsType) {
     },
     [pathList]
   );
-
 
   const onDeletePlace = useCallback(
     (place: PlaceType) => {
@@ -232,6 +264,9 @@ function CreateEditPost(props: PropsType) {
               onClickDay={onClickDay}
               onClickAddIcon={onClickAddIcon}
               routePlaces={routePlaces}
+              editPlace={editPlace}
+              onChangePlaceDescription={onChangePlaceDescription}
+              onEditPlace={onEditPlace}
               onDeletePlace={onDeletePlace}
               setRoutePlaces={setRoutePlaces}
             />
