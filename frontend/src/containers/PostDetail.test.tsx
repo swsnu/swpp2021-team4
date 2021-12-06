@@ -1,5 +1,5 @@
 import React from "react";
-import { mount} from "enzyme";
+import { mount } from "enzyme";
 import { Provider } from "react-redux";
 import { ConnectedRouter } from "connected-react-router";
 import PostDetail from "./PostDetail";
@@ -12,6 +12,7 @@ import { BrowserRouter } from "react-router-dom";
 import axios from "axios";
 import Place from "../components/Place";
 import SelectFolderModal from "./SelectFolderModal";
+import Path from "../components/Path";
 // import { waitFor } from "@testing-library/dom";
 // import { act } from "react-dom/test-utils";
 
@@ -67,6 +68,23 @@ const stubInitialState = {
             category: "ex1",
             index: 1,
           },
+          {
+            id: 2,
+            name: "ex2",
+            post_id: 1,
+            description: "ex2",
+            day: 1,
+            folder_id: 1,
+            latitude: "1",
+            longitude: "1",
+            lat: "1",
+            lon: "1",
+            homepage: "ex2",
+            phone_number: "ex2",
+            address: "ex2",
+            category: "ex2",
+            index: 2,
+          },
         ],
         season: "ex1",
         theme: "ex1",
@@ -96,7 +114,7 @@ const stubInitialState = {
       days: 1,
       // folder_id: 1,
       folder_name: "ex1",
-      is_shared: false,
+      is_shared: true,
       location: "ex1",
       places: [
         {
@@ -116,6 +134,23 @@ const stubInitialState = {
           category: "ex1",
           index: 1,
         },
+        {
+          id: 2,
+          name: "ex2",
+          post_id: 1,
+          description: "ex2",
+          day: 1,
+          folder_id: 1,
+          latitude: "1",
+          longitude: "1",
+          lat: "1",
+          lon: "1",
+          homepage: "ex2",
+          phone_number: "ex2",
+          address: "ex2",
+          category: "ex2",
+          index: 2,
+        },
       ],
       season: "ex1",
       theme: "ex1",
@@ -123,7 +158,15 @@ const stubInitialState = {
       like_counts: 1,
       liked: true,
       created_at: "ex1",
-      // updated_at:"ex1",
+      pathList: [
+        {
+          from_place_id: 1,
+          id: 1,
+          post_id: 1,
+          to_place_id: 2,
+          transportation: "car",
+        },
+      ],
     },
     selectedFolder: {
       id: 1,
@@ -193,6 +236,15 @@ describe("<PostDetail/>", () => {
       .mockImplementation((callback) => callback(stubInitialState));
     const component = mount(postDetail);
     const wrapper = component.find(".post-detail-container");
+    expect(wrapper.length).toBe(1);
+  });
+
+  it("should render Place correctly", () => {
+    jest
+      .spyOn(reactRedux, "useSelector")
+      .mockImplementation((callback) => callback(stubInitialState));
+    const component = mount(postDetail);
+    const wrapper = component.find(Path);
     expect(wrapper.length).toBe(1);
   });
 
@@ -284,198 +336,11 @@ describe("<PostDetail/>", () => {
   });
 
   it("should render onClickAddPostCartButton when button clicked", () => {
-    const post = {
-      id: 1,
-      header_image: "ex1",
-      thumbnail_image: "ex1",
-      author_id: 1,
-      author_name: "ex1",
-      availableWithoutCar: true,
-      comments: [
-        {
-          username: "ex1",
-          content: "ex1",
-          profile_image: "ex1",
-          id: 1,
-          created_at: "ex1",
-          author_id: 1,
-        },
-      ],
-      comment_counts: 1,
-      days: 1,
-      // folder_id: 1,
-      folder_name: "ex1",
-      is_shared: true,
-      location: "ex1",
-      places: [
-        {
-          id: 1,
-          name: "ex1",
-          post_id: 1,
-          description: "ex1",
-          day: 1,
-          folder_id: 1,
-          latitude: "1",
-          longitude: "1",
-          lat: "1",
-          lon: "1",
-          homepage: "ex1",
-          phone_number: "ex1",
-          address: "ex1",
-          category: "ex1",
-          index: 1,
-        },
-      ],
-      season: "ex1",
-      theme: "ex1",
-      title: "ex1",
-      like_counts: 1,
-      liked: true,
-      created_at: "ex1",
-    };
-    jest.spyOn(reactRedux, "useSelector").mockImplementation((callback) =>
-      callback({
-        user: {
-          loggedUser: {
-            id: 1,
-            email: "ex1",
-            username: "ex1",
-            profile_image: "ex1",
-            folders: [],
-          },
-        },
-        post: {
-          posts: [
-            {
-              id: 1,
-              header_image: "ex1",
-              thumbnail_image: "ex1",
-              author_id: 1,
-              author_name: "ex1",
-              availableWithoutCar: true,
-              comments: [
-                {
-                  username: "ex1",
-                  content: "ex1",
-                  profile_image: "ex1",
-                  id: 1,
-                  created_at: "ex1",
-                  author_id: "1,",
-                },
-              ],
-              days: 1,
-              folder_id: 1,
-              folder_name: "ex1",
-              is_shared: true,
-              location: "ex1",
-              places: [
-                {
-                  id: 1,
-                  name: "ex1",
-                  post_id: 1,
-                  description: "ex1",
-                  day: 1,
-                  folder_id: 1,
-                  latitude: "1",
-                  longitude: "1",
-                  lat: "1",
-                  lon: "1",
-                  homepage: "ex1",
-                  phone_number: "ex1",
-                  address: "ex1",
-                  category: "ex1",
-                  index: 1,
-                },
-              ],
-              season: "ex1",
-              theme: "ex1",
-              title: "ex1",
-              like_counts: 1,
-              liked: true,
-            },
-          ],
-          detailedPost: {
-            id: 1,
-            header_image: "ex1",
-            thumbnail_image: "ex1",
-            author_id: 1,
-            author_name: "ex1",
-            availableWithoutCar: true,
-            comments: [
-              {
-                username: "ex1",
-                content: "ex1",
-                profile_image: "ex1",
-                id: 1,
-                created_at: "ex1",
-                author_id: 1,
-              },
-            ],
-            comment_counts: 1,
-            days: 1,
-            // folder_id: 1,
-            folder_name: "ex1",
-            is_shared: true,
-            location: "ex1",
-            places: [
-              {
-                id: 1,
-                name: "ex1",
-                post_id: 1,
-                description: "ex1",
-                day: 1,
-                folder_id: 1,
-                latitude: "1",
-                longitude: "1",
-                lat: "1",
-                lon: "1",
-                homepage: "ex1",
-                phone_number: "ex1",
-                address: "ex1",
-                category: "ex1",
-                index: 1,
-              },
-            ],
-            season: "ex1",
-            theme: "ex1",
-            title: "ex1",
-            like_counts: 1,
-            liked: true,
-            created_at: "ex1",
-            // updated_at:"ex1",
-          },
-          selectedFolder: {
-            id: 1,
-            name: "ex1",
-          },
-          search: [],
-          likeSorted: [],
-          dateSorted: [],
-        },
-      })
-    );
-    let postHeader: any;
-    const onClickPostLikeButton = jest.fn();
-    const onClickPostShareButton = jest.fn();
-    const onClickAddPostCartButton = jest.fn();
-    postHeader = (
-      <Provider store={mockStore}>
-        <ConnectedRouter history={history}>
-          <BrowserRouter>
-            <PostHeader
-              loggedUserId={1}
-              isPostDetail={true}
-              onClickAddPostCartButton={onClickAddPostCartButton}
-              onClickPostShareButton={onClickPostShareButton}
-              onClickPostLikeButton={onClickPostLikeButton}
-              post={post}
-            />
-          </BrowserRouter>
-        </ConnectedRouter>
-      </Provider>
-    );
+    jest
+      .spyOn(reactRedux, "useSelector")
+      .mockImplementation((callback) => callback(stubInitialState));
     const component = mount(postDetail);
-    const wrapper = mount(postHeader);
+    const wrapper = component.find(PostHeader);
     wrapper.find(".post-cart-button").simulate("click");
     const setIsPostAddedToCart = jest.fn();
     let spyUseState: any;
@@ -486,7 +351,7 @@ describe("<PostDetail/>", () => {
     ]);
     expect(setIsPostAddedToCart).toBeTruthy();
     const placeWrapper = component.find(Place);
-    placeWrapper.find(".place-cart-button").simulate("click");
+    placeWrapper.find(".place-cart-button").first().simulate("click");
     const setIsModalVisible = jest.fn();
     spyUseState.mockImplementation((isModalVisible: any) => [
       isModalVisible,
@@ -496,6 +361,7 @@ describe("<PostDetail/>", () => {
   });
 
   it("should render onClickPostShareButton when button clicked", () => {
+    stubInitialState.post.detailedPost.is_shared = false;
     jest
       .spyOn(reactRedux, "useSelector")
       .mockImplementation((callback) => callback(stubInitialState));
@@ -511,128 +377,11 @@ describe("<PostDetail/>", () => {
   });
 
   it("should alert when lacks of information", () => {
-    const initialState = {
-      user: {
-        loggedUser: {
-          id: 1,
-          email: "ex1",
-          username: "ex1",
-          profile_image: "ex1",
-          folders: [],
-        },
-      },
-      post: {
-        posts: [
-          {
-            id: 1,
-            header_image: "ex1",
-            thumbnail_image: "ex1",
-            author_id: 1,
-            author_name: "ex1",
-            availableWithoutCar: true,
-            comments: [
-              {
-                username: "ex1",
-                content: "ex1",
-                profile_image: "ex1",
-                id: 1,
-                created_at: "ex1",
-                author_id: "1,",
-              },
-            ],
-            days: 1,
-            folder_id: 1,
-            folder_name: "ex1",
-            is_shared: false,
-            location: "ex1",
-            places: [
-              {
-                id: 1,
-                name: "ex1",
-                post_id: 1,
-                description: "ex1",
-                day: 1,
-                folder_id: 1,
-                latitude: "1",
-                longitude: "1",
-                lat: "1",
-                lon: "1",
-                homepage: "ex1",
-                phone_number: "ex1",
-                address: "ex1",
-                category: "ex1",
-                index: 1,
-              },
-            ],
-            season: "",
-            theme: "ex1",
-            title: "ex1",
-            like_counts: 1,
-            liked: true,
-          },
-        ],
-        detailedPost: {
-          id: 1,
-          header_image: "ex1",
-          thumbnail_image: "ex1",
-          author_id: 1,
-          author_name: "ex1",
-          availableWithoutCar: true,
-          comments: [
-            {
-              username: "ex1",
-              content: "ex1",
-              profile_image: "ex1",
-              id: 1,
-              created_at: "ex1",
-              author_id: 1,
-            },
-          ],
-          comment_counts: 1,
-          days: 1,
-          // folder_id: 1,
-          folder_name: "ex1",
-          is_shared: false,
-          location: "ex1",
-          places: [
-            {
-              id: 1,
-              name: "ex1",
-              post_id: 1,
-              description: "ex1",
-              day: 1,
-              folder_id: 1,
-              latitude: "1",
-              longitude: "1",
-              lat: "1",
-              lon: "1",
-              homepage: "ex1",
-              phone_number: "ex1",
-              address: "ex1",
-              category: "ex1",
-              index: 1,
-            },
-          ],
-          season: "",
-          theme: "ex1",
-          title: "ex1",
-          like_counts: 1,
-          liked: true,
-          created_at: "ex1",
-          // updated_at:"ex1",
-        },
-        selectedFolder: {
-          id: 1,
-          name: "ex1",
-        },
-        search: [],
-        likeSorted: [],
-        dateSorted: [],
-      },
-    };
+    stubInitialState.post.detailedPost.season = "";
+    stubInitialState.post.detailedPost.is_shared = false;
     jest
       .spyOn(reactRedux, "useSelector")
-      .mockImplementation((callback) => callback(initialState));
+      .mockImplementation((callback) => callback(stubInitialState));
     jest.spyOn(window, "alert");
     const component = mount(postDetail);
     const wrapper = component.find(PostHeader);
@@ -640,6 +389,8 @@ describe("<PostDetail/>", () => {
     expect(window.alert).toHaveBeenCalled();
   });
   it("should render onClickFolderSelect when button clicked", () => {
+    stubInitialState.post.detailedPost.season = "ex1";
+    stubInitialState.post.detailedPost.is_shared = true;
     jest
       .spyOn(reactRedux, "useSelector")
       .mockImplementation((callback) => callback(stubInitialState));
@@ -711,21 +462,20 @@ describe("<PostDetail/>", () => {
       setSelectedPlaceId,
     ]);
     const placeWrapper = component.find(Place);
-    placeWrapper.find(".place-cart-button").simulate("click");
+    placeWrapper.find(".place-cart-button").first().simulate("click");
     component.find(".post-detail-container").simulate("click");
     expect(setSelectedPlaceId).toBeTruthy();
-
   });
 
-  it("should render default image when no profile image",()=>{
-    stubInitialState.post.detailedPost.comments[0].profile_image="";
+  it("should render default image when no profile image", () => {
+    stubInitialState.post.detailedPost.comments[0].profile_image = "";
     jest
       .spyOn(reactRedux, "useSelector")
       .mockImplementation((callback) => callback(stubInitialState));
     const component = mount(postDetail);
-    const wrapper = component.find(".each-profile-image")
+    const wrapper = component.find(".each-profile-image");
     expect(wrapper.length).toBe(1);
-  })
+  });
 
   //coverage에 영향을 주지 않음
   it("should return null when no place", () => {

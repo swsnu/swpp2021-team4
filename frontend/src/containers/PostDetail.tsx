@@ -88,7 +88,6 @@ function PostDetail() {
 
   // place의 타입 정의 후 any 고치기
   const post = usePostState();
-
   const placeMapping = () => {
     if (post.places) {
       const places = post.places;
