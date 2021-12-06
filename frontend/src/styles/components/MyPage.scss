@@ -14,24 +14,32 @@
 }
 
 .folder {
-  margin-top: 5%;
   display: flex;
   flex-direction: row;
+  width: 85vw;
+  margin: 50px auto;
 
   .left {
-    width: 25vw;
+    width: 30vw;
     height: 100%;
-    margin-left: 130px;
     margin-bottom: 100px;
     background: $whiteColor;
     border-radius: 6px;
     margin-right: 20px;
+    font-weight: 600;
+    padding: 0 20px;
+
     .folderHead {
+      display: flex;
+      justify-content: space-between;
       font-family: $mainFont;
       font-style: normal;
-      margin-left: 4%;
-      margin-top: 8%;
+      padding: 20px 0;
       color: $darkMintColor;
+      .icon {
+        width: 20px;
+        margin-right: 5%;
+      }
     }
     .folder-input-container {
       width: 80%;
@@ -43,11 +51,13 @@
     .eachItem {
       display: flex;
       flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
       background: #ffffff;
-      width: 90%;
-      margin-left: 5%;
-      margin-right: 5%;
-      margin-top: 5%;
+      width: 100%;
+      padding: 10px;
+      font-weight: 400;
+      font-family: $koreanFont;
       &:hover {
         background: #e2e3e9;
         box-shadow: 0px 0px 0px transparent;
@@ -57,18 +67,12 @@
       }
 
       .folder-name {
-        width: 80%;
-        margin-top: 5%;
-        margin-left: 5%;
-        margin-bottom: 5%;
+        padding: 10px;
       }
       .icon {
-        width: 6%;
-        margin-right: 5%;
+        width: 15px;
+        margin-right: 10px;
       }
-    }
-    .left_button {
-      margin-bottom: 4%;
     }
     button {
       background: transparent;
@@ -95,7 +99,6 @@
     min-height: 300px;
     background: $whiteColor;
     border-radius: 6px;
-    margin-right: 10%;
     .posts-container {
       display: flex;
       .folder-my-posts,

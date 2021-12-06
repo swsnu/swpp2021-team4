@@ -140,6 +140,7 @@
     .availableWithoutCar {
       display: flex;
       margin-left: 40px;
+      font-family: $koreanFont;
       #availableWithoutCar-checkbox {
         display: inline-block;
         width: 15px;

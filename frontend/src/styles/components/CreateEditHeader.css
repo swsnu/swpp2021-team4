@@ -201,6 +201,7 @@
   display: -ms-flexbox;
   display: flex;
   margin-left: 40px;
+  font-family: "Noto Sans CJK KR", Monospace;
 }
 
 .post-ce-header .post-ce-info-third-line .availableWithoutCar #availableWithoutCar-checkbox {
