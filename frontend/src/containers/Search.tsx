@@ -5,7 +5,11 @@ import { getPostsAction, searchAction } from "../store/Post/postAction";
 import "../styles/components/Search.css";
 import { SimplePostType } from "../store/Post/postInterfaces";
 import PostItem from "../components/PostItem";
-import { useSearchPostState } from "../hooks/usePostsState";
+import {
+  useDateSearchPostState,
+  useLikeSearchPostState,
+  useSearchPostState,
+} from "../hooks/usePostsState";
 
 function Search() {
   const dispatch = useDispatch();
@@ -23,7 +27,9 @@ function Search() {
     dispatch(getPostsAction());
   }, [dispatch]);
 
-  const searchedPosts = useSearchPostState(sorting);
+  const searchedPosts = useSearchPostState();
+  const likeSearchedPosts = useLikeSearchPostState();
+  const dateSearchPosts = useDateSearchPostState();
 
   const onChangeInputs = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
@@ -92,9 +98,9 @@ function Search() {
             onClick={() =>
               userInputs.season != "spr"
                 ? setUserInputs({
-                  ...userInputs,
-                  season: "spr",
-                })
+                    ...userInputs,
+                    season: "spr",
+                  })
                 : setUserInputs({ ...userInputs, season: "" })
             }
           >
@@ -106,9 +112,9 @@ function Search() {
             onClick={() =>
               userInputs.season != "sum"
                 ? setUserInputs({
-                  ...userInputs,
-                  season: "sum",
-                })
+                    ...userInputs,
+                    season: "sum",
+                  })
                 : setUserInputs({ ...userInputs, season: "" })
             }
           >
@@ -120,9 +126,9 @@ function Search() {
             onClick={() =>
               userInputs.season != "aut"
                 ? setUserInputs({
-                  ...userInputs,
-                  season: "aut",
-                })
+                    ...userInputs,
+                    season: "aut",
+                  })
                 : setUserInputs({ ...userInputs, season: "" })
             }
           >
@@ -134,9 +140,9 @@ function Search() {
             onClick={() =>
               userInputs.season != "win"
                 ? setUserInputs({
-                  ...userInputs,
-                  season: "win",
-                })
+                    ...userInputs,
+                    season: "win",
+                  })
                 : setUserInputs({ ...userInputs, season: "" })
             }
           >
@@ -165,48 +171,51 @@ function Search() {
             onClick={() =>
               userInputs.theme != "lover"
                 ? setUserInputs({
-                  ...userInputs,
-                  theme: "lover",
-                })
+                    ...userInputs,
+                    theme: "lover",
+                  })
                 : setUserInputs({
-                  ...userInputs,
-                  theme: "",
-                })
+                    ...userInputs,
+                    theme: "",
+                  })
             }
           >
             연인과 함께
           </button>
           <button
             id="theme"
-            className={`theme${userInputs.theme === "family" ? "-clicked" : ""}`}
+            className={`theme${
+              userInputs.theme === "family" ? "-clicked" : ""
+            }`}
             onClick={() =>
               userInputs.theme != "family"
                 ? setUserInputs({
-                  ...userInputs,
-                  theme: "family",
-                })
+                    ...userInputs,
+                    theme: "family",
+                  })
                 : setUserInputs({
-                  ...userInputs,
-                  theme: "",
-                })
+                    ...userInputs,
+                    theme: "",
+                  })
             }
           >
             가족과 함께
           </button>
           <button
             id="theme"
-            className={`theme${userInputs.theme === "friends" ? "-clicked" : ""
-              }`}
+            className={`theme${
+              userInputs.theme === "friends" ? "-clicked" : ""
+            }`}
             onClick={() =>
               userInputs.theme != "friends"
                 ? setUserInputs({
-                  ...userInputs,
-                  theme: "friends",
-                })
+                    ...userInputs,
+                    theme: "friends",
+                  })
                 : setUserInputs({
-                  ...userInputs,
-                  theme: "",
-                })
+                    ...userInputs,
+                    theme: "",
+                  })
             }
           >
             친구와 함께
@@ -217,13 +226,13 @@ function Search() {
             onClick={() =>
               userInputs.theme != "alone"
                 ? setUserInputs({
-                  ...userInputs,
-                  theme: "alone",
-                })
+                    ...userInputs,
+                    theme: "alone",
+                  })
                 : setUserInputs({
-                  ...userInputs,
-                  theme: "",
-                })
+                    ...userInputs,
+                    theme: "",
+                  })
             }
           >
             나홀로 여행
@@ -234,19 +243,20 @@ function Search() {
           <div className="category">Transportation</div>
           <button
             id="transportation"
-            className={`theme${userInputs.transportation === "True" ? "-clicked" : ""
-              }`}
+            className={`theme${
+              userInputs.transportation === "True" ? "-clicked" : ""
+            }`}
             onClick={() =>
               userInputs.transportation === "False" ||
-                userInputs.transportation === ""
+              userInputs.transportation === ""
                 ? setUserInputs({
-                  ...userInputs,
-                  transportation: "True",
-                })
+                    ...userInputs,
+                    transportation: "True",
+                  })
                 : setUserInputs({
-                  ...userInputs,
-                  transportation: "False",
-                })
+                    ...userInputs,
+                    transportation: "False",
+                  })
             }
           >
             뚜벅이 여행 가능
@@ -254,42 +264,79 @@ function Search() {
         </div>
       </div>
       <div className="search-result-container">
-        <div className="search-result-header">
-          <div className="search-result-title">Search Results</div>
-          <div className="search-result-sorting">
-            <button
-              id="sorting-method"
-              className={`sorting${sorting === "like" ? "-clicked" : ""}`}
-              onClick={() => setSorting("like")}
-            >
-              좋아요 순
-            </button>
-            <button
-              id="sorting-method"
-              className={`sorting${sorting === "date" ? "-clicked" : ""}`}
-              onClick={() => setSorting("date")}
-            >
-              최신게시물 순
-            </button>
-          </div>
-        </div>
-        <div className="search-result-content">
-          {searchedPosts.map((post: SimplePostType) => {
-            return (
-              <PostItem
-                key={post.id}
-                id={post.id}
-                thumbnail_image={post.thumbnail_image}
-                title={post.title}
-                author_name={post.author_name}
-                author_id={post.author_id}
-                like_count={post.like_count}
-                comment_count={post.comment_count}
-                is_shared={post.is_shared}
-              />
-            );
-          })}
-        </div>
+        {searched == true && (
+          <>
+            <div className="search-result-header">
+              <div className="search-result-title">Search Results</div>
+              <div className="search-result-sorting">
+                <button
+                  id="sorting-method"
+                  className={`sorting${sorting === "like" ? "-clicked" : ""}`}
+                  onClick={() => setSorting("like")}
+                >
+                  좋아요 순
+                </button>
+                <button
+                  id="sorting-method"
+                  className={`sorting${sorting === "date" ? "-clicked" : ""}`}
+                  onClick={() => setSorting("date")}
+                >
+                  최신게시물 순
+                </button>
+              </div>
+            </div>
+            <div className="search-research-content">
+              {sorting == "" &&
+                searchedPosts.map((post: SimplePostType) => {
+                  return (
+                    <PostItem
+                      key={post.id}
+                      id={post.id}
+                      thumbnail_image={post.thumbnail_image}
+                      title={post.title}
+                      author_name={post.author_name}
+                      author_id={post.author_id}
+                      like_count={post.like_count}
+                      comment_count={post.comment_count}
+                      is_shared={post.is_shared}
+                    />
+                  );
+                })}
+              {sorting == "like" &&
+                likeSearchedPosts.map((post: SimplePostType) => {
+                  return (
+                    <PostItem
+                      key={post.id}
+                      id={post.id}
+                      thumbnail_image={post.thumbnail_image}
+                      title={post.title}
+                      author_name={post.author_name}
+                      author_id={post.author_id}
+                      like_count={post.like_count}
+                      comment_count={post.comment_count}
+                      is_shared={post.is_shared}
+                    />
+                  );
+                })}
+              {sorting == "date" &&
+                dateSearchPosts.map((post: SimplePostType) => {
+                  return (
+                    <PostItem
+                      key={post.id}
+                      id={post.id}
+                      thumbnail_image={post.thumbnail_image}
+                      title={post.title}
+                      author_name={post.author_name}
+                      author_id={post.author_id}
+                      like_count={post.like_count}
+                      comment_count={post.comment_count}
+                      is_shared={post.is_shared}
+                    />
+                  );
+                })}
+            </div>
+          </>
+        )}
       </div>
     </div>
   );
