@@ -189,11 +189,11 @@ function CreateEditPost(props: PropsType) {
       days,
       theme,
       seasonRecommendation,
-      location,
       isAvailableWithoutCar,
       folderId,
       isShared,
     } = postInfoData;
+    const location = locationQuery;
 
     const placeListData = routePlaces
       .filter((p: PlaceDayType) => p.day)
