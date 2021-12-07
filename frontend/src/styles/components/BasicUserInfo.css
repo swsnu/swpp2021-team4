@@ -37,7 +37,7 @@
           justify-content: center;
   -webkit-box-align: end;
       -ms-flex-align: end;
-          align-items: end;
+          align-items: flex-end;
 }
 
 .basic-user-info .basicInfo .line {

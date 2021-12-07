@@ -16,7 +16,7 @@ interface PropType {
   isPostDetail: boolean;
   onClickPostShareButton?: () => void;
   onClickAddPostCartButton?: () => void;
-  onClickPostLikeButton: () => void;
+  onClickPostLikeButton?: () => void;
 }
 
 function PostHeader(props: PropType) {
