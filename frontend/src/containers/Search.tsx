@@ -315,7 +315,7 @@ function Search() {
                 </button>
               </div>
             </div>
-            <div className="search-research-content">
+            <div className="search-result-content">
               {sorting == "" &&
                 searchedPosts.map((post: SimplePostType) => {
                   return (
