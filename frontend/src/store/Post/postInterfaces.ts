@@ -39,7 +39,7 @@ export interface PostType {
   places: PlaceType[];
   like_counts: number;
   liked: boolean;
-  pathList: PathType[]
+  pathList: PathType[];
 }
 
 export interface SimplePostType {
@@ -121,9 +121,11 @@ export interface CommentType {
 }
 
 export interface PathType {
-  from: PlaceType;
-  to: PlaceType;
-  transportation: string;
+  from_place_id: number;
+  id: number;
+  post_id: number;
+  to_place_id: number;
+  transportation: "car";
 }
 
 export interface ServerPathType {
@@ -137,9 +139,9 @@ export interface ServerPathType {
 
 export interface PathListType {
   [from: string]: {
-    to: string,
-    transportation: 'car' | 'pub' | 'vic' | 'wal'
-  }
+    to: string;
+    transportation: "car" | "pub" | "vic" | "wal";
+  };
 }
 
 export interface SearchType {
@@ -184,7 +186,7 @@ export interface CreatePostSuccess {
 }
 
 export interface CreatePostFail {
-  type: typeof CREATE_POST_FAIL
+  type: typeof CREATE_POST_FAIL;
 }
 
 export interface SearchSuccess {

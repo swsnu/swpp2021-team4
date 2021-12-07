@@ -1,13 +1,13 @@
 import React from "react";
 import NavBar from "../components/NavBar";
 import Signup from "../containers/Signup";
-import '../styles/components/Signup.scss';
-import backgroundImage from '../static/png/signup_page.png';
+import "../styles/components/Signup.scss";
+import backgroundImage from "../static/png/signup_page.png";
 
 interface PropType {
-  location: any
-  match: any
-  history: any
+  location: any;
+  match: any;
+  history: any;
 }
 
 function SignupPage(props: PropType) {

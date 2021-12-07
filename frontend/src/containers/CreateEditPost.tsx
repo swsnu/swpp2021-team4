@@ -32,13 +32,14 @@ const initialFolderData: PostInfoDataType = {
   thumbnailImage: "",
   isAvailableWithoutCar: false,
   folderId: 0,
-  isShared: false
+  isShared: false,
 };
 
-const defaultImage = "https://media.triple.guide/triple-cms/c_limit,f_auto,h_1024,w_1024/73968eea-cbbe-49cd-b001-353e9e962cbf.jpeg";
+const defaultImage =
+  "https://media.triple.guide/triple-cms/c_limit,f_auto,h_1024,w_1024/73968eea-cbbe-49cd-b001-353e9e962cbf.jpeg";
 
 interface PropsType {
-  folder: Folder
+  folder: Folder;
 }
 
 function CreateEditPost(props: PropsType) {
@@ -64,7 +65,7 @@ function CreateEditPost(props: PropsType) {
   useEffect(() => {
     setPostInfoData({
       ...postInfoData,
-      folderId: props.folder?.id || 0
+      folderId: props.folder?.id || 0,
     });
   }, [props.folder]);
 
@@ -94,45 +95,63 @@ function CreateEditPost(props: PropsType) {
 
   const [editPlace, setEditedPlace] = useState<{ id: number, description: string }>({
     id: 0,
-    description: ''
+    description: "",
   });
 
   const onChangePlaceDescription = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEditedPlace({
       ...editPlace,
-      description: e.target.value
+      description: e.target.value,
     });
-  }
+  };
+
+  const onAddPlace = (place: PlaceType) => {
+    setRoutePlaces((prevState: any) => {
+      return [
+        ...prevState,
+        {
+          place: { ...place, id: place.id + Date.now() },
+          day: selectedDay,
+        },
+      ];
+    });
+  };
 
   const onEditPlace = (place: PlaceType) => {
-    setRoutePlaces(routePlaces.map((p: PlaceDayType) => {
-      if (p.place.id === editPlace.id) {
-        p.place.description = editPlace.description;
-      }
-      return p;
-    }));
+    setRoutePlaces(
+      routePlaces.map((p: PlaceDayType) => {
+        if (p.place.id === editPlace.id) {
+          p.place.description = editPlace.description;
+        }
+        return p;
+      })
+    );
 
     if (editPlace.id === place.id) {
       setEditedPlace({
         id: 0,
-        description: ''
+        description: "",
       });
     } else {
       setEditedPlace({
         id: place.id,
-        description: place.description
+        description: place.description,
       });
     }
   };
 
   const onChangePath = useCallback(
-    (e: React.ChangeEvent<HTMLSelectElement>, origin: PlaceType, destination: PlaceType) => {
+    (
+      e: React.ChangeEvent<HTMLSelectElement>,
+      origin: PlaceType,
+      destination: PlaceType
+    ) => {
       setPathList({
         ...pathList,
         [origin.id]: {
           to: destination.id,
-          transportation: e.target.value
-        }
+          transportation: e.target.value,
+        },
       });
     },
     [pathList]
@@ -140,7 +159,11 @@ function CreateEditPost(props: PropsType) {
 
   const onDeletePlace = useCallback(
     (place: PlaceType) => {
-      setRoutePlaces(routePlaces.filter((p: PlaceDayType) => p.day !== selectedDay || p.place.id !== place.id));
+      setRoutePlaces(
+        routePlaces.filter(
+          (p: PlaceDayType) => p.day !== selectedDay || p.place.id !== place.id
+        )
+      );
     },
     [routePlaces, selectedDay]
   );
@@ -148,10 +171,12 @@ function CreateEditPost(props: PropsType) {
   const isPlaceInRoute = (place: PlaceType) => {
     return routePlaces
       .filter((p: PlaceDayType) => p.day === selectedDay)
-      .some((p: PlaceDayType) => p.place.id.toString().startsWith(place.id.toString()));
-  }
+      .some((p: PlaceDayType) =>
+        p.place.id.toString().startsWith(place.id.toString())
+      );
+  };
 
-  const [selectedTab, setSelectedTab] = useState<'place' | 'search'>('place');
+  const [selectedTab, setSelectedTab] = useState<"place" | "search">("place");
 
   const onClickCreateEditButton = () => {
     const {
@@ -163,30 +188,37 @@ function CreateEditPost(props: PropsType) {
       location,
       isAvailableWithoutCar,
       folderId,
-      isShared
+      isShared,
     } = postInfoData;
 
-    const placeListData = routePlaces.filter((p: PlaceDayType) => p.day).map((p: PlaceDayType, index: number) => {
-      const { day, place } = p;
+    const placeListData = routePlaces
+      .filter((p: PlaceDayType) => p.day)
+      .map((p: PlaceDayType, index: number) => {
+        const { day, place } = p;
 
-      return {
-        day,
-        index,
-        kakao_id: place.id,
-        name: place.name,
-        description: place.description,
-        latitude: place.lat || place.latitude || '',
-        longitude: place.lon || place.longitude || '',
-        homepage: place.homepage,
-        address: place.address,
-        category: place.category,
-        phone_number: place.phone_number,
-      }
-    });
+        return {
+          day,
+          index,
+          kakao_id: place.id,
+          name: place.name,
+          description: place.description,
+          latitude: place.lat || place.latitude || "",
+          longitude: place.lon || place.longitude || "",
+          homepage: place.homepage,
+          address: place.address,
+          category: place.category,
+          phone_number: place.phone_number,
+        };
+      });
 
-    const pathListData = Object.entries(pathList).map(([key, value]) => ({ from: key, to: value.to, transportation: value.transportation }));
+    const pathListData = Object.entries(pathList).map(([key, value]) => ({
+      from: key,
+      to: value.to,
+      transportation: value.transportation,
+    }));
 
-    const defaultthumbnailImage = 'https://media.triple.guide/triple-cms/c_limit,f_auto,h_1024,w_1024/73968eea-cbbe-49cd-b001-353e9e962cbf.jpeg';
+    const defaultthumbnailImage =
+      "https://media.triple.guide/triple-cms/c_limit,f_auto,h_1024,w_1024/73968eea-cbbe-49cd-b001-353e9e962cbf.jpeg";
     const formData = new FormData();
     formData.append("title", title);
     formData.append("is_shared", isShared?.toString() || 'false');
@@ -222,9 +254,9 @@ function CreateEditPost(props: PropsType) {
         reader.onloadend = () => {
           setPostInfoData({
             ...postInfoData,
-            thumbnailImage: reader.result?.toString() || ''
-          })
-        }
+            thumbnailImage: reader.result?.toString() || "",
+          });
+        };
         reader.readAsDataURL(e.target.files[0]);
       } else {
         setPostInfoData({
@@ -248,9 +280,11 @@ function CreateEditPost(props: PropsType) {
   const onClickAvailableWithoutCar = () => {
     setPostInfoData({
       ...postInfoData,
-      isAvailableWithoutCar: !postInfoData.isAvailableWithoutCar
-    })
-  }
+
+      isAvailableWithoutCar: !postInfoData.isAvailableWithoutCar,
+    });
+  };
+
 
   const onClickDay = useCallback((value: number) => {
     setSelectedDay(value);
@@ -287,9 +321,9 @@ function CreateEditPost(props: PropsType) {
               selectedTab={selectedTab}
               onClickTabButton={onClickTabButton}
               setRoutePlaces={setRoutePlaces}
-              onDeletePlace={onDeletePlace}
               selectedDay={selectedDay}
               isPlaceInRoute={isPlaceInRoute}
+              onAddPlace={onAddPlace}
             />
           </div>
 

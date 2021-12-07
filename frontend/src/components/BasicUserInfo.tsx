@@ -7,13 +7,13 @@ interface PropType {
     id: number;
     email: string;
     username: string;
-    profile_image: string;
+    profile_image?: string;
     onEditProfile?: () => void;
 }
 
 function BasicUserInfo(props: PropType) {
     return (
-        <div className="showProfile">
+        <div className="basic-user-info">
             <div className="image">
                 {props.profile_image === null && (
                     <img className="profileImage" src={logo} />

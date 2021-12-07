@@ -12,8 +12,7 @@ interface PropType {
   selectedTab: "place" | "search";
   selectedDay: number;
   onClickTabButton: (type: "place" | "search") => void;
-  // onAddPlace: (place: any) => void;
-  onDeletePlace: (place: any) => void;
+  onAddPlace: (place: any) => void;
   isPlaceInRoute: (place: any) => boolean;
   setRoutePlaces?: (value: React.SetStateAction<PlaceDayType[]>) => void;
   // searchTabQuery?: string
@@ -24,8 +23,7 @@ function PlaceSearchSection(props: PropType) {
   const {
     selectedTab,
     onClickTabButton,
-    // onAddPlace,
-    onDeletePlace,
+    onAddPlace,
     isPlaceInRoute,
     setRoutePlaces,
     // searchTabQuery,
@@ -61,7 +59,7 @@ function PlaceSearchSection(props: PropType) {
             return {
               id: result.id,
               name: result.place_name,
-              description: '',
+              description: "",
               homepage: result.place_url,
               phone_number: result.phone,
               address: result.address_name,
@@ -93,6 +91,12 @@ function PlaceSearchSection(props: PropType) {
     } else {
       setCartPlaceList([...cartPlaceList, { place: place, day: 0 }]);
     }
+  };
+
+  const onDeleteCartButton = (place: PlaceType) => {
+    setCartPlaceList(
+      cartPlaceList.filter((p: PlaceDayType) => p.place.id !== place.id)
+    );
   };
 
   const onPressEnterSearch = (e: React.KeyboardEvent) => {
@@ -161,7 +165,7 @@ function PlaceSearchSection(props: PropType) {
               icon={isPlaceInRoute(result.place) ? deleteIcon : addIcon}
               type="place"
               onClickCartButton={
-                isPlaceInRoute(result.place) ? onDeletePlace : null
+                isPlaceInRoute(result.place) ? onDeleteCartButton : onAddPlace
               }
               isPlaceInCart={(id: number) => isPlaceInCart(id)}
               isPlaceInRoute={isPlaceInRoute}
