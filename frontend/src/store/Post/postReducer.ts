@@ -10,6 +10,8 @@ import {
   GET_COMMENTS_SUCCESS,
   GET_COMMENTS_FAIL,
   CREATE_POST_SUCCESS,
+  DELETE_POST_SUCCESS,
+  EDIT_POST_SUCCESS,
 } from "../actionTypes";
 import { Folder } from "../User/userInterfaces";
 import { PostDispatchType, PostType, SimplePostType } from "./postInterfaces";
@@ -94,6 +96,10 @@ export default (
     case GET_COMMENTS_FAIL:
       return { ...state };
     case CREATE_POST_SUCCESS:
+      return { ...state, detailedPost: action.payload };
+    case DELETE_POST_SUCCESS:
+      return { ...state, detailedPost: initialState.detailedPost };
+    case EDIT_POST_SUCCESS:
       return { ...state, detailedPost: action.payload };
     default:
       return { ...state };

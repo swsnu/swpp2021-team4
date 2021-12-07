@@ -45,7 +45,6 @@ function MyRoutesSection(props: PropType) {
   } = props;
 
   const [todayPlaceList, setTodayPlaceList] = useState<PlaceDayType[]>([]);
-  console.log(todayPlaceList);
   useEffect(() => {
     setTodayPlaceList(
       routePlaces.filter((p: PlaceDayType) => p.day == selectedDay)

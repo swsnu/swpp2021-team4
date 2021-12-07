@@ -37,7 +37,7 @@
         display: none;
       }
   
-      button {
+      .upload-image-button {
         margin-top: 20px;
         color: $darkMintColor;
         background: transparent;
@@ -61,7 +61,7 @@
       display: flex;
       flex-direction: column;
       justify-content: center;
-      align-items: end;
+      align-items: flex-end;
       font-family: $mainFont;
   
       .inputs {

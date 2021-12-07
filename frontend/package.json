@@ -85,8 +85,8 @@
     "resetMocks": false,
     "collectCoverageFrom": [
       "src/**/*.{js,jsx,tsx}",
-      "!src/index.tsx",
-      "!src/serviceWorker.js"
+      "!src/*.{js,jsx,tsx}",
+      "!src/components.Map.tsx"
     ]
   }
 }

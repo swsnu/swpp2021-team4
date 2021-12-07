@@ -1,17 +1,14 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { useHistory } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 import CreateEditHeader from "../components/CreateEditHeader";
 import Map from "../components/Map";
 import MyRoutesSection from "../components/MyRoutesSection";
 import PlaceSearchSection from "../components/PlaceSearchSection";
 import { usePostState } from "../hooks/usePostState";
-import { createPostAction } from "../store/Post/postAction";
-import {
-  PathListType,
-  PlaceDayType,
-  PlaceType,
-} from "../store/Post/postInterfaces";
+import { CreateEditPostLocationType } from "../pages/CreateEditPostPage";
+import { createPostAction, editPostAction } from "../store/Post/postAction";
+import { PathListType, PlaceDayType, PlaceType, ServerPathType } from "../store/Post/postInterfaces";
 import { Folder } from "../store/User/userInterfaces";
 import "../styles/components/CreateEditPost.css";
 
@@ -48,9 +45,10 @@ interface PropsType {
 function CreateEditPost(props: PropsType) {
   const dispatch = useDispatch();
   const history = useHistory();
+  const pageLocation = useLocation<CreateEditPostLocationType>();
   const post = usePostState();
-  const [postInfoData, setPostInfoData] =
-    useState<PostInfoDataType>(initialFolderData);
+
+  const [postInfoData, setPostInfoData] = useState<PostInfoDataType>(initialFolderData);
   const [locationQuery, setLocationQuery] = useState("");
   const [selectedDay, setSelectedDay] = useState(1);
   const [routePlaces, setRoutePlaces] = useState<PlaceDayType[]>([]);
@@ -71,10 +69,31 @@ function CreateEditPost(props: PropsType) {
     });
   }, [props.folder]);
 
-  const [editPlace, setEditedPlace] = useState<{
-    id: number;
-    description: string;
-  }>({
+  useEffect(() => {
+    if (pageLocation.state?.from === 'edit' && post.id === pageLocation.state?.postId) {
+      // when post is edited, set post info datas as edited post's datas.
+      
+      const placeList = post.places.map((place: PlaceType) => ({ day: place.day, place}));
+      const convertedPathList: PathListType = {};
+      post.pathList?.forEach((path: ServerPathType) => convertedPathList[path.from_place_id] = { to: path.to_place_id.toString(), transportation: path.transportation});
+
+      setPathList(convertedPathList);
+      setRoutePlaces(placeList);
+      setPostInfoData({
+        title: post.title,
+        location: post.location,
+        days: post.days,
+        seasonRecommendation: post.season,
+        theme: post.theme,
+        thumbnailImage: post.header_image,
+        isAvailableWithoutCar: post.availableWithoutCar,
+        folderId: post.folder_id,
+        isShared: post.is_shared
+      });
+    }
+  }, [pageLocation, post]);
+
+  const [editPlace, setEditedPlace] = useState<{ id: number, description: string }>({
     id: 0,
     description: "",
   });
@@ -159,7 +178,7 @@ function CreateEditPost(props: PropsType) {
 
   const [selectedTab, setSelectedTab] = useState<"place" | "search">("place");
 
-  const onClickCreateButton = () => {
+  const onClickCreateEditButton = () => {
     const {
       title,
       thumbnailImage,
@@ -202,28 +221,29 @@ function CreateEditPost(props: PropsType) {
       "https://media.triple.guide/triple-cms/c_limit,f_auto,h_1024,w_1024/73968eea-cbbe-49cd-b001-353e9e962cbf.jpeg";
     const formData = new FormData();
     formData.append("title", title);
-    formData.append("is_shared", isShared?.toString() || "false");
-    formData.append("thumbnail_image", thumbnailImage || defaultthumbnailImage);
-    formData.append("days", days?.toString());
-    formData.append("theme", theme);
-    formData.append("season", seasonRecommendation);
-    formData.append("location", location);
-    formData.append("availableWithoutCar", isAvailableWithoutCar.toString());
-    formData.append(
-      "folder_id",
-      folderId ? folderId.toString() : "172637238622223"
-    );
-    formData.append("places", JSON.stringify(placeListData));
-    formData.append("path_list", JSON.stringify(pathListData));
-    formData.append("enctype", "multipart/form-data");
+    formData.append("is_shared", isShared?.toString() || 'false');
+    formData.append('thumbnail_image', thumbnailImage || defaultthumbnailImage);
+    formData.append('days', days?.toString());
+    formData.append('theme', theme);
+    formData.append('season', seasonRecommendation);
+    formData.append('location', location);
+    formData.append('availableWithoutCar', isAvailableWithoutCar.toString())
+    formData.append('folder_id', folderId ? folderId.toString() : '172637238622223');
+    formData.append('places', JSON.stringify(placeListData));
+    formData.append('path_list', JSON.stringify(pathListData));
+    formData.append("enctype", 'multipart/form-data');
 
-    dispatch(
-      createPostAction(formData, (isCreated: boolean, postId: number) => {
+    if (post?.id) {
+      // edit
+      dispatch(editPostAction(formData, post.id, () => history.push(`/post/${createdPostId}/`)));
+    } else {
+      //create
+      dispatch(createPostAction(formData, (isCreated: boolean, postId: number) => {
         setIsPostCreated(isCreated);
         setCreatedPostId(postId);
-      })
-    );
-  };
+      }));
+    }
+  }
 
   const onChangePostInfoData = useCallback(
     (e: React.ChangeEvent<any>) => {
@@ -286,7 +306,6 @@ function CreateEditPost(props: PropsType) {
   return (
     <div>
       <CreateEditHeader
-        post={post}
         folder={props.folder}
         thumbnailImage={postInfoData.thumbnailImage || defaultImage}
         postInfoData={postInfoData}
@@ -329,11 +348,11 @@ function CreateEditPost(props: PropsType) {
         </div>
 
         <Map
-          fromWhere={"create"}
+          fromWhere={pageLocation.state?.from === 'edit' ? 'edit' : 'create'}
           location={locationQuery}
           selectedDay={selectedDay}
           placeList={routePlaces}
-          onClickButton={onClickCreateButton}
+          onClickButton={onClickCreateEditButton}
         />
       </div>
     </div>
