@@ -55,7 +55,6 @@ function CreateEditPost(props: PropsType) {
   const [isPostCreated, setIsPostCreated] = useState(false);
   const [createdPostId, setCreatedPostId] = useState<number>(0);
   const [pathList, setPathList] = useState<PathListType>({});
-  // const [cartPlaceList, setCartPlaceList] = useState<PlaceDayType[]>([]);
 
   useEffect(() => {
     if (isPostCreated && createdPostId) {
