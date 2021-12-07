@@ -1,7 +1,11 @@
 import React, { useEffect, useState, useCallback } from "react";
 import "../styles/components/MyRoutesSection.scss";
 import addIcon from "../static/add_day_icon.svg";
-import { PathListType, PlaceDayType, PlaceType } from "../store/Post/postInterfaces";
+import {
+  PathListType,
+  PlaceDayType,
+  PlaceType,
+} from "../store/Post/postInterfaces";
 import deleteIcon from "../static/delete.svg";
 import Path from "./Path";
 import { useDrop } from "react-dnd";
@@ -13,12 +17,16 @@ interface PropType {
   days: number;
   selectedDay: number;
   routePlaces: any[];
-  pathList: PathListType
+  pathList: PathListType;
   setPathList: (value: React.SetStateAction<PathListType>) => void;
-  onChangePath: (e: React.ChangeEvent<HTMLSelectElement>, origin: PlaceType, destination: PlaceType) => void
+  onChangePath: (
+    e: React.ChangeEvent<HTMLSelectElement>,
+    origin: PlaceType,
+    destination: PlaceType
+  ) => void;
   onClickDay: (value: number) => void;
   onClickAddIcon: (value: number) => void;
-  editPlace: { id: number, description: string };
+  editPlace: { id: number; description: string };
   onChangePlaceDescription?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onEditPlace: (place: any) => void;
   onDeletePlace: (place: any) => void;
@@ -37,7 +45,7 @@ function MyRoutesSection(props: PropType) {
   } = props;
 
   const [todayPlaceList, setTodayPlaceList] = useState<PlaceDayType[]>([]);
-
+  console.log(todayPlaceList);
   useEffect(() => {
     setTodayPlaceList(
       routePlaces.filter((p: PlaceDayType) => p.day == selectedDay)
@@ -49,15 +57,12 @@ function MyRoutesSection(props: PropType) {
       const dragCard = todayPlaceList[dragIndex];
       if (dragCard) {
         setTodayPlaceList(
-          update(
-            todayPlaceList,
-            {
-              $splice: [
-                [dragIndex, 1],
-                [hoverIndex, 0, dragCard],
-              ],
-            }
-          )
+          update(todayPlaceList, {
+            $splice: [
+              [dragIndex, 1],
+              [hoverIndex, 0, dragCard],
+            ],
+          })
         );
       }
     },
@@ -104,7 +109,7 @@ function MyRoutesSection(props: PropType) {
           {renderDayButtons()}
         </div>
         <img
-          style={{ marginLeft: "11px" }}
+          style={{ marginLeft: "11px", cursor: "pointer" }}
           onClick={() => onClickAddIcon(days + 1)}
           src={addIcon}
         />
@@ -123,8 +128,8 @@ function MyRoutesSection(props: PropType) {
                 setPathList={props.setPathList}
                 selectedDay={props.selectedDay}
                 todayPlaceList={todayPlaceList}
+                key={result.place.id}
                 index={index}
-                key={place.id}
                 id={place.id}
                 place={place}
                 icon={deleteIcon}
