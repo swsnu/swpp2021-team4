@@ -72,10 +72,10 @@ function CreateEditPost(props: PropsType) {
   useEffect(() => {
     if (pageLocation.state?.from === 'edit' && post.id === pageLocation.state?.postId) {
       // when post is edited, set post info datas as edited post's datas.
-      
-      const placeList = post.places.map((place: PlaceType) => ({ day: place.day, place}));
+
+      const placeList = post.places.map((place: PlaceType) => ({ day: place.day, place }));
       const convertedPathList: PathListType = {};
-      post.pathList?.forEach((path: ServerPathType) => convertedPathList[path.from_place_id] = { to: path.to_place_id.toString(), transportation: path.transportation});
+      post.pathList?.forEach((path: ServerPathType) => convertedPathList[path.from_place_id] = { to: path.to_place_id.toString(), transportation: path.transportation });
 
       setPathList(convertedPathList);
       setRoutePlaces(placeList);
@@ -85,7 +85,7 @@ function CreateEditPost(props: PropsType) {
         days: post.days,
         seasonRecommendation: post.season,
         theme: post.theme,
-        thumbnailImage: post.header_image,
+        thumbnailImage: post.thumbnail_image,
         isAvailableWithoutCar: post.availableWithoutCar,
         folderId: post.folder_id,
         isShared: post.is_shared
