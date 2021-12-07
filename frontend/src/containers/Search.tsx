@@ -258,12 +258,14 @@ function Search() {
           <div className="search-result-title">Search Results</div>
           <div className="search-result-sorting">
             <button
+              id="sorting-method"
               className={`sorting${sorting === "like" ? "-clicked" : ""}`}
               onClick={() => setSorting("like")}
             >
               좋아요 순
             </button>
             <button
+              id="sorting-method"
               className={`sorting${sorting === "date" ? "-clicked" : ""}`}
               onClick={() => setSorting("date")}
             >

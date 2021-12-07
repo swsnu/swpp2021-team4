@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React  from "react";
 import {  mount } from "enzyme";
 import { Provider } from "react-redux";
 import {  ConnectedRouter } from "connected-react-router";
@@ -6,7 +6,6 @@ import { Route,  Switch, BrowserRouter } from "react-router-dom";
 import Search from "./Search";
 import { getMockStore } from "../test-utils/mocks";
 import { history } from "../store/store";
-//import { useDispatch } from "react-redux";
 
 
 
@@ -21,7 +20,20 @@ const stubInitialState = {
     },
   },
   post: {
-    posts: [ ],
+    posts: [ 
+      {
+         author_id: 4,
+         author_name: "username",
+         comment_count: 0,
+         created_at: "2021-11-10T20:43:42Z",
+         id: 9,
+         is_shared: true,
+         like_count: 2,
+         thumbnail_image:
+          "/media/thumbnail_image/2021/11/10/28493cc3a2ba4eadb4fd0d10c28957ef.jpg",
+         title: "겨울강릉",
+          },
+        ],
     detailedPost: {
       id: 1,
       header_image: "ex1",
@@ -228,10 +240,7 @@ describe("<Search />", () => {
 
   it("should show searched Posts", () => {
     const component = mount(search);
-    const wrapper = component.find(".spyPost");
     const button = component.find(".search-button");
     button.simulate("click");
-    
-    //expect(wrapper.length).toBe(1);
   });
 });
