@@ -105,7 +105,7 @@ function PostDetail() {
             {places
               .filter((place: any) => place.day == day)
               .map((dayPlace: PlaceType, index: number, array: PlaceType[]) => {
-                const pathFromCurrentPlace = post.pathList.find((path: any) => {
+                const pathFromCurrentPlace = post.pathList?.find((path: any) => {
                   return (
                     path.from_place_id === dayPlace.id &&
                     index < array.length &&
@@ -123,6 +123,7 @@ function PostDetail() {
                     />
                     {pathFromCurrentPlace && (
                       <Path
+                        isFromDetail
                         key={dayPlace.id + array[index + 1].id}
                         from={dayPlace}
                         to={array[index + 1]}
