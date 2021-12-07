@@ -11,7 +11,7 @@ function UserInfoPage() {
   const loggedUser = useUserState();
 
   return (
-    <div>
+    <div className="UserInfoPage">
       <NavBar />
       {loggedUser.id === Number(id) ?
         <MyPage loggedUser={loggedUser} id={Number(id)} />

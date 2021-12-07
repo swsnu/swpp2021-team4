@@ -24,21 +24,6 @@ function Search() {
   }, [dispatch]);
 
   const searchedPosts = useSearchPostState(sorting);
-  useEffect(() => {
-    dispatch(
-      searchAction(
-        {
-          keyword: userInputs.keyword,
-          season: userInputs.season,
-          location: userInputs.location,
-          days: userInputs.days,
-          theme: userInputs.theme,
-          transportation: userInputs.transportation,
-        },
-        (value) => SetSearch(value)
-      )
-    );
-  }, [dispatch]);
 
   const onChangeInputs = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
