@@ -64,6 +64,7 @@ class Post(models.Model):
 
 class Place(models.Model):
     name = models.CharField(max_length=256, blank=True)
+    kakao_id = models.CharField(max_length=256, blank=True)
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
     description = models.TextField()
     day = models.IntegerField()
@@ -96,6 +97,7 @@ class Like(models.Model):
     created_at=models.DateTimeField(default=timezone.now)
 
 class Path(models.Model):
+    post=models.ForeignKey(Post, related_name='path_list', null=True, on_delete=models.CASCADE)
     from_place=models.ForeignKey(Place, related_name='from_place_path', on_delete=models.CASCADE)
     to_place=models.ForeignKey(Place,related_name='to_place_path', on_delete=models.CASCADE)
     transportations=[

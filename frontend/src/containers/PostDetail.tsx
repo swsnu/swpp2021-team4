@@ -23,6 +23,7 @@ import like_icon from "../static/like-icon.svg";
 import unlike_icon from "../static/unlike-icon.svg";
 import SelectFolderModal from "./SelectFolderModal";
 import { Folder } from "../store/User/userInterfaces";
+import Path from "../components/Path";
 
 function PostDetail() {
   const dispatch = useDispatch();
@@ -37,6 +38,7 @@ function PostDetail() {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [isPostAddedToCart, setIsPostAddedToCart] = useState(false);
   const [selectedPlaceId, setSelectedPlaceId] = useState(0); // tracks which place user try to put in cart
+  const [selectedDay, setSelectedDay] = useState(0);
 
   const onClickAddPostCartButton = () => {
     // executed when user clicks 'Add this route to cart' button
@@ -86,7 +88,6 @@ function PostDetail() {
 
   // place의 타입 정의 후 any 고치기
   const post = usePostState();
-
   const placeMapping = () => {
     if (post.places) {
       const places = post.places;
@@ -94,18 +95,40 @@ function PostDetail() {
       const placeList = [];
       for (let day = 1; day <= days; day++) {
         placeList.push(
-          <div key={day} className="route-day-info">
+          <div
+            key={day}
+            className="route-day-info"
+            onClick={() => setSelectedDay(day)}
+          >
             Day{day}
             {places
               .filter((place: any) => place.day == day)
-              .map((dayPlace: PlaceType) => {
+              .map((dayPlace: PlaceType, index: number, array: PlaceType[]) => {
+                const pathFromCurrentPlace = post.pathList.find((path: any) => {
+                  return (
+                    path.from_place_id === dayPlace.id &&
+                    index < array.length &&
+                    path.to_place_id == array[index + 1].id
+                  );
+                });
+
                 return (
-                  <Place
-                    key={dayPlace.id}
-                    place={dayPlace}
-                    icon={cart}
-                    onClickButton={onClickAddPlaceCartButton}
-                  />
+                  <>
+                    <Place
+                      key={days.index}
+                      place={dayPlace}
+                      icon={cart}
+                      onClickButton={onClickAddPlaceCartButton}
+                    />
+                    {pathFromCurrentPlace && (
+                      <Path
+                        key={dayPlace.id + array[index + 1].id}
+                        from={dayPlace}
+                        to={array[index + 1]}
+                        transportation={pathFromCurrentPlace.transportation}
+                      />
+                    )}
+                  </>
                 );
               })}
           </div>
@@ -154,8 +177,8 @@ function PostDetail() {
         content: newComment,
       };
       return axios.post(`/post/${id}/comment/create/`, body).then(function () {
-        dispatch(getCommentsAction(Number(id)));
         setComment("");
+        dispatch(getCommentsAction(Number(id)));
       });
     }
   };
@@ -184,6 +207,7 @@ function PostDetail() {
           <div className="body-left-container">
             <Map
               fromWhere={"detail"}
+              selectedDay={selectedDay}
               location={post.location}
               placeList={post.places.map((place: any) => {
                 place.lat = place.latitude;

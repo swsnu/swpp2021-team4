@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { PlaceType, PlaceDayType } from "../store/Post/postInterfaces";
-import "../styles/components/PlaceSearchSection.scss";
+import "../styles/components/PlaceSearchSection.css";
 import CreatePlaceCard from "./CreatePlaceCard";
 import cart from "../static/cart-icon.svg";
 import deleteIcon from "../static/delete.svg";
+import searchIcon from "../static/search.svg";
 import addIcon from "../static/add_day_icon.svg";
 
 const { kakao } = window;
@@ -11,8 +12,7 @@ interface PropType {
   selectedTab: "place" | "search";
   selectedDay: number;
   onClickTabButton: (type: "place" | "search") => void;
-  // onAddPlace: (place: any) => void;
-  onDeletePlace: (place: any) => void;
+  onAddPlace: (place: any) => void;
   isPlaceInRoute: (place: any) => boolean;
   setRoutePlaces?: (value: React.SetStateAction<PlaceDayType[]>) => void;
   // searchTabQuery?: string
@@ -23,8 +23,7 @@ function PlaceSearchSection(props: PropType) {
   const {
     selectedTab,
     onClickTabButton,
-    // onAddPlace,
-    onDeletePlace,
+    onAddPlace,
     isPlaceInRoute,
     setRoutePlaces,
     // searchTabQuery,
@@ -60,7 +59,7 @@ function PlaceSearchSection(props: PropType) {
             return {
               id: result.id,
               name: result.place_name,
-              description: result.place_name + "입니다",
+              description: "",
               homepage: result.place_url,
               phone_number: result.phone,
               address: result.address_name,
@@ -94,6 +93,12 @@ function PlaceSearchSection(props: PropType) {
     }
   };
 
+  const onDeleteCartButton = (place: PlaceType) => {
+    setCartPlaceList(
+      cartPlaceList.filter((p: PlaceDayType) => p.place.id !== place.id)
+    );
+  };
+
   const onPressEnterSearch = (e: React.KeyboardEvent) => {
     if (e.key === "Enter") {
       setIsSearchRequested(true);
@@ -108,14 +113,18 @@ function PlaceSearchSection(props: PropType) {
 
   const renderSearchTab = () => {
     return (
-      <div>
-        <input
-          style={{ marginTop: "20px" }}
-          type="text"
-          value={searchTabQuery}
-          onChange={onChangeSearchTabQuery}
-          onKeyPress={onPressEnterSearch}
-        />
+      <div className="place-search-tab">
+        <div className="place-search-input-container">
+          <img className="search-icon" src={searchIcon} />
+          <input
+            className="place-search-input"
+            type="text"
+            value={searchTabQuery}
+            onChange={onChangeSearchTabQuery}
+            onKeyPress={onPressEnterSearch}
+            placeholder="장소 이름을 입력하세요"
+          />
+        </div>
         <div
           style={{
             maxHeight: "70vw",
@@ -156,7 +165,7 @@ function PlaceSearchSection(props: PropType) {
               icon={isPlaceInRoute(result.place) ? deleteIcon : addIcon}
               type="place"
               onClickCartButton={
-                isPlaceInRoute(result.place) ? onDeletePlace : null
+                isPlaceInRoute(result.place) ? onDeleteCartButton : onAddPlace
               }
               isPlaceInCart={(id: number) => isPlaceInCart(id)}
               isPlaceInRoute={isPlaceInRoute}

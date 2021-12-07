@@ -22,7 +22,7 @@
 }
 
 .post-detail-body .body-route-container .route-day-info {
-  background-color: #f6f6f9;
+  background-color: #F5F6F9;
   margin: 15px;
   font-size: 25px;
   font-family: "Montserrat", Monospace;
@@ -172,7 +172,7 @@
   text-align: left;
   padding: 20px;
   line-height: 50%;
-  background-color: #f6f6f9;
+  background-color: #F5F6F9;
   cursor: pointer;
 }
 
@@ -217,7 +217,7 @@
 
 .comment-input {
   width: 30vh;
-  background: #f6f6f9;
+  background: #F5F6F9;
   border: none;
   border-radius: 6px;
   height: 30px;

@@ -43,7 +43,7 @@
 .basic-user-info .basicInfo .line {
   width: 100%;
   height: 0px;
-  border: 0.3px solid #caccd2;
+  border-bottom: 0.3px solid #e2e3e9;
   margin: 8px 0;
 }
 
@@ -79,7 +79,6 @@
   background-color: #F5F6F9;
   border-radius: 6px;
   cursor: pointer;
-  border: none;
 }
 
 .basic-user-info .basicInfo .edit-btn:hover {

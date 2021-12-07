@@ -11,18 +11,15 @@ import { PersistGate } from "redux-persist/integration/react";
 import { persistStore } from "redux-persist";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
-import { BrowserRouter } from "react-router-dom";
 
 const persistor = persistStore(store);
 
 ReactDOM.render(
   <Provider store={store}>
     <PersistGate loading={null} persistor={persistor}>
-      <BrowserRouter>
-        <DndProvider backend={HTML5Backend}>
-          <App />
-        </DndProvider>
-      </BrowserRouter>
+      <DndProvider backend={HTML5Backend}>
+        <App />
+      </DndProvider>
     </PersistGate>
   </Provider>,
   document.getElementById("root")

@@ -1,24 +1,37 @@
 import React, { useEffect, useState, useCallback } from "react";
 import "../styles/components/MyRoutesSection.scss";
 import addIcon from "../static/add_day_icon.svg";
-import { PlaceDayType } from "../store/Post/postInterfaces";
+import {
+  PathListType,
+  PlaceDayType,
+  PlaceType,
+} from "../store/Post/postInterfaces";
 import deleteIcon from "../static/delete.svg";
-import CreatePlaceCard from "./CreatePlaceCard";
 import Path from "./Path";
 import { useDrop } from "react-dnd";
 import ItemTypes from "../utils/items";
 import update from "immutability-helper";
+import CreatePlaceCard from "./CreatePlaceCard";
 
 interface PropType {
   days: number;
   selectedDay: number;
   routePlaces: any[];
+  pathList: PathListType;
+  setPathList: (value: React.SetStateAction<PathListType>) => void;
+  onChangePath: (
+    e: React.ChangeEvent<HTMLSelectElement>,
+    origin: PlaceType,
+    destination: PlaceType
+  ) => void;
   onClickDay: (value: number) => void;
   onClickAddIcon: (value: number) => void;
+  editPlace: { id: number; description: string };
+  onChangePlaceDescription?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onEditPlace: (place: any) => void;
   onDeletePlace: (place: any) => void;
   setRoutePlaces: (value: React.SetStateAction<PlaceDayType[]>) => void;
 }
-
 
 function MyRoutesSection(props: PropType) {
   const {
@@ -27,11 +40,12 @@ function MyRoutesSection(props: PropType) {
     onClickDay,
     onClickAddIcon,
     routePlaces,
+    onEditPlace,
     onDeletePlace,
   } = props;
 
   const [todayPlaceList, setTodayPlaceList] = useState<PlaceDayType[]>([]);
-
+  console.log(todayPlaceList);
   useEffect(() => {
     setTodayPlaceList(
       routePlaces.filter((p: PlaceDayType) => p.day == selectedDay)
@@ -42,16 +56,13 @@ function MyRoutesSection(props: PropType) {
     (dragIndex: number, hoverIndex: number) => {
       const dragCard = todayPlaceList[dragIndex];
       if (dragCard) {
-        props.setRoutePlaces(
-          update(
-            routePlaces.filter((p: PlaceDayType) => p.day == selectedDay),
-            {
-              $splice: [
-                [dragIndex, 1],
-                [hoverIndex, 0, dragCard],
-              ],
-            }
-          )
+        setTodayPlaceList(
+          update(todayPlaceList, {
+            $splice: [
+              [dragIndex, 1],
+              [hoverIndex, 0, dragCard],
+            ],
+          })
         );
       }
     },
@@ -83,7 +94,6 @@ function MyRoutesSection(props: PropType) {
       background: monitor.isOver() ? "#e2e3e9" : "#f6f6f9",
     }),
   });
-  console.log(todayPlaceList);
 
   return (
     <div className="my-routes-container">
@@ -99,7 +109,7 @@ function MyRoutesSection(props: PropType) {
           {renderDayButtons()}
         </div>
         <img
-          style={{ marginLeft: "11px" }}
+          style={{ marginLeft: "11px", cursor: "pointer" }}
           onClick={() => onClickAddIcon(days + 1)}
           src={addIcon}
         />
@@ -115,13 +125,18 @@ function MyRoutesSection(props: PropType) {
             <>
               <CreatePlaceCard
                 setRoutePlaces={props.setRoutePlaces}
+                setPathList={props.setPathList}
                 selectedDay={props.selectedDay}
+                todayPlaceList={todayPlaceList}
+                key={result.place.id}
                 index={index}
-                key={place.id}
                 id={place.id}
                 place={place}
                 icon={deleteIcon}
                 type="route"
+                editPlace={props.editPlace}
+                onEditPlace={onEditPlace}
+                onChangePlaceDescription={props.onChangePlaceDescription}
                 onClickCartButton={onDeletePlace}
                 isPlaceInCart={() => true}
                 movePlace={movePlace}
@@ -129,6 +144,8 @@ function MyRoutesSection(props: PropType) {
               {index !== todayPlaceList.length - 1 && (
                 <Path
                   key={index}
+                  pathList={props.pathList}
+                  onChangePath={props.onChangePath}
                   from={place}
                   to={todayPlaceList[index + 1].place}
                 />
