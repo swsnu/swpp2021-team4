@@ -264,27 +264,28 @@ function Search() {
         </div>
       </div>
       <div className="search-result-container">
-      {searched==true&&(
-        <><div className="search-result-header">
-
-            <div className="search-result-title">Search Results</div>
-            <div className="search-result-sorting">
-              <button
-                id="sorting-method"
-                className={`sorting${sorting === "like" ? "-clicked" : ""}`}
-                onClick={() => setSorting("like")}
-              >
-                좋아요 순
-              </button>
-              <button
-                id="sorting-method"
-                className={`sorting${sorting === "date" ? "-clicked" : ""}`}
-                onClick={() => setSorting("date")}
-              >
-                최신게시물 순
-              </button>
+        {searched == true && (
+          <>
+            <div className="search-result-header">
+              <div className="search-result-title">Search Results</div>
+              <div className="search-result-sorting">
+                <button
+                  id="sorting-method"
+                  className={`sorting${sorting === "like" ? "-clicked" : ""}`}
+                  onClick={() => setSorting("like")}
+                >
+                  좋아요 순
+                </button>
+                <button
+                  id="sorting-method"
+                  className={`sorting${sorting === "date" ? "-clicked" : ""}`}
+                  onClick={() => setSorting("date")}
+                >
+                  최신게시물 순
+                </button>
+              </div>
             </div>
-          </div><div className="search-research-content">
+            <div className="search-research-content">
               {sorting == "" &&
                 searchedPosts.map((post: SimplePostType) => {
                   return (
@@ -297,7 +298,8 @@ function Search() {
                       author_id={post.author_id}
                       like_count={post.like_count}
                       comment_count={post.comment_count}
-                      is_shared={post.is_shared} />
+                      is_shared={post.is_shared}
+                    />
                   );
                 })}
               {sorting == "like" &&
@@ -312,7 +314,8 @@ function Search() {
                       author_id={post.author_id}
                       like_count={post.like_count}
                       comment_count={post.comment_count}
-                      is_shared={post.is_shared} />
+                      is_shared={post.is_shared}
+                    />
                   );
                 })}
               {sorting == "date" &&
@@ -327,11 +330,13 @@ function Search() {
                       author_id={post.author_id}
                       like_count={post.like_count}
                       comment_count={post.comment_count}
-                      is_shared={post.is_shared} />
+                      is_shared={post.is_shared}
+                    />
                   );
                 })}
-            </div></>)}
-        
+            </div>
+          </>
+        )}
       </div>
     </div>
   );
