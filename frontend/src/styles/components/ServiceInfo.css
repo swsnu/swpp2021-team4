@@ -1,0 +1,13 @@
+.serviceInfo {
+  margin: 0 auto;
+  width: 80vw;
+  padding-top: 30px; }
+
+.service-header {
+  font-family: "Montserrat", Monospace;
+  font-weight: 600;
+  font-size: 20px;
+  color: #57ceb9;
+  display: flex;
+  justify-content: space-between;
+  margin: 10px 15px; }
