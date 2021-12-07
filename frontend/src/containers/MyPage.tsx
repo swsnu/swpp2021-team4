@@ -76,7 +76,7 @@ function MyPage(props: PropType) {
   };
 
   const onDeleteFolder = (folder_id: number) => {
-    if (confirm("정말 삭제하시겠습니까?")) {
+    if (window.confirm("정말 삭제하시겠습니까?")) {
       dispatch(deleteFolderAction(props.loggedUser.id, folder_id));
     }
   };
