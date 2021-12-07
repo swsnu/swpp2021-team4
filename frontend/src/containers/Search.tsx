@@ -254,22 +254,22 @@ function Search() {
         </div>
       </div>
       <div className="search-result-container">
-        <div className="search-title">
-          <div className="search-research">Routes</div>
-          <button
-            id="sorting-method"
-            className={`sorting${sorting == "like" ? "-clicked" : ""}`}
-            onClick={() => setSorting("like")}
-          >
-            좋아요 순
-          </button>
-          <button
-            id="sorting-method"
-            className={`sorting${sorting == "date" ? "-clicked" : ""}`}
-            onClick={() => setSorting("date")}
-          >
-            최신게시물 순
-          </button>
+        <div className="search-result-header">
+          <div className="search-result-title">Search Results</div>
+          <div className="search-result-sorting">
+            <button
+              className={`sorting${sorting === "like" ? "-clicked" : ""}`}
+              onClick={() => setSorting("like")}
+            >
+              좋아요 순
+            </button>
+            <button
+              className={`sorting${sorting === "date" ? "-clicked" : ""}`}
+              onClick={() => setSorting("date")}
+            >
+              최신게시물 순
+            </button>
+          </div>
         </div>
         <div className="search-research-content">
           {searchedPosts.map((post: SimplePostType) => {
