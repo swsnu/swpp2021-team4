@@ -260,9 +260,11 @@ function CreateEditPost(props: PropsType) {
   const onClickAvailableWithoutCar = () => {
     setPostInfoData({
       ...postInfoData,
+
       isAvailableWithoutCar: !postInfoData.isAvailableWithoutCar,
     });
   };
+
 
   const onClickDay = useCallback((value: number) => {
     setSelectedDay(value);
