@@ -2,7 +2,11 @@ import React, { useRef, useState } from "react";
 import buttonUp from "../static/chevron-down.svg";
 import buttonDown from "../static/chevron-up.svg";
 import edit_btn from "../static/edit-icon.svg";
-import { PlaceType, PlaceDayType, PathListType } from "../store/Post/postInterfaces";
+import {
+  PlaceType,
+  PlaceDayType,
+  PathListType,
+} from "../store/Post/postInterfaces";
 import "../styles/components/CreatePlaceCard.css";
 import ItemTypes from "../utils/items";
 import { useDrag, useDrop } from "react-dnd";
@@ -11,14 +15,17 @@ import { XYCoord } from "dnd-core/dist/types/interfaces";
 interface PropsType {
   id: Number;
   index?: number;
-  todayPlaceList?: PlaceDayType[]
+  todayPlaceList?: PlaceDayType[];
   place: PlaceType;
   icon: string;
   type: "search" | "place" | "route";
   isPlaceInCart: (id: number) => boolean;
   isPlaceInRoute?: (place: any) => boolean;
-  onClickCartButton?: ((place: PlaceType) => void) | null;
-  editPlace?: { id: number, description: string };
+  onClickCartButton?:
+    | ((place: PlaceType) => void)
+    | ((place: PlaceType) => void);
+  onAddPlace?: (place: PlaceType) => void;
+  editPlace?: { id: number; description: string };
   onEditPlace?: (place: PlaceType) => void;
   onChangePlaceDescription?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   selectedDay: number | null;
@@ -34,8 +41,8 @@ interface ItemType {
 }
 
 interface PathValueType {
-  to: string,
-  transportation: 'car' | 'pub' | 'vic' | 'wal'
+  to: string;
+  transportation: "car" | "pub" | "vic" | "wal";
 }
 
 function CreatePlaceCard(props: PropsType) {
@@ -58,21 +65,41 @@ function CreatePlaceCard(props: PropsType) {
       ) {
         // drag place from cart to my route
         setRoutePlaces((prevState: any) => {
-          return [...prevState, { place: { ...props.place, id: props.place.id + Date.now() }, day: dropResult.day }];
+
+          return [
+            ...prevState,
+            {
+              place: { ...props.place, id: props.place.id + Date.now() },
+              day: dropResult.day,
+            },
+          ];
+
         });
-      } else if (dropResult && setRoutePlaces && dropResult.day === props.selectedDay) {
+      } else if (
+        dropResult &&
+        setRoutePlaces &&
+        dropResult.day === props.selectedDay
+      ) {
         if (props.setPathList && props.index) {
           props.setPathList((prevState: PathListType) => {
-            Object.entries(prevState).forEach(([key, value]: [string, PathValueType]) => {
-              if (
-                key === item.place.id.toString() ||
-                value.to === item.place.id.toString() ||
-                props.todayPlaceList && key === props.todayPlaceList[(item?.index || 1) - 1].place.id.toString()
-              ) {
-                // removes path objects related to the dragged place and hovered place.
-                delete prevState[key];
+
+            Object.entries(prevState).forEach(
+              ([key, value]: [string, PathValueType]) => {
+                if (
+                  key === item.place.id.toString() ||
+                  value.to === item.place.id.toString() ||
+                  (props.todayPlaceList &&
+                    key ===
+                      props.todayPlaceList[
+                        (item?.index || 1) - 1
+                      ].place.id.toString())
+                ) {
+                  // removes path objects related to the dragged place and hovered place.
+                  delete prevState[key];
+                }
+
               }
-            });
+            );
             return { ...prevState };
           });
         }
@@ -143,17 +170,22 @@ function CreatePlaceCard(props: PropsType) {
         </button>
       </div>
       <div className="place-container-middle">
-        {(props.type === "route") && props.editPlace && props.editPlace.id === props.place.id && (
-          <input
-            className="place-description-input"
-            value={props.editPlace.description}
-            onChange={props.onChangePlaceDescription}
-            placeholder="장소에 관해 적어보세요!" />
-        )}
-        {(props.type === "route") && props.editPlace && props.editPlace.id !== props.place.id && (
-          <div className="place-description">{props.place.description}</div>
-        )}
-        {(props.type === "route") && (
+        {props.type === "route" &&
+          props.editPlace &&
+          props.editPlace.id === props.place.id && (
+            <input
+              className="place-description-input"
+              value={props.editPlace.description}
+              onChange={props.onChangePlaceDescription}
+              placeholder="장소에 관해 적어보세요!"
+            />
+          )}
+        {props.type === "route" &&
+          props.editPlace &&
+          props.editPlace.id !== props.place.id && (
+            <div className="place-description">{props.place.description}</div>
+          )}
+        {props.type === "route" && (
           <img
             className="post-icon"
             src={edit_btn}
