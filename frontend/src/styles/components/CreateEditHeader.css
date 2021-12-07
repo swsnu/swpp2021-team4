@@ -48,6 +48,31 @@
   color: #a7a9af;
 }
 
+.post-ce-header select {
+  margin-left: 20px;
+  height: 35px;
+  padding: 5px 20px 5px 10px;
+  border-radius: 4px;
+  outline: 0 none;
+  border: none;
+  background-color: #F5F6F9;
+  color: #a7a9af;
+  font-family: "Montserrat", Monospace;
+  font-size: 15px;
+  font-weight: 400;
+}
+
+.post-ce-header select option.selected {
+  background-color: white;
+  color: #000000;
+  padding: 3px 0;
+}
+
+.post-ce-header select.selected {
+  color: #000000;
+  font-family: "Noto Sans CJK KR", Monospace;
+}
+
 .post-ce-header .header-image {
   display: inline-block;
 }
@@ -125,7 +150,7 @@
 .post-ce-header .post-ce-info-second-line .line {
   border-left: 3px solid #a7a9af;
   height: 25px;
-  margin-right: 15px;
+  margin: 0 15px;
 }
 
 .post-ce-header .post-ce-info-second-line input {
@@ -170,31 +195,6 @@
 
 .post-ce-header .post-ce-info-third-line .thumbnail-button:hover {
   background: #F5F6F9;
-}
-
-.post-ce-header .post-ce-info-third-line select {
-  margin-left: 20px;
-  height: 35px;
-  padding: 5px 20px 5px 10px;
-  border-radius: 4px;
-  outline: 0 none;
-  border: none;
-  background-color: #F5F6F9;
-  color: #a7a9af;
-  font-family: "Montserrat", Monospace;
-  font-size: 15px;
-  font-weight: 400;
-}
-
-.post-ce-header .post-ce-info-third-line select option {
-  background-color: white;
-  color: #000000;
-  padding: 3px 0;
-}
-
-.post-ce-header .post-ce-info-third-line select.selected {
-  color: #000000;
-  font-family: "Noto Sans CJK KR", Monospace;
 }
 
 .post-ce-header .post-ce-info-third-line .availableWithoutCar {
