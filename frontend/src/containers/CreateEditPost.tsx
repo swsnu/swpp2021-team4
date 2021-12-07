@@ -8,7 +8,7 @@ import PlaceSearchSection from "../components/PlaceSearchSection";
 import { usePostState } from "../hooks/usePostState";
 import { CreateEditPostLocationType } from "../pages/CreateEditPostPage";
 import { createPostAction, editPostAction } from "../store/Post/postAction";
-import { PathListType, PlaceDayType, PlaceType, ServerPathType } from "../store/Post/postInterfaces";
+import { PathListType, PathValueType, PlaceDayType, PlaceType, ServerPathType } from "../store/Post/postInterfaces";
 import { Folder } from "../store/User/userInterfaces";
 import "../styles/components/CreateEditPost.css";
 
@@ -55,6 +55,7 @@ function CreateEditPost(props: PropsType) {
   const [isPostCreated, setIsPostCreated] = useState(false);
   const [createdPostId, setCreatedPostId] = useState<number>(0);
   const [pathList, setPathList] = useState<PathListType>({});
+  // const [cartPlaceList, setCartPlaceList] = useState<PlaceDayType[]>([]);
 
   useEffect(() => {
     if (isPostCreated && createdPostId) {
@@ -237,7 +238,7 @@ function CreateEditPost(props: PropsType) {
     formData.append('path_list', JSON.stringify(pathListData));
     formData.append("enctype", 'multipart/form-data');
 
-    if (post?.id) {
+    if (pageLocation.state?.from === 'edit') {
       // edit
       dispatch(editPostAction(formData, post.id, () => history.push(`/post/${post?.id}/`)));
     } else {
@@ -275,7 +276,6 @@ function CreateEditPost(props: PropsType) {
   const onClickAvailableWithoutCar = () => {
     setPostInfoData({
       ...postInfoData,
-
       isAvailableWithoutCar: !postInfoData.isAvailableWithoutCar,
     });
   };
@@ -285,10 +285,43 @@ function CreateEditPost(props: PropsType) {
     setSelectedDay(value);
   }, []);
 
+  const onClickDeleteDay = (e: React.MouseEvent<HTMLElement>, deletedDay: number) => {
+    e?.stopPropagation();
+    if (postInfoData.days == 1) {
+      alert('day를 모두 삭제할 수 없습니다!');
+      return;
+    }
+    if (deletedDay == postInfoData.days) {
+      setSelectedDay(deletedDay-1);
+    }
+
+    const deletedPlaceList = routePlaces?.filter((place: PlaceDayType) => place.day === deletedDay);
+    deletedPlaceList.forEach((place: PlaceDayType) => {
+      Object.entries(pathList)?.forEach(([key, value]: [string, PathValueType]) => {
+        if (key === place.place?.id?.toString() || value.to === place.place?.id?.toString()) {
+          delete pathList[key];
+        }
+      });
+    });
+
+    let remainPlaceList = routePlaces?.filter((place: PlaceDayType) => place.day !== deletedDay);
+    if (deletedDay < postInfoData.days) {
+      remainPlaceList = remainPlaceList?.map((placeDay: PlaceDayType) => {
+        const { place, day } = placeDay;
+        return day > deletedDay
+          ? { day: day-1, place: { ...place, day: day-1 }}
+          : placeDay;
+      });
+    }
+    setRoutePlaces(remainPlaceList);
+    setPostInfoData({ ...postInfoData, days: postInfoData.days-1 });
+  };
+
   const onClickAddIcon = useCallback(
     (value: number) => {
       if (postInfoData.days !== value) {
         setPostInfoData({ ...postInfoData, days: value });
+        setSelectedDay(value);
       }
     },
     [postInfoData.days]
@@ -329,6 +362,7 @@ function CreateEditPost(props: PropsType) {
               selectedDay={selectedDay}
               pathList={pathList}
               setPathList={setPathList}
+              onClickDeleteDay={onClickDeleteDay}
               onChangePath={onChangePath}
               onClickDay={onClickDay}
               onClickAddIcon={onClickAddIcon}
