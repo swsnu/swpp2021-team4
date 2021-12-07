@@ -16,7 +16,7 @@ interface PropType {
   isPostDetail: boolean;
   onClickPostShareButton?: () => void;
   onClickAddPostCartButton?: () => void;
-  onClickPostLikeButton: () => void;
+  onClickPostLikeButton?: () => void;
   onClickPostDeleteButton?: () => void;
 }
 
@@ -84,13 +84,13 @@ function PostHeader(props: PropType) {
               <span className="post-tag filled season">{postSeason()}</span>
             )}
             {!props.post.season && (
-              <span className="post-tag empty">Season</span>
+              <span className="post-tag season empty">Season</span>
             )}
             {props.post.theme && (
-              <span className="post-tag filled">{postTheme()}</span>
+              <span className="post-tag theme filled">{postTheme()}</span>
             )}
             {!props.post.theme && (
-              <span className="post-tag empty">Theme</span>
+              <span className="post-tag theme empty">Theme</span>
             )}
             <span className={`post-tag filled ${props.post.availableWithoutCar}`}>
               뚜벅이 여행 가능

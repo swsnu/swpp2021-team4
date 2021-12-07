@@ -17,9 +17,9 @@ const persistor = persistStore(store);
 ReactDOM.render(
   <Provider store={store}>
     <PersistGate loading={null} persistor={persistor}>
-        <DndProvider backend={HTML5Backend}>
-          <App />
-        </DndProvider>
+      <DndProvider backend={HTML5Backend}>
+        <App />
+      </DndProvider>
     </PersistGate>
   </Provider>,
   document.getElementById("root")
