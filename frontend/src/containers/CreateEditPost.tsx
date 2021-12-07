@@ -93,6 +93,10 @@ function CreateEditPost(props: PropsType) {
     }
   }, [pageLocation, post]);
 
+  const changeLocationQuery = (text: string | null) => {
+    if (text) setLocationQuery(text);
+  }
+
   const [editPlace, setEditedPlace] = useState<{ id: number, description: string }>({
     id: 0,
     description: "",
@@ -268,15 +272,6 @@ function CreateEditPost(props: PropsType) {
     [postInfoData]
   );
 
-  const onPressEnterLocation = useCallback(
-    (e: React.KeyboardEvent) => {
-      if (e.key === "Enter") {
-        setLocationQuery(postInfoData.location);
-      }
-    },
-    [postInfoData.location]
-  );
-
   const onClickAvailableWithoutCar = () => {
     setPostInfoData({
       ...postInfoData,
@@ -311,7 +306,7 @@ function CreateEditPost(props: PropsType) {
         postInfoData={postInfoData}
         onClickAvailableWithoutCar={onClickAvailableWithoutCar}
         onChangePostInfoData={onChangePostInfoData}
-        onPressEnterLocation={onPressEnterLocation}
+        changeLocationQuery={changeLocationQuery}
       />
       <div className="create-edit-content-container">
         <div className="create-edit-place-section">

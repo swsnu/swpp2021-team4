@@ -5,6 +5,7 @@ import { getPostsAction, searchAction } from "../store/Post/postAction";
 import "../styles/components/Search.css";
 import { SimplePostType } from "../store/Post/postInterfaces";
 import PostItem from "../components/PostItem";
+import { Regions, Cities } from "../utils/locations";
 import {
   useDateSearchPostState,
   useLikeSearchPostState,
@@ -56,6 +57,26 @@ function Search() {
     console.log(searched);
   };
 
+  const [regionIdx, setRegionIdx] = useState<number>(0);
+  const [cityIdx, setCityIdx] = useState<number>(0);
+  const [location, setLocation] = useState<string | null>('');
+
+  const onChangeRegion = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setRegionIdx(e.target.selectedIndex);
+    setCityIdx(0);
+    setLocation(e.target[e.target.selectedIndex].textContent);
+  }
+
+  const onChangeCity = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setCityIdx(e.target.selectedIndex - 1);
+    setLocation(`${Regions[regionIdx - 1]} ${Cities[regionIdx - 1][e.target.selectedIndex - 1]}`);
+  }
+
+  useEffect(() => {
+    if (location) setUserInputs({ ...userInputs, location: location })
+    else setUserInputs({ ...userInputs, location: '' })
+  }, [location]);
+
   return (
     <div className="search-container">
       <div className="search">
@@ -80,14 +101,23 @@ function Search() {
       <div className="filter">
         <div className="location">
           <div className="category">Location</div>
-          <input
-            id="location"
-            className="search-location"
-            type="text"
-            value={userInputs.location}
-            onChange={onChangeInputs}
-            placeholder="Where do you wanna go?"
-          />
+          <select id="location-region" onChange={onChangeRegion} className={`${regionIdx !== 0 ? 'selected' : ''}`}>
+            <option value="">지역 선택</option>
+            {Regions.map((region: string) => {
+              return (<option
+                key={region}
+                value={region}
+              >{region}</option>);
+            })}
+          </select>
+          {Cities[regionIdx - 1] && Cities[regionIdx - 1].length > 0 && (
+            <select id="location-city" onChange={onChangeCity} className={`${cityIdx !== 0 ? 'selected' : ''}`}>
+              <option value="">시, 군</option>
+              {Cities[regionIdx - 1].map((city: string) => {
+                return (<option key={city} value={city}>{city}</option>);
+              })}
+            </select>
+          )}
         </div>
         <div className="lines"></div>
         <div className="seasons">
@@ -156,7 +186,7 @@ function Search() {
             id="days"
             className="search-days"
             type="number"
-            placeholder="0"
+            placeholder="숫자를 입력하세요"
             min="1"
             value={userInputs.days}
             onChange={onChangeInputs}

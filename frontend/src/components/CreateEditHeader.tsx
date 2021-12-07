@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { PostInfoDataType } from "../containers/CreateEditPost";
 import { Folder } from "../store/User/userInterfaces";
 import '../styles/components/CreateEditHeader.css';
 import checked_icon from "../static/checked.svg";
+import { Regions, Cities } from "../utils/locations";
 
 interface PropType {
   folder: Folder
@@ -10,7 +11,7 @@ interface PropType {
   postInfoData: PostInfoDataType
   onChangePostInfoData: (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => void
   onClickAvailableWithoutCar: () => void
-  onPressEnterLocation: (e: React.KeyboardEvent) => void
+  changeLocationQuery: (text: string | null) => void
 }
 
 function CreateEditHeader(props: PropType) {
@@ -18,8 +19,26 @@ function CreateEditHeader(props: PropType) {
     thumbnailImage,
     postInfoData,
     onChangePostInfoData,
-    onPressEnterLocation
   } = props;
+
+  const [regionIdx, setRegionIdx] = useState<number>(0);
+  const [cityIdx, setCityIdx] = useState<number>(0);
+  const [location, setLocation] = useState<string | null>('');
+
+  const onChangeRegion = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setRegionIdx(e.target.selectedIndex);
+    setCityIdx(0);
+    setLocation(e.target[e.target.selectedIndex].textContent);
+  }
+
+  const onChangeCity = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setCityIdx(e.target.selectedIndex - 1);
+    setLocation(`${Regions[regionIdx - 1]} ${Cities[regionIdx - 1][e.target.selectedIndex - 1]}`);
+  }
+
+  useEffect(() => {
+    props.changeLocationQuery(location);
+  }, [location]);
 
   return (
     <div className="post-ce-container">
@@ -42,15 +61,23 @@ function CreateEditHeader(props: PropType) {
               value={postInfoData.title}
               onChange={onChangePostInfoData}
             />
-            <input
-              id="location"
-              type="text"
-              placeholder="Location"
-              value={postInfoData.location}
-              onChange={onChangePostInfoData}
-              onKeyPress={onPressEnterLocation}
-              style={{ maxWidth: '7.8vw' }}
-            />
+            <select id="location-region" onChange={onChangeRegion} className={`${regionIdx !== 0 ? 'selected' : ''}`}>
+              <option value="">지역 선택</option>
+              {Regions.map((region: string) => {
+                return (<option
+                  key={region}
+                  value={region}
+                >{region}</option>);
+              })}
+            </select>
+            {Cities[regionIdx] && Cities[regionIdx].length > 0 && (
+              <select id="location-city" onChange={onChangeCity} className={`${cityIdx !== 0 ? 'selected' : ''}`}>
+                <option value="">시, 군</option>
+                {Cities[regionIdx - 1].map((city: string) => {
+                  return (<option key={city} value={city}>{city}</option>);
+                })}
+              </select>
+            )}
             <div className='line' />
             <input
               id="days"
