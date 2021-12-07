@@ -232,10 +232,12 @@ describe("<Search />", () => {
 
   it("should sort according to selected sorting method", () => {
     const component = mount(search);
-    const like = component.find("#sorting-method").at(0);
-    like.simulate("click");
-    const date = component.find("#sorting-method").at(1);
-    date.simulate("click");
+    const button = component.find(".search-button");
+    button.simulate("click");
+   // const like = component.find("#sorting-method").at(0);
+  //  like.simulate("click");
+  //  const date = component.find("#sorting-method").at(1);
+  //  date.simulate("click");
   });
 
   it("should show searched Posts", () => {

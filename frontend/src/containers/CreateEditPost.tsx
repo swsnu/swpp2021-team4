@@ -239,7 +239,7 @@ function CreateEditPost(props: PropsType) {
 
     if (post?.id) {
       // edit
-      dispatch(editPostAction(formData, post.id, () => history.push(`/post/${createdPostId}/`)));
+      dispatch(editPostAction(formData, post.id, () => history.push(`/post/${post?.id}/`)));
     } else {
       //create
       dispatch(createPostAction(formData, (isCreated: boolean, postId: number) => {
