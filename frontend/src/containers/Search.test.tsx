@@ -195,8 +195,8 @@ describe("<Search />", () => {
 
   it("should click search button", () => {
     const component = mount(search);
-    const ps_input = component.find(".search-keyword");
-    ps_input.simulate("change", { target: { value: "s" } });
+    const psInput = component.find(".search-keyword");
+    psInput.simulate("change", { target: { value: "s" } });
     const button = component.find(".search-button");
     button.simulate("click");
   });
