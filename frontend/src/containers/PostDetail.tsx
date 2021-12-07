@@ -146,7 +146,7 @@ function PostDetail() {
       return;
     }
 
-    if (confirm("이 루트를 다른 사용자에게 공유하시겠습니까?")) {
+    if (window.confirm("이 루트를 다른 사용자에게 공유하시겠습니까?")) {
       axios
         .get(`/post/${post.id}/share/`)
         .then(function () {
