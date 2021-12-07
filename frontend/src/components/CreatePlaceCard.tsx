@@ -6,6 +6,7 @@ import {
   PlaceType,
   PlaceDayType,
   PathListType,
+  PathValueType,
 } from "../store/Post/postInterfaces";
 import "../styles/components/CreatePlaceCard.css";
 import ItemTypes from "../utils/items";
@@ -40,10 +41,6 @@ interface ItemType {
   day: number;
 }
 
-interface PathValueType {
-  to: string;
-  transportation: "car" | "pub" | "vic" | "wal";
-}
 
 function CreatePlaceCard(props: PropsType) {
   const ref = useRef<HTMLDivElement>(null);

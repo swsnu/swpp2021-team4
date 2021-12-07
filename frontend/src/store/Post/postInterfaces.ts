@@ -102,7 +102,7 @@ export interface PlaceType {
 
 export interface PlaceDayType {
   place: PlaceType;
-  day?: number | string;
+  day: number;
 }
 
 export interface SimplePlaceType {
@@ -135,6 +135,11 @@ export interface ServerPathType {
   from_place_id: number;
   to_place_id: number;
   transportation: 'car' | 'pub' | 'vic' | 'wal'
+}
+
+export interface PathValueType {
+  to: string;
+  transportation: "car" | "pub" | "vic" | "wal";
 }
 
 export interface PathListType {
