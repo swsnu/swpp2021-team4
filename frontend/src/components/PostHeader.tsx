@@ -1,5 +1,5 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useHistory } from "react-router-dom";
 import border from "../static/post_info_border.svg";
 import comment_icon from "../static/comment-icon.svg";
 import like_icon from "../static/like-icon.svg";
@@ -17,10 +17,12 @@ interface PropType {
   onClickPostShareButton?: () => void;
   onClickAddPostCartButton?: () => void;
   onClickPostLikeButton: () => void;
+  onClickPostDeleteButton?: () => void;
 }
 
 function PostHeader(props: PropType) {
   const isAuthenticated = props.loggedUserId !== 0;
+  const history = useHistory();
 
   const postSeason = () => {
     if (props.post.season === "spr") return "Spring";
@@ -35,6 +37,10 @@ function PostHeader(props: PropType) {
     else if (props.post.theme === "lover") return "연인과 함께!";
     else if (props.post.theme === "alone") return "나홀로 여행!";
   };
+
+  const onClick = () => {
+    history.push(`/post/${props.post.id}/edit/`, { from: 'edit', postId: props.post.id });
+  }
 
   return (
     <div className="post-header">
@@ -113,8 +119,8 @@ function PostHeader(props: PropType) {
             )}
             {props.loggedUserId === props.post.author_id && (
               <div className="header-top-icons">
-                <img className="icon" src={edit_btn} />
-                <img className="icon" src={delete_btn} />
+                <img className="icon" src={edit_btn} onClick={onClick} />
+                <img className="icon" src={delete_btn} onClick={props.onClickPostDeleteButton} />
               </div>
             )}
           </div>
