@@ -61,15 +61,6 @@ function CreateEditHeader(props: PropType) {
               value={postInfoData.title}
               onChange={onChangePostInfoData}
             />
-            {/* <input
-              id="location"
-              type="text"
-              placeholder="Location"
-              value={postInfoData.location}
-              onChange={onChangePostInfoData}
-              onKeyPress={onPressEnterLocation}
-              style={{ maxWidth: '7.8vw' }}
-            /> */}
             <select id="location-region" onChange={onChangeRegion} className={`${regionIdx !== 0 ? 'selected' : ''}`}>
               <option value="">지역 선택</option>
               {Regions.map((region: string) => {

@@ -57,13 +57,14 @@
   border: none;
   background-color: #F5F6F9;
   color: #a7a9af;
-  font-family: "Montserrat", Monospace;
+  font-family: "Noto Sans CJK KR", Monospace;
   font-size: 15px;
   font-weight: 400;
 }
 
-.post-ce-header select option.selected {
+.post-ce-header select option {
   background-color: white;
+  font-family: "Noto Sans CJK KR", Monospace;
   color: #000000;
   padding: 3px 0;
 }
@@ -191,10 +192,19 @@
   padding: 10px;
   border-radius: 10px;
   cursor: pointer;
+  font-size: 13px;
 }
 
 .post-ce-header .post-ce-info-third-line .thumbnail-button:hover {
   background: #F5F6F9;
+}
+
+.post-ce-header .post-ce-info-third-line select {
+  font-family: "Montserrat", Monospace;
+}
+
+.post-ce-header .post-ce-info-third-line select.selected {
+  font-family: "Noto Sans CJK KR", Monospace;
 }
 
 .post-ce-header .post-ce-info-third-line .availableWithoutCar {
