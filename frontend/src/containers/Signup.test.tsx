@@ -1,14 +1,11 @@
-import React, { Dispatch, useState } from "react";
-import { shallow, mount } from "enzyme";
+import React from "react";
+import { mount } from "enzyme";
 import { Provider } from "react-redux";
 import { ConnectedRouter } from "connected-react-router";
 import { Route, Switch, BrowserRouter } from "react-router-dom";
 import Signup from "./Signup";
 import { getMockStore } from "../test-utils/mocks";
 import { history } from "../store/store";
-import { useDispatch } from "react-redux";
-import * as actionCreators from "../store/User/userAction";
-import { UserDispatchType } from "../store/User/userInterfaces";
 import axios from "axios";
 const stubInitialState = {
   user: {
@@ -176,8 +173,6 @@ const mockStore = getMockStore(stubInitialState);
 
 describe("<Signup />", () => {
   let signup: JSX.Element;
-  let spyPush: any;
-  spyPush = jest.spyOn(history, "push").mockImplementation(() => {});
   beforeEach(() => {
     signup = (
       <BrowserRouter>
@@ -208,27 +203,43 @@ describe("<Signup />", () => {
 
     let spyUseState: any;
     spyUseState = jest.spyOn(React, "useState");
-    const spySetUserInfo = jest.fn();
-    spyUseState.mockImplementation((userEmail: any, userName:any, userPassword:any, checkUserPassword:any ) => [{userEmail, userName, userPassword, checkUserPassword}, spySetUserInfo]);
-    
+    const setUserInputs = jest.fn();
+    spyUseState.mockImplementation((userInputs: any) => [
+      userInputs,
+      setUserInputs,
+    ]);
     button.simulate("click");
     expect(window.alert).toHaveBeenCalled();
-    const email_input = component.find("#userEmail");
-    email_input.simulate("change", { target: { value: "email" } });
+    const emailInput = component.find("#userEmail");
+    emailInput.simulate("change", {
+      target: { id: "userEmail", value: "email" },
+    });
     button.simulate("click");
-    expect(spySetUserInfo).toBeTruthy();
+    expect(spyUseState).toBeTruthy();
     expect(window.alert).toHaveBeenCalled();
-
-    const userName_input = component.find("#userName");
-    userName_input.simulate("change", { target: { value: "s" } });
+    const userNameInput = component.find("#userName");
+    userNameInput.simulate("change", {
+      target: { id: "userName", value: "s" },
+    });
     button.simulate("click");
-    const password_input = component.find("#userPassword");
-    password_input.simulate("change", { target: { value: "s" } });
-    const password_check_input = component.find("#checkUserPassword");
-    password_check_input.simulate("change", { target: { value: "s" } });
-    // const spyHistoryPush = jest.spyOn(history, 'push')
-    // .mockImplementation(path => {});
+    const passwordInput = component.find("#userPassword");
+    passwordInput.simulate("change", {
+      target: { id: "userPassword", value: "s" },
+    });
+    const passwordCheckInput = component.find("#checkUserPassword");
+    passwordCheckInput.simulate("change", {
+      target: { id: "checkUserPassword", value: "notS" },
+    });
     button.simulate("click");
-    // expect(spyHistoryPush).toHaveBeenCalled();
+    passwordCheckInput.simulate("change", {
+      target: { id: "checkUserPassword", value: "s" },
+    });
+    const setIsSigned = jest.fn();
+    spyUseState.mockImplementation((isSigned: any) => [isSigned, setIsSigned]);
+    axios.post = jest
+      .fn()
+      .mockImplementation(() => Promise.resolve({ status: 201 }));
+    button.simulate("click");
+    expect(setIsSigned).toBeTruthy();
   });
 });
