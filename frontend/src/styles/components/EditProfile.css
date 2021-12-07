@@ -55,7 +55,7 @@
   display: none;
 }
 
-.edit-profile-container .edit-profile-content .edit-profile-image button {
+.edit-profile-container .edit-profile-content .edit-profile-image .upload-image-button {
   margin-top: 20px;
   color: #57ceb9;
   background: transparent;
@@ -70,7 +70,7 @@
   cursor: pointer;
 }
 
-.edit-profile-container .edit-profile-content .edit-profile-image button:hover {
+.edit-profile-container .edit-profile-content .edit-profile-image .upload-image-button:hover {
   background: #F5F6F9;
 }
 

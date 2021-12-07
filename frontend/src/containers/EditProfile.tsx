@@ -85,8 +85,8 @@ function EditProfile() {
             accept="image/*"
             onChange={onChangeFile}
             placeholder="프로필 사진" />
-          <label htmlFor="profile-image">
-            <button className="upload-image-button">Change Image</button>
+          <label className="upload-image-button" htmlFor="profile-image">
+            Change Image
           </label>
         </div>
         <div className="edit-profile-form-container">
