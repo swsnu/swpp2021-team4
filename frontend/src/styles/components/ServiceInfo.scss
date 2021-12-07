@@ -10,8 +10,14 @@
   font-family: $mainFont;
   font-weight: 600;
   font-size: 20px;
-  color: $darkMintColor;
+  color: #969696;
   display: flex;
   justify-content: space-between;
   margin: 10px 15px;
+}
+
+
+.explanation{
+    display: flex;
+    flex-direction: row;
 }
