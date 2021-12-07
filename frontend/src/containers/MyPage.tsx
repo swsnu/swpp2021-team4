@@ -174,8 +174,10 @@ function MyPage(props: PropType) {
                     >
                       {fold.name}{" "}
                     </div>
-                    <img className="icon" src={edit_btn} onClick={() => onClickEditFolder(fold.id, fold.name)} />
-                    <img className="icon" src={delete_btn} onClick={() => onDeleteFolder(fold.id)} />
+                    <div>
+                      <img className="icon" src={edit_btn} onClick={() => onClickEditFolder(fold.id, fold.name)} />
+                      <img className="icon" src={delete_btn} onClick={() => onDeleteFolder(fold.id)} />
+                    </div>
                   </div>
                 );
               }

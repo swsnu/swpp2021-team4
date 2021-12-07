@@ -1,6 +1,6 @@
 from django.http import HttpResponse, JsonResponse,HttpResponseBadRequest
 import json
-from .models import Post, Comment, Place, Like, Folder, PostInFolder, PlaceInFolder
+from .models import Post, Comment, Place, Like, Folder, PostInFolder, PlaceInFolder, Path
 from json.decoder import JSONDecodeError
 from django.views.decorators.http import require_http_methods
 from django.views.decorators.http import require_POST, require_GET
@@ -41,6 +41,7 @@ def create_place_list(places, post):
         new_place = Place.objects.create(
             name = place['name'],
             post = post,
+            kakao_id = place['kakao_id'],
             description = place['description'],
             day = place['day'],
             index = place['index'],
@@ -91,6 +92,7 @@ def post_create(request):
         post_available_without_car=form.cleaned_data['availableWithoutCar']
 
         places = json.loads(form.cleaned_data['places'])
+        path_list = json.loads(form.cleaned_data['path_list'])
 
         post = Post.objects.create(
             title=post_title,
@@ -107,6 +109,22 @@ def post_create(request):
         )
 
         place_list = create_place_list(places, post)
+
+        for path in path_list:
+            origin_kakao_id = path['from']
+            origin_place = Place.objects.filter(kakao_id=origin_kakao_id).first()
+            
+            destination_kakao_id = path['to']
+            destination_place = Place.objects.filter(kakao_id=destination_kakao_id).first()
+            transportation = path['transportation']
+
+            if origin_place is not None and destination_place is not None:
+                Path.objects.create(
+                    post=post,
+                    from_place=origin_place,
+                    to_place=destination_place,
+                    transportation=transportation
+                )
 
         response_dict = {
             'id': post.id,
@@ -182,6 +200,7 @@ def post_spec_get(request, post_id):
     for place in post.place_set.all().order_by('day', 'index'):
         placelist.append({
             'id':place.id,
+            'kakao_id': place.kakao_id if place.kakao_id else 0,
             'name':place.name,
             'post_id':place.post_id,
             'description':place.description,
@@ -206,6 +225,8 @@ def post_spec_get(request, post_id):
             'id': comment.id,
             'created_at': comment.created_at.strftime("%Y-%m-%d %H:%M")
         })
+
+    path_list = [path for path in Path.objects.filter(post_id=post_id).values()]
 
     like_counts = post.like_users.count()
     
@@ -235,6 +256,7 @@ def post_spec_get(request, post_id):
         'like_counts': like_counts,
         'liked': liked,
         'created_at': post.updated_at.strftime("%Y. %m. %d. %H:%M"),
+        'pathList': path_list
         }
     return JsonResponse(response_dict, safe=False)
     
@@ -287,6 +309,7 @@ def post_spec_edit(request, post_id):
             post_location=form.cleaned_data['location']
             post_available_without_car=form.cleaned_data['availableWithoutCar']
             places = json.loads(form.cleaned_data['places'])
+            path_list = json.loads(form.cleaned_data['path_list'])
 
             Post.objects.filter(id=post_id).update(
                 title=post_title,
@@ -303,17 +326,36 @@ def post_spec_edit(request, post_id):
             post.save()
             post.update_date()
 
-            Place.objects.filter(post_id = post_id).delete()     # 기존 Place 삭제
+            Place.objects.filter(post_id=post_id).delete()     # 기존 Place 삭제
+            Path.objects.filter(post_id=post_id).delete()
+
             
             place_list = create_place_list(places, post)
+            for path in path_list:
+                origin_kakao_id = path['from']
+                origin_place = Place.objects.filter(kakao_id=origin_kakao_id).first()
+                
+                destination_kakao_id = path['to']
+                destination_place = Place.objects.filter(kakao_id=destination_kakao_id).first()
+                transportation = path['transportation']
+
+                if origin_place is not None and destination_place is not None:
+                    Path.objects.create(
+                        post=post,
+                        from_place=origin_place,
+                        to_place=destination_place,
+                        transportation=transportation
+                    )
+
+            path_list = [path for path in Path.objects.filter(post_id=post_id).values()]
 
             response_dict = {
                 'id': post.id,
                 'title': post.title,
                 'author_name': post.author.username,
                 'author_id': post.author_id,
-                'header_image': post.header_image.url,
-                'thumbnail_image': post.thumbnail_image.url, 
+                'header_image': post.header_image.url if post.header_image else None,
+                'thumbnail_image': post.thumbnail_image.url if post.thumbnail_image else None, 
                 'days': post.days,
                 'folder_name': post.folder.name,
                 'folder_id': post.folder.id,
@@ -322,7 +364,8 @@ def post_spec_edit(request, post_id):
                 'season': post.season, 
                 'location': post.location,
                 'availableWithoutCar': post.availableWithoutCar,
-                'places': place_list
+                'places': place_list,
+                'pathList': path_list
             }
             return JsonResponse(response_dict, safe=False)
         else:

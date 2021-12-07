@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import '../styles/components/Map.scss';
+import '../styles/components/Map.css';
 
 declare global {
   interface Window {
@@ -17,7 +17,7 @@ const dummyPlaces = [
 ]
 
 interface PropType {
-  fromWhere: 'create'|'edit'|'detail'
+  fromWhere: 'create' | 'edit' | 'detail'
   location?: string
   selectedDay?: number
   placeList?: any[]
@@ -53,7 +53,7 @@ function Map(props: PropType) {
       return {
         day,
         marker: new kakao.maps.Marker({
-          map: day === selectedDay ? map.current : null,
+          map: day === selectedDay || (fromWhere === 'detail' && selectedDay === 0) ? map.current : null,
           position: new kakao.maps.LatLng(place.lat, place.lon),
         })
       };

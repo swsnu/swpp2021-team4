@@ -5,7 +5,7 @@ import edit_complete_btn from '../static/edit_complete_icon.svg';
 
 interface FolderPropsType {
   folder: FolderType
-  selectedFolder: FolderType|null
+  selectedFolder: FolderType | null
   onClickFolder: (folder: FolderType) => void
   onClickEditFolder: (folder: FolderType) => void
   onChangeEditFolder: (e: React.ChangeEvent<HTMLInputElement>) => void
@@ -15,8 +15,8 @@ interface FolderPropsType {
 interface FolderListPropsType {
   folders: FolderType[]
   editText: string
-  selectedFolder: FolderType|null
-  editingFolder: FolderType|null
+  selectedFolder: FolderType | null
+  editingFolder: FolderType | null
   onClickFolder: (folder: FolderType) => void
   onClickEditFolder: (folder: FolderType) => void
   onChangeEditFolder: (e: React.ChangeEvent<HTMLInputElement>) => void
@@ -42,7 +42,7 @@ function Folder(props: FolderPropsType) {
       <img
         className="icon"
         src={editIcon}
-        style={{ fill: 'green'}}
+        style={{ fill: 'green' }}
         onClick={() => onClickEditFolder(folder)}
         onMouseOver={() => setEditIcon(edit_complete_btn)}
         onMouseLeave={() => setEditIcon(edit_btn)}
@@ -65,7 +65,7 @@ function FolderList(props: FolderListPropsType) {
   } = props;
 
   return (
-    <div>
+    <div className="folder-list-container">
       {
         folders.map((folder: FolderType) => {
           if (folder.id === editingFolder?.id) {

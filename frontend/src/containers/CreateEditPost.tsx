@@ -1,15 +1,16 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { useHistory } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 import CreateEditHeader from "../components/CreateEditHeader";
 import Map from "../components/Map";
 import MyRoutesSection from "../components/MyRoutesSection";
 import PlaceSearchSection from "../components/PlaceSearchSection";
 import { usePostState } from "../hooks/usePostState";
-import { createPostAction } from "../store/Post/postAction";
-import { PlaceDayType, PlaceType } from "../store/Post/postInterfaces";
+import { CreateEditPostLocationType } from "../pages/CreateEditPostPage";
+import { createPostAction, editPostAction } from "../store/Post/postAction";
+import { PathListType, PlaceDayType, PlaceType, ServerPathType } from "../store/Post/postInterfaces";
 import { Folder } from "../store/User/userInterfaces";
-import "../styles/components/CreateEditPost.scss";
+import "../styles/components/CreateEditPost.css";
 
 export interface PostInfoDataType {
   title: string;
@@ -31,26 +32,29 @@ const initialFolderData: PostInfoDataType = {
   thumbnailImage: "",
   isAvailableWithoutCar: false,
   folderId: 0,
-  isShared: false
+  isShared: false,
 };
 
-const defaultImage = "https://media.triple.guide/triple-cms/c_limit,f_auto,h_1024,w_1024/73968eea-cbbe-49cd-b001-353e9e962cbf.jpeg";
+const defaultImage =
+  "https://media.triple.guide/triple-cms/c_limit,f_auto,h_1024,w_1024/73968eea-cbbe-49cd-b001-353e9e962cbf.jpeg";
 
 interface PropsType {
-  folder: Folder
+  folder: Folder;
 }
 
 function CreateEditPost(props: PropsType) {
   const dispatch = useDispatch();
   const history = useHistory();
+  const pageLocation = useLocation<CreateEditPostLocationType>();
   const post = usePostState();
+
   const [postInfoData, setPostInfoData] = useState<PostInfoDataType>(initialFolderData);
   const [locationQuery, setLocationQuery] = useState("");
   const [selectedDay, setSelectedDay] = useState(1);
   const [routePlaces, setRoutePlaces] = useState<PlaceDayType[]>([]);
   const [isPostCreated, setIsPostCreated] = useState(false);
   const [createdPostId, setCreatedPostId] = useState<number>(0);
-
+  const [pathList, setPathList] = useState<PathListType>({});
 
   useEffect(() => {
     if (isPostCreated && createdPostId) {
@@ -61,14 +65,109 @@ function CreateEditPost(props: PropsType) {
   useEffect(() => {
     setPostInfoData({
       ...postInfoData,
-      folderId: props.folder?.id || 0
+      folderId: props.folder?.id || 0,
     });
   }, [props.folder]);
 
+  useEffect(() => {
+    if (pageLocation.state?.from === 'edit' && post.id === pageLocation.state?.postId) {
+      // when post is edited, set post info datas as edited post's datas.
+
+      const placeList = post.places.map((place: PlaceType) => ({ day: place.day, place }));
+      const convertedPathList: PathListType = {};
+      post.pathList?.forEach((path: ServerPathType) => convertedPathList[path.from_place_id] = { to: path.to_place_id.toString(), transportation: path.transportation });
+
+      setPathList(convertedPathList);
+      setRoutePlaces(placeList);
+      setPostInfoData({
+        title: post.title,
+        location: post.location,
+        days: post.days,
+        seasonRecommendation: post.season,
+        theme: post.theme,
+        thumbnailImage: post.thumbnail_image,
+        isAvailableWithoutCar: post.availableWithoutCar,
+        folderId: post.folder_id,
+        isShared: post.is_shared
+      });
+    }
+  }, [pageLocation, post]);
+
+  const changeLocationQuery = (text: string | null) => {
+    if (text) setLocationQuery(text);
+  }
+
+  const [editPlace, setEditedPlace] = useState<{ id: number, description: string }>({
+    id: 0,
+    description: "",
+  });
+
+  const onChangePlaceDescription = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setEditedPlace({
+      ...editPlace,
+      description: e.target.value,
+    });
+  };
+
+  const onAddPlace = (place: PlaceType) => {
+    setRoutePlaces((prevState: any) => {
+      return [
+        ...prevState,
+        {
+          place: { ...place, id: place.id + Date.now() },
+          day: selectedDay,
+        },
+      ];
+    });
+  };
+
+  const onEditPlace = (place: PlaceType) => {
+    setRoutePlaces(
+      routePlaces.map((p: PlaceDayType) => {
+        if (p.place.id === editPlace.id) {
+          p.place.description = editPlace.description;
+        }
+        return p;
+      })
+    );
+
+    if (editPlace.id === place.id) {
+      setEditedPlace({
+        id: 0,
+        description: "",
+      });
+    } else {
+      setEditedPlace({
+        id: place.id,
+        description: place.description,
+      });
+    }
+  };
+
+  const onChangePath = useCallback(
+    (
+      e: React.ChangeEvent<HTMLSelectElement>,
+      origin: PlaceType,
+      destination: PlaceType
+    ) => {
+      setPathList({
+        ...pathList,
+        [origin.id]: {
+          to: destination.id,
+          transportation: e.target.value,
+        },
+      });
+    },
+    [pathList]
+  );
 
   const onDeletePlace = useCallback(
     (place: PlaceType) => {
-      setRoutePlaces(routePlaces.filter((p: PlaceDayType) => p.day !== selectedDay || p.place.id !== place.id));
+      setRoutePlaces(
+        routePlaces.filter(
+          (p: PlaceDayType) => p.day !== selectedDay || p.place.id !== place.id
+        )
+      );
     },
     [routePlaces, selectedDay]
   );
@@ -76,12 +175,14 @@ function CreateEditPost(props: PropsType) {
   const isPlaceInRoute = (place: PlaceType) => {
     return routePlaces
       .filter((p: PlaceDayType) => p.day === selectedDay)
-      .some((p: PlaceDayType) => p.place.id === place.id);
-  }
+      .some((p: PlaceDayType) =>
+        p.place.id.toString().startsWith(place.id.toString())
+      );
+  };
 
-  const [selectedTab, setSelectedTab] = useState<'place' | 'search'>('place');
+  const [selectedTab, setSelectedTab] = useState<"place" | "search">("place");
 
-  const onClickCreateButton = () => {
+  const onClickCreateEditButton = () => {
     const {
       title,
       thumbnailImage,
@@ -91,27 +192,37 @@ function CreateEditPost(props: PropsType) {
       location,
       isAvailableWithoutCar,
       folderId,
-      isShared
+      isShared,
     } = postInfoData;
 
-    const placeListData = routePlaces.map((p: PlaceDayType, index: number) => {
-      const { day, place } = p;
+    const placeListData = routePlaces
+      .filter((p: PlaceDayType) => p.day)
+      .map((p: PlaceDayType, index: number) => {
+        const { day, place } = p;
 
-      return {
-        day,
-        index,
-        name: place.name,
-        description: place.description,
-        latitude: place.lat || place.latitude || '',
-        longitude: place.lon || place.longitude || '',
-        homepage: place.homepage,
-        address: place.address,
-        category: place.category,
-        phone_number: place.phone_number,
-      }
-    });
+        return {
+          day,
+          index,
+          kakao_id: place.id,
+          name: place.name,
+          description: place.description,
+          latitude: place.lat || place.latitude || "",
+          longitude: place.lon || place.longitude || "",
+          homepage: place.homepage,
+          address: place.address,
+          category: place.category,
+          phone_number: place.phone_number,
+        };
+      });
 
-    const defaultthumbnailImage = 'https://media.triple.guide/triple-cms/c_limit,f_auto,h_1024,w_1024/73968eea-cbbe-49cd-b001-353e9e962cbf.jpeg';
+    const pathListData = Object.entries(pathList).map(([key, value]) => ({
+      from: key,
+      to: value.to,
+      transportation: value.transportation,
+    }));
+
+    const defaultthumbnailImage =
+      "https://media.triple.guide/triple-cms/c_limit,f_auto,h_1024,w_1024/73968eea-cbbe-49cd-b001-353e9e962cbf.jpeg";
     const formData = new FormData();
     formData.append("title", title);
     formData.append("is_shared", isShared?.toString() || 'false');
@@ -123,12 +234,19 @@ function CreateEditPost(props: PropsType) {
     formData.append('availableWithoutCar', isAvailableWithoutCar.toString())
     formData.append('folder_id', folderId ? folderId.toString() : '172637238622223');
     formData.append('places', JSON.stringify(placeListData));
+    formData.append('path_list', JSON.stringify(pathListData));
     formData.append("enctype", 'multipart/form-data');
 
-    dispatch(createPostAction(formData, (isCreated: boolean, postId: number) => {
-      setIsPostCreated(isCreated);
-      setCreatedPostId(postId);
-    }));
+    if (post?.id) {
+      // edit
+      dispatch(editPostAction(formData, post.id, () => history.push(`/post/${post?.id}/`)));
+    } else {
+      //create
+      dispatch(createPostAction(formData, (isCreated: boolean, postId: number) => {
+        setIsPostCreated(isCreated);
+        setCreatedPostId(postId);
+      }));
+    }
   }
 
   const onChangePostInfoData = useCallback(
@@ -140,9 +258,9 @@ function CreateEditPost(props: PropsType) {
         reader.onloadend = () => {
           setPostInfoData({
             ...postInfoData,
-            thumbnailImage: reader.result?.toString() || ''
-          })
-        }
+            thumbnailImage: reader.result?.toString() || "",
+          });
+        };
         reader.readAsDataURL(e.target.files[0]);
       } else {
         setPostInfoData({
@@ -154,14 +272,14 @@ function CreateEditPost(props: PropsType) {
     [postInfoData]
   );
 
-  const onPressEnterLocation = useCallback(
-    (e: React.KeyboardEvent) => {
-      if (e.key === "Enter") {
-        setLocationQuery(postInfoData.location);
-      }
-    },
-    [postInfoData.location]
-  );
+  const onClickAvailableWithoutCar = () => {
+    setPostInfoData({
+      ...postInfoData,
+
+      isAvailableWithoutCar: !postInfoData.isAvailableWithoutCar,
+    });
+  };
+
 
   const onClickDay = useCallback((value: number) => {
     setSelectedDay(value);
@@ -183,12 +301,12 @@ function CreateEditPost(props: PropsType) {
   return (
     <div>
       <CreateEditHeader
-        post={post}
         folder={props.folder}
         thumbnailImage={postInfoData.thumbnailImage || defaultImage}
         postInfoData={postInfoData}
+        onClickAvailableWithoutCar={onClickAvailableWithoutCar}
         onChangePostInfoData={onChangePostInfoData}
-        onPressEnterLocation={onPressEnterLocation}
+        changeLocationQuery={changeLocationQuery}
       />
       <div className="create-edit-content-container">
         <div className="create-edit-place-section">
@@ -198,9 +316,9 @@ function CreateEditPost(props: PropsType) {
               selectedTab={selectedTab}
               onClickTabButton={onClickTabButton}
               setRoutePlaces={setRoutePlaces}
-              onDeletePlace={onDeletePlace}
               selectedDay={selectedDay}
               isPlaceInRoute={isPlaceInRoute}
+              onAddPlace={onAddPlace}
             />
           </div>
 
@@ -209,9 +327,15 @@ function CreateEditPost(props: PropsType) {
             <MyRoutesSection
               days={postInfoData.days}
               selectedDay={selectedDay}
+              pathList={pathList}
+              setPathList={setPathList}
+              onChangePath={onChangePath}
               onClickDay={onClickDay}
               onClickAddIcon={onClickAddIcon}
               routePlaces={routePlaces}
+              editPlace={editPlace}
+              onChangePlaceDescription={onChangePlaceDescription}
+              onEditPlace={onEditPlace}
               onDeletePlace={onDeletePlace}
               setRoutePlaces={setRoutePlaces}
             />
@@ -219,11 +343,11 @@ function CreateEditPost(props: PropsType) {
         </div>
 
         <Map
-          fromWhere={'create'}
+          fromWhere={pageLocation.state?.from === 'edit' ? 'edit' : 'create'}
           location={locationQuery}
           selectedDay={selectedDay}
           placeList={routePlaces}
-          onClickButton={onClickCreateButton}
+          onClickButton={onClickCreateEditButton}
         />
       </div>
     </div>

@@ -1,0 +1,32 @@
+.path-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin: 0.73vw 0 0.73vw 3vw;
+  font-family: "Noto Sans CJK KR", Monospace;
+}
+
+.path-container select {
+  margin-left: 20px;
+  height: 35px;
+  padding: 5px 25px 5px 10px;
+  border-radius: 4px;
+  outline: 0 none;
+  border: none;
+  background-color: white;
+  color: #000000;
+  font-size: 15px;
+  font-weight: 400;
+}
+
+.path-container .path-select-container {
+  margin: 0 1.6vw;
+}
+/*# sourceMappingURL=Path.css.map */

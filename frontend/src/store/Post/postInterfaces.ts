@@ -11,6 +11,10 @@ import {
   GET_COMMENTS_FAIL,
   CREATE_POST_SUCCESS,
   CREATE_POST_FAIL,
+  DELETE_POST_SUCCESS,
+  DELETE_POST_FAIL,
+  EDIT_POST_SUCCESS,
+  EDIT_POST_FAIL,
 } from "../actionTypes";
 import { Folder } from "../User/userInterfaces";
 
@@ -35,6 +39,7 @@ export interface PostType {
   places: PlaceType[];
   like_counts: number;
   liked: boolean;
+  pathList: PathType[];
 }
 
 export interface SimplePostType {
@@ -78,6 +83,7 @@ export interface PlaceInfoType {
 
 export interface PlaceType {
   id: number;
+  kakao_id: number;
   name: string;
   post_id: number;
   description: string;
@@ -115,16 +121,27 @@ export interface CommentType {
 }
 
 export interface PathType {
-  from: PlaceType;
-  to: PlaceType;
-  transportation: string;
+  from_place_id: number;
+  id: number;
+  post_id: number;
+  to_place_id: number;
+  transportation: "car";
+}
+
+export interface ServerPathType {
+  // path Object type which used in server
+  id: number;
+  post_id: number;
+  from_place_id: number;
+  to_place_id: number;
+  transportation: 'car' | 'pub' | 'vic' | 'wal'
 }
 
 export interface PathListType {
   [from: string]: {
-    to: string,
-    transportation: 'car' | 'pub' | 'vic' | 'wal'
-  }
+    to: string;
+    transportation: "car" | "pub" | "vic" | "wal";
+  };
 }
 
 export interface SearchType {
@@ -165,11 +182,11 @@ export interface CartPostFail {
 
 export interface CreatePostSuccess {
   type: typeof CREATE_POST_SUCCESS
-  payload: any
+  payload: PostType
 }
 
 export interface CreatePostFail {
-  type: typeof CREATE_POST_FAIL
+  type: typeof CREATE_POST_FAIL;
 }
 
 export interface SearchSuccess {
@@ -191,6 +208,23 @@ export interface GetCommentsFail {
   type: typeof GET_COMMENTS_FAIL;
 }
 
+export interface DeletePostSuccess {
+  type: typeof DELETE_POST_SUCCESS;
+}
+
+export interface DeletePostFail {
+  type: typeof DELETE_POST_FAIL;
+}
+
+export interface EditPostSuccess {
+  type: typeof EDIT_POST_SUCCESS;
+  payload: PostType
+}
+
+export interface EditPostFail {
+  type: typeof EDIT_POST_FAIL;
+}
+
 export type PostDispatchType =
   | GetPostsSuccess
   | GetPostsFail
@@ -203,4 +237,8 @@ export type PostDispatchType =
   | SearchSuccess
   | SearchFail
   | GetCommentsSucess
-  | GetCommentsFail;
+  | GetCommentsFail
+  | DeletePostSuccess
+  | DeletePostFail
+  | EditPostSuccess
+  | EditPostFail;

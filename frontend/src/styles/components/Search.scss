@@ -1,79 +1,130 @@
 @import "../../Variables/Variables.scss";
-.search {
-  margin-left: 20%;
-  margin-right: 20%;
-  background: #ffffff;
-  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
-  border-radius: 6px;
-  display: flex;
-  .search-svg {
-    margin-left: 3%;
-  }
-  .search-keyword {
-    border: none;
-    margin-left: 10%;
-    width: 80%;
-  }
-  .search-button {
-    background-color: $darkMintColor;
-    margin-top: 1%;
-    margin-bottom: 1%;
-    margin-right: 2%;
-    border-radius: 4px;
-    padding: 1.2% 1.2% 1.2% 1.2%;
-    font-family: $mainFont;
-    font-style: normal;
-    color: #ffffff;
-  }
-}
 
-.filter {
-  margin-top: 3%;
-  margin-left: 10%;
-  margin-right: 10%;
-  margin-bottom: 3%;
-  background-color: #ffffff;
-  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
-  border-radius: 6px;
+.search-container {
+  font-family: $mainFont;
 
-  button {
+  .search {
+    margin: 50px auto;
+    width: 50vw;
+    padding: 13px;
+    background: #ffffff;
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
+    border-radius: 6px;
+    display: flex;
+    justify-content: space-between;
+
+    .search-svg {
+      width: 30px;
+    }
+    .search-keyword {
+      border: none;
+      margin: 0 15px;
+      padding: 5px 10px;
+      font-size: 14px;
+      width: 100%;
+    }
+    .search-button {
+      background-color: $darkMintColor;
+      border-radius: 4px;
+      padding: 10px 20px;
+      font-family: $mainFont;
+      font-weight: 600;
+      font-style: normal;
+      color: #ffffff;
+    }
+  }
+  
+  .filter {
+    margin: 80px 20vw;
     background-color: #ffffff;
-  }
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
+    border-radius: 6px;
+    padding: 13px 30px;
+  
+    button {
+      background-color: #ffffff;
+    }
+  
+    .location {
+      display: flex;
+      flex-direction: row;
 
-  .location {
-    display: flex;
-    flex-direction: row;
-    padding-top: 2%;
-  }
-  .category {
-    font-family: $mainFont;
-    font-style: normal;
-    font-weight: 600;
-    font-size: 18px;
-    line-height: 27px;
-    margin-left: 5%;
-    color: #000000;
-    width: 20%;
-  }
-  .search-location {
-    border: none;
-    margin-right: 4%;
-  }
-  .lines {
-    border: 0.1px solid #969696;
-    width: 90%;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 1.3%;
-    margin-bottom: 1.3%;
-  }
-  .seasons,
-  .themes,
-  .transportation {
-    display: flex;
-    flex-direction: row;
-    .season-clicked, .theme-clicked{
+      select {
+        margin-right: 10px;
+        padding: 5px 20px 5px 10px;
+        border-radius: 4px;
+        outline: 0 none;
+        border: none;
+        background-color: $whiteColor;
+        color: $darkGrayColor;
+        font-family: $koreanFont;
+        font-size: 13px;
+        font-weight: 400;
+        option {
+          background-color: white;
+          font-family: $koreanFont;
+          color: $blackColor;
+          padding: 3px 0;
+        }
+      }
+    }
+  
+    select.selected {
+      color: $blackColor;
       font-family: $koreanFont;
+    }
+    .category {
+      font-family: $mainFont;
+      font-style: normal;
+      font-weight: 600;
+      font-size: 15px;
+      line-height: 27px;
+      color: #000000;
+      width: 20%;
+    }
+    .search-location {
+      border: none;
+      width: 60%;
+      font-size: 14px;
+    }
+    .lines {
+      border-bottom: 0.1px solid $lightGrayColor;
+      width: 100%;
+      margin: 13px auto;
+    }
+    .seasons,
+    .themes,
+    .transportation {
+      display: flex;
+      flex-direction: row;
+      .season-clicked, .theme-clicked{
+        font-family: $koreanFont;
+        font-style: normal;
+        font-weight: 400;
+        font-size: 14px;
+        margin-right: 5%;
+        border-radius: 6px;
+        padding-left: 1%;
+        padding-right: 1%;
+        color: #57ceb9;
+      }
+      .season:hover,
+      .season-clicked:hover,
+      .theme:hover,
+      .theme-clicked:hover {
+        background-color: #f3f4f5;
+      }
+    }
+  
+    .season, .location {
+      font-family: $mainFont;
+    }
+    .theme {
+      font-family: $koreanFont;
+    }
+
+    .season,
+    .theme{
       font-style: normal;
       font-weight: 400;
       font-size: 14px;
@@ -81,65 +132,64 @@
       border-radius: 6px;
       padding-left: 1%;
       padding-right: 1%;
-      color: #57ceb9;
+      color: #9f9f9f;
     }
-    .season:hover,
-    .season-clicked:hover,
-    .theme:hover,
-    .theme-clicked:hover {
-      background-color: #f3f4f5;
+    .days {
+      display: flex;
+      .search-days {
+        border: none;
+        width: 20%;
+      }
+    }
+    input {
+      margin-left: 10px;
+      font-family: $mainFont;
     }
   }
 
-  .season,
-  .theme{
-    font-family: $koreanFont;
-    font-style: normal;
-    font-weight: 400;
-    font-size: 14px;
-    margin-right: 5%;
-    border-radius: 6px;
-    padding-left: 1%;
-    padding-right: 1%;
-    color: #9f9f9f;
-  }
+  .search-result-container {
+    margin: 0 auto;
+    width: 80vw;
+    padding-top: 30px;
 
-  .transportation {
-    padding-bottom: 2%;
-  }
+    .search-result-header {
+      display: flex;
+      justify-content: space-between;
+      margin: 10px 15px;
 
-  .days {
-    display: flex;
-    .search-days {
-      border: none;
-      width: 10%;
+      .search-result-title {
+        font-family: $mainFont;
+        font-weight: 600;
+        font-size: 20px;
+        color: $darkMintColor;
+      }
+
+      .search-result-sorting {
+        display: flex;
+
+        .sorting, .sorting-clicked{
+          margin-left: 10px;
+          border-radius: 6px;
+          font-family: $koreanFont;
+          font-style: normal;
+          align-items: flex-end;
+          background-color: white;
+          padding: 8px 20px;
+          &:hover{
+            background-color:#f3f4f5;
+          }
+        }
+        
+        .sorting-clicked {
+          color: $darkMintColor;
+        }
+      }
+    }
+    .search-result-content {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
     }
   }
   
-}
-
-.sorting{
-  margin-left: 2%;
-  border-radius: 3px;
-  font-family: $koreanFont;
-  font-style: normal;
-  align-items: flex-end;
-  background-color: white;
-  padding: 0 10px;
-}
-
-.sorting-clicked{
-  margin-left: 2%;
-  color: $darkMintColor;
-  border-radius: 3px;
-  font-family: $koreanFont;
-  font-style: normal;
-}
-
-.sorting:hover, .sorting-clicked:hover{
-  background-color:#f3f4f5;
-}
-.search-title{
-  display: flex;
-  flex-direction: row;
 }

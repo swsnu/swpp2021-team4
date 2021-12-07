@@ -115,21 +115,4 @@
 .postitem-container .content .info .counts .post-like-icon {
   margin-right: 4px;
 }
-
-.search-research-content {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
-  -ms-flex-wrap: wrap;
-      flex-wrap: wrap;
-  margin-left: 5%;
-  margin-right: 5%;
-}
-
-.search-research {
-  margin-left: 5%;
-}
 /*# sourceMappingURL=PostItem.css.map */

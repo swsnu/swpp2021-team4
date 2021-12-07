@@ -22,7 +22,7 @@ jobs:
         - gem install coveralls-lcov
       script:
         - ./node_modules/.bin/eslint src
-        - yarn test --coverage --watchAll=false --passWithNoTests
+        - yarn test --coverage --watchAll=false --passWithNoTests --silent
         - coveralls-lcov -v -n coverage/lcov.info > coverage.json
         - cd ../backend
         - pylint --disable=R,C **/*.py --load-plugins pylint_django --django-settings-module=tripick.settings

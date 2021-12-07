@@ -45,7 +45,7 @@ function Signup() {
       if (response.status === 201) {
         dispatch(signinAction({ email: userInputs.userEmail, password: userInputs.userPassword }, (value) => setIsSigned(value)));
       } else {
-        alert('singup failed');
+        alert('signup failed');
       }
     }
   }

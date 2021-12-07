@@ -55,7 +55,7 @@
   display: none;
 }
 
-.edit-profile-container .edit-profile-content .edit-profile-image button {
+.edit-profile-container .edit-profile-content .edit-profile-image .upload-image-button {
   margin-top: 20px;
   color: #57ceb9;
   background: transparent;
@@ -67,11 +67,11 @@
   font-style: normal;
   padding: 10px;
   border-radius: 10px;
+  cursor: pointer;
 }
 
-.edit-profile-container .edit-profile-content .edit-profile-image button:hover {
+.edit-profile-container .edit-profile-content .edit-profile-image .upload-image-button:hover {
   background: #F5F6F9;
-  cursor: pointer;
 }
 
 .edit-profile-container .edit-profile-content .edit-profile-form-container {
@@ -88,7 +88,7 @@
           justify-content: center;
   -webkit-box-align: end;
       -ms-flex-align: end;
-          align-items: end;
+          align-items: flex-end;
   font-family: "Montserrat", Monospace;
 }
 

@@ -6,7 +6,7 @@ const initialState: PostStateType = {
   posts: [],
   search: [],
   likeSorted: [],
-  dateSorted:[],
+  dateSorted: [],
   detailedPost: {
     id: 0,
     header_image: "",
@@ -28,6 +28,7 @@ const initialState: PostStateType = {
     title: "",
     like_counts: 0,
     liked: false,
+    pathList: [],
   },
   selectedFolder: {
     id: 0,
@@ -41,19 +42,18 @@ export const usePostsState = () => {
   return posts;
 };
 
-export const useSearchPostState =()=>{
+export const useSearchPostState = () => {
   return useSelector(
     (state: RootReducerType) => state.post.search || initialState.search
-  ); 
+  );
 }
-export const useLikeSearchPostState =()=>{
+export const useLikeSearchPostState = () => {
   return useSelector(
     (state: RootReducerType) => state.post.likeSorted || initialState.likeSorted
   );
 }
-export const useDateSearchPostState=()=>{
+export const useDateSearchPostState = () => {
   return useSelector(
     (state: RootReducerType) => state.post.dateSorted || initialState.dateSorted
   );
-}
-
+};

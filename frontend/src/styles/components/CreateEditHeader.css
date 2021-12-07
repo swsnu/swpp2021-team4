@@ -9,7 +9,7 @@
 
 .post-ce-header {
   width: 100%;
-  min-height: 173px;
+  margin-top: 20px;
   border-radius: 6px;
   -webkit-box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
           box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
@@ -27,7 +27,9 @@
   font-size: 1.25rem;
   line-height: 1.5rem;
   max-height: 41px;
+  border-radius: 6px;
   color: #000000;
+  border: none;
 }
 
 .post-ce-header input::-webkit-input-placeholder {
@@ -46,6 +48,32 @@
   color: #a7a9af;
 }
 
+.post-ce-header select {
+  margin-left: 20px;
+  height: 35px;
+  padding: 5px 20px 5px 10px;
+  border-radius: 4px;
+  outline: 0 none;
+  border: none;
+  background-color: #F5F6F9;
+  color: #a7a9af;
+  font-family: "Noto Sans CJK KR", Monospace;
+  font-size: 15px;
+  font-weight: 400;
+}
+
+.post-ce-header select option {
+  background-color: white;
+  font-family: "Noto Sans CJK KR", Monospace;
+  color: #000000;
+  padding: 3px 0;
+}
+
+.post-ce-header select.selected {
+  color: #000000;
+  font-family: "Noto Sans CJK KR", Monospace;
+}
+
 .post-ce-header .header-image {
   display: inline-block;
 }
@@ -56,16 +84,26 @@
 }
 
 .post-ce-header .post-ce-info-container {
-  padding: 1.2vw 18.23vw 1.2vw 2.47vw;
+  padding: 20px 30px;
   -webkit-box-flex: 1;
       -ms-flex-positive: 1;
           flex-grow: 1;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
 }
 
 .post-ce-header .post-ce-folder-name {
+  font-family: "Noto Sans CJK KR", Monospace;
   font-weight: 500;
-  font-size: 1.5rem;
-  line-height: 1.812rem;
+  font-size: 18px;
   color: #000000;
 }
 
@@ -80,8 +118,6 @@
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  margin-top: 3px;
-  margin-bottom: 14px;
 }
 
 .post-ce-header .post-ce-info-first-line input {
@@ -107,5 +143,96 @@
       -ms-flex-direction: row;
           flex-direction: row;
   width: 100%;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.post-ce-header .post-ce-info-second-line .line {
+  border-left: 3px solid #a7a9af;
+  height: 25px;
+  margin: 0 15px;
+}
+
+.post-ce-header .post-ce-info-second-line input {
+  padding: 10px;
+  background-color: #F5F6F9;
+  margin-right: 15px;
+}
+
+.post-ce-header .post-ce-info-third-line {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.post-ce-header .post-ce-info-third-line #thumbnail {
+  display: none;
+}
+
+.post-ce-header .post-ce-info-third-line .thumbnail-button {
+  color: #57ceb9;
+  background: transparent;
+  -webkit-box-shadow: 0px 0px 0px transparent;
+          box-shadow: 0px 0px 0px transparent;
+  border: 0px solid transparent;
+  text-shadow: 0px 0px 0px transparent;
+  font-family: "Montserrat", Monospace;
+  font-style: normal;
+  padding: 10px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 13px;
+}
+
+.post-ce-header .post-ce-info-third-line .thumbnail-button:hover {
+  background: #F5F6F9;
+}
+
+.post-ce-header .post-ce-info-third-line select {
+  font-family: "Montserrat", Monospace;
+}
+
+.post-ce-header .post-ce-info-third-line select.selected {
+  font-family: "Noto Sans CJK KR", Monospace;
+}
+
+.post-ce-header .post-ce-info-third-line .availableWithoutCar {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  margin-left: 40px;
+  font-family: "Noto Sans CJK KR", Monospace;
+}
+
+.post-ce-header .post-ce-info-third-line .availableWithoutCar #availableWithoutCar-checkbox {
+  display: inline-block;
+  width: 15px;
+  height: 15px;
+  border: 2px solid #bcbcbc;
+  border-radius: 2px;
+  cursor: pointer;
+}
+
+.post-ce-header .post-ce-info-third-line .availableWithoutCar .check-icon {
+  position: relative;
+  width: 18px;
+  right: 15px;
+  bottom: 5px;
+}
+
+.post-ce-header .post-ce-info-third-line .availableWithoutCar label {
+  position: relative;
+  right: 8px;
 }
 /*# sourceMappingURL=CreateEditHeader.css.map */
