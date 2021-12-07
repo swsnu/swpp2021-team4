@@ -175,11 +175,11 @@ const stubInitialState = {
 const mockStore = getMockStore(stubInitialState);
 
 describe("<Signup />", () => {
-  let signin: JSX.Element;
+  let signup: JSX.Element;
   let spyPush: any;
   spyPush = jest.spyOn(history, "push").mockImplementation(() => {});
   beforeEach(() => {
-    signin = (
+    signup = (
       <BrowserRouter>
         <Provider store={mockStore}>
           <ConnectedRouter history={history}>
@@ -196,27 +196,27 @@ describe("<Signup />", () => {
   });
 
   it("should render Signup Page", () => {
-    const component = mount(signin);
+    const component = mount(signup);
     const wrapper = component.find(".signup-container");
     expect(wrapper.length).toBe(1);
   });
 
   it("should click signup button", () => {
-    const component = mount(signin);
+    const component = mount(signup);
     const button = component.find(".signup-btn");
     window.alert = jest.fn();
 
     let spyUseState: any;
     spyUseState = jest.spyOn(React, "useState");
-    const spySetEmail = jest.fn();
-    spyUseState.mockImplementation((email: any) => [email, spySetEmail]);
+    const spySetUserInfo = jest.fn();
+    spyUseState.mockImplementation((userEmail: any, userName:any, userPassword:any, checkUserPassword:any ) => [{userEmail, userName, userPassword, checkUserPassword}, spySetUserInfo]);
     
     button.simulate("click");
     expect(window.alert).toHaveBeenCalled();
     const email_input = component.find("#userEmail");
     email_input.simulate("change", { target: { value: "email" } });
     button.simulate("click");
-    expect(spySetEmail).toBeTruthy();
+    expect(spySetUserInfo).toBeTruthy();
     expect(window.alert).toHaveBeenCalled();
 
     const userName_input = component.find("#userName");
