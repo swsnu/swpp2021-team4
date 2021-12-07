@@ -198,7 +198,7 @@ jest.mock("../components/PostHeader", () => {
 describe('<UserInfo />', () => {
     jest.mock("axios");
     let userInfo: JSX.Element;
-    let spyGetPostAction: any;
+    // let spyGetPostAction: any;
 
     beforeEach(() => {
         userInfo = (

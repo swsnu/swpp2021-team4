@@ -1,13 +1,7 @@
 import React from 'react';
 import { mount } from 'enzyme';
 import Place from './Place';
-import { Provider } from "react-redux";
-import { ConnectedRouter } from "connected-react-router";
-import { getMockStore } from "../test-utils/mocks";
-import { history } from "../store/store";
-import * as postAction from "../store/Post/postAction";
 import * as reactRedux from "react-redux";
-import axios from "axios";
 
 const stubInitialState = {
     user: {
@@ -105,7 +99,6 @@ const stubInitialState = {
             ],
             comment_counts: 1,
             days: 1,
-            // folder_id: 1,
             folder_name: "ex1",
             is_shared: true,
             location: "ex1",
