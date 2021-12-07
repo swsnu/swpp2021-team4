@@ -65,6 +65,7 @@ function CreatePlaceCard(props: PropsType) {
       ) {
         // drag place from cart to my route
         setRoutePlaces((prevState: any) => {
+
           return [
             ...prevState,
             {
@@ -72,6 +73,7 @@ function CreatePlaceCard(props: PropsType) {
               day: dropResult.day,
             },
           ];
+
         });
       } else if (
         dropResult &&
@@ -80,6 +82,7 @@ function CreatePlaceCard(props: PropsType) {
       ) {
         if (props.setPathList && props.index) {
           props.setPathList((prevState: PathListType) => {
+
             Object.entries(prevState).forEach(
               ([key, value]: [string, PathValueType]) => {
                 if (
@@ -94,6 +97,7 @@ function CreatePlaceCard(props: PropsType) {
                   // removes path objects related to the dragged place and hovered place.
                   delete prevState[key];
                 }
+
               }
             );
             return { ...prevState };
