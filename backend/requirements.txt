@@ -31,3 +31,4 @@ urllib3==1.26.7
 virtualenv==20.7.2
 wrapt==1.13.2
 zipp==3.6.0
+uwsgi==2.0.20
