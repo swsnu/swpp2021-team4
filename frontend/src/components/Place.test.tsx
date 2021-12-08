@@ -1,13 +1,7 @@
 import React from 'react';
 import { mount } from 'enzyme';
 import Place from './Place';
-import { Provider } from "react-redux";
-import { ConnectedRouter } from "connected-react-router";
-import { getMockStore } from "../test-utils/mocks";
-import { history } from "../store/store";
-import * as postAction from "../store/Post/postAction";
 import * as reactRedux from "react-redux";
-import axios from "axios";
 
 const stubInitialState = {
     user: {
