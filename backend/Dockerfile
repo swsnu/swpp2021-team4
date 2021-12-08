@@ -7,3 +7,7 @@ COPY requirements.txt .
 COPY . .
 
 RUN pip install -r requirements.txt
+
+CMD uwsgi \
+    --wsgi-file /app/tripick/wsgi.py \
+    --http :8000
