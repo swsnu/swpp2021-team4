@@ -48,6 +48,30 @@
     .location {
       display: flex;
       flex-direction: row;
+
+      select {
+        margin-right: 10px;
+        padding: 5px 20px 5px 10px;
+        border-radius: 4px;
+        outline: 0 none;
+        border: none;
+        background-color: $whiteColor;
+        color: $darkGrayColor;
+        font-family: $koreanFont;
+        font-size: 13px;
+        font-weight: 400;
+        option {
+          background-color: white;
+          font-family: $koreanFont;
+          color: $blackColor;
+          padding: 3px 0;
+        }
+      }
+    }
+  
+    select.selected {
+      color: $blackColor;
+      font-family: $koreanFont;
     }
     .category {
       font-family: $mainFont;
@@ -114,7 +138,7 @@
       display: flex;
       .search-days {
         border: none;
-        width: 10%;
+        width: 20%;
       }
     }
     input {

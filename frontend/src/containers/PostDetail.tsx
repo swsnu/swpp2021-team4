@@ -105,13 +105,15 @@ function PostDetail() {
             {places
               .filter((place: any) => place.day == day)
               .map((dayPlace: PlaceType, index: number, array: PlaceType[]) => {
-                const pathFromCurrentPlace = post.pathList.find((path: any) => {
-                  return (
-                    path.from_place_id === dayPlace.id &&
-                    index < array.length &&
-                    path.to_place_id == array[index + 1].id
-                  );
-                });
+                const pathFromCurrentPlace = post.pathList?.find(
+                  (path: any) => {
+                    return (
+                      path.from_place_id === dayPlace.id &&
+                      index < array.length &&
+                      path.to_place_id == array[index + 1].id
+                    );
+                  }
+                );
 
                 return (
                   <>
@@ -123,6 +125,7 @@ function PostDetail() {
                     />
                     {pathFromCurrentPlace && (
                       <Path
+                        isFromDetail
                         key={dayPlace.id + array[index + 1].id}
                         from={dayPlace}
                         to={array[index + 1]}
@@ -145,7 +148,7 @@ function PostDetail() {
       return;
     }
 
-    if (confirm("이 루트를 다른 사용자에게 공유하시겠습니까?")) {
+    if (window.confirm("이 루트를 다른 사용자에게 공유하시겠습니까?")) {
       axios
         .get(`/post/${post.id}/share/`)
         .then(function () {
@@ -196,8 +199,7 @@ function PostDetail() {
     if (window.confirm("정말로 삭제하시겠습니까?")) {
       dispatch(deletePostAction(post.id, () => history.goBack()));
     }
-  }
-
+  };
 
   return (
     <>

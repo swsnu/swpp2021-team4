@@ -5,6 +5,7 @@ import { PathListType, PlaceType } from '../store/Post/postInterfaces';
 import returnPathTime from '../utils/returnPathTime';
 
 interface PropsType {
+  isFromDetail?: boolean
   from: PlaceType
   to: PlaceType
   transportation?: string
@@ -90,7 +91,7 @@ function Path(props: PropsType) {
     <div className="path-container">
       <img src={arrowDownIcon} />
       {
-        Object.keys(pathList).length > 0 &&
+        (!props.isFromDetail || Object.keys(pathList).length > 0) &&
         <>
           <select
             id="path"
@@ -116,7 +117,7 @@ function Path(props: PropsType) {
         </>
       }
       {
-        Object.keys(pathList).length == 0 &&
+        (!props.isFromDetail || Object.keys(pathList).length == 0) &&
         <span style={{ marginLeft: 20, fontSize: '0.75rem' }}>
           {
             transportation && !time.includes('NaN')

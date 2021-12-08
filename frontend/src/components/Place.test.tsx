@@ -99,7 +99,6 @@ const stubInitialState = {
             ],
             comment_counts: 1,
             days: 1,
-            // folder_id: 1,
             folder_name: "ex1",
             is_shared: true,
             location: "ex1",

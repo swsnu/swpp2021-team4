@@ -63,6 +63,31 @@
           flex-direction: row;
 }
 
+.search-container .filter .location select {
+  margin-right: 10px;
+  padding: 5px 20px 5px 10px;
+  border-radius: 4px;
+  outline: 0 none;
+  border: none;
+  background-color: #F5F6F9;
+  color: #a7a9af;
+  font-family: "Noto Sans CJK KR", Monospace;
+  font-size: 13px;
+  font-weight: 400;
+}
+
+.search-container .filter .location select option {
+  background-color: white;
+  font-family: "Noto Sans CJK KR", Monospace;
+  color: #000000;
+  padding: 3px 0;
+}
+
+.search-container .filter select.selected {
+  color: #000000;
+  font-family: "Noto Sans CJK KR", Monospace;
+}
+
 .search-container .filter .category {
   font-family: "Montserrat", Monospace;
   font-style: normal;
@@ -156,7 +181,7 @@
 
 .search-container .filter .days .search-days {
   border: none;
-  width: 10%;
+  width: 20%;
 }
 
 .search-container .filter input {
