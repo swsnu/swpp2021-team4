@@ -60,7 +60,7 @@ function PostHeader(props: PropType) {
             {props.isPostDetail ? (
               props.post.title
             ) : (
-              <NavLink to={`/post/${props.post.id}/`}>
+              <NavLink to={`/post/show/${props.post.id}/`}>
                 {props.post.title}
               </NavLink>
             )}

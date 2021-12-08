@@ -150,7 +150,7 @@ function PostDetail() {
         .get(`/post/${post.id}/share/`)
         .then(function () {
           post.is_shared = true;
-          history.push(`/post/${post.id}/`);
+          history.push(`/post/show/${post.id}/`);
         })
         .catch((err) => err.response);
     }
