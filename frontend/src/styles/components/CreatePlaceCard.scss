@@ -24,41 +24,72 @@
       color: #000000;
     }
   
-    .place-cart-button {
-      border: none;
-      border-radius: 50%;
-      padding: 6px;
-      min-width: 35px;
-      min-height: 35px;
-      text-align: center;
-      cursor: pointer;
+    .place-cart-button-container {
+      display: flex;
 
-      .search {
+      .place-cart-button {
+        border: none;
+        border-radius: 50%;
+        padding: 6px;
+        width: 30px;
+        height: 30px;
+        text-align: center;
+        cursor: pointer;
+        margin-left: 5px;
+  
+        .search {
+          background-color: $lightMintColor;
+          &:hover {
+            background-color: $darkMintColor;
+          }
+        }
+      }
+  
+      .place-cart-button.place {
         background-color: $lightMintColor;
         &:hover {
           background-color: $darkMintColor;
         }
       }
-    }
+  
+      .place-cart-button.place.delete {
+        background-color: $lightGrayColor;
+      }
 
-    .place-cart-button.place {
-      background-color: #F5F6F9;
-    }
-    .place-cart-button.route {
-      background-color: #F5F6F9;
-    }
-
-    .place-cart-button.search.selected {
-      background-color: $darkMintColor;
-      &:hover {
+      .place-cart-button.place.disabled {
+        background-color: $regularGrayColor;
+        cursor: default;
+        .post-icon {
+          cursor: default;
+        }
+      }
+  
+      .place-cart-button.route.add {
+        background-color: $regularGrayColor;
+        cursor: default;
+        .post-icon {
+          cursor: default;
+        }
+      }
+  
+      .place-cart-button.route.remove {
         background-color: $lightMintColor;
+        &:hover {
+          background-color: $darkMintColor;
+        }
+      }
+  
+      .place-cart-button.search.selected {
+        background-color: white;
+      }
+  
+      .post-icon {
+        width: 18px;
+        height: 18px;
+        cursor: pointer;
       }
     }
-    .post-icon {
-      width: 23px;
-      height: 23px;
-      cursor: pointer;
-    }
+    
   }
 
   .place-container-middle {
