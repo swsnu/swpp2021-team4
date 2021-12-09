@@ -1,9 +1,9 @@
 import React from "react";
-import { SimplePlaceType } from "../store/Post/postInterfaces";
+import { PlaceType } from "../store/Post/postInterfaces";
 import '../styles/components/PlaceItem.css';
 
 interface PropsType {
-    place: SimplePlaceType
+    place: PlaceType
 }
 
 function PlaceItem(props: PropsType) {
