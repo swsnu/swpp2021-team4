@@ -26,7 +26,9 @@
 }
 
 .folder .left {
-  width: 30vw;
+  -ms-flex-negative: 0;
+      flex-shrink: 0;
+  width: 270px;
   height: 100%;
   margin-bottom: 100px;
   background: #F5F6F9;
@@ -124,6 +126,8 @@
 }
 
 .folder .right {
+  -ms-flex-negative: 2;
+      flex-shrink: 2;
   height: -webkit-max-content;
   height: -moz-max-content;
   height: max-content;

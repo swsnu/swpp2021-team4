@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useCallback } from "react";
 import "../styles/components/MyRoutesSection.scss";
 import addIcon from "../static/add_day_icon.svg";
+import removeIcon from "../static/remove.svg";
 import deleteDayIcon from '../static/delete_day_icon.svg';
 import whiteDeleteDayIcon from '../static/white_delete_day_icon.svg';
 import {
@@ -8,7 +9,6 @@ import {
   PlaceDayType,
   PlaceType,
 } from "../store/Post/postInterfaces";
-import deleteIcon from "../static/delete.svg";
 import Path from "./Path";
 import { useDrop } from "react-dnd";
 import ItemTypes from "../utils/items";
@@ -85,9 +85,9 @@ function MyRoutesSection(props: PropType) {
         >
           Day {i + 1}
           <img
-            style={{ marginLeft: 9 }}
+            className="delete-icon"
             src={i + 1 === selectedDay ? deleteDayIcon : whiteDeleteDayIcon}
-            onClick={(e) => onClickDeleteDay(e, i+1)}
+            onClick={(e) => onClickDeleteDay(e, i + 1)}
           />
         </div>
       );
@@ -140,7 +140,7 @@ function MyRoutesSection(props: PropType) {
                 index={index}
                 id={place.id}
                 place={place}
-                icon={deleteIcon}
+                icon={removeIcon}
                 type="route"
                 editPlace={props.editPlace}
                 onEditPlace={onEditPlace}
