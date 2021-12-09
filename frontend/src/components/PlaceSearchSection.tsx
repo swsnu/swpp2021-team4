@@ -14,6 +14,7 @@ interface PropType {
   onClickTabButton: (type: "place" | "search") => void;
   onAddPlace: (place: any) => void;
   isPlaceInRoute: (place: any) => boolean;
+  initialCartPlaceList: PlaceDayType[];
   setRoutePlaces?: (value: React.SetStateAction<PlaceDayType[]>) => void;
   // searchTabQuery?: string
   // onChangeSearchTabQuery?: (e: React.ChangeEvent<HTMLInputElement>) => void
@@ -26,15 +27,24 @@ function PlaceSearchSection(props: PropType) {
     onAddPlace,
     isPlaceInRoute,
     setRoutePlaces,
+    initialCartPlaceList,
     // searchTabQuery,
     // onChangeSearchTabQuery
   } = props;
-
   const [searchTabQuery, setSearchTabQuery] = useState("");
   const [isSearchRequested, setIsSearchRequested] = useState(false);
   const [searchResults, setSearchResults] = useState([]);
-  const [cartPlaceList, setCartPlaceList] = useState<PlaceDayType[]>([]);
+  const [cartPlaceList, setCartPlaceList] = useState(initialCartPlaceList);
 
+  useEffect(() => {
+    if (initialCartPlaceList) {
+      initialCartPlaceList.map((placeDay: PlaceDayType) => {
+        setCartPlaceList((prevState: any) => {
+          return [...prevState, placeDay];
+        });
+      });
+    }
+  }, [initialCartPlaceList[1]]);
   useEffect(() => {
     if (isSearchRequested) {
       let places = new kakao.maps.services.Places();

@@ -10,7 +10,7 @@ import delete_btn from "../static/delete-icon.svg";
 import { deleteFolderAction, editFolderAction } from "../store/User/userAction";
 import PostItem from "../components/PostItem";
 import { Folder, UserType } from "../store/User/userInterfaces";
-import { SimplePlaceType, SimplePostType } from "../store/Post/postInterfaces";
+import { PlaceType, SimplePostType } from "../store/Post/postInterfaces";
 import BasicUserInfo from "../components/BasicUserInfo";
 import PlaceItem from "../components/PlaceItem";
 
@@ -27,7 +27,7 @@ function MyPage(props: PropType) {
   const [folderInfo, setFolderInfo] = useState<{
     my_posts: SimplePostType[];
     posts: SimplePostType[];
-    places: SimplePlaceType[];
+    places: PlaceType[];
   }>({
     my_posts: [],
     posts: [],
@@ -90,7 +90,7 @@ function MyPage(props: PropType) {
       .get<{
         my_posts: SimplePostType[];
         posts: SimplePostType[];
-        places: SimplePlaceType[];
+        places: PlaceType[];
       }>(`/user/${props.id}/folder/${folder_id}`)
       .then(function (response) {
         setFolderInfo(response.data);
