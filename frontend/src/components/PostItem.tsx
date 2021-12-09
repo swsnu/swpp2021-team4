@@ -20,14 +20,14 @@ function PostItem(props: PropType) {
     <div className="postitem-container">
       <div className="title-container">
         <NavLink
-          to={`/post/${props.id}/`}
+          to={`/post/show/${props.id}/`}
           className="nav-mypage-btn nav-btn-font title"
         >
           {props.title}
         </NavLink>
       </div>
       <div className="thumbnail">
-        <NavLink to={`/post/${props.id}/`}>
+        <NavLink to={`/post/show/${props.id}/`}>
           <img src={props.thumbnail_image} />
         </NavLink>
       </div>

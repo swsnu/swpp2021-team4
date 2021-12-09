@@ -7,9 +7,13 @@ import UserInfoPage from "./pages/UserInfoPage";
 import EditProfilePage from "./pages/EditProfilePage";
 import CreateEditPostPage from "./pages/CreateEditPostPage";
 import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { RootReducerType } from "./store/store";
 import "./styles/reset.css";
 
 function App() {
+  const { loggedUser } = useSelector((state: RootReducerType) => state.user);
+  console.log(loggedUser)
   const unAuthorized = () => {
     return <Redirect to="/signin/" />;
   };
@@ -22,10 +26,7 @@ function App() {
           path={["/post/create/", "/post/:id/edit/"]}
           component={CreateEditPostPage}
         />
-        <Route exact path="/post/:id/" component={PostDetailPage} />
-        <Route exact path="/user_info/:id/" component={UserInfoPage} />
         <Route exact path="/edit_profile/" component={EditProfilePage} />
-        <Route path={["/", "/main/"]} component={MainPage} />
       </Switch>
     );
   };
@@ -36,8 +37,11 @@ function App() {
         <Switch>
           <Route exact path="/signup/" component={SignupPage} />
           <Route exact path="/signin/" component={SigninPage} />
+          <Route exact path="/post/show/:id/" component={PostDetailPage} />
+          <Route exact path="/user_info/:id/" component={UserInfoPage} />
+          <Route exact path={["/", "/main/"]} component={MainPage} />
 
-          {true ? authorized() : unAuthorized()}
+          {loggedUser.id ? authorized() : unAuthorized()}
         </Switch>
       </BrowserRouter>
     </div>
