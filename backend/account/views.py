@@ -3,7 +3,8 @@ from django.views.decorators.http import require_GET, require_http_methods
 from django.contrib.auth import logout
 from django.contrib.auth.hashers import check_password
 from django.shortcuts import get_object_or_404
-from django.views.decorators.csrf import ensure_csrf_cookie
+# from django.views.decorators.csrf import ensure_csrf_cookie
+from django.views.decorators.csrf import csrf_exempt
 import json
 from json.decoder import JSONDecodeError
 
@@ -12,7 +13,8 @@ from route.models import Folder, Post, Comment, Like, PostInFolder, Place, Place
 from .forms import UserForm
 
 
-@ensure_csrf_cookie
+@csrf_exempt
+# @ensure_csrf_cookie
 @require_http_methods(["POST"])
 def signup(request):
     try:
@@ -29,6 +31,7 @@ def signup(request):
     user.save()
     return HttpResponse(status=201)
 
+@csrf_exempt
 @require_http_methods(["POST"])
 def signin(request):
     try:
