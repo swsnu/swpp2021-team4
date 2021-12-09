@@ -79,7 +79,7 @@ function CreateEditPost(props: PropsType) {
 
   useEffect(() => {
     if (isPostCreated && createdPostId) {
-      history.push(`/post/${createdPostId}/`);
+      history.push(`/post/show/${createdPostId}/`);
     }
   }, [isPostCreated, createdPostId]);
 
@@ -309,11 +309,7 @@ function CreateEditPost(props: PropsType) {
 
     if (pageLocation.state?.from === "edit") {
       // edit
-      dispatch(
-        editPostAction(formData, post.id, () =>
-          history.push(`/post/${post?.id}/`)
-        )
-      );
+      dispatch(editPostAction(formData, post.id, () => history.push(`/post/show/${post?.id}/`)));
     } else {
       //create
       dispatch(

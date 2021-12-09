@@ -3,7 +3,7 @@ from django.views.decorators.http import require_GET, require_http_methods
 from django.contrib.auth import logout
 from django.contrib.auth.hashers import check_password
 from django.shortcuts import get_object_or_404
-
+from django.views.decorators.csrf import ensure_csrf_cookie
 import json
 from json.decoder import JSONDecodeError
 
@@ -11,6 +11,8 @@ from .models import User
 from route.models import Folder, Post, Comment, Like, PostInFolder, Place, PlaceInFolder
 from .forms import UserForm
 
+
+@ensure_csrf_cookie
 @require_http_methods(["POST"])
 def signup(request):
     try:
