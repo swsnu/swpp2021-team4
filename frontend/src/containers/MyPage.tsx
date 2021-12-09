@@ -170,6 +170,7 @@ function MyPage(props: PropType) {
                       className="folder-name"
                       onClick={() => {
                         onClickFolder(fold.id);
+                        setSelected(0);
                       }}
                     >
                       {fold.name}{" "}
