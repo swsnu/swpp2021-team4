@@ -25,6 +25,16 @@ function CreateEditHeader(props: PropType) {
   const [cityIdx, setCityIdx] = useState<number>(0);
   const [location, setLocation] = useState<string | null>('');
 
+  useEffect(() => {
+    if (postInfoData.location) {
+      const locations = postInfoData.location.split(" ");
+      setRegionIdx(Regions.indexOf(locations[0]));
+      if (locations.length > 1) {
+        setCityIdx(Cities[Regions.indexOf(locations[0])].indexOf(postInfoData.location.split(" ")[1]));
+      }
+    }
+  }, [postInfoData]);
+
   const onChangeRegion = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setRegionIdx(e.target.selectedIndex);
     setCityIdx(0);
@@ -67,14 +77,19 @@ function CreateEditHeader(props: PropType) {
                 return (<option
                   key={region}
                   value={region}
+                  selected={Regions.indexOf(region) === regionIdx - 1}
                 >{region}</option>);
               })}
             </select>
-            {Cities[regionIdx] && Cities[regionIdx].length > 0 && (
+            {Cities[regionIdx - 1] && Cities[regionIdx - 1].length > 0 && (
               <select id="location-city" onChange={onChangeCity} className={`${cityIdx !== 0 ? 'selected' : ''}`}>
                 <option value="">시, 군</option>
                 {Cities[regionIdx - 1].map((city: string) => {
-                  return (<option key={city} value={city}>{city}</option>);
+                  return (<option
+                    key={city}
+                    value={city}
+                    selected={Cities[regionIdx - 1].indexOf(city) === cityIdx - 1}
+                  >{city}</option>);
                 })}
               </select>
             )}

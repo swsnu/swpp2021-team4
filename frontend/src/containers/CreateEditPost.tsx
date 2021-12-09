@@ -81,7 +81,7 @@ function CreateEditPost(props: PropsType) {
       setRoutePlaces(placeList);
       setPostInfoData({
         title: post.title,
-        location: post.location,
+        location: post.locationQuery,
         days: post.days,
         seasonRecommendation: post.season,
         theme: post.theme,
@@ -193,7 +193,6 @@ function CreateEditPost(props: PropsType) {
       folderId,
       isShared,
     } = postInfoData;
-    const location = locationQuery;
 
     const placeListData = routePlaces
       .filter((p: PlaceDayType) => p.day)
@@ -230,7 +229,7 @@ function CreateEditPost(props: PropsType) {
     formData.append('days', days?.toString());
     formData.append('theme', theme);
     formData.append('season', seasonRecommendation);
-    formData.append('location', location);
+    formData.append('location', locationQuery);
     formData.append('availableWithoutCar', isAvailableWithoutCar.toString())
     formData.append('folder_id', folderId ? folderId.toString() : '172637238622223');
     formData.append('places', JSON.stringify(placeListData));
@@ -291,7 +290,7 @@ function CreateEditPost(props: PropsType) {
       return;
     }
     if (deletedDay == postInfoData.days) {
-      setSelectedDay(deletedDay-1);
+      setSelectedDay(deletedDay - 1);
     }
 
     const deletedPlaceList = routePlaces?.filter((place: PlaceDayType) => place.day === deletedDay);
@@ -308,12 +307,12 @@ function CreateEditPost(props: PropsType) {
       remainPlaceList = remainPlaceList?.map((placeDay: PlaceDayType) => {
         const { place, day } = placeDay;
         return day > deletedDay
-          ? { day: day-1, place: { ...place, day: day-1 }}
+          ? { day: day - 1, place: { ...place, day: day - 1 } }
           : placeDay;
       });
     }
     setRoutePlaces(remainPlaceList);
-    setPostInfoData({ ...postInfoData, days: postInfoData.days-1 });
+    setPostInfoData({ ...postInfoData, days: postInfoData.days - 1 });
   };
 
   const onClickAddIcon = useCallback(
