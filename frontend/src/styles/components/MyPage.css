@@ -131,10 +131,11 @@
   height: -webkit-max-content;
   height: -moz-max-content;
   height: max-content;
-  width: 100vw;
+  width: 900px;
   min-height: 300px;
   background: #F5F6F9;
   border-radius: 6px;
+  padding-top: 10px;
 }
 
 .folder .right .posts-container {
@@ -155,7 +156,22 @@
           flex-direction: column;
 }
 
-.folder .right .posts-container .folder-my-posts {
-  background-color: #c7eee7;
+.folder .right .posts-container .folder-my-posts,
+.folder .right .posts-container .folder-posts {
+  min-width: 330px;
+}
+
+.folder .right .posts-container .folder-places {
+  min-width: 230px;
+}
+
+.folder .right .posts-container .folder-title {
+  font-family: "Montserrat", Monospace;
+  font-weight: 600;
+  color: white;
+  background-color: #57ceb9;
+  padding: 10px 30px;
+  border-radius: 20px;
+  margin: 10px auto;
 }
 /*# sourceMappingURL=MyPage.css.map */

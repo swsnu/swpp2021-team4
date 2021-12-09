@@ -85,9 +85,9 @@
   font-weight: 400px;
   font-size: 15px;
   color: #ffffff;
-  padding: 3px 3px 3px 3px;
+  padding: 5px 10px;
   background-color: #57ceb9;
-  border-radius: 10%;
+  border-radius: 8px;
   -webkit-box-pack: end;
       -ms-flex-pack: end;
           justify-content: end;

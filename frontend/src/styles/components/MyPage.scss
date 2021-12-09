@@ -96,12 +96,15 @@
   .right {
     flex-shrink: 2;
     height: max-content;
-    width: 100vw;
+    width: 900px;
     min-height: 300px;
     background: $whiteColor;
     border-radius: 6px;
+    padding-top: 10px;
+
     .posts-container {
       display: flex;
+
       .folder-my-posts,
       .folder-posts,
       .folder-places {
@@ -109,9 +112,26 @@
         flex-direction: column;
       }
 
-      .folder-my-posts {
-        background-color: $lightMintColor;
+      .folder-my-posts,
+      .folder-posts {
+        min-width: 330px;
       }
+
+      .folder-places {
+        min-width: 230px;
+      }
+
+      .folder-title {
+        font-family: $mainFont;
+        font-weight: 600;
+        color: white;
+        background-color: $darkMintColor;
+        padding: 10px 30px;
+        border-radius: 20px;
+        margin: 10px auto;
+      }
+
+      
     }
   }
 }

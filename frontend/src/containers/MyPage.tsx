@@ -214,46 +214,55 @@ function MyPage(props: PropType) {
         <div className="right">
           <div className="posts-container">
             <div className="folder-my-posts">
-              {selected === 0 &&
-                folderInfo.my_posts?.map((post) => {
-                  return (
-                    <PostItem
-                      key={post.id}
-                      id={post.id}
-                      thumbnail_image={post.thumbnail_image}
-                      title={post.title}
-                      author_name={post.author_name}
-                      author_id={post.author_id}
-                      like_count={post.like_count}
-                      comment_count={post.comment_count}
-                      is_shared={post.is_shared}
-                    />
-                  );
-                })}
+              <div className="folder-title">내가 작성한 루트</div>
+              <div className="folder-items">
+                {selected === 0 &&
+                  folderInfo.my_posts?.map((post) => {
+                    return (
+                      <PostItem
+                        key={post.id}
+                        id={post.id}
+                        thumbnail_image={post.thumbnail_image}
+                        title={post.title}
+                        author_name={post.author_name}
+                        author_id={post.author_id}
+                        like_count={post.like_count}
+                        comment_count={post.comment_count}
+                        is_shared={post.is_shared}
+                      />
+                    );
+                  })}
+              </div>
             </div>
             <div className="folder-posts">
-              {selected === 0 &&
-                folderInfo.posts?.map((post) => {
-                  return (
-                    <PostItem
-                      key={post.id}
-                      id={post.id}
-                      thumbnail_image={post.thumbnail_image}
-                      title={post.title}
-                      author_name={post.author_name}
-                      author_id={post.author_id}
-                      like_count={post.like_count}
-                      comment_count={post.comment_count}
-                      is_shared={post.is_shared}
-                    />
-                  );
-                })}
+              <div className="folder-title">카트에 담은 루트</div>
+              <div className="folder-items">
+                {selected === 0 &&
+                  folderInfo.posts?.map((post) => {
+                    return (
+                      <PostItem
+                        key={post.id}
+                        id={post.id}
+                        thumbnail_image={post.thumbnail_image}
+                        title={post.title}
+                        author_name={post.author_name}
+                        author_id={post.author_id}
+                        like_count={post.like_count}
+                        comment_count={post.comment_count}
+                        is_shared={post.is_shared}
+                      />
+                    );
+                  })}
+              </div>
             </div>
             <div className="folder-places">
-              {selected === 0 &&
-                folderInfo.places?.map((place) => {
-                  return <PlaceItem key={place.id} place={place} />;
-                })}
+              <div className="folder-title">카트에 담은 장소</div>
+              <div className="folder-items">
+                {selected === 0 &&
+                  folderInfo.places?.map((place) => {
+                    return <PlaceItem key={place.id} place={place} />;
+                  })}
+              </div>
             </div>
             {selected === 1 &&
               likedPosts &&
