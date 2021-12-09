@@ -223,9 +223,20 @@ def user_folder(request, user_id, fid):
             'is_shared': post.is_shared
         } for post in posts_in_folder ],
         'places': [ {
-            'id': place.id,
-            'name': place.name,
-            'description': place.description
+            'id':place.id,
+            'kakao_id': place.kakao_id if place.kakao_id else 0,
+            'name':place.name,
+            'post_id':place.post_id,
+            'description':place.description,
+            'day':place.day,
+            'index': place.index,
+            'folder_id':place.folder_id,
+            'latitude':place.latitude,
+            'longitude':place.longitude,
+            'homepage':place.homepage,
+            'phone_number':place.phone_number,
+            'address':place.address,
+            'category':place.category
         } for place in places_in_folder ]
     }
 

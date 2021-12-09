@@ -105,11 +105,11 @@ export interface PlaceDayType {
   day: number;
 }
 
-export interface SimplePlaceType {
-  id: number;
-  name: string;
-  description: string;
-}
+// export interface SimplePlaceType {
+//   id: number;
+//   name: string;
+//   description: string;
+// }
 
 export interface CommentType {
   username: string;

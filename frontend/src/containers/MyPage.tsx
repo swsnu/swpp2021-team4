@@ -10,7 +10,7 @@ import delete_btn from "../static/delete-icon.svg";
 import { deleteFolderAction, editFolderAction } from "../store/User/userAction";
 import PostItem from "../components/PostItem";
 import { Folder, UserType } from "../store/User/userInterfaces";
-import { SimplePlaceType, SimplePostType } from "../store/Post/postInterfaces";
+import { PlaceType, SimplePostType } from "../store/Post/postInterfaces";
 import BasicUserInfo from "../components/BasicUserInfo";
 import PlaceItem from "../components/PlaceItem";
 
@@ -24,10 +24,14 @@ function MyPage(props: PropType) {
 
   const [toggle, setToggle] = useState(true);
   const [isSubmitted, setIsSubmitted] = useState(false);
-  const [folderInfo, setFolderInfo] = useState<{ my_posts: SimplePostType[], posts: SimplePostType[], places: SimplePlaceType[] }>({
+  const [folderInfo, setFolderInfo] = useState<{
+    my_posts: SimplePostType[];
+    posts: SimplePostType[];
+    places: PlaceType[];
+  }>({
     my_posts: [],
     posts: [],
-    places: []
+    places: [],
   });
   const [sharedPosts, setSharedPosts] = useState<SimplePostType[]>();
   const [likedPosts, setLikedPosts] = useState<SimplePostType[]>();
@@ -84,9 +88,9 @@ function MyPage(props: PropType) {
   const onClickFolder = (folder_id: number) => {
     axios
       .get<{
-        my_posts: SimplePostType[],
-        posts: SimplePostType[],
-        places: SimplePlaceType[]
+        my_posts: SimplePostType[];
+        posts: SimplePostType[];
+        places: PlaceType[];
       }>(`/user/${props.id}/folder/${folder_id}`)
       .then(function (response) {
         setFolderInfo(response.data);
@@ -108,7 +112,7 @@ function MyPage(props: PropType) {
     axios
       .get<{ shared_posts: SimplePostType[] }>(`/user/${props.id}/share/`)
       .then(function (response) {
-        setSharedPosts(response.data.shared_posts)
+        setSharedPosts(response.data.shared_posts);
         setSelected(2);
       })
       .catch((err) => err.response);
@@ -148,7 +152,8 @@ function MyPage(props: PropType) {
               />
             )}
           </div>
-          {toggle && props.loggedUser.folders &&
+          {toggle &&
+            props.loggedUser.folders &&
             props.loggedUser.folders.map((fold: Folder) => {
               if (folderInputs.folderId === fold.id) {
                 return (
@@ -160,24 +165,35 @@ function MyPage(props: PropType) {
                       onChange={onChangeEditFolder}
                       placeholder="변경할 폴더 이름"
                     />
-                    <img className="icon" src={edit_btn} onClick={() => onEditFolder(fold.id)} />
+                    <img
+                      className="icon"
+                      src={edit_btn}
+                      onClick={() => onEditFolder(fold.id)}
+                    />
                   </div>
-                )
+                );
               } else {
                 return (
-                  <div className="eachItem" key={fold.id}>
-                    <div
-                      className="folder-name"
-                      onClick={() => {
-                        onClickFolder(fold.id);
-                        setSelected(0);
-                      }}
-                    >
-                      {fold.name}{" "}
-                    </div>
+                  <div
+                    className="eachItem"
+                    key={fold.id}
+                    onClick={() => {
+                      onClickFolder(fold.id);
+                      setSelected(0);
+                    }}
+                  >
+                    <div className="folder-name">{fold.name} </div>
                     <div>
-                      <img className="icon" src={edit_btn} onClick={() => onClickEditFolder(fold.id, fold.name)} />
-                      <img className="icon" src={delete_btn} onClick={() => onDeleteFolder(fold.id)} />
+                      <img
+                        className="icon"
+                        src={edit_btn}
+                        onClick={() => onClickEditFolder(fold.id, fold.name)}
+                      />
+                      <img
+                        className="icon"
+                        src={delete_btn}
+                        onClick={() => onDeleteFolder(fold.id)}
+                      />
                     </div>
                   </div>
                 );
@@ -198,7 +214,7 @@ function MyPage(props: PropType) {
         <div className="right">
           <div className="posts-container">
             <div className="folder-my-posts">
-              {(selected === 0) &&
+              {selected === 0 &&
                 folderInfo.my_posts?.map((post) => {
                   return (
                     <PostItem
@@ -216,7 +232,7 @@ function MyPage(props: PropType) {
                 })}
             </div>
             <div className="folder-posts">
-              {(selected === 0) &&
+              {selected === 0 &&
                 folderInfo.posts?.map((post) => {
                   return (
                     <PostItem
@@ -234,18 +250,13 @@ function MyPage(props: PropType) {
                 })}
             </div>
             <div className="folder-places">
-              {(selected === 0) &&
+              {selected === 0 &&
                 folderInfo.places?.map((place) => {
-                  return (
-                    <PlaceItem
-                      key={place.id}
-                      place={place}
-                    />
-                  );
+                  return <PlaceItem key={place.id} place={place} />;
                 })}
-
             </div>
-            {(selected === 1) && likedPosts &&
+            {selected === 1 &&
+              likedPosts &&
               likedPosts.map((post) => {
                 return (
                   <PostItem
@@ -260,9 +271,9 @@ function MyPage(props: PropType) {
                     is_shared={post.is_shared}
                   />
                 );
-              })
-            }
-            {(selected === 2) && sharedPosts &&
+              })}
+            {selected === 2 &&
+              sharedPosts &&
               sharedPosts.map((post) => {
                 return (
                   <PostItem
@@ -277,8 +288,7 @@ function MyPage(props: PropType) {
                     is_shared={post.is_shared}
                   />
                 );
-              })
-            }
+              })}
           </div>
         </div>
       </div>

@@ -1,4 +1,4 @@
-@import '../../Variables/Variables.scss';
+@import "../../Variables/Variables.scss";
 
 .profile {
   display: flex;
@@ -18,9 +18,9 @@
   flex-direction: row;
   width: 85vw;
   margin: 50px auto;
-
   .left {
-    width: 30vw;
+    flex-shrink: 0;
+    width: 270px;
     height: 100%;
     margin-bottom: 100px;
     background: $whiteColor;
@@ -92,8 +92,9 @@
       }
     }
   }
-  
+
   .right {
+    flex-shrink: 2;
     height: max-content;
     width: 100vw;
     min-height: 300px;
@@ -113,5 +114,4 @@
       }
     }
   }
- 
 }
