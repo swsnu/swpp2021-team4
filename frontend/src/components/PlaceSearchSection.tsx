@@ -5,7 +5,7 @@ import CreatePlaceCard from "./CreatePlaceCard";
 import cart from "../static/cart-icon.svg";
 import deleteIcon from "../static/delete.svg";
 import searchIcon from "../static/search.svg";
-import addIcon from "../static/add_day_icon.svg";
+import addIcon from "../static/add.svg";
 
 const { kakao } = window;
 interface PropType {

@@ -2,6 +2,10 @@ import React, { useRef, useState } from "react";
 import buttonUp from "../static/chevron-down.svg";
 import buttonDown from "../static/chevron-up.svg";
 import edit_btn from "../static/edit-icon.svg";
+import checked from "../static/checked.svg";
+import add from "../static/add.svg";
+import remove from "../static/remove.svg";
+import deleteIcon from "../static/delete.svg";
 import {
   PlaceType,
   PlaceDayType,
@@ -23,8 +27,8 @@ interface PropsType {
   isPlaceInCart: (id: number) => boolean;
   isPlaceInRoute?: (place: any) => boolean;
   onClickCartButton?:
-    | ((place: PlaceType) => void)
-    | ((place: PlaceType) => void);
+  | ((place: PlaceType) => void)
+  | ((place: PlaceType) => void);
   onAddPlace?: (place: PlaceType) => void;
   editPlace?: { id: number; description: string };
   onEditPlace?: (place: PlaceType) => void;
@@ -87,9 +91,9 @@ function CreatePlaceCard(props: PropsType) {
                   value.to === item.place.id.toString() ||
                   (props.todayPlaceList &&
                     key ===
-                      props.todayPlaceList[
-                        (item?.index || 1) - 1
-                      ].place.id.toString())
+                    props.todayPlaceList[
+                      (item?.index || 1) - 1
+                    ].place.id.toString())
                 ) {
                   // removes path objects related to the dragged place and hovered place.
                   delete prevState[key];
@@ -157,14 +161,69 @@ function CreatePlaceCard(props: PropsType) {
     <div ref={ref} style={{ opacity }} className="create-place-container">
       <div className="place-container-top">
         <div className="place-title">{props.place.name}</div>
-        <button
-          className={`place-cart-button ${props.type}`.concat(
-            props.isPlaceInCart(props.place.id) ? " selected" : ""
-          )}
-          onClick={onClickCartButton}
-        >
-          <img className="post-icon" src={props.icon} />
-        </button>
+        {props.type === "search" && (
+          <div className="place-cart-button-container">
+            <button
+              className={`place-cart-button ${props.type}`.concat(
+                props.isPlaceInCart(props.place.id) ? " selected" : ""
+              )}
+              onClick={onClickCartButton}
+            >
+              {props.isPlaceInCart(props.place.id) && (
+                <img className="post-icon added" src={checked} />
+              )}
+              {!props.isPlaceInCart(props.place.id) && (
+                <img className="post-icon" src={props.icon} />
+              )}
+            </button>
+          </div>
+        )}
+        {props.type === "route" && (
+          <div className="place-cart-button-container">
+            <button
+              className={`place-cart-button add ${props.type}`}
+            >
+              <img className="post-icon" src={add} />
+            </button>
+            <button
+              className={`place-cart-button remove ${props.type}`}
+              onClick={onClickCartButton}
+            >
+              <img className="post-icon" src={props.icon} />
+            </button>
+          </div>
+        )}
+        {props.type === "place" && props.isPlaceInRoute && props.isPlaceInRoute(props.place) && (
+          <div className="place-cart-button-container">
+            <button
+              className={`place-cart-button add disabled ${props.type}`}
+            >
+              <img className="post-icon" src={add} />
+            </button>
+            <button
+              className={`place-cart-button delete ${props.type}`}
+              onClick={onClickCartButton}
+            >
+              <img className="post-icon" src={deleteIcon} />
+            </button>
+          </div>
+        )}
+        {props.type === "place" && props.isPlaceInRoute && !props.isPlaceInRoute(props.place) && (
+          <div className="place-cart-button-container">
+            <button
+              className={`place-cart-button add ${props.type}`}
+              onClick={onClickCartButton}
+            >
+              <img className="post-icon" src={add} />
+            </button>
+            <button
+              className={`place-cart-button remove disabled ${props.type}`}
+            >
+              <img className="post-icon" src={remove} />
+            </button>
+          </div>
+        )}
+
       </div>
       <div className="place-container-middle">
         {props.type === "route" &&

@@ -39,4 +39,9 @@
 .create-edit-content-container .create-edit-routes-section {
   margin-left: 21px;
 }
+
+.create-edit-content-container .delete-icon {
+  width: 10px;
+  margin-left: 10px;
+}
 /*# sourceMappingURL=CreateEditPost.css.map */
