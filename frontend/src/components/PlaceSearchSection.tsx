@@ -44,7 +44,7 @@ function PlaceSearchSection(props: PropType) {
         });
       });
     }
-  }, [initialCartPlaceList[1]]);
+  }, [initialCartPlaceList[initialCartPlaceList.length - 1]]);
   useEffect(() => {
     if (isSearchRequested) {
       let places = new kakao.maps.services.Places();
