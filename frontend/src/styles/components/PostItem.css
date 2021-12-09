@@ -29,7 +29,7 @@
 
 .postitem-container .thumbnail img {
   width: 260px;
-  height: 230px;
+  height: 200px;
 }
 
 .postitem-container .title-container {
@@ -48,6 +48,12 @@
   font-style: normal;
   font-weight: 600px;
   font-size: 20px;
+  padding: 5px 10px;
+  border-radius: 10px;
+}
+
+.postitem-container .title-container .title:hover {
+  background-color: #F5F6F9;
 }
 
 .postitem-container .content {

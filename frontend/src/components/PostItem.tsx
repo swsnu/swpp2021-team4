@@ -3,6 +3,7 @@ import { NavLink } from "react-router-dom";
 import "../styles/components/PostItem.css";
 import comment_icon from "../static/comment-icon.svg";
 import unlike_icon from "../static/unlike-icon.svg";
+import defaultThumbnail from "../static/png/default-thumbnail.png";
 
 interface PropType {
   id: number;
@@ -21,14 +22,14 @@ function PostItem(props: PropType) {
       <div className="title-container">
         <NavLink
           to={`/post/show/${props.id}/`}
-          className="nav-mypage-btn nav-btn-font title"
+          className="title"
         >
           {props.title}
         </NavLink>
       </div>
       <div className="thumbnail">
         <NavLink to={`/post/show/${props.id}/`}>
-          <img src={props.thumbnail_image} />
+          <img src={props.thumbnail_image ? props.thumbnail_image : defaultThumbnail} />
         </NavLink>
       </div>
       <div className="content">

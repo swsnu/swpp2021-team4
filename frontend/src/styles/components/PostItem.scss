@@ -22,7 +22,7 @@
 
   .thumbnail img {
     width: 260px;
-    height: 230px;
+    height: 200px;
   }
 
   .title-container {
@@ -36,6 +36,11 @@
       font-style: normal;
       font-weight: 600px;
       font-size: 20px;
+      padding: 5px 10px;
+      border-radius: 10px;
+      &:hover {
+        background-color: $whiteColor;
+      }
     }
   }
 
