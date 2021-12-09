@@ -4,7 +4,6 @@ import buttonDown from "../static/chevron-up.svg";
 import edit_btn from "../static/edit-icon.svg";
 import checked from "../static/checked.svg";
 import add from "../static/add.svg";
-import remove from "../static/remove.svg";
 import deleteIcon from "../static/delete.svg";
 import {
   PlaceType,
@@ -29,6 +28,7 @@ interface PropsType {
   onClickCartButton?:
   | ((place: PlaceType) => void)
   | ((place: PlaceType) => void);
+  onClickUncartButton?: (place: PlaceType) => void;
   onAddPlace?: (place: PlaceType) => void;
   editPlace?: { id: number; description: string };
   onEditPlace?: (place: PlaceType) => void;
@@ -157,6 +157,12 @@ function CreatePlaceCard(props: PropsType) {
     }
   };
 
+  const onClickUncartButton = () => {
+    if (props.onClickUncartButton) {
+      props.onClickUncartButton(props.place);
+    }
+  };
+
   return (
     <div ref={ref} style={{ opacity }} className="create-place-container">
       <div className="place-container-top">
@@ -181,11 +187,6 @@ function CreatePlaceCard(props: PropsType) {
         {props.type === "route" && (
           <div className="place-cart-button-container">
             <button
-              className={`place-cart-button add ${props.type}`}
-            >
-              <img className="post-icon" src={add} />
-            </button>
-            <button
               className={`place-cart-button remove ${props.type}`}
               onClick={onClickCartButton}
             >
@@ -202,7 +203,7 @@ function CreatePlaceCard(props: PropsType) {
             </button>
             <button
               className={`place-cart-button delete ${props.type}`}
-              onClick={onClickCartButton}
+              onClick={onClickUncartButton}
             >
               <img className="post-icon" src={deleteIcon} />
             </button>
@@ -217,9 +218,10 @@ function CreatePlaceCard(props: PropsType) {
               <img className="post-icon" src={add} />
             </button>
             <button
-              className={`place-cart-button remove disabled ${props.type}`}
+              className={`place-cart-button delete ${props.type}`}
+              onClick={onClickUncartButton}
             >
-              <img className="post-icon" src={remove} />
+              <img className="post-icon" src={deleteIcon} />
             </button>
           </div>
         )}

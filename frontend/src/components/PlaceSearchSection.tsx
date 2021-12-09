@@ -173,9 +173,8 @@ function PlaceSearchSection(props: PropType) {
               place={result.place}
               icon={isPlaceInRoute(result.place) ? deleteIcon : addIcon}
               type="place"
-              onClickCartButton={
-                isPlaceInRoute(result.place) ? onDeleteCartButton : onAddPlace
-              }
+              onClickCartButton={onAddPlace}
+              onClickUncartButton={onDeleteCartButton}
               isPlaceInCart={(id: number) => isPlaceInCart(id)}
               isPlaceInRoute={isPlaceInRoute}
               setRoutePlaces={setRoutePlaces}

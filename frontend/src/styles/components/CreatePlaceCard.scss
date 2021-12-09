@@ -63,15 +63,7 @@
           cursor: default;
         }
       }
-  
-      .place-cart-button.route.add {
-        background-color: $regularGrayColor;
-        cursor: default;
-        .post-icon {
-          cursor: default;
-        }
-      }
-  
+      
       .place-cart-button.route.remove {
         background-color: $lightMintColor;
         &:hover {

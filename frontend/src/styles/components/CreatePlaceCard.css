@@ -74,15 +74,6 @@
   cursor: default;
 }
 
-.create-place-container .place-container-top .place-cart-button-container .place-cart-button.route.add {
-  background-color: #caccd2;
-  cursor: default;
-}
-
-.create-place-container .place-container-top .place-cart-button-container .place-cart-button.route.add .post-icon {
-  cursor: default;
-}
-
 .create-place-container .place-container-top .place-cart-button-container .place-cart-button.route.remove {
   background-color: #c7eee7;
 }
