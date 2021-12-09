@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "main": "src/index.js",
-  "proxy": "http://127.0.0.1:8000",
+  "proxy": "http://3.225.124.3:8000",
   "dependencies": {
     "@testing-library/dom": "^8.11.1",
     "@testing-library/jest-dom": "^5.11.4",
