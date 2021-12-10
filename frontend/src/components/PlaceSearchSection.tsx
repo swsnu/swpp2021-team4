@@ -37,7 +37,6 @@ function PlaceSearchSection(props: PropType) {
   const [cartPlaceList, setCartPlaceList] = useState(initialCartPlaceList);
 
   useEffect(() => {
-    console.log("실행됨");
     const placeList: any = [];
     if (initialCartPlaceList) {
       initialCartPlaceList.map((placeDay: PlaceDayType) => {

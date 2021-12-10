@@ -20,7 +20,7 @@
   -webkit-box-direction: normal;
       -ms-flex-direction: row;
           flex-direction: row;
-  background-color: #FFFFFF;
+  background-color: #ffffff;
   margin-right: 1.97vw;
   padding: 0.885vw 1.5vw 4.6vw 1.5vw;
   -webkit-box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
@@ -34,6 +34,27 @@
   font-size: 2rem;
   line-height: 2.437rem;
   color: #000000;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.create-edit-content-container .my-routes-title .select-route-button {
+  margin-left: 1vw;
+  margin-top: 0vh;
+  cursor: pointer;
+}
+
+.create-edit-content-container .my-routes-title .select-route-button img:last-child {
+  display: none;
+}
+
+.create-edit-content-container .my-routes-title .select-route-button:hover img:first-child {
+  display: none;
+}
+
+.create-edit-content-container .my-routes-title .select-route-button:hover img:last-child {
+  display: inline-block;
 }
 
 .create-edit-content-container .create-edit-routes-section {

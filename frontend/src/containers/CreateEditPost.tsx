@@ -5,6 +5,7 @@ import CreateEditHeader from "../components/CreateEditHeader";
 import Map from "../components/Map";
 import MyRoutesSection from "../components/MyRoutesSection";
 import PlaceSearchSection from "../components/PlaceSearchSection";
+import SelectRouteModal from "./SelectRouteModal";
 import { usePostState } from "../hooks/usePostState";
 import { CreateEditPostLocationType } from "../pages/CreateEditPostPage";
 import { createPostAction, editPostAction } from "../store/Post/postAction";
@@ -15,11 +16,14 @@ import {
   PlaceType,
   ServerPathType,
   SimplePostType,
+  // PostType,
 } from "../store/Post/postInterfaces";
 import { Folder } from "../store/User/userInterfaces";
 import "../styles/components/CreateEditPost.css";
 import { useUserState } from "../hooks/useUserState";
 import axios from "axios";
+import route_select_icon from "../static/route-select-icon.svg";
+import route_select_icon_hover from "../static/route-select-icon-hover.svg";
 
 export interface PostInfoDataType {
   title: string;
@@ -76,6 +80,7 @@ function CreateEditPost(props: PropsType) {
   const [isPostCreated, setIsPostCreated] = useState(false);
   const [createdPostId, setCreatedPostId] = useState<number>(0);
   const [pathList, setPathList] = useState<PathListType>({});
+  const [routeModalVisible, setRouteModalVisible] = useState<boolean>(false);
 
   useEffect(() => {
     if (isPostCreated && createdPostId) {
@@ -83,6 +88,7 @@ function CreateEditPost(props: PropsType) {
     }
   }, [isPostCreated, createdPostId]);
 
+  const [cartRouteList, setCartRouteList] = useState<SimplePostType[]>([]);
   useEffect(() => {
     if (props.folder.id) {
       axios
@@ -92,7 +98,6 @@ function CreateEditPost(props: PropsType) {
           places: PlaceType[];
         }>(`/user/${loggedUser.id}/folder/${props.folder.id}`)
         .then(function (response) {
-          // setFolderInfo(response.data)
           response.data.places.map((place: PlaceType) => {
             setCartPlaceList((prevState: any) => {
               return [
@@ -103,13 +108,11 @@ function CreateEditPost(props: PropsType) {
                 },
               ];
             });
-            // setCartPlaceList([
-            //   ...initialCartPlaceList,
-            //   {
-            //     place: place,
-            //     day: 0,
-            //   },
-            // ]);
+          });
+          response.data.posts.map((route: SimplePostType) => {
+            setCartRouteList((prevState: any) => {
+              return [...prevState, route];
+            });
           });
         })
         .catch((err) => err.response);
@@ -120,7 +123,6 @@ function CreateEditPost(props: PropsType) {
     });
   }, [props.folder]);
 
-  console.log(initialCartPlaceList);
   useEffect(() => {
     if (
       pageLocation.state?.from === "edit" &&
@@ -309,7 +311,11 @@ function CreateEditPost(props: PropsType) {
 
     if (pageLocation.state?.from === "edit") {
       // edit
-      dispatch(editPostAction(formData, post.id, () => history.push(`/post/show/${post?.id}/`)));
+      dispatch(
+        editPostAction(formData, post.id, () =>
+          history.push(`/post/show/${post?.id}/`)
+        )
+      );
     } else {
       //create
       dispatch(
@@ -413,8 +419,37 @@ function CreateEditPost(props: PropsType) {
     setSelectedTab(type);
   };
 
+  const [selectedRoute, setSelectedRoute] = useState<number | null>(null);
+  const onClickRouteSubmitButton = useCallback((routeId: number) => {
+    if (selectedRoute) {
+      setSelectedRoute(routeId);
+      setRouteModalVisible(false);
+    } else {
+      alert("빈 루트가 생성됩니다.");
+    }
+  }, []);
+
+  // console.log(cartRouteList);
+
+  // const [selectedRoute, setSelectedRoute] = useState<PostType | null>(null);
+  // const onClickRouteSelectButton = useCallback(
+  //   (route: PostType | null) => {
+  //     if (post.route?.id) {
+  //       setRouteModalVisible(false);
+  //       setSelectedRoute(route);
+  //     } else {
+  //       alert("루트를 선택한 후 버튼을 눌러주세요.");
+  //     }
+  //   },
+  //   []
+  // );
+
   return (
-    <div>
+    <div
+      onClick={() => {
+        if (routeModalVisible) setRouteModalVisible(false);
+      }}
+    >
       <CreateEditHeader
         folder={props.folder}
         thumbnailImage={postInfoData.thumbnailImage || defaultImage}
@@ -439,7 +474,21 @@ function CreateEditPost(props: PropsType) {
           </div>
 
           <div className="create-edit-routes-section">
-            <div className="my-routes-title">My Routes</div>
+            <div className="my-routes-title">
+              My Routes
+              <div className="select-route-button">
+                <img src={route_select_icon} />
+                <img
+                  src={route_select_icon_hover}
+                  onClick={() => setRouteModalVisible(true)}
+                />
+              </div>
+            </div>
+            <SelectRouteModal
+              cartRouteList={cartRouteList}
+              isModalVisible={routeModalVisible}
+              onClickRouteSubmitButton={onClickRouteSubmitButton}
+            />
             <MyRoutesSection
               days={postInfoData.days}
               selectedDay={selectedDay}
