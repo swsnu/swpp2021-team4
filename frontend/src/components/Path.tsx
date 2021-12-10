@@ -89,7 +89,7 @@ function Path(props: PropsType) {
 
   return (
     <div className="path-container">
-      <img src={arrowDownIcon} />
+      <img className="path-icon" src={arrowDownIcon} />
       {
         (!props.isFromDetail || Object.keys(pathList).length > 0) &&
         <>
@@ -118,7 +118,7 @@ function Path(props: PropsType) {
       }
       {
         (!props.isFromDetail || Object.keys(pathList).length == 0) &&
-        <span style={{ marginLeft: 20, fontSize: '0.75rem' }}>
+        <span className="post-detail-path">
           {
             transportation && !time.includes('NaN')
               ? `약 ${time} (${pathInfoData.transportation}, 시속 ${pathInfoData.velocity}km 기준)`

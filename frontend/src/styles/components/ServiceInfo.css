@@ -1,17 +1,30 @@
 .serviceInfo {
   margin: 0 auto;
   width: 80vw;
-  padding-top: 30px; }
+  padding-top: 30px;
+}
 
 .service-header {
   font-family: "Montserrat", Monospace;
   font-weight: 600;
   font-size: 20px;
   color: #969696;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  justify-content: space-between;
-  margin: 10px 15px; }
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  margin: 10px 15px;
+}
 
 .explanation {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  flex-direction: row; }
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+}
+/*# sourceMappingURL=ServiceInfo.css.map */

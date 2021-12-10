@@ -29,4 +29,10 @@
 .path-container .path-select-container {
   margin: 0 1.6vw;
 }
+
+.path-container .post-detail-path {
+  font-size: 14px;
+  font-weight: 500;
+  margin-left: 30px;
+}
 /*# sourceMappingURL=Path.css.map */
