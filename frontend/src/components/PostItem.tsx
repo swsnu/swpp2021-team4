@@ -15,6 +15,7 @@ interface PropType {
   like_count: number;
   comment_count: number;
   is_shared: boolean;
+  isPostInCart?: boolean;
   isMyPost?: boolean;
 }
 
@@ -28,7 +29,7 @@ function PostItem(props: PropType) {
           <div className="title">
             {props.title}
           </div>
-          {!props.isMyPost && (
+          {props.isPostInCart && (
             <button className="post-in-cart-delete">
               <img src={deleteIcon}></img>
             </button>

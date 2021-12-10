@@ -174,11 +174,12 @@
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  height: 40px;
 }
 
 .post-header .header-content-right .header-top .header-top-buttons .header-top-icons .icon {
-  width: 17px;
-  margin-right: 13px;
+  width: 23px;
+  margin-left: 13px;
   margin-bottom: 5px;
   cursor: pointer;
 }

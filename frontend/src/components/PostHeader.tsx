@@ -102,12 +102,12 @@ function PostHeader(props: PropType) {
       <div className="header-content-right">
         <div className="header-top">
           <div className="header-top-buttons">
-            {isAuthenticated && props.isPostDetail && props.post.is_shared && (
+            {isAuthenticated && props.isPostDetail && props.post.is_shared && props.loggedUserId !== props.post.author_id && (
               <button
                 className="post-cart-button"
                 onClick={props.onClickAddPostCartButton}
               >
-                Add this route to Cart
+                루트를 장바구니에 담기
               </button>
             )}
             {props.isPostDetail && !props.post.is_shared && (
