@@ -53,9 +53,6 @@ const initialPostData: PostInfoDataType = {
 //   places: [],
 // });
 
-const defaultImage =
-  "https://media.triple.guide/triple-cms/c_limit,f_auto,h_1024,w_1024/73968eea-cbbe-49cd-b001-353e9e962cbf.jpeg";
-
 interface PropsType {
   folder: Folder;
 }
@@ -291,11 +288,10 @@ function CreateEditPost(props: PropsType) {
       transportation: value.transportation,
     }));
 
-    const defaultthumbnailImage =
-      "https://media.triple.guide/triple-cms/c_limit,f_auto,h_1024,w_1024/73968eea-cbbe-49cd-b001-353e9e962cbf.jpeg";
     const formData = new FormData();
     formData.append("title", title);
     formData.append("is_shared", isShared?.toString() || 'false');
+    if (thumbnailImage) formData.append("thumbnail_image", thumbnailImage);
     formData.append('thumbnail_image', thumbnailImage || defaultthumbnailImage);
     formData.append('days', days?.toString());
     formData.append('theme', theme);
@@ -417,7 +413,7 @@ function CreateEditPost(props: PropsType) {
     <div>
       <CreateEditHeader
         folder={props.folder}
-        thumbnailImage={postInfoData.thumbnailImage || defaultImage}
+        thumbnailImage={postInfoData.thumbnailImage}
         postInfoData={postInfoData}
         onClickAvailableWithoutCar={onClickAvailableWithoutCar}
         onChangePostInfoData={onChangePostInfoData}

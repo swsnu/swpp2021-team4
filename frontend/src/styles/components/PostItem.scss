@@ -22,20 +22,36 @@
 
   .thumbnail img {
     width: 260px;
-    height: 230px;
+    height: 200px;
   }
 
   .title-container {
     width: 100%;
     display: flex;
-    justify-content: flex-start;
+    align-items: center;
+    justify-content: space-between;
+    margin: 5px 0 10px 0;
 
     .title {
-      margin: 0 20px 5px 20px;
       font-family: $koreanFont;
       font-style: normal;
-      font-weight: 600px;
+      font-weight: 600;
       font-size: 20px;
+      color: $blackColor;
+      padding: 7px 10px;
+      border-radius: 10px;
+      &:hover {
+        background-color: $whiteColor;
+      }
+    }
+
+    .post-in-cart-delete {
+      width: 32px;
+      height: 32px;
+      border-radius: 16px;
+      img {
+        width: 20px;
+      }
     }
   }
 
@@ -58,12 +74,28 @@
         font-style: normal;
         font-weight: 400px;
         font-size: 15px;
-        color: #ffffff;
-        padding: 3px 3px 3px 3px;
-        background-color: $darkMintColor;
-        border-radius: 10%;
+        color: $darkMintColor;
+        padding: 5px 10px;
+        border-radius: 8px;
         justify-content: end;
         height: 20px;
+        &:hover {
+          background-color: $whiteColor;
+        }
+      }
+
+      .author_badge {
+        font-family: $mainFont;
+        font-style: normal;
+        font-weight: 400px;
+        font-size: 15px;
+        background-color: $darkMintColor;
+        color: white;
+        padding: 5px 10px;
+        border-radius: 6px;
+        justify-content: end;
+        height: 25px;
+        cursor: default;
       }
 
       .counts {

@@ -4,6 +4,7 @@ import { Folder } from "../store/User/userInterfaces";
 import '../styles/components/CreateEditHeader.css';
 import checked_icon from "../static/checked.svg";
 import { Regions, Cities } from "../utils/locations";
+import defaultThumbnail from "../static/png/default-thumbnail.png";
 
 interface PropType {
   folder: Folder
@@ -55,7 +56,7 @@ function CreateEditHeader(props: PropType) {
     <div className="post-ce-container">
       <div className="post-ce-header">
         <div className="header-image">
-          <img src={thumbnailImage} />
+          <img src={thumbnailImage ? thumbnailImage : defaultThumbnail} />
         </div>
 
         <div className="post-ce-info-container">
