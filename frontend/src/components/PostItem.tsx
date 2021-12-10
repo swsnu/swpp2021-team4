@@ -4,7 +4,7 @@ import "../styles/components/PostItem.css";
 import comment_icon from "../static/comment-icon.svg";
 import unlike_icon from "../static/unlike-icon.svg";
 import defaultThumbnail from "../static/png/default-thumbnail.png";
-import deleteIcon from "../static/delete-icon.svg"
+import deleteIcon from "../static/delete-icon.svg";
 
 interface PropType {
   id: number;
@@ -15,26 +15,33 @@ interface PropType {
   like_count: number;
   comment_count: number;
   is_shared: boolean;
-  isPostInCart?: boolean;
   isMyPost?: boolean;
+  onClickUncartPost?: (postId: number) => void;
 }
 
 function PostItem(props: PropType) {
   return (
     <div className="postitem-container">
-      <NavLink
-        to={`/post/show/${props.id}/`}
-      >
-        <div className="title-container">
+
+      <div className="title-container">
+        <NavLink
+          to={`/post/show/${props.id}/`}
+        >
           <div className="title">
             {props.title}
           </div>
-          {props.isPostInCart && (
-            <button className="post-in-cart-delete">
-              <img src={deleteIcon}></img>
-            </button>
-          )}
-        </div>
+        </NavLink>
+        {props.onClickUncartPost && (
+          <button className="post-in-cart-delete">
+            <img src={deleteIcon} onClick={() => {
+              if (props.onClickUncartPost) props.onClickUncartPost(props.id)
+            }} />
+          </button>
+        )}
+      </div>
+      <NavLink
+        to={`/post/show/${props.id}/`}
+      >
         <div className="thumbnail">
           <img src={props.thumbnail_image ? props.thumbnail_image : defaultThumbnail} />
         </div>

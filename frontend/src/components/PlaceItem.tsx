@@ -5,6 +5,7 @@ import deleteIcon from "../static/delete-icon.svg"
 
 interface PropsType {
     place: PlaceType
+    onClickUncartPlace?: (placeId: number) => void;
 }
 
 function PlaceItem(props: PropsType) {
@@ -13,7 +14,9 @@ function PlaceItem(props: PropsType) {
             <div className="place-item-top">
                 <div className="place-item-title">{props.place.name}</div>
                 <button className="place-item-delete">
-                    <img src={deleteIcon}></img>
+                    <img src={deleteIcon} onClick={() => {
+                        if (props.onClickUncartPlace) props.onClickUncartPlace(props.place.id)
+                    }}></img>
                 </button>
             </div>
             <div className="place-item-description">{props.place.description}</div>

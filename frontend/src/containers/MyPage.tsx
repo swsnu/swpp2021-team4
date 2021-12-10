@@ -37,6 +37,7 @@ function MyPage(props: PropType) {
   const [likedPosts, setLikedPosts] = useState<SimplePostType[]>();
 
   const [selected, setSelected] = useState(0);
+  const [selectedFolderId, setSelectedFolderId] = useState(0);
   const [isFolderEdited, setIsFolderEdited] = useState(false);
   const [folderInputs, setFolderInputs] = useState({
     folderId: 0,
@@ -91,12 +92,31 @@ function MyPage(props: PropType) {
         my_posts: SimplePostType[];
         posts: SimplePostType[];
         places: PlaceType[];
-      }>(`/user/${props.id}/folder/${folder_id}`)
+      }>(`/user/${props.id}/folder/${folder_id}/`)
       .then(function (response) {
         setFolderInfo(response.data);
+        setSelectedFolderId(folder_id);
       })
       .catch((err) => err.response);
   };
+
+  const onClickUncartPost = (postId: number) => {
+    axios
+      .delete(`/post/${postId}/cart/${selectedFolderId}/`)
+      .then(function () {
+        onClickFolder(selectedFolderId);
+      })
+      .catch((err) => err.response);
+  }
+
+  const onClickUncartPlace = (placeId: number) => {
+    axios
+      .delete(`/place/${placeId}/cart/${selectedFolderId}/`)
+      .then(function () {
+        onClickFolder(selectedFolderId);
+      })
+      .catch((err) => err.response);
+  }
 
   const onClickLike = () => {
     axios
@@ -251,7 +271,7 @@ function MyPage(props: PropType) {
                         like_count={post.like_count}
                         comment_count={post.comment_count}
                         is_shared={post.is_shared}
-                        isPostInCart={true}
+                        onClickUncartPost={onClickUncartPost}
                       />
                     );
                   })}
@@ -262,7 +282,11 @@ function MyPage(props: PropType) {
               <div className="folder-items">
                 {selected === 0 &&
                   folderInfo.places?.map((place) => {
-                    return <PlaceItem key={place.id} place={place} />;
+                    return <PlaceItem
+                      key={place.id}
+                      place={place}
+                      onClickUncartPlace={onClickUncartPlace}
+                    />;
                   })}
               </div>
             </div>
