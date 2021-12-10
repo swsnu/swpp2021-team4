@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState} from "react";
 import { PlaceType, PlaceDayType } from "../store/Post/postInterfaces";
 import "../styles/components/PlaceSearchSection.css";
 import CreatePlaceCard from "./CreatePlaceCard";
@@ -35,15 +35,18 @@ function PlaceSearchSection(props: PropType) {
   const [isSearchRequested, setIsSearchRequested] = useState(false);
   const [searchResults, setSearchResults] = useState([]);
   const [cartPlaceList, setCartPlaceList] = useState(initialCartPlaceList);
+
   useEffect(() => {
+    console.log("실행됨");
+    const placeList: any = [];
     if (initialCartPlaceList) {
       initialCartPlaceList.map((placeDay: PlaceDayType) => {
-        setCartPlaceList((prevState: any) => {
-          return [...prevState, placeDay];
-        });
+        placeList.push(placeDay);
       });
     }
-  }, [initialCartPlaceList[0]]);
+    setCartPlaceList(placeList);
+  }, [Object.keys(initialCartPlaceList).join()]);
+
   useEffect(() => {
     if (isSearchRequested) {
       let places = new kakao.maps.services.Places();
