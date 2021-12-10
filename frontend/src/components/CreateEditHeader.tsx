@@ -28,9 +28,9 @@ function CreateEditHeader(props: PropType) {
   useEffect(() => {
     if (postInfoData.location) {
       const locations = postInfoData.location.split(" ");
-      setRegionIdx(Regions.indexOf(locations[0]));
+      setRegionIdx(Regions.indexOf(locations[0]) + 1);
       if (locations.length > 1) {
-        setCityIdx(Cities[Regions.indexOf(locations[0])].indexOf(postInfoData.location.split(" ")[1]));
+        setCityIdx(Cities[Regions.indexOf(locations[0])].indexOf(postInfoData.location.split(" ")[1]) + 1);
       }
     }
   }, [postInfoData]);
@@ -47,6 +47,7 @@ function CreateEditHeader(props: PropType) {
   }
 
   useEffect(() => {
+    
     props.changeLocationQuery(location);
   }, [location]);
 

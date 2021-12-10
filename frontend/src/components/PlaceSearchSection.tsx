@@ -1,4 +1,4 @@
-import React, { useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import { PlaceType, PlaceDayType } from "../store/Post/postInterfaces";
 import "../styles/components/PlaceSearchSection.css";
 import CreatePlaceCard from "./CreatePlaceCard";
@@ -37,7 +37,6 @@ function PlaceSearchSection(props: PropType) {
   const [cartPlaceList, setCartPlaceList] = useState(initialCartPlaceList);
 
   useEffect(() => {
-    console.log("실행됨");
     const placeList: any = [];
     if (initialCartPlaceList) {
       initialCartPlaceList.map((placeDay: PlaceDayType) => {

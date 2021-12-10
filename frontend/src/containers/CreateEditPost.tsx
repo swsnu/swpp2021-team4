@@ -120,7 +120,6 @@ function CreateEditPost(props: PropsType) {
     });
   }, [props.folder]);
 
-  console.log(initialCartPlaceList);
   useEffect(() => {
     if (
       pageLocation.state?.from === "edit" &&
@@ -135,17 +134,17 @@ function CreateEditPost(props: PropsType) {
       const convertedPathList: PathListType = {};
       post.pathList?.forEach(
         (path: ServerPathType) =>
-          (convertedPathList[path.from_place_id] = {
-            to: path.to_place_id.toString(),
-            transportation: path.transportation,
-          })
+        (convertedPathList[path.from_place_id] = {
+          to: path.to_place_id.toString(),
+          transportation: path.transportation,
+        })
       );
 
       setPathList(convertedPathList);
       setRoutePlaces(placeList);
       setPostInfoData({
         title: post.title,
-        location: post.locationQuery,
+        location: post.location,
         days: post.days,
         seasonRecommendation: post.season,
         theme: post.theme,
@@ -156,6 +155,10 @@ function CreateEditPost(props: PropsType) {
       });
     }
   }, [pageLocation, post]);
+
+  useEffect(() => {
+    if (locationQuery) setPostInfoData({ ...postInfoData, location: locationQuery });
+  }, [locationQuery]);
 
   const changeLocationQuery = (text: string | null) => {
     if (text) setLocationQuery(text);
@@ -259,6 +262,7 @@ function CreateEditPost(props: PropsType) {
       isAvailableWithoutCar,
       folderId,
       isShared,
+      location,
     } = postInfoData;
 
     const placeListData = routePlaces
@@ -296,7 +300,7 @@ function CreateEditPost(props: PropsType) {
     formData.append('days', days?.toString());
     formData.append('theme', theme);
     formData.append('season', seasonRecommendation);
-    formData.append('location', locationQuery);
+    formData.append('location', location);
     formData.append('availableWithoutCar', isAvailableWithoutCar.toString())
     formData.append('folder_id', folderId ? folderId.toString() : '172637238622223');
     formData.append('places', JSON.stringify(placeListData));
