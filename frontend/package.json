@@ -95,7 +95,7 @@
       "!src/containers/CreateEditPost.tsx",
       "!src/pages/CreateEditPostPage.tsx",
       "!backend/tripick/asgi.py", 
-      "backend/tripick/wsgi.py"
+      "!backend/tripick/wsgi.py"
     ]
   }
 }
