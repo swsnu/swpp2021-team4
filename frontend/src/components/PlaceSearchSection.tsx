@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState} from "react";
 import { PlaceType, PlaceDayType } from "../store/Post/postInterfaces";
 import "../styles/components/PlaceSearchSection.css";
 import CreatePlaceCard from "./CreatePlaceCard";
 import cart from "../static/cart-icon.svg";
 import deleteIcon from "../static/delete.svg";
 import searchIcon from "../static/search.svg";
-import addIcon from "../static/add_day_icon.svg";
+import addIcon from "../static/add.svg";
 
 const { kakao } = window;
 interface PropType {
@@ -14,6 +14,7 @@ interface PropType {
   onClickTabButton: (type: "place" | "search") => void;
   onAddPlace: (place: any) => void;
   isPlaceInRoute: (place: any) => boolean;
+  initialCartPlaceList: PlaceDayType[];
   setRoutePlaces?: (value: React.SetStateAction<PlaceDayType[]>) => void;
   // searchTabQuery?: string
   // onChangeSearchTabQuery?: (e: React.ChangeEvent<HTMLInputElement>) => void
@@ -26,14 +27,25 @@ function PlaceSearchSection(props: PropType) {
     onAddPlace,
     isPlaceInRoute,
     setRoutePlaces,
+    initialCartPlaceList,
     // searchTabQuery,
     // onChangeSearchTabQuery
   } = props;
-
   const [searchTabQuery, setSearchTabQuery] = useState("");
   const [isSearchRequested, setIsSearchRequested] = useState(false);
   const [searchResults, setSearchResults] = useState([]);
-  const [cartPlaceList, setCartPlaceList] = useState<PlaceDayType[]>([]);
+  const [cartPlaceList, setCartPlaceList] = useState(initialCartPlaceList);
+
+  useEffect(() => {
+    console.log("실행됨");
+    const placeList: any = [];
+    if (initialCartPlaceList) {
+      initialCartPlaceList.map((placeDay: PlaceDayType) => {
+        placeList.push(placeDay);
+      });
+    }
+    setCartPlaceList(placeList);
+  }, [Object.keys(initialCartPlaceList).join()]);
 
   useEffect(() => {
     if (isSearchRequested) {
@@ -164,9 +176,8 @@ function PlaceSearchSection(props: PropType) {
               place={result.place}
               icon={isPlaceInRoute(result.place) ? deleteIcon : addIcon}
               type="place"
-              onClickCartButton={
-                isPlaceInRoute(result.place) ? onDeleteCartButton : onAddPlace
-              }
+              onClickCartButton={onAddPlace}
+              onClickUncartButton={onDeleteCartButton}
               isPlaceInCart={(id: number) => isPlaceInCart(id)}
               isPlaceInRoute={isPlaceInRoute}
               setRoutePlaces={setRoutePlaces}

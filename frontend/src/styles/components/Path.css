@@ -11,23 +11,25 @@
           align-items: center;
   margin: 0.73vw 0 0.73vw 3vw;
   font-family: "Noto Sans CJK KR", Monospace;
+  font-size: 13px;
 }
 
 .path-container select {
   margin-left: 20px;
+  width: 80px;
   height: 35px;
-  padding: 5px 25px 5px 10px;
+  padding: 5px;
   border-radius: 4px;
   outline: 0 none;
   border: none;
   background-color: white;
   color: #000000;
-  font-size: 15px;
+  font-size: 13px;
   font-weight: 400;
 }
 
 .path-container .path-select-container {
-  margin: 0 1.6vw;
+  margin: 0 15px;
 }
 
 .path-container .post-detail-path {
