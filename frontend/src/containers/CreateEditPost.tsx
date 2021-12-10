@@ -53,9 +53,6 @@ const initialPostData: PostInfoDataType = {
 //   places: [],
 // });
 
-const defaultImage =
-  "https://media.triple.guide/triple-cms/c_limit,f_auto,h_1024,w_1024/73968eea-cbbe-49cd-b001-353e9e962cbf.jpeg";
-
 interface PropsType {
   folder: Folder;
 }
@@ -135,10 +132,10 @@ function CreateEditPost(props: PropsType) {
       const convertedPathList: PathListType = {};
       post.pathList?.forEach(
         (path: ServerPathType) =>
-          (convertedPathList[path.from_place_id] = {
-            to: path.to_place_id.toString(),
-            transportation: path.transportation,
-          })
+        (convertedPathList[path.from_place_id] = {
+          to: path.to_place_id.toString(),
+          transportation: path.transportation,
+        })
       );
 
       setPathList(convertedPathList);
@@ -288,12 +285,10 @@ function CreateEditPost(props: PropsType) {
       transportation: value.transportation,
     }));
 
-    const defaultthumbnailImage =
-      "https://media.triple.guide/triple-cms/c_limit,f_auto,h_1024,w_1024/73968eea-cbbe-49cd-b001-353e9e962cbf.jpeg";
     const formData = new FormData();
     formData.append("title", title);
     formData.append("is_shared", isShared?.toString() || "false");
-    formData.append("thumbnail_image", thumbnailImage || defaultthumbnailImage);
+    if (thumbnailImage) formData.append("thumbnail_image", thumbnailImage);
     formData.append("days", days?.toString());
     formData.append("theme", theme);
     formData.append("season", seasonRecommendation);
@@ -417,7 +412,7 @@ function CreateEditPost(props: PropsType) {
     <div>
       <CreateEditHeader
         folder={props.folder}
-        thumbnailImage={postInfoData.thumbnailImage || defaultImage}
+        thumbnailImage={postInfoData.thumbnailImage}
         postInfoData={postInfoData}
         onClickAvailableWithoutCar={onClickAvailableWithoutCar}
         onChangePostInfoData={onChangePostInfoData}

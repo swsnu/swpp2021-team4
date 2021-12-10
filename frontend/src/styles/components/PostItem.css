@@ -29,7 +29,7 @@
 
 .postitem-container .thumbnail img {
   width: 260px;
-  height: 230px;
+  height: 200px;
 }
 
 .postitem-container .title-container {
@@ -37,17 +37,37 @@
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: start;
-      -ms-flex-pack: start;
-          justify-content: flex-start;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  margin: 5px 0 10px 0;
 }
 
 .postitem-container .title-container .title {
-  margin: 0 20px 5px 20px;
   font-family: "Noto Sans CJK KR", Monospace;
   font-style: normal;
-  font-weight: 600px;
+  font-weight: 600;
   font-size: 20px;
+  color: #000000;
+  padding: 7px 10px;
+  border-radius: 10px;
+}
+
+.postitem-container .title-container .title:hover {
+  background-color: #F5F6F9;
+}
+
+.postitem-container .title-container .post-in-cart-delete {
+  width: 32px;
+  height: 32px;
+  border-radius: 16px;
+}
+
+.postitem-container .title-container .post-in-cart-delete img {
+  width: 20px;
 }
 
 .postitem-container .content {
@@ -84,14 +104,33 @@
   font-style: normal;
   font-weight: 400px;
   font-size: 15px;
-  color: #ffffff;
-  padding: 3px 3px 3px 3px;
-  background-color: #57ceb9;
-  border-radius: 10%;
+  color: #57ceb9;
+  padding: 5px 10px;
+  border-radius: 8px;
   -webkit-box-pack: end;
       -ms-flex-pack: end;
           justify-content: end;
   height: 20px;
+}
+
+.postitem-container .content .info .author_name:hover {
+  background-color: #F5F6F9;
+}
+
+.postitem-container .content .info .author_badge {
+  font-family: "Montserrat", Monospace;
+  font-style: normal;
+  font-weight: 400px;
+  font-size: 15px;
+  background-color: #57ceb9;
+  color: white;
+  padding: 5px 10px;
+  border-radius: 6px;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: end;
+  height: 25px;
+  cursor: default;
 }
 
 .postitem-container .content .info .counts {

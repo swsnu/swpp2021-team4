@@ -3,6 +3,8 @@ import { NavLink } from "react-router-dom";
 import "../styles/components/PostItem.css";
 import comment_icon from "../static/comment-icon.svg";
 import unlike_icon from "../static/unlike-icon.svg";
+import defaultThumbnail from "../static/png/default-thumbnail.png";
+import deleteIcon from "../static/delete-icon.svg";
 
 interface PropType {
   id: number;
@@ -13,30 +15,51 @@ interface PropType {
   like_count: number;
   comment_count: number;
   is_shared: boolean;
+  isMyPost?: boolean;
+  onClickUncartPost?: (postId: number) => void;
 }
 
 function PostItem(props: PropType) {
   return (
     <div className="postitem-container">
+
       <div className="title-container">
         <NavLink
           to={`/post/show/${props.id}/`}
-          className="nav-mypage-btn nav-btn-font title"
         >
-          {props.title}
+          <div className="title">
+            {props.title}
+          </div>
         </NavLink>
+        {props.onClickUncartPost && (
+          <button className="post-in-cart-delete">
+            <img src={deleteIcon} onClick={() => {
+              if (props.onClickUncartPost) props.onClickUncartPost(props.id)
+            }} />
+          </button>
+        )}
       </div>
-      <div className="thumbnail">
-        <NavLink to={`/post/show/${props.id}/`}>
-          <img src={props.thumbnail_image} />
-        </NavLink>
-      </div>
+      <NavLink
+        to={`/post/show/${props.id}/`}
+      >
+        <div className="thumbnail">
+          <img src={props.thumbnail_image ? props.thumbnail_image : defaultThumbnail} />
+        </div>
+      </NavLink>
       <div className="content">
         <div className="info">
           <div className="author">
-            <NavLink to={`/user_info/${props.author_id}/`} className="author_name">
-              {props.author_name}
-            </NavLink>
+            {props.isMyPost && props.is_shared && (
+              <div className="author_badge">Shared</div>
+            )}
+            {props.isMyPost && !props.is_shared && (
+              <div className="author_name"></div>
+            )}
+            {!props.isMyPost && (
+              <NavLink to={`/user_info/${props.author_id}/`} className="author_name">
+                {props.author_name}
+              </NavLink>
+            )}
           </div>
           {props.is_shared && (
             <div className="counts">

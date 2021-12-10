@@ -32,7 +32,7 @@ const stubInitialState = {
         id: 1,
         header_image: "ex1",
         thumbnail_image: "ex1",
-        author_id: 1,
+        author_id: 2,
         author_name: "ex1",
         availableWithoutCar: true,
         comments: [
@@ -97,7 +97,7 @@ const stubInitialState = {
       id: 1,
       header_image: "ex1",
       thumbnail_image: "ex1",
-      author_id: 1,
+      author_id: 2,
       author_name: "ex1",
       availableWithoutCar: true,
       comments: [
@@ -224,7 +224,7 @@ describe("<PostDetail/>", () => {
       .spyOn(postAction, "getPostAction")
       .mockImplementation(() => jest.fn());
 
-    spyPush = jest.spyOn(history, "push").mockImplementation(() => {});
+    spyPush = jest.spyOn(history, "push").mockImplementation(() => { });
   });
   afterEach(() => {
     jest.clearAllMocks();
@@ -366,7 +366,7 @@ describe("<PostDetail/>", () => {
       .spyOn(reactRedux, "useSelector")
       .mockImplementation((callback) => callback(stubInitialState));
     jest.spyOn(window, "confirm").mockReturnValue(true);
-    jest.spyOn(window, "alert").mockImplementation(() => {});
+    jest.spyOn(window, "alert").mockImplementation(() => { });
     const component = mount(postDetail);
     const wrapper = component.find(PostHeader);
     axios.get = jest
