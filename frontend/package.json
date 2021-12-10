@@ -86,7 +86,6 @@
     "collectCoverageFrom": [
       "src/**/*.{js,jsx,tsx}",
       "!src/*.{js,jsx,tsx}",
-      "!src/components.Map",
       "!src/components/CreateEditHeader.tsx", 
       "!src/components/CreatePlaceCard.tsx", 
       "!src/components/Map.tsx", 
