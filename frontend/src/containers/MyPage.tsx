@@ -229,6 +229,7 @@ function MyPage(props: PropType) {
                         like_count={post.like_count}
                         comment_count={post.comment_count}
                         is_shared={post.is_shared}
+                        isMyPost={true}
                       />
                     );
                   })}
