@@ -37,8 +37,12 @@ export const signinAction = (
         localStorage.setItem("isAuthorized", "true");
         callbackFunc(true);
       })
-      .catch(() => {
-        alert("로그인 실패!");
+      .catch((err) => {
+        if (err.response.status === 401) {
+          alert(`로그인 실패\n${err.response.data}`);
+        } else {
+          alert('로그인이 실패했습니다!');
+        }
         dispatch({ type: SIGNIN_FAIL });
       });
   };

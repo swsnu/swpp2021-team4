@@ -46,7 +46,7 @@ def signin(request):
     try:
         user = User.objects.get(email=email)
     except User.DoesNotExist:   # Wrong email
-        return HttpResponse(status=401)
+        return HttpResponse("없는 이메일입니다!", status=401)
 
     if check_password(password, user.password):
         request.session['user'] = user.id
@@ -69,7 +69,7 @@ def signin(request):
 
         return JsonResponse(response_dict, status=201)
     else:      # Wrong password
-        return HttpResponse(status=401)
+        return HttpResponse("잘못된 비밀번호입니다!", status=401)
 
 @require_http_methods(["POST"])
 @ensure_csrf_cookie
