@@ -10,7 +10,8 @@ import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { RootReducerType } from "./store/store";
 import "./styles/reset.css";
-
+axios.defaults.xsrfCookieName = 'csrftoken';
+axios.defaults.xsrfHeaderName = 'X-CSRFToken';
 function App() {
   const { loggedUser } = useSelector((state: RootReducerType) => state.user);
   const unAuthorized = () => {
