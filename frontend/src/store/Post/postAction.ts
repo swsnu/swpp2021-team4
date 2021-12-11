@@ -24,7 +24,8 @@ interface SearchForm {
   theme: string;
   transportation: string;
 }
-
+axios.defaults.xsrfCookieName = 'csrftoken';
+axios.defaults.xsrfHeaderName = 'X-CSRFToken';
 export const getPostsAction = () => {
   return (dispatch: Redux.Dispatch<PostDispatchType>) => {
     return axios
