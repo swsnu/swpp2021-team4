@@ -4,7 +4,7 @@
   padding-top: 30px;
 }
 
-.service-header {
+.serviceInfo .service-header {
   font-family: "Montserrat", Monospace;
   font-weight: 600;
   font-size: 20px;
@@ -18,7 +18,7 @@
   margin: 10px 15px;
 }
 
-.explanation {
+.serviceInfo .explanation {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -26,5 +26,67 @@
   -webkit-box-direction: normal;
       -ms-flex-direction: row;
           flex-direction: row;
+}
+
+.serviceInfo .service-content {
+  margin-top: 3%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  font-family: "Noto Sans CJK KR", Monospace;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  font-weight: 300;
+  font-size: 20px;
+  text-shadow: 0.5px 0.5px 0.5px black;
+}
+
+.serviceInfo .service-content .item {
+  width: 30%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
+          box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
+  border-radius: 6px;
+}
+
+.serviceInfo .service-content .item .icon {
+  margin-top: 3%;
+  width: 50%;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.serviceInfo .service-content .item .icon-expl {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin-top: 8%;
+  color: #57ceb9;
+  margin-bottom: 5%;
 }
 /*# sourceMappingURL=ServiceInfo.css.map */
