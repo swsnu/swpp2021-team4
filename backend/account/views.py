@@ -4,7 +4,7 @@ from django.contrib.auth import logout
 from django.contrib.auth.hashers import check_password
 from django.shortcuts import get_object_or_404
 # from django.views.decorators.csrf import ensure_csrf_cookie
-from django.views.decorators.csrf import csrf_exempt
+#from django.views.decorators.csrf import csrf_exempt
 import json
 from json.decoder import JSONDecodeError
 from django.views.decorators.csrf import ensure_csrf_cookie
