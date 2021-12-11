@@ -1,4 +1,4 @@
-from django.http import HttpResponse, JsonResponse,HttpResponseBadRequest
+from django.http import HttpResponse, JsonResponse,HttpResponseBadRequest, response
 import json
 from .models import Post, Comment, Place, Like, Folder, PostInFolder, PlaceInFolder, Path
 from json.decoder import JSONDecodeError
@@ -192,6 +192,32 @@ def search(request):
             })
     return JsonResponse({'ordinary':postlist, 'like':sorted(postlist, key=(lambda x:-x['like_count'])), 'date': sorted(postlist, key=(lambda x: x['created_at']),reverse=True)}, safe=False)
 
+@require_GET
+def post_spec_get_routes(request, post_id):
+    post = Post.objects.get(id=post_id)
+    placelist=[]
+
+    for place in post.place_set.all().order_by('day', 'index'):
+        placelist.append({
+            'id':place.id,
+            'kakao_id': place.kakao_id if place.kakao_id else 0,
+            'name':place.name,
+            'post_id':place.post_id,
+            'description':place.description,
+            'day':place.day,
+            'index': place.index,
+            'folder_id':place.folder_id,
+            'latitude':place.latitude,
+            'longitude':place.longitude,
+            'homepage':place.homepage,
+            'phone_number':place.phone_number,
+            'address':place.address,
+            'category':place.category
+        })
+    path_list = [path for path in Path.objects.filter(post_id=post_id).values()]
+    response_dict={'places':placelist, 'paths':path_list}
+    return JsonResponse(response_dict, safe=False)
+    
 @require_GET
 def post_spec_get(request, post_id):
     post = Post.objects.get(id=post_id)
