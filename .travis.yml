@@ -26,7 +26,7 @@ jobs:
         - coveralls-lcov -v -n coverage/lcov.info > coverage.json
         - cd ../backend
         - pylint --disable=R,C **/*.py --load-plugins pylint_django --django-settings-module=tripick.settings
-        - coverage run --source='.' manage.py test
+        - coverage run --source='.' --omit=manage.py,tripick/asgi.py,tripick/wsgi.py manage.py test
         - coverage xml
         - cd ..
         - sonar-scanner
