@@ -311,18 +311,17 @@ def post_spec_edit(request, post_id):
             places = json.loads(form.cleaned_data['places'])
             path_list = json.loads(form.cleaned_data['path_list'])
 
-            Post.objects.filter(id=post_id).update(
-                title=post_title,
-                header_image=post_header_image,
-                thumbnail_image=post_thumbnail_image,
-                days=post_days, 
-                folder_id=post_folder_id,
-                is_shared=post_is_shared,
-                location=post_location,
-                theme=post_theme,
-                season=post_season, 
-                availableWithoutCar=post_available_without_car
-            )
+            post.title=post_title
+            post.header_image=post_header_image
+            post.thumbnail_image=post_thumbnail_image
+            post.days=post_days
+            post.folder_id=post_folder_id
+            post.is_shared=post_is_shared
+            post.location=post_location
+            post.theme=post_theme
+            post.season=post_season
+            post.availableWithoutCar=post_available_without_car
+
             post.save()
             post.update_date()
 
