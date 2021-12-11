@@ -117,7 +117,6 @@ function CreateEditPost(props: PropsType) {
     });
   }, [props.folder]);
 
-  console.log(initialCartPlaceList);
   useEffect(() => {
     if (
       pageLocation.state?.from === "edit" &&
@@ -153,6 +152,10 @@ function CreateEditPost(props: PropsType) {
       });
     }
   }, [pageLocation, post]);
+
+  useEffect(() => {
+    if (locationQuery) setPostInfoData({ ...postInfoData, location: locationQuery });
+  }, [locationQuery]);
 
   const changeLocationQuery = (text: string | null) => {
     if (text) setLocationQuery(text);
@@ -256,8 +259,8 @@ function CreateEditPost(props: PropsType) {
       isAvailableWithoutCar,
       folderId,
       isShared,
+      location,
     } = postInfoData;
-    const location = locationQuery;
 
     const placeListData = routePlaces
       .filter((p: PlaceDayType) => p.day)
@@ -287,22 +290,20 @@ function CreateEditPost(props: PropsType) {
 
     const formData = new FormData();
     formData.append("title", title);
-    formData.append("is_shared", isShared?.toString() || "false");
+    formData.append("is_shared", isShared?.toString() || 'false');
     if (thumbnailImage) formData.append("thumbnail_image", thumbnailImage);
-    formData.append("days", days?.toString());
-    formData.append("theme", theme);
-    formData.append("season", seasonRecommendation);
-    formData.append("location", location);
-    formData.append("availableWithoutCar", isAvailableWithoutCar.toString());
-    formData.append(
-      "folder_id",
-      folderId ? folderId.toString() : "172637238622223"
-    );
-    formData.append("places", JSON.stringify(placeListData));
-    formData.append("path_list", JSON.stringify(pathListData));
-    formData.append("enctype", "multipart/form-data");
+    formData.append('thumbnail_image', thumbnailImage || defaultthumbnailImage);
+    formData.append('days', days?.toString());
+    formData.append('theme', theme);
+    formData.append('season', seasonRecommendation);
+    formData.append('location', location);
+    formData.append('availableWithoutCar', isAvailableWithoutCar.toString())
+    formData.append('folder_id', folderId ? folderId.toString() : '172637238622223');
+    formData.append('places', JSON.stringify(placeListData));
+    formData.append('path_list', JSON.stringify(pathListData));
+    formData.append("enctype", 'multipart/form-data');
 
-    if (pageLocation.state?.from === "edit") {
+    if (pageLocation.state?.from === 'edit') {
       // edit
       dispatch(editPostAction(formData, post.id, () => history.push(`/post/show/${post?.id}/`)));
     } else {
