@@ -7,13 +7,12 @@ from django.shortcuts import get_object_or_404
 from django.views.decorators.csrf import csrf_exempt
 import json
 from json.decoder import JSONDecodeError
-
+from django.views.decorators.csrf import ensure_csrf_cookie
 from .models import User
 from route.models import Folder, Post, Comment, Like, PostInFolder, Place, PlaceInFolder
 from .forms import UserForm
 
 
-#@csrf_exempt
 @require_http_methods(["POST"])
 @ensure_csrf_cookie
 def signup(request):
