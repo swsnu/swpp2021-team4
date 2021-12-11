@@ -292,7 +292,6 @@ function CreateEditPost(props: PropsType) {
     formData.append("title", title);
     formData.append("is_shared", isShared?.toString() || 'false');
     if (thumbnailImage) formData.append("thumbnail_image", thumbnailImage);
-    formData.append('thumbnail_image', thumbnailImage || defaultthumbnailImage);
     formData.append('days', days?.toString());
     formData.append('theme', theme);
     formData.append('season', seasonRecommendation);

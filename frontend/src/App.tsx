@@ -13,7 +13,6 @@ import "./styles/reset.css";
 
 function App() {
   const { loggedUser } = useSelector((state: RootReducerType) => state.user);
-  console.log(loggedUser)
   const unAuthorized = () => {
     return <Redirect to="/signin/" />;
   };
