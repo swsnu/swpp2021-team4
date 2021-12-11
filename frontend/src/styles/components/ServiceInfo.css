@@ -58,6 +58,9 @@
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   -webkit-box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
           box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
   border-radius: 6px;
@@ -72,20 +75,10 @@
 }
 
 .serviceInfo .service-content .item .icon-expl {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: row;
-          flex-direction: row;
+  margin-top: 8%;
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  margin-top: 8%;
   color: #57ceb9;
   margin-bottom: 5%;
 }
