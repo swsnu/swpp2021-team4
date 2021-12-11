@@ -27,9 +27,6 @@ interface EditFolderFormType {
   folder_name: string;
 }
 
-axios.defaults.xsrfCookieName = "csrftoken";
-axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
-
 export const signinAction = (
   formData: SigninFormType,
   callbackFunc: (value: boolean) => void

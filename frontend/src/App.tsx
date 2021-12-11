@@ -1,4 +1,5 @@
 import React from "react";
+import axios from "axios";
 import SignupPage from "./pages/SignupPage";
 import SigninPage from "./pages/SigninPage";
 import MainPage from "./pages/MainPage";
@@ -16,6 +17,10 @@ function App() {
   const unAuthorized = () => {
     return <Redirect to="/signin/" />;
   };
+
+
+  axios.defaults.xsrfCookieName = "csrftoken";
+  axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
 
   const authorized = () => {
     return (
