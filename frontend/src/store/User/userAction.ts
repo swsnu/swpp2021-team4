@@ -15,8 +15,6 @@ import {
   DELETE_FOLDER_FAIL,
 } from "../actionTypes";
 import { Folder, UserDispatchType, UserType } from "./userInterfaces";
-axios.defaults.xsrfCookieName = 'csrftoken';
-axios.defaults.xsrfHeaderName = 'X-CSRFToken';
 
 interface SigninFormType {
   email: string;

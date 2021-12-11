@@ -7,15 +7,14 @@ from django.shortcuts import get_object_or_404
 from django.views.decorators.csrf import csrf_exempt
 import json
 from json.decoder import JSONDecodeError
-
+from django.views.decorators.csrf import ensure_csrf_cookie
 from .models import User
 from route.models import Folder, Post, Comment, Like, PostInFolder, Place, PlaceInFolder
 from .forms import UserForm
 
 
-@csrf_exempt
-# @ensure_csrf_cookie
 @require_http_methods(["POST"])
+@ensure_csrf_cookie
 def signup(request):
     try:
         body = request.body.decode()
@@ -31,8 +30,8 @@ def signup(request):
     user.save()
     return HttpResponse(status=201)
 
-@csrf_exempt
 @require_http_methods(["POST"])
+@ensure_csrf_cookie
 def signin(request):
     try:
         body = request.body.decode()
@@ -70,6 +69,7 @@ def signin(request):
         return HttpResponse(status=401)
 
 @require_http_methods(["POST"])
+@ensure_csrf_cookie
 def signout(request):
     logged_user_id = request.session.get('user', None)
     if not logged_user_id:
@@ -104,6 +104,7 @@ def user_info(request, user_id):
     return JsonResponse(response_dict, safe=False)
 
 @require_http_methods(["POST"])
+@ensure_csrf_cookie
 def edit_user_info(request, user_id):
     logged_user_id = request.session.get('user', None)
     if not logged_user_id or logged_user_id != user_id:
@@ -163,6 +164,7 @@ def user_folders(request, user_id):
     return JsonResponse(response_dict, safe=False)
 
 @require_http_methods(["POST"])
+@ensure_csrf_cookie
 def create_user_folder(request, user_id):
     logged_user_id = request.session.get('user', None)
     if not logged_user_id or logged_user_id != user_id:
@@ -186,6 +188,7 @@ def create_user_folder(request, user_id):
     return JsonResponse(response_dict, safe=False)
 
 @require_http_methods(["GET"])
+@ensure_csrf_cookie
 def user_folder(request, user_id, fid):
     logged_user_id = request.session.get('user', None)
     if not logged_user_id or logged_user_id != user_id:
@@ -246,6 +249,7 @@ def user_folder(request, user_id, fid):
     return JsonResponse(response_dict, safe=False)
 
 @require_http_methods(["PUT"])
+@ensure_csrf_cookie
 def edit_user_folder(request, user_id, fid):
     logged_user_id = request.session.get('user', None)
     if not logged_user_id or logged_user_id != user_id:
@@ -274,6 +278,7 @@ def edit_user_folder(request, user_id, fid):
     return JsonResponse(response_dict, safe=False)
 
 @require_http_methods(["DELETE"])
+@ensure_csrf_cookie
 def delete_user_folder(request, user_id, fid):
     logged_user_id = request.session.get('user', None)
     if not logged_user_id or logged_user_id != user_id:

@@ -41,6 +41,7 @@ const stubInitialState = {
                     {
                         id: 1,
                         name: "ex1",
+                        kakao_id: 1,
                         post_id: 1,
                         description: "ex1",
                         day: 1,
@@ -58,6 +59,7 @@ const stubInitialState = {
                     {
                         id: 2,
                         name: "ex2",
+                        kakao_id: 2,
                         post_id: 1,
                         description: "ex2",
                         day: 1,
