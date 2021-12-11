@@ -5,7 +5,7 @@ from json.decoder import JSONDecodeError
 from django.views.decorators.http import require_http_methods
 from django.views.decorators.http import require_POST, require_GET
 from account.models import User
-
+from django.views.decorators.csrf import ensure_csrf_cookie
 from .forms import PostForm
 
 @require_GET
