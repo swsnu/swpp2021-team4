@@ -35,15 +35,17 @@ function PlaceSearchSection(props: PropType) {
   const [isSearchRequested, setIsSearchRequested] = useState(false);
   const [searchResults, setSearchResults] = useState([]);
   const [cartPlaceList, setCartPlaceList] = useState(initialCartPlaceList);
+
   useEffect(() => {
+    const placeList: any = [];
     if (initialCartPlaceList) {
       initialCartPlaceList.map((placeDay: PlaceDayType) => {
-        setCartPlaceList((prevState: any) => {
-          return [...prevState, placeDay];
-        });
+        placeList.push(placeDay);
       });
     }
-  }, [initialCartPlaceList[0]]);
+    setCartPlaceList(placeList);
+  }, [Object.keys(initialCartPlaceList).join()]);
+
   useEffect(() => {
     if (isSearchRequested) {
       let places = new kakao.maps.services.Places();

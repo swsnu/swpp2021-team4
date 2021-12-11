@@ -60,7 +60,7 @@ function Signup() {
         <input
           id="userEmail"
           type="text"
-          placeholder="아이디를 입력해 주세요."
+          placeholder="이메일을 입력해 주세요."
           value={userInputs.userEmail}
           onChange={onChangeInputs}
         />

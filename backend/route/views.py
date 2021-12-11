@@ -110,6 +110,7 @@ def post_create(request):
 
         place_list = create_place_list(places, post)
 
+        path_obj_list = []
         for path in path_list:
             origin_kakao_id = path['from']
             origin_place = Place.objects.filter(kakao_id=origin_kakao_id).first()
@@ -119,12 +120,18 @@ def post_create(request):
             transportation = path['transportation']
 
             if origin_place is not None and destination_place is not None:
-                Path.objects.create(
+                new_path = Path.objects.create(
                     post=post,
                     from_place=origin_place,
                     to_place=destination_place,
                     transportation=transportation
                 )
+                path_obj_list.append({
+                    'post_id': post.id,
+                    'from_place_id': new_path.from_place.id,
+                    'to_place_id': new_path.to_place.id,
+                    'transportation': new_path.transportation
+                })
 
         response_dict = {
             'id': post.id,
@@ -140,7 +147,8 @@ def post_create(request):
             'season': post.season, 
             'location': post.location,
             'availableWithOutCar': post.availableWithoutCar,
-            'places': place_list
+            'places': place_list,
+            'pathList': path_obj_list
         }
         return JsonResponse(response_dict, safe=False)
     else:
@@ -311,18 +319,17 @@ def post_spec_edit(request, post_id):
             places = json.loads(form.cleaned_data['places'])
             path_list = json.loads(form.cleaned_data['path_list'])
 
-            Post.objects.filter(id=post_id).update(
-                title=post_title,
-                header_image=post_header_image,
-                thumbnail_image=post_thumbnail_image,
-                days=post_days, 
-                folder_id=post_folder_id,
-                is_shared=post_is_shared,
-                location=post_location,
-                theme=post_theme,
-                season=post_season, 
-                availableWithoutCar=post_available_without_car
-            )
+            post.title=post_title
+            post.header_image=post_header_image
+            post.thumbnail_image=post_thumbnail_image
+            post.days=post_days
+            post.folder_id=post_folder_id
+            post.is_shared=post_is_shared
+            post.location=post_location
+            post.theme=post_theme
+            post.season=post_season
+            post.availableWithoutCar=post_available_without_car
+
             post.save()
             post.update_date()
 

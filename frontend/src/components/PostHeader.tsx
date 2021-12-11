@@ -9,6 +9,7 @@ import delete_btn from "../static/delete-icon.svg";
 import "../styles/components/PostHeader.css";
 import created_at_icon from "../static/created-at-icon.svg";
 import { HeaderPostType } from "../store/Post/postInterfaces";
+import defaultThumbnail from "../static/png/default-thumbnail.png";
 
 interface PropType {
   loggedUserId: number;
@@ -45,7 +46,7 @@ function PostHeader(props: PropType) {
   return (
     <div className="post-header">
       <div className="header-image">
-        <img src={props.post.thumbnail_image ? props.post.thumbnail_image : "https://media.triple.guide/triple-cms/c_limit,f_auto,h_1024,w_1024/73968eea-cbbe-49cd-b001-353e9e962cbf.jpeg"} />
+        <img src={props.post.thumbnail_image ? props.post.thumbnail_image : defaultThumbnail} />
       </div>
       <div className="header-content-left">
         <div className="header-top">
@@ -101,12 +102,12 @@ function PostHeader(props: PropType) {
       <div className="header-content-right">
         <div className="header-top">
           <div className="header-top-buttons">
-            {isAuthenticated && props.isPostDetail && props.post.is_shared && (
+            {isAuthenticated && props.isPostDetail && props.post.is_shared && props.loggedUserId !== props.post.author_id && (
               <button
                 className="post-cart-button"
                 onClick={props.onClickAddPostCartButton}
               >
-                Add this route to Cart
+                루트를 장바구니에 담기
               </button>
             )}
             {props.isPostDetail && !props.post.is_shared && (
