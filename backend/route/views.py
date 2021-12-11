@@ -250,6 +250,7 @@ def post_spec_get(request, post_id):
         'id': post.id,
         'title': post.title,
         'author_name': post.author.username,
+        'thumbnail_image': post.thumbnail_image.url if post.thumbnail_image else '',
         'author_id': post.author.id,
         'days': post.days,
         'is_shared':post.is_shared,
