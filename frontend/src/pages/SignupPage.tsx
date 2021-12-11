@@ -3,6 +3,7 @@ import NavBar from "../components/NavBar";
 import Signup from "../containers/Signup";
 import "../styles/components/Signup.scss";
 import backgroundImage from "../static/png/signup_page.png";
+import Footer from "../components/Footer";
 
 interface PropType {
   location: any;
@@ -16,6 +17,7 @@ function SignupPage(props: PropType) {
       <img className="signup-background" src={backgroundImage} />
       <NavBar location={props.location} />
       <Signup />
+      <Footer />
     </div>
   );
 }
