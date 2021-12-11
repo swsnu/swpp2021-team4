@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "main": "src/index.js",
-  "proxy": "http://3.225.124.3:8000",
+  "proxy": "http://ec2-3-38-182-212.ap-northeast-2.compute.amazonaws.com:8000",
   "dependencies": {
     "@testing-library/dom": "^8.11.1",
     "@testing-library/jest-dom": "^5.11.4",
@@ -86,14 +86,14 @@
     "collectCoverageFrom": [
       "src/**/*.{js,jsx,tsx}",
       "!src/*.{js,jsx,tsx}",
-      "!src/components/CreateEditHeader.tsx", 
-      "!src/components/CreatePlaceCard.tsx", 
-      "!src/components/Map.tsx", 
-      "!src/components/MyRoutesSection.tsx", 
-      "!src/components/PlaceSearchSection.tsx", 
+      "!src/components/CreateEditHeader.tsx",
+      "!src/components/CreatePlaceCard.tsx",
+      "!src/components/Map.tsx",
+      "!src/components/MyRoutesSection.tsx",
+      "!src/components/PlaceSearchSection.tsx",
       "!src/containers/CreateEditPost.tsx",
       "!src/pages/CreateEditPostPage.tsx",
-      "!backend/tripick/asgi.py", 
+      "!backend/tripick/asgi.py",
       "!backend/tripick/wsgi.py"
     ]
   }
