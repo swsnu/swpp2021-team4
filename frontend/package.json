@@ -3,7 +3,6 @@
   "version": "0.1.0",
   "private": true,
   "main": "src/index.js",
-  "proxy": "http://ec2-3-38-182-212.ap-northeast-2.compute.amazonaws.com:8000",
   "dependencies": {
     "@testing-library/dom": "^8.11.1",
     "@testing-library/jest-dom": "^5.11.4",
