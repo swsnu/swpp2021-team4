@@ -3,8 +3,6 @@ from django.views.decorators.http import require_GET, require_http_methods
 from django.contrib.auth import logout
 from django.contrib.auth.hashers import check_password
 from django.shortcuts import get_object_or_404
-# from django.views.decorators.csrf import ensure_csrf_cookie
-from django.views.decorators.csrf import csrf_exempt
 import json
 from json.decoder import JSONDecodeError
 from django.views.decorators.csrf import ensure_csrf_cookie
@@ -21,6 +19,11 @@ def signup(request):
         email = json.loads(body)['email']
         username = json.loads(body)['username']
         password = json.loads(body)['password']
+
+        if User.objects.filter(email=email).exists():
+            return HttpResponseBadRequest("이미 존재하는 이메일입니다! 다른 이메일을 사용해주세요.")
+        elif User.objects.filter(username=username).exists():
+            return HttpResponseBadRequest("이미 존재하는 닉네임입니다! 다른 닉네임을 사용해주세요.")
 
         user = User.objects.create_user(email=email, username=username)
     except (KeyError, JSONDecodeError):
