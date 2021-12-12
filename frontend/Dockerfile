@@ -5,6 +5,7 @@ WORKDIR /usr/app
 COPY package.json .
 COPY src/ src/
 COPY public/ public/
+COPY .env .
 
 RUN npm install --silent
 RUN yarn install --silent
