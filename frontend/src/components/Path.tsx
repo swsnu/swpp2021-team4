@@ -28,7 +28,6 @@ const transportationTypes = [
 
 function Path(props: PropsType) {
   const { from, to, transportation = "", pathList = {}, onChangePath } = props;
-
   const [posFrom, setPosFrom] = useState("");
   const [posTo, setPosTo] = useState("");
   const [time, setTime] = useState("");
@@ -36,6 +35,11 @@ function Path(props: PropsType) {
     transportation: "",
     velocity: 0,
   });
+
+  useEffect(() => {
+    setPosFrom(`${from.lon || from.longitude},${from.lat || from.latitude}`);
+    setPosTo(`${to.lon || to.longitude},${to.lat || to.latitude}`);
+  }, [from, to]);
 
   useEffect(() => {
     const setPathTime = async () => {
@@ -49,12 +53,7 @@ function Path(props: PropsType) {
     if (posFrom && posTo) {
       setPathTime();
     }
-  }, [posFrom, posTo, pathList, props.selectedDay]); // when user clicks another day, calculate each path time
-
-  useEffect(() => {
-    setPosFrom(`${from.lon || from.longitude},${from.lat || from.latitude}`);
-    setPosTo(`${to.lon || to.longitude},${to.lat || to.latitude}`);
-  }, [from, to]);
+  }, [posFrom, posTo, pathList]); // when user clicks another day, calculate each path time
 
   useEffect(() => {
     let transportationName: string = "";
@@ -94,7 +93,7 @@ function Path(props: PropsType) {
 
   return (
     <div className="path-container">
-      <img src={arrowDownIcon} />
+      <img className="path-icon" src={arrowDownIcon} />
       {(!props.isFromDetail || Object.keys(pathList).length > 0) && (
         <>
           <select
@@ -124,7 +123,7 @@ function Path(props: PropsType) {
         </>
       )}
       {(!props.isFromDetail || Object.keys(pathList).length == 0) && (
-        <span style={{ marginLeft: 20, fontSize: "0.75rem" }}>
+        <span className="post-detail-path">
           {transportation && !time.includes("NaN")
             ? `약 ${time} (${pathInfoData.transportation}, 시속 ${pathInfoData.velocity}km 기준)`
             : ""}

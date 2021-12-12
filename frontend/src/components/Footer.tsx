@@ -1,10 +1,10 @@
 import React from "react";
-
+import '../styles/components/Footer.css';
 function Footer() {
   return (
     <div className="Footer">
-      <div className="logo"></div>
-      <div className="footer-explanation"></div>
+      <div className="logo">@Tripick</div>
+      <div className="footer-explanation">Pick your trip</div>
     </div>
   );
 }

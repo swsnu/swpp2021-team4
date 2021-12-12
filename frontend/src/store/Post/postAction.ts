@@ -16,6 +16,8 @@ import {
 } from "../actionTypes";
 import { Folder } from "../User/userInterfaces";
 import { PostDispatchType, PostType, CommentType, SimplePostType } from "./postInterfaces";
+axios.defaults.xsrfCookieName = 'csrftoken';
+axios.defaults.xsrfHeaderName = 'X-CSRFToken';
 interface SearchForm {
   keyword: string;
   season: string;

@@ -1,5 +1,6 @@
 import React from "react";
 import { useParams } from "react-router-dom";
+import Footer from "../components/Footer";
 import NavBar from "../components/NavBar";
 import MyPage from "../containers/MyPage";
 import UserInfo from "../containers/UserInfo";
@@ -16,6 +17,7 @@ function UserInfoPage() {
       {loggedUser.id === Number(id) ?
         <MyPage loggedUser={loggedUser} id={Number(id)} />
         : <UserInfo loggedUser={loggedUser} id={Number(id)} />}
+      <Footer />
     </div>
   );
 }

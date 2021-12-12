@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useLocation } from "react-router-dom";
+import Footer from "../components/Footer";
 import NavBar from "../components/NavBar";
 import CreateEditPost from "../containers/CreateEditPost";
 import SelectFolderModal from "../containers/SelectFolderModal";
@@ -53,7 +54,8 @@ function CreateEditPostPage() {
     <>
       <div onClick={onClickBackground}>
         <NavBar />
-        <CreateEditPost folder={selectedFolder || { id: 0, name: "" }} />
+        <CreateEditPost folder={selectedFolder||{id: 0, name: ''}} />
+        <Footer />
       </div>
       <SelectFolderModal
         isModalVisible={isModalVisible}

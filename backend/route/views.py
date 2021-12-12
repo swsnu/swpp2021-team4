@@ -5,7 +5,7 @@ from json.decoder import JSONDecodeError
 from django.views.decorators.http import require_http_methods
 from django.views.decorators.http import require_POST, require_GET
 from account.models import User
-
+from django.views.decorators.csrf import ensure_csrf_cookie
 from .forms import PostForm
 
 @require_GET
@@ -72,6 +72,7 @@ def create_place_list(places, post):
     return place_list
 
 @require_http_methods(["POST"])
+@ensure_csrf_cookie
 def post_create(request):
     logged_user_id=request.session.get('user', None)
     if not logged_user_id:
@@ -110,6 +111,7 @@ def post_create(request):
 
         place_list = create_place_list(places, post)
 
+        path_obj_list = []
         for path in path_list:
             origin_kakao_id = path['from']
             origin_place = Place.objects.filter(kakao_id=origin_kakao_id).first()
@@ -119,12 +121,18 @@ def post_create(request):
             transportation = path['transportation']
 
             if origin_place is not None and destination_place is not None:
-                Path.objects.create(
+                new_path = Path.objects.create(
                     post=post,
                     from_place=origin_place,
                     to_place=destination_place,
                     transportation=transportation
                 )
+                path_obj_list.append({
+                    'post_id': post.id,
+                    'from_place_id': new_path.from_place.id,
+                    'to_place_id': new_path.to_place.id,
+                    'transportation': new_path.transportation
+                })
 
         response_dict = {
             'id': post.id,
@@ -140,13 +148,15 @@ def post_create(request):
             'season': post.season, 
             'location': post.location,
             'availableWithOutCar': post.availableWithoutCar,
-            'places': place_list
+            'places': place_list,
+            'pathList': path_obj_list
         }
         return JsonResponse(response_dict, safe=False)
     else:
         return HttpResponse(status=400)
 
 @require_POST
+@ensure_csrf_cookie
 def search(request):
     try:
         body = request.body.decode()
@@ -242,6 +252,7 @@ def post_spec_get(request, post_id):
         'id': post.id,
         'title': post.title,
         'author_name': post.author.username,
+        'thumbnail_image': post.thumbnail_image.url if post.thumbnail_image else '',
         'author_id': post.author.id,
         'days': post.days,
         'is_shared':post.is_shared,
@@ -281,6 +292,7 @@ def post_share(request, post_id):
     return HttpResponse(status=204)
 
 @require_http_methods(["POST", "DELETE"])
+@ensure_csrf_cookie
 def post_spec_edit(request, post_id):
     logged_user_id=request.session.get('user', None)
     if not logged_user_id:
@@ -311,18 +323,17 @@ def post_spec_edit(request, post_id):
             places = json.loads(form.cleaned_data['places'])
             path_list = json.loads(form.cleaned_data['path_list'])
 
-            Post.objects.filter(id=post_id).update(
-                title=post_title,
-                header_image=post_header_image,
-                thumbnail_image=post_thumbnail_image,
-                days=post_days, 
-                folder_id=post_folder_id,
-                is_shared=post_is_shared,
-                location=post_location,
-                theme=post_theme,
-                season=post_season, 
-                availableWithoutCar=post_available_without_car
-            )
+            post.title=post_title
+            post.header_image=post_header_image
+            post.thumbnail_image=post_thumbnail_image
+            post.days=post_days
+            post.folder_id=post_folder_id
+            post.is_shared=post_is_shared
+            post.location=post_location
+            post.theme=post_theme
+            post.season=post_season
+            post.availableWithoutCar=post_available_without_car
+
             post.save()
             post.update_date()
 
@@ -376,6 +387,7 @@ def post_spec_edit(request, post_id):
         return HttpResponse(status=204)
 
 @require_http_methods(["POST", "DELETE"])
+@ensure_csrf_cookie
 def post_cart(request, post_id, fid):
     logged_user_id=request.session.get('user', None)
     if not logged_user_id:
@@ -457,6 +469,7 @@ def post_comment_post(request, post_id):
         )      
 
 @require_http_methods(["PUT", "DELETE"])
+@ensure_csrf_cookie
 def post_comment_spec(request, post_id, cid):
     logged_user_id=request.session.get('user', None)
     if not logged_user_id:
@@ -477,6 +490,7 @@ def post_comment_spec(request, post_id, cid):
         return HttpResponse(status=200)
 
 @require_http_methods(["POST"])
+@ensure_csrf_cookie
 def place_create(request):
     logged_user_id=request.session.get('user', None)
     if not logged_user_id:
@@ -553,6 +567,7 @@ def place_spec(request, place_id):
     return JsonResponse(response_dict, safe=False)
 
 @require_http_methods(["PUT", "DELETE"])
+@ensure_csrf_cookie
 def place_spec_edit(request, place_id):
     logged_user_id=request.session.get('user', None)
     if not logged_user_id:
@@ -597,6 +612,7 @@ def place_spec_edit(request, place_id):
         return HttpResponse(status=204)    
 
 @require_http_methods(["POST", "DELETE"])
+@ensure_csrf_cookie
 def place_cart(request, place_id, fid):
     logged_user_id=request.session.get('user', None)
     if not logged_user_id:
