@@ -33,19 +33,29 @@ function Signup() {
   const onClickSignupButton = async () => {
     const { userEmail, userName, userPassword, checkUserPassword } = userInputs;
     if (!userEmail) {
-      alert('invalid email');
-    } else if (!userName) {
-      alert('invalid username');
-    } else if (!userPassword || !checkUserPassword) {
-      alert('invalid password!')
+      alert('이메일을 입력해주세요!');
+    } else if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(userEmail)) {
+      alert(`이메일 형식이 잘못되었습니다!\nex)tripick@tripick.com`);
+    }else if (!userName) {
+      alert('닉네임을 입력해주세요!');
+    } else if (!userPassword) {
+      alert('패스워드를 입력해주세요!')
+    } else if (!/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/.test(userPassword)) {
+      alert(`비밀번호 형식이 잘못되었습니다!\n최소 하나의 문자 및 하나의 숫자가 포함된 8자 이상의 비밀번호를 입력해주세요.`)
+    } else if (!checkUserPassword) {
+      alert('비밀번호를 다시 한 번 입력해주세요!')
     } else if (userPassword !== checkUserPassword) {
-      alert('passwords are different!');
+      alert('두 패스워드가 서로 다릅니다!');
     } else {
       const response = await signup({ email: userEmail, username: userName, password: userPassword });
       if (response.status === 201) {
         dispatch(signinAction({ email: userInputs.userEmail, password: userInputs.userPassword }, (value) => setIsSigned(value)));
+      } else if (response.status === 400 && response.data) {
+        alert(`${response.data}`);
+      } else if (response.status === 500) {
+        alert('서버에러 발생! 트리픽에 문의해주세요');
       } else {
-        alert('signup failed');
+        alert('회원가입에 실패했습니다');
       }
     }
   }

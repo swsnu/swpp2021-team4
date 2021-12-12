@@ -27,7 +27,7 @@ export interface PostInfoDataType {
   days: number;
   seasonRecommendation: string;
   theme: string;
-  thumbnailImage: string;
+  thumbnailImage: any;
   isAvailableWithoutCar: boolean;
   folderId: number;
   isShared: false;
@@ -43,15 +43,6 @@ const initialPostData: PostInfoDataType = {
   folderId: 0,
   isShared: false,
 };
-// const [folderInfo, setFolderInfo] = useState<{
-//   my_posts: SimplePostType[];
-//   posts: SimplePostType[];
-//   places: PlaceType[];
-// }>({
-//   my_posts: [],
-//   posts: [],
-//   places: [],
-// });
 
 interface PropsType {
   folder: Folder;
@@ -64,8 +55,8 @@ function CreateEditPost(props: PropsType) {
   const post = usePostState();
   const loggedUser = useUserState();
 
-  const [postInfoData, setPostInfoData] =
-    useState<PostInfoDataType>(initialPostData);
+  const [postInfoData, setPostInfoData] = useState<PostInfoDataType>(initialPostData);
+  const [thumbnailUrl, setThumbnailUrl] = useState<any>('');
   const [locationQuery, setLocationQuery] = useState("");
   const [selectedDay, setSelectedDay] = useState(1);
   const [routePlaces, setRoutePlaces] = useState<PlaceDayType[]>([]);
@@ -323,9 +314,10 @@ function CreateEditPost(props: PropsType) {
         // 이미지 업로드
         const reader = new FileReader();
         reader.onloadend = () => {
+          setThumbnailUrl(reader.result);
           setPostInfoData({
             ...postInfoData,
-            thumbnailImage: reader.result?.toString() || "",
+            thumbnailImage: e.target.files[0],
           });
         };
         reader.readAsDataURL(e.target.files[0]);
@@ -412,7 +404,7 @@ function CreateEditPost(props: PropsType) {
     <div>
       <CreateEditHeader
         folder={props.folder}
-        thumbnailImage={postInfoData.thumbnailImage}
+        thumbnailImage={thumbnailUrl}
         postInfoData={postInfoData}
         onClickAvailableWithoutCar={onClickAvailableWithoutCar}
         onChangePostInfoData={onChangePostInfoData}

@@ -49,11 +49,16 @@
   font-style: normal;
   padding: 20px 0;
   color: #57ceb9;
+  border-radius: 6px;
 }
 
 .folder .left .folderHead .icon {
   width: 20px;
   margin-right: 5%;
+}
+
+.folder .left .folderHead:hover {
+  background: white;
 }
 
 .folder .left .folder-input-container {
@@ -167,7 +172,7 @@
 }
 
 .folder .right .posts-container .folder-title {
-  font-family: "Montserrat", Monospace;
+  font-family: "Noto Sans CJK KR", Monospace !important;
   font-weight: 600;
   color: white;
   background-color: #57ceb9;
