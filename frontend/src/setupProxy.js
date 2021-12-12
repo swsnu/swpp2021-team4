@@ -11,21 +11,21 @@ module.exports = function (app) {
   app.use(
     '/user',
     createProxyMiddleware({
-      target: 'http://localhost:8000',
+      target: 'http://127.0.0.1:8000',
       changeOrigin: true,
     })
   );
   app.use(
     '/place',
     createProxyMiddleware({
-      target: 'http://localhost:8000',
+      target: 'http://127.0.0.1:8000',
       changeOrigin: true,
     })
   );
   app.use(
     '/post',
     createProxyMiddleware({
-      target: 'http://localhost:8000',
+      target: 'http://127.0.0.1:8000',
       changeOrigin: true,
     })
   );

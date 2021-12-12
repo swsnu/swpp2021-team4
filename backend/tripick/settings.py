@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-melkc2s@uay!owd#hn=ooi=7d+&kesht!6*q1eha$o3kyd@f-8
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = [ 'tripick.shop', 'localhost', '3.35.80.215' ]
+ALLOWED_HOSTS = [ 'tripick.shop', 'localhost', '127.0.0.1', '3.35.80.215' ]
 
 
 # Application definition
