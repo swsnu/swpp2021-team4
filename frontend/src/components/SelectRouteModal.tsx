@@ -26,8 +26,6 @@ function SelectRouteModal(props: PropsType) {
     onClickCloseModal,
     countModalClick,
   } = props;
-  // const dispatch = useDispatch();
-  // const { loggedUser } = useSelector((state: RootReducerType) => state.user);
 
   const onClickSelectButton = useCallback(() => {
     onClickRouteSubmitButton(clickedRoute);

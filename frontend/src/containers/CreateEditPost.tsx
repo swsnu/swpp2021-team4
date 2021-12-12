@@ -5,7 +5,7 @@ import CreateEditHeader from "../components/CreateEditHeader";
 import Map from "../components/Map";
 import MyRoutesSection from "../components/MyRoutesSection";
 import PlaceSearchSection from "../components/PlaceSearchSection";
-import SelectRouteModal from "./SelectRouteModal";
+import SelectRouteModal from "../components/SelectRouteModal";
 import { usePostState } from "../hooks/usePostState";
 import { CreateEditPostLocationType } from "../pages/CreateEditPostPage";
 import { createPostAction, editPostAction } from "../store/Post/postAction";
@@ -22,8 +22,6 @@ import { Folder } from "../store/User/userInterfaces";
 import "../styles/components/CreateEditPost.css";
 import { useUserState } from "../hooks/useUserState";
 import axios from "axios";
-import route_select_icon from "../static/route-select-icon.svg";
-import route_select_icon_hover from "../static/route-select-icon-hover.svg";
 
 export interface PostInfoDataType {
   title: string;
@@ -47,15 +45,6 @@ const initialPostData: PostInfoDataType = {
   folderId: 0,
   isShared: false,
 };
-// const [folderInfo, setFolderInfo] = useState<{
-//   my_posts: SimplePostType[];
-//   posts: SimplePostType[];
-//   places: PlaceType[];
-// }>({
-//   my_posts: [],
-//   posts: [],
-//   places: [],
-// });
 
 interface PropsType {
   folder: Folder;
@@ -77,7 +66,8 @@ function CreateEditPost(props: PropsType) {
   const [isPostCreated, setIsPostCreated] = useState(false);
   const [createdPostId, setCreatedPostId] = useState<number>(0);
   const [pathList, setPathList] = useState<PathListType>({});
-  const [routeModalVisible, setRouteModalVisible] = useState<boolean>(false);
+  //should choose a base route when the user visits create page
+  const [routeModalVisible, setRouteModalVisible] = useState<boolean>(true);
 
   useEffect(() => {
     if (isPostCreated && createdPostId) {
@@ -86,6 +76,7 @@ function CreateEditPost(props: PropsType) {
   }, [isPostCreated, createdPostId]);
 
   const [cartRouteList, setCartRouteList] = useState<SimplePostType[]>([]);
+  //render places saved in the cart
   useEffect(() => {
     if (props.folder.id) {
       axios
@@ -126,7 +117,8 @@ function CreateEditPost(props: PropsType) {
       post.id === pageLocation.state?.postId
     ) {
       // when post is edited, set post info datas as edited post's datas.
-
+      // do not need to choose a base route when the location is from "edit"
+      setRouteModalVisible(false);
       const placeList = post.places.map((place: PlaceType) => ({
         day: place.day,
         place,
@@ -134,10 +126,10 @@ function CreateEditPost(props: PropsType) {
       const convertedPathList: PathListType = {};
       post.pathList?.forEach(
         (path: ServerPathType) =>
-        (convertedPathList[path.from_place_id] = {
-          to: path.to_place_id.toString(),
-          transportation: path.transportation,
-        })
+          (convertedPathList[path.from_place_id] = {
+            to: path.to_place_id.toString(),
+            transportation: path.transportation,
+          })
       );
 
       setPathList(convertedPathList);
@@ -219,7 +211,8 @@ function CreateEditPost(props: PropsType) {
       setPathList({
         ...pathList,
         [origin.id]: {
-          to: destination.id,
+          //match PathList type
+          to: destination.id.toString(),
           transportation: e.target.value,
         },
       });
@@ -247,6 +240,48 @@ function CreateEditPost(props: PropsType) {
   };
 
   const [selectedTab, setSelectedTab] = useState<"place" | "search">("place");
+  const [countModalClick, setCountModalClick] = useState<number>(0);
+
+  const onClickRouteSubmitButton = (routeId: number) => {
+    //when the user clicks existing route
+    if (routeId) {
+      axios
+        .get(`/post/${routeId}/`)
+        .then(function (response) {
+          //when the user wants to change routes during creating
+          if (routePlaces && countModalClick > 0) {
+            if (!window.confirm("기존의 루트가 모두 삭제될 수 있습니다.")) {
+              return null;
+            }
+          }
+          // render places in my routes section
+          const placeList: PlaceDayType[] = response.data.places.map(
+            (place: PlaceType) => ({
+              place: place,
+              day: place.day,
+            })
+          );
+          // render paths in my routes section
+          const convertedPathList: PathListType = {};
+          response.data.pathList.forEach(
+            (path: ServerPathType) =>
+              (convertedPathList[path.from_place_id] = {
+                // day: response.data.places.find(
+                //   (place: PlaceType) => (place.id = path.from_place_id)
+                // ).day,
+                to: path.to_place_id.toString(),
+                transportation: path.transportation,
+              })
+          );
+          setPathList(convertedPathList);
+          setRoutePlaces(placeList);
+        })
+        .catch((err) => err.response);
+    }
+    setCountModalClick((prevCount) => prevCount + 1);
+    //close modal
+    setRouteModalVisible(false);
+  };
 
   const onClickCreateEditButton = () => {
     const {
@@ -414,37 +449,42 @@ function CreateEditPost(props: PropsType) {
     setSelectedTab(type);
   };
 
-  const [selectedRoute, setSelectedRoute] = useState<number | null>(null);
-  const onClickRouteSubmitButton = useCallback((routeId: number) => {
-    if (selectedRoute) {
-      setSelectedRoute(routeId);
-      setRouteModalVisible(false);
+  const [clickedRoute, setClickedRoute] = useState<number>(0);
+  const onClickRoute = (routeId: number) => {
+    setClickedRoute(routeId);
+    setRouteModalVisible(true);
+  };
+
+  const onClickCloseModal = () => {
+    //when user first visits createPage
+    //submit 버튼 대신 close modal클릭 시 자동으로 빈 루트 생성
+    if (
+      routeModalVisible &&
+      !countModalClick &&
+      !(pageLocation.state?.from === "edit")
+    ) {
+      if (confirm("자동으로 빈 루트가 생성됩니다.")) {
+        setRouteModalVisible(false);
+      } else {
+        setRouteModalVisible(true);
+      }
     } else {
-      alert("빈 루트가 생성됩니다.");
+      setRouteModalVisible(false);
     }
-  }, []);
-
-  // console.log(cartRouteList);
-
-  // const [selectedRoute, setSelectedRoute] = useState<PostType | null>(null);
-  // const onClickRouteSelectButton = useCallback(
-  //   (route: PostType | null) => {
-  //     if (post.route?.id) {
-  //       setRouteModalVisible(false);
-  //       setSelectedRoute(route);
-  //     } else {
-  //       alert("루트를 선택한 후 버튼을 눌러주세요.");
-  //     }
-  //   },
-  //   []
-  // );
+    setCountModalClick((prevCount) => prevCount + 1);
+  };
 
   return (
-    <div
-      onClick={() => {
-        if (routeModalVisible) setRouteModalVisible(false);
-      }}
-    >
+    <div>
+      <SelectRouteModal
+        onClickCloseModal={onClickCloseModal}
+        onClickRoute={onClickRoute}
+        clickedRoute={clickedRoute}
+        cartRouteList={cartRouteList}
+        isModalVisible={routeModalVisible}
+        onClickRouteSubmitButton={onClickRouteSubmitButton}
+        countModalClick={countModalClick}
+      />
       <CreateEditHeader
         folder={props.folder}
         thumbnailImage={postInfoData.thumbnailImage}
@@ -472,17 +512,19 @@ function CreateEditPost(props: PropsType) {
             <div className="my-routes-title">
               My Routes
               <div className="select-route-button">
-                <img src={route_select_icon} />
-                <img
-                  src={route_select_icon_hover}
-                  onClick={() => setRouteModalVisible(true)}
-                />
+                <button onClick={() => setRouteModalVisible(true)}>
+                  루트 바꾸기
+                </button>
               </div>
             </div>
             <SelectRouteModal
+              onClickCloseModal={onClickCloseModal}
+              onClickRoute={onClickRoute}
+              clickedRoute={clickedRoute}
               cartRouteList={cartRouteList}
               isModalVisible={routeModalVisible}
               onClickRouteSubmitButton={onClickRouteSubmitButton}
+              countModalClick={countModalClick}
             />
             <MyRoutesSection
               days={postInfoData.days}
