@@ -1,42 +1,57 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback } from "react";
 // import { useDispatch, useSelector } from "react-redux";
 // import { RootReducerType } from "../store/store";
 import "../styles/components/SelectFolderModal.css";
 import "../styles/components/SelectRouteModal.css";
 import { SimplePostType } from "../store/Post/postInterfaces";
+import close_modal_icon from "../static/close-modal-icon.svg";
 
 interface PropsType {
   cartRouteList: SimplePostType[];
   isModalVisible: boolean;
   onClickRouteSubmitButton: (routeId: number) => void;
+  onClickRoute: (routeId: number) => void;
+  clickedRoute: number;
+  onClickCloseModal: () => void;
+  countModalClick: number;
 }
 
 function SelectRouteModal(props: PropsType) {
+  const {
+    cartRouteList,
+    isModalVisible,
+    onClickRoute,
+    onClickRouteSubmitButton,
+    clickedRoute,
+    onClickCloseModal,
+    countModalClick,
+  } = props;
   // const dispatch = useDispatch();
   // const { loggedUser } = useSelector((state: RootReducerType) => state.user);
 
-  const [clickedRoute, setClickedRoute] = useState<number | null>(null);
-  const onClickRoute = useCallback((routeId: number) => {
-    setClickedRoute(routeId);
-  }, []);
-  
   const onClickSelectButton = useCallback(() => {
-    if (clickedRoute) {
-    } else {
-      alert("빈 루트가 생성됩니다.");
-    }
-  }, []);
+    onClickRouteSubmitButton(clickedRoute);
+  }, [clickedRoute]);
 
   return (
-    <div className={`select-route-modal-container ${props.isModalVisible}`}>
-      <div className="modal-title">Select a route!</div>
+    <div className={`select-route-modal-container ${isModalVisible}`}>
+      <div className="modal-title">
+        Select a route!
+        <img
+          className="close-modal-icon"
+          src={close_modal_icon}
+          onClick={onClickCloseModal}
+        ></img>
+      </div>
       <div className="route-list-container">
-        {props.cartRouteList.map((route: SimplePostType) => {
+        {cartRouteList.map((route: SimplePostType) => {
           return (
             <div
               key={route.id}
               onClick={() => onClickRoute(route.id)}
-              className="route-container"
+              className={"route-container".concat(
+                route.id == clickedRoute ? " selected" : ""
+              )}
             >
               <div className="route-header-image">
                 <img src={route.thumbnail_image} />
@@ -49,18 +64,20 @@ function SelectRouteModal(props: PropsType) {
           );
         })}
         <div
-          onClick={() => onClickRoute}
-          className="route-container blank-route"
+          onClick={() => onClickRoute(0)}
+          className={"route-container blank-route"
+            .concat(0 == clickedRoute ? " selected" : "")
+            .concat(countModalClick==0 ? "" : " false")}
         >
-          Start with a new Route
+          + 빈 루트 생성하기
         </div>
       </div>
-      <div
+      <button
         className="select-route-modal-select-btn"
         onClick={() => onClickSelectButton()}
       >
         Select
-      </div>
+      </button>
     </div>
   );
 }
