@@ -5,7 +5,7 @@ from json.decoder import JSONDecodeError
 from django.views.decorators.http import require_http_methods
 from django.views.decorators.http import require_POST, require_GET
 from account.models import User
-from django.views.decorators.csrf import ensure_csrf_cookie
+from django.views.decorators.csrf import csrf_exempt
 from .forms import PostForm
 
 @require_GET
@@ -72,7 +72,7 @@ def create_place_list(places, post):
     return place_list
 
 @require_http_methods(["POST"])
-@ensure_csrf_cookie
+@csrf_exempt
 def post_create(request):
     logged_user_id=request.session.get('user', None)
     if not logged_user_id:
@@ -156,7 +156,7 @@ def post_create(request):
         return HttpResponse(status=400)
 
 @require_POST
-@ensure_csrf_cookie
+@csrf_exempt
 def search(request):
     try:
         body = request.body.decode()
@@ -292,7 +292,7 @@ def post_share(request, post_id):
     return HttpResponse(status=204)
 
 @require_http_methods(["POST", "DELETE"])
-@ensure_csrf_cookie
+@csrf_exempt
 def post_spec_edit(request, post_id):
     logged_user_id=request.session.get('user', None)
     if not logged_user_id:
@@ -387,7 +387,7 @@ def post_spec_edit(request, post_id):
         return HttpResponse(status=204)
 
 @require_http_methods(["POST", "DELETE"])
-@ensure_csrf_cookie
+@csrf_exempt
 def post_cart(request, post_id, fid):
     logged_user_id=request.session.get('user', None)
     if not logged_user_id:
@@ -469,7 +469,7 @@ def post_comment_post(request, post_id):
         )      
 
 @require_http_methods(["PUT", "DELETE"])
-@ensure_csrf_cookie
+@csrf_exempt
 def post_comment_spec(request, post_id, cid):
     logged_user_id=request.session.get('user', None)
     if not logged_user_id:
@@ -490,7 +490,7 @@ def post_comment_spec(request, post_id, cid):
         return HttpResponse(status=200)
 
 @require_http_methods(["POST"])
-@ensure_csrf_cookie
+@csrf_exempt
 def place_create(request):
     logged_user_id=request.session.get('user', None)
     if not logged_user_id:
@@ -567,7 +567,7 @@ def place_spec(request, place_id):
     return JsonResponse(response_dict, safe=False)
 
 @require_http_methods(["PUT", "DELETE"])
-@ensure_csrf_cookie
+@csrf_exempt
 def place_spec_edit(request, place_id):
     logged_user_id=request.session.get('user', None)
     if not logged_user_id:
@@ -612,7 +612,7 @@ def place_spec_edit(request, place_id):
         return HttpResponse(status=204)    
 
 @require_http_methods(["POST", "DELETE"])
-@ensure_csrf_cookie
+@csrf_exempt
 def place_cart(request, place_id, fid):
     logged_user_id=request.session.get('user', None)
     if not logged_user_id:
