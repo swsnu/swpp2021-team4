@@ -1,4 +1,4 @@
-from django.http import HttpResponse, JsonResponse,HttpResponseBadRequest, response
+from django.http import HttpResponse, JsonResponse,HttpResponseBadRequest
 import json
 from .models import Post, Comment, Place, Like, Folder, PostInFolder, PlaceInFolder, Path
 from json.decoder import JSONDecodeError
