@@ -1,4 +1,6 @@
 from django.urls import path
+from django.conf import settings
+from django.conf.urls.static import static
 
 from . import views
 
@@ -16,4 +18,6 @@ urlpatterns = [
     path('<int:user_id>/like/', views.user_likes, name='user_likes'), 
     path('<int:user_id>/share/', views.user_shares, name='user_shares'), 
     path('<int:user_id>/posts/', views.user_posts, name='user_posts'), 
-]
+] 
+
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
