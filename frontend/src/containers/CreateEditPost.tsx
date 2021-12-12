@@ -97,7 +97,7 @@ function CreateEditPost(props: PropsType) {
               ];
             });
           });
-          response.data.posts.map((route: SimplePostType) => {
+          response.data.posts.forEach((route: SimplePostType) => {
             setCartRouteList((prevState: any) => {
               return [...prevState, route];
             });
