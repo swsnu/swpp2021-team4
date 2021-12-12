@@ -13,7 +13,6 @@ import "./styles/reset.css";
 
 function App() {
   const { loggedUser } = useSelector((state: RootReducerType) => state.user);
-  console.log(loggedUser)
   const unAuthorized = () => {
     return <Redirect to="/signin/" />;
   };
@@ -27,6 +26,12 @@ function App() {
           component={CreateEditPostPage}
         />
         <Route exact path="/edit_profile/" component={EditProfilePage} />
+        <Route
+          path="*"
+          render={() => {
+            return <div>존재하지 않는 페이지입니다.</div>;
+          }}
+        />
       </Switch>
     );
   };
@@ -40,7 +45,6 @@ function App() {
           <Route exact path="/post/show/:id/" component={PostDetailPage} />
           <Route exact path="/user_info/:id/" component={UserInfoPage} />
           <Route exact path={["/", "/main/"]} component={MainPage} />
-
           {loggedUser.id ? authorized() : unAuthorized()}
         </Switch>
       </BrowserRouter>
