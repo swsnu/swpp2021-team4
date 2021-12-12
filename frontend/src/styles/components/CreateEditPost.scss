@@ -21,25 +21,21 @@
     margin-bottom: 1.145vw;
     font-family: $koreanFont;
     font-weight: 600;
-    font-size: 2rem;
+    font-size: 1.5rem;
     line-height: 2.437rem;
     color: #000000;
     display: flex;
-    .select-route-button {
+    align-items: flex-start;
+    .select-route-button button {
       margin-left: 1vw;
-      margin-top: 0vh;
-      cursor:pointer;
-      img:last-child {
-        display: none;
-      }
-      &:hover {
-        img:first-child {
-          display: none;
-        }
-        img:last-child {
-          display: inline-block;
-        }
-      }
+      margin-top: 0;
+      cursor: pointer;
+      background-color: $darkMintColor;
+      font-size: 13px;
+      color: #ffffff;
+      font-weight: 700;
+      border-radius: 6px;
+      padding: 5px;
     }
   }
 

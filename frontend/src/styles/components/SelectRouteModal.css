@@ -33,6 +33,28 @@
   width: 100%;
 }
 
+.select-route-modal-container img,
+.select-route-modal-container button {
+  cursor: pointer;
+}
+
+.select-route-modal-container .select-route-modal-select-btn {
+  position: absolute;
+  bottom: 30px;
+  background-color: #95ecdc;
+  border-radius: 4px;
+  padding: 10px 80px;
+  font-family: "Montserrat", Monospace;
+  font-style: normal;
+  color: #ffffff;
+  cursor: pointer;
+  font-size: 100%;
+}
+
+.select-route-modal-container .select-route-modal-select-btn:hover {
+  background-color: #57ceb9;
+}
+
 .select-route-modal-container .route-list-container {
   width: 100%;
 }
@@ -95,7 +117,7 @@
 
 .select-route-modal-container .route-list-container .route-container .route-header-author {
   margin-bottom: 1.5vh;
-  margin-left: 18vw;
+  text-align: right;
   font-family: "Montserrat", Monospace;
   font-weight: bold;
   font-size: 15px;
@@ -104,12 +126,21 @@
 
 .select-route-modal-container .route-list-container .blank-route {
   display: block;
-  line-height: 3.5;
-  text-align: center;
-  font-family: "Montserrat", Monospace;
-  color: #caccd2;
-  font-weight: 600;
+  line-height: 4;
+  padding-left: 10px;
+  text-align: left;
+  font-family: "Noto Sans CJK KR", Monospace;
+  color: #a7a9af;
+  font-weight: 400;
   font-size: 20px;
+}
+
+.select-route-modal-container .route-list-container .selected {
+  background-color: #c7eee7;
+}
+
+.select-route-modal-container .route-list-container .false {
+  display: none;
 }
 
 .false {

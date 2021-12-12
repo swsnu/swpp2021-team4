@@ -23,6 +23,26 @@
     margin-bottom: 30px;
     width: 100%;
   }
+  img,
+  button {
+    cursor: pointer;
+  }
+  .select-route-modal-select-btn {
+    position: absolute;
+    bottom: 30px;
+
+    background-color: $regularMintColor;
+    border-radius: 4px;
+    padding: 10px 80px;
+    font-family: $mainFont;
+    font-style: normal;
+    color: #ffffff;
+    cursor: pointer;
+    font-size: 100%;
+    &:hover {
+      background-color: $darkMintColor;
+    }
+  }
 
   .route-list-container {
     width: 100%;
@@ -71,7 +91,7 @@
       }
       .route-header-author {
         margin-bottom: 1.5vh;
-        margin-left: 18vw;
+        text-align: right;
         font-family: $mainFont;
         font-weight: bold;
         font-size: 15px;
@@ -80,12 +100,19 @@
     }
     .blank-route {
       display: block;
-      line-height: 3.5;
-      text-align: center;
-      font-family: $mainFont;
-      color: $regularGrayColor;
-      font-weight: 600;
+      line-height: 4;
+      padding-left: 10px;
+      text-align: left;
+      font-family: $koreanFont;
+      color: $darkGrayColor;
+      font-weight: 400;
       font-size: 20px;
+    }
+    .selected {
+      background-color: $lightMintColor;
+    }
+    .false {
+      display: none;
     }
   }
 }
