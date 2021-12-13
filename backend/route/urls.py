@@ -1,6 +1,4 @@
 from django.urls import path
-from django.conf import settings
-from django.conf.urls.static import static
 from route import views
 
 urlpatterns = [
@@ -20,4 +18,3 @@ urlpatterns = [
     path('place/<int:place_id>/edit/', views.place_spec_edit, name='place_spec_edit'),
     path('place/<int:place_id>/cart/<int:fid>/', views.place_cart, name='place_cart')
 ]
-urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
