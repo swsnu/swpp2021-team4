@@ -128,7 +128,6 @@ function EditProfile() {
           <div className="line"></div>
           <button
             onClick={onClickEditProfileButton}
-            disabled={!userInputs.username || !userInputs.password}
             className="edit-profile-btn"
           >
             Edit

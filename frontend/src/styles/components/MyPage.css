@@ -47,9 +47,10 @@
           justify-content: space-between;
   font-family: "Montserrat", Monospace;
   font-style: normal;
-  padding: 20px 0;
+  padding: 10px;
+  margin: 10px 0;
   color: #57ceb9;
-  border-radius: 6px;
+  border-radius: 10px;
 }
 
 .folder .left .folderHead .icon {
