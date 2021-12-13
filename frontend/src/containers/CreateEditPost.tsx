@@ -57,8 +57,9 @@ function CreateEditPost(props: PropsType) {
   const post = usePostState();
   const loggedUser = useUserState();
 
-  const [postInfoData, setPostInfoData] = useState<PostInfoDataType>(initialPostData);
-  const [thumbnailUrl, setThumbnailUrl] = useState<any>('');
+  const [postInfoData, setPostInfoData] =
+    useState<PostInfoDataType>(initialPostData);
+  const [thumbnailUrl, setThumbnailUrl] = useState<any>("");
   const [locationQuery, setLocationQuery] = useState("");
   const [selectedDay, setSelectedDay] = useState(1);
   const [routePlaces, setRoutePlaces] = useState<PlaceDayType[]>([]);
@@ -86,22 +87,16 @@ function CreateEditPost(props: PropsType) {
           places: PlaceType[];
         }>(`/user/${loggedUser.id}/folder/${props.folder.id}`)
         .then(function (response) {
+          let placeList = [...initialCartPlaceList];
           response.data.places.map((place: PlaceType) => {
-            setCartPlaceList((prevState: any) => {
-              return [
-                ...prevState,
-                {
-                  place: place,
-                  day: selectedDay,
-                },
-              ];
-            });
+            placeList = [...placeList, { place: place, day: selectedDay }];
           });
+          setCartPlaceList(placeList);
+          let routeList = [...cartRouteList];
           response.data.posts.forEach((route: SimplePostType) => {
-            setCartRouteList((prevState: any) => {
-              return [...prevState, route];
-            });
+            routeList = [...routeList, route];
           });
+          setCartRouteList(routeList);
         })
         .catch((err) => err.response);
     }
@@ -149,7 +144,8 @@ function CreateEditPost(props: PropsType) {
   }, [pageLocation, post]);
 
   useEffect(() => {
-    if (locationQuery) setPostInfoData({ ...postInfoData, location: locationQuery });
+    if (locationQuery)
+      setPostInfoData({ ...postInfoData, location: locationQuery });
   }, [locationQuery]);
 
   const changeLocationQuery = (text: string | null) => {
@@ -270,9 +266,6 @@ function CreateEditPost(props: PropsType) {
           response.data.pathList.forEach(
             (path: ServerPathType) =>
               (convertedPathList[path.from_place_id] = {
-                // day: response.data.places.find(
-                //   (place: PlaceType) => (place.id = path.from_place_id)
-                // ).day,
                 to: path.to_place_id.toString(),
                 transportation: path.transportation,
               })
@@ -328,19 +321,22 @@ function CreateEditPost(props: PropsType) {
 
     const formData = new FormData();
     formData.append("title", title);
-    formData.append("is_shared", isShared?.toString() || 'false');
+    formData.append("is_shared", isShared?.toString() || "false");
     if (thumbnailImage) formData.append("thumbnail_image", thumbnailImage);
-    formData.append('days', days?.toString());
-    formData.append('theme', theme);
-    formData.append('season', seasonRecommendation);
-    formData.append('location', location);
-    formData.append('availableWithoutCar', isAvailableWithoutCar.toString())
-    formData.append('folder_id', folderId ? folderId.toString() : '172637238622223');
-    formData.append('places', JSON.stringify(placeListData));
-    formData.append('path_list', JSON.stringify(pathListData));
-    formData.append("enctype", 'multipart/form-data');
+    formData.append("days", days?.toString());
+    formData.append("theme", theme);
+    formData.append("season", seasonRecommendation);
+    formData.append("location", location);
+    formData.append("availableWithoutCar", isAvailableWithoutCar.toString());
+    formData.append(
+      "folder_id",
+      folderId ? folderId.toString() : "172637238622223"
+    );
+    formData.append("places", JSON.stringify(placeListData));
+    formData.append("path_list", JSON.stringify(pathListData));
+    formData.append("enctype", "multipart/form-data");
 
-    if (pageLocation.state?.from === 'edit') {
+    if (pageLocation.state?.from === "edit") {
       // edit
       dispatch(
         editPostAction(formData, post.id, () =>
