@@ -404,7 +404,7 @@ function CreateEditPost(props: PropsType) {
     <div>
       <CreateEditHeader
         folder={props.folder}
-        thumbnailImage={thumbnailUrl}
+        thumbnailImage={thumbnailUrl ? thumbnailUrl : post.thumbnail_image}
         postInfoData={postInfoData}
         onClickAvailableWithoutCar={onClickAvailableWithoutCar}
         onChangePostInfoData={onChangePostInfoData}
