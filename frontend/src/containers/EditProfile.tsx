@@ -53,10 +53,13 @@ function EditProfile() {
     const { username, password, password2 } = userInputs;
     if (!username) {
       alert("닉네임을 입력하세요!");
+      return;
     } else if (!password || !password2) {
       alert("비밀번호를 입력하세요!");
+      return;
     } else if (password !== password2) {
       alert("입력한 비밀번호가 서로 다릅니다!");
+      return;
     } else {
       const formData = new FormData();
       formData.append("username", userInputs.username);
@@ -125,7 +128,6 @@ function EditProfile() {
           <div className="line"></div>
           <button
             onClick={onClickEditProfileButton}
-            disabled={!userInputs.username || !userInputs.password}
             className="edit-profile-btn"
           >
             Edit

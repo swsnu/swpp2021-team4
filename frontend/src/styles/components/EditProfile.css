@@ -48,6 +48,7 @@
 
 .edit-profile-container .edit-profile-content .edit-profile-image .profile-image-preview {
   width: 20vw;
+  height: 20vw;
   border-radius: 10vw;
 }
 
@@ -131,7 +132,7 @@
 .edit-profile-container .edit-profile-content .edit-profile-form-container .line {
   width: 100%;
   height: 0px;
-  border: 0.01px solid #caccd2;
+  border-bottom: 0.01px solid #caccd2;
   margin: 17px 0;
 }
 
