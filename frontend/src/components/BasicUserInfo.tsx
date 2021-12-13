@@ -15,10 +15,10 @@ function BasicUserInfo(props: PropType) {
     return (
         <div className="basic-user-info">
             <div className="image">
-                {props.profile_image === null && (
+                {!props.profile_image && (
                     <img className="profileImage" src={logo} />
                 )}
-                {props.profile_image !== null && (
+                {props.profile_image && (
                     <img className="profileImage" src={props.profile_image} />
                 )}
             </div>
