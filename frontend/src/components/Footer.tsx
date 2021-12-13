@@ -3,8 +3,8 @@ import '../styles/components/Footer.css';
 function Footer() {
   return (
     <div className="Footer">
-      <div className="logo">@Tripick</div>
-      <div className="footer-explanation">Pick your trip</div>
+      <div className="footer-name">Tripick: Pick your trip</div>
+      <div className="footer-explanation">Copyright 2021. All rights reserved</div>
     </div>
   );
 }

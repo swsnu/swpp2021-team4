@@ -1,33 +1,38 @@
 @import "../../Variables/Variables.scss";
 
 .serviceInfo {
-  margin: 0 auto;
+  margin: 100px auto;
   width: 80vw;
-  padding-top: 30px;
 
+  .line {
+    margin: 100px auto;
+    width: 200px;
+    border: 1px solid $lightGrayColor;
+  }
   .service-header {
     font-family: $mainFont;
     font-weight: 600;
     font-size: 20px;
     color: #969696;
     display: flex;
-    justify-content: space-between;
-    margin: 10px 15px;
+    align-items: center;
+    justify-content: center;
+    .logo-subtitle {
+      margin-top: 10px;
+      margin-left: 15px;
+    }
   }
 
-  .explanation {
-    display: flex;
-    flex-direction: row;
-  }
   .service-content {
-    margin-top: 3%;
+    margin-top: 80px;
     display: flex;
-    font-family: $koreanFont;
     flex-direction: row;
     justify-content: space-between;
-    font-weight: 300;
-    font-size: 20px;
-    text-shadow: 0.5px 0.5px 0.5px black;
+    font-size: 18px;
+    background-color: $whiteColor;
+    padding: 30px;
+    font-family: $koreanFont;
+    font-weight: 500;
     .item {
       width: 30%;
       display: flex;
@@ -35,17 +40,25 @@
       align-items: center;
       justify-content: center;
       box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
+      background-color: white;
       border-radius: 6px;
+      padding: 50px 0;
       .icon {
-        margin-top: 5%;
         width: 50%;
-        justify-content: center;
+        margin-bottom: 50px;
       }
-      .icon-expl {
-        margin-top: 8%;
-        justify-content: center;
+      .item-title {
+        margin: 0 auto;
         color: $darkMintColor;
-        margin-bottom: 5%;
+        margin-top: 10px;
+      }
+      .item-description {
+        margin-top: 20px;
+        width: 70%;
+        color: $darkGrayColor;
+        font-family: $mainFont;
+        font-size: 14px;
+        line-height: 20px;
       }
     }
   }

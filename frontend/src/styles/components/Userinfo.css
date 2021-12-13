@@ -1,9 +1,24 @@
-.route-list-title {
+.userinfo-container .title {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  font-family: "Montserrat", Monospace;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 28px;
+  line-height: 34px;
+  color: #57ceb9;
+  margin-top: 20px;
+  margin-left: 10%;
+  margin-bottom: 20px;
+}
+
+.userinfo-container .route-list-title {
   margin-top: 50px;
   margin-bottom: 10px;
 }
 
-.user-posts {
+.userinfo-container .user-posts {
   width: 1120px;
   margin: 0 auto;
   display: -webkit-box;
@@ -16,7 +31,7 @@
   margin-top: 20px;
 }
 
-.user-posts .user-post {
+.userinfo-container .user-posts .user-post {
   margin-top: 20px;
 }
 /*# sourceMappingURL=Userinfo.css.map */
