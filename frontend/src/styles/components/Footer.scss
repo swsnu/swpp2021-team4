@@ -1,24 +1,14 @@
 @import "../../Variables/Variables.scss";
 .Footer {
-  background-color: lightgray;
-  margin-top: 5%;
-  padding-top: 2%;
-  padding-bottom: 2%;
-  .logo {
-    font-size: 25px;
-    font-weight: 1000;
-  }
-  .footer-explanation {
-    font-size: 20px;
-    font-weight: 700;
-  }
-  .logo,
-  .footer-explanation {
-    color: white;
-    font-family: $mainFont;
-    display: flex;
-    justify-content: center;
+  background-color: $lightGrayColor;
+  margin-top: 100px;
+  padding: 70px 10vw;
+  font-size: 13px;
+  font-family: $mainFont;
+  color: $darkGrayColor;
 
-    text-shadow: 1px 1px 0.5px black;
+  .footer-name {
+    font-size: 15px;
+    margin-bottom: 10px;
   }
 }

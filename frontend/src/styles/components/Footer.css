@@ -1,30 +1,14 @@
 .Footer {
-  background-color: lightgray;
-  margin-top: 5%;
-  padding-top: 2%;
-  padding-bottom: 2%;
-}
-
-.Footer .logo {
-  font-size: 25px;
-  font-weight: 1000;
-}
-
-.Footer .footer-explanation {
-  font-size: 20px;
-  font-weight: 700;
-}
-
-.Footer .logo,
-.Footer .footer-explanation {
-  color: white;
+  background-color: #e2e3e9;
+  margin-top: 100px;
+  padding: 70px 10vw;
+  font-size: 13px;
   font-family: "Montserrat", Monospace;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  text-shadow: 1px 1px 0.5px black;
+  color: #a7a9af;
+}
+
+.Footer .footer-name {
+  font-size: 15px;
+  margin-bottom: 10px;
 }
 /*# sourceMappingURL=Footer.css.map */
