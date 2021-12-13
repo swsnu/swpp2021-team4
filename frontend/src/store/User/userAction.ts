@@ -39,7 +39,7 @@ export const signinAction = (
         callbackFunc(true);
       })
       .catch((err) => {
-        if (err.response.status === 401) {
+        if (err.response?.status === 401) {
           alert(`로그인 실패\n${err.response.data}`);
         } else {
           alert('로그인이 실패했습니다!');
