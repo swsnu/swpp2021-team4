@@ -53,7 +53,6 @@ function Search() {
         (value) => SetSearch(value)
       )
     );
-    console.log(searched);
   };
 
   const [regionIdx, setRegionIdx] = useState<number>(0);

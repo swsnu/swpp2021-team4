@@ -13,9 +13,6 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 from pathlib import Path
 import os
 import environ
-import sys
-
-sys.path.append('/Users/Nayoung/swpp2021-team4/backend/.venv/lib/python3.7/site-packages')
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -33,7 +30,7 @@ AWS_SECRET_ACCESS_KEY = env('AWS_SECRET_ACCESS_KEY')
 SECRET_KEY = 'django-insecure-melkc2s@uay!owd#hn=ooi=7d+&kesht!6*q1eha$o3kyd@f-8'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = [ 'tripick.shop', 'localhost', '127.0.0.1', '3.35.80.215' ]
 

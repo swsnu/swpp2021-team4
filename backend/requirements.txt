@@ -36,6 +36,7 @@ toml==0.10.2
 typed-ast==1.4.3
 typing-extensions==3.10.0.2
 urllib3==1.26.7
+uwsgi==2.0.20
 virtualenv==20.7.2
 wrapt==1.12.1
 zipp==3.6.0
