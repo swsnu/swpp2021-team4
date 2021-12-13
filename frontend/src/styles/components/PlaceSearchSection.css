@@ -21,7 +21,7 @@
   font-weight: 600;
   font-size: 1.375rem;
   line-height: 1.6875rem;
-  color: #000000;
+  color: gray;
 }
 
 .place-search-container .place-search-tab-container .tab-title:hover {
@@ -30,6 +30,10 @@
 
 .place-search-container .place-search-tab-container .tab-title.selected {
   text-decoration: underline;
+  -webkit-text-decoration-color: #57ceb9;
+          text-decoration-color: #57ceb9;
+  text-underline-position: under;
+  color: black;
 }
 
 .place-search-container .place-search-tab-container .tab-title + .tab-title {

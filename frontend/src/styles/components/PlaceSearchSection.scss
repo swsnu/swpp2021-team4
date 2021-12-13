@@ -16,14 +16,17 @@
       font-weight: 600;
       font-size: 1.375rem;
       line-height: 1.6875rem;
-      color: #000000;
       &:hover {
         cursor: pointer;
       }
+      color:gray;
     }
 
     .tab-title.selected {
       text-decoration: underline;
+      text-decoration-color: $darkMintColor;
+      text-underline-position: under;
+      color: black;
     }
 
     .tab-title + .tab-title {
