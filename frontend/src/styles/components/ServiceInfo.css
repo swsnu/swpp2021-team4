@@ -1,7 +1,12 @@
 .serviceInfo {
-  margin: 0 auto;
+  margin: 100px auto;
   width: 80vw;
-  padding-top: 30px;
+}
+
+.serviceInfo .line {
+  margin: 100px auto;
+  width: 200px;
+  border: 1px solid #e2e3e9;
 }
 
 .serviceInfo .service-header {
@@ -12,28 +17,24 @@
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
-  margin: 10px 15px;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
 }
 
-.serviceInfo .explanation {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: row;
-          flex-direction: row;
+.serviceInfo .service-header .logo-subtitle {
+  margin-top: 10px;
+  margin-left: 15px;
 }
 
 .serviceInfo .service-content {
-  margin-top: 3%;
+  margin-top: 80px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  font-family: "Noto Sans CJK KR", Monospace;
   -webkit-box-orient: horizontal;
   -webkit-box-direction: normal;
       -ms-flex-direction: row;
@@ -41,9 +42,11 @@
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
-  font-weight: 300;
-  font-size: 20px;
-  text-shadow: 0.5px 0.5px 0.5px black;
+  font-size: 18px;
+  background-color: #F5F6F9;
+  padding: 30px;
+  font-family: "Noto Sans CJK KR", Monospace;
+  font-weight: 500;
 }
 
 .serviceInfo .service-content .item {
@@ -63,23 +66,28 @@
           justify-content: center;
   -webkit-box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
           box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
+  background-color: white;
   border-radius: 6px;
+  padding: 50px 0;
 }
 
 .serviceInfo .service-content .item .icon {
-  margin-top: 5%;
   width: 50%;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  margin-bottom: 50px;
 }
 
-.serviceInfo .service-content .item .icon-expl {
-  margin-top: 8%;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+.serviceInfo .service-content .item .item-title {
+  margin: 0 auto;
   color: #57ceb9;
-  margin-bottom: 5%;
+  margin-top: 10px;
+}
+
+.serviceInfo .service-content .item .item-description {
+  margin-top: 20px;
+  width: 70%;
+  color: #a7a9af;
+  font-family: "Montserrat", Monospace;
+  font-size: 14px;
+  line-height: 20px;
 }
 /*# sourceMappingURL=ServiceInfo.css.map */

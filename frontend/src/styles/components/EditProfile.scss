@@ -24,13 +24,13 @@
 
     .edit-profile-image {
       width: 25vw;
-      height: 25vw;
       display: flex;
       flex-direction: column;
       align-items: center;
   
       .profile-image-preview {
         width: 20vw;
+        height: 20vw;
         border-radius: 10vw;
       }
   
@@ -96,7 +96,7 @@
       .line {
         width: 100%;
         height: 0px;
-        border: 0.01px solid $regularGrayColor;
+        border-bottom: 0.01px solid $regularGrayColor;
         margin: 17px 0;
       }
 
