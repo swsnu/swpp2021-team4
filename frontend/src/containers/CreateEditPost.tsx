@@ -68,7 +68,7 @@ function CreateEditPost(props: PropsType) {
   const [createdPostId, setCreatedPostId] = useState<number>(0);
   const [pathList, setPathList] = useState<PathListType>({});
   //should choose a base route when the user visits create page
-  const [routeModalVisible, setRouteModalVisible] = useState<boolean>(true);
+  const [routeModalVisible, setRouteModalVisible] = useState<boolean>(false);
 
   useEffect(() => {
     if (isPostCreated && createdPostId) {
@@ -92,11 +92,16 @@ function CreateEditPost(props: PropsType) {
             placeList = [...placeList, { place: place, day: selectedDay }];
           });
           setCartPlaceList(placeList);
+
           let routeList = [...cartRouteList];
           response.data.posts.forEach((route: SimplePostType) => {
             routeList = [...routeList, route];
           });
-          setCartRouteList(routeList);
+          
+          if (routeList.length > 0) {
+            setCartRouteList(routeList);
+            setRouteModalVisible(true);
+          }
         })
         .catch((err) => err.response);
     }
