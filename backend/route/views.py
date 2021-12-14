@@ -5,7 +5,7 @@ from json.decoder import JSONDecodeError
 from django.views.decorators.http import require_http_methods
 from django.views.decorators.http import require_POST, require_GET
 from account.models import User
-from django.views.decorators.csrf import ensure_csrf_cookie
+from django.views.decorators.csrf import ensure_csrf_cookie, csrf_exempt
 from .forms import PostForm
 
 @require_GET
@@ -445,6 +445,7 @@ def post_comment_get(request, post_id):
     return JsonResponse(comments, safe=False)
 
 @require_POST
+@csrf_exempt
 def post_comment_post(request, post_id):
     logged_user_id=request.session.get('user', None)
     if not logged_user_id:
@@ -470,6 +471,7 @@ def post_comment_post(request, post_id):
 
 @require_http_methods(["PUT", "DELETE"])
 @ensure_csrf_cookie
+@csrf_exempt
 def post_comment_spec(request, post_id, cid):
     logged_user_id=request.session.get('user', None)
     if not logged_user_id:
