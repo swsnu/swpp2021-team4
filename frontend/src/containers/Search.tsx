@@ -56,6 +56,11 @@ function Search() {
     );
   };
 
+  const onPressEnterSearch = (e: React.KeyboardEvent) => {
+    if (e.key !== "Enter") return;
+    onClickSearch();
+  }
+
   const [regionIdx, setRegionIdx] = useState<number>(0);
   const [cityIdx, setCityIdx] = useState<number>(0);
   const [location, setLocation] = useState<string | null>("");
@@ -91,13 +96,12 @@ function Search() {
             type="text"
             value={userInputs.keyword}
             onChange={onChangeInputs}
+            onKeyPress={onPressEnterSearch}
             placeholder="원하는 여행을 검색해보세요"
           />
           <button
             className="search-button"
-            onClick={() => {
-              onClickSearch();
-            }}
+            onClick={onClickSearch}
           >
             Search
           </button>
