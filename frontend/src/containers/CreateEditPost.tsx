@@ -526,15 +526,7 @@ function CreateEditPost(props: PropsType) {
                 </button>
               </div>
             </div>
-            <SelectRouteModal
-              onClickCloseModal={onClickCloseModal}
-              onClickRoute={onClickRoute}
-              clickedRoute={clickedRoute}
-              cartRouteList={cartRouteList}
-              isModalVisible={routeModalVisible}
-              onClickRouteSubmitButton={onClickRouteSubmitButton}
-              countModalClick={countModalClick}
-            />
+            
             <MyRoutesSection
               days={postInfoData.days}
               selectedDay={selectedDay}
