@@ -84,7 +84,7 @@ function Signup() {
         <input
           id="userPassword"
           type="password"
-          placeholder="비밀번호를 입력해 주세요."
+          placeholder="비밀번호를 입력해 주세요 (8자리 이상의 영문+숫자)"
           value={userInputs.userPassword}
           onChange={onChangeInputs}
         />
