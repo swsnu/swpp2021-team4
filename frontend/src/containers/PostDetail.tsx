@@ -13,7 +13,11 @@ import "../styles/components/PostDetail.css";
 import "../styles/components/Place.css";
 import Map from "../components/Map";
 import cart from "../static/cart-icon.svg";
-import { CommentType, PlaceType } from "../store/Post/postInterfaces";
+import {
+  CommentType,
+  PlaceType,
+  ServerPathType,
+} from "../store/Post/postInterfaces";
 import Place from "../components/Place";
 import { RootReducerType } from "../store/store";
 import profile_image from "../static/profile.png";
@@ -106,15 +110,16 @@ function PostDetail() {
               .filter((place: PlaceType) => place.day == day)
               .map((dayPlace: PlaceType, index: number, array: PlaceType[]) => {
                 const pathFromCurrentPlace = post.pathList?.find(
-                  (path: any) => {
+                  (path: ServerPathType) => {
                     return (
                       path.from_place_id === dayPlace.id &&
                       index < array.length &&
-                      path.to_place_id == array[index + 1].id
+                      path.to_place_id ==
+                        (array[index + 1] && array[index + 1].id)
                     );
                   }
                 );
- 
+
                 return (
                   <>
                     <Place

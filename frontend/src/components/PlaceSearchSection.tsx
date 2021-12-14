@@ -75,8 +75,8 @@ function PlaceSearchSection(props: PropType) {
               phone_number: result.phone,
               address: result.address_name,
               category: result.category_group_name,
-              lon: result.x,
-              lat: result.y,
+              longitude: result.x,
+              latitude: result.y,
             };
           });
           setSearchResults(convertedPlaces);

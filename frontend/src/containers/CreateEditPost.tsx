@@ -166,8 +166,6 @@ function CreateEditPost(props: PropsType) {
       description: e.target.value,
     });
   };
-
-  routePlaces.forEach(({ place }) => console.log(place.latitude));
   const onAddPlace = (place: PlaceType) => {
     setRoutePlaces((prevState: any) => {
       return [
@@ -258,7 +256,7 @@ function CreateEditPost(props: PropsType) {
           // render places in my routes section
           const placeList: PlaceDayType[] = response.data.places.map(
             (place: PlaceType) => ({
-              place: place,
+              place: {...place, id: place.id + Date.now()},
               day: place.day,
             })
           );
