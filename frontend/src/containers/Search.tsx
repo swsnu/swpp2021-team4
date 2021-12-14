@@ -41,6 +41,11 @@ function Search() {
   };
 
   const onClickSearch = () => {
+    if (!userInputs.keyword) {
+      alert('검색어를 입력해주세요!');
+      return;
+    }
+    
     dispatch(
       searchAction(
         {
