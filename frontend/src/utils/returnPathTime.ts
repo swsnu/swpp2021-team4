@@ -20,7 +20,7 @@ export default async (origin: string, destination: string, type: 'car' | 'pub' |
       meterPerHour = 0;
   }
 
-  return axios.get(`https://apis-navi.kakaomobility.com/v1/directions?origin=${origin}&destination=${destination}`, {
+  return axios.get(`/v1/directions?origin=${origin}&destination=${destination}`, {
     headers: {
       Authorization: `KakaoAK ${process.env.REACT_APP_KAKAO_NAVI_REST_API_KEY || 'SET_ENV_KEY'}`
     }
