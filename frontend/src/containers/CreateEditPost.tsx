@@ -167,6 +167,7 @@ function CreateEditPost(props: PropsType) {
     });
   };
 
+  routePlaces.forEach(({ place }) => console.log(place.latitude));
   const onAddPlace = (place: PlaceType) => {
     setRoutePlaces((prevState: any) => {
       return [
@@ -336,7 +337,13 @@ function CreateEditPost(props: PropsType) {
     formData.append("path_list", JSON.stringify(pathListData));
     formData.append("enctype", "multipart/form-data");
 
-    if (pageLocation.state?.from === "edit") {
+    if (
+      !(
+        postInfoData.title && postInfoData.theme && postInfoData.seasonRecommendation && postInfoData.location && postInfoData.days
+      )
+    ) {
+      window.alert("게시물 정보를 모두 채워주세요!");
+    } else if (pageLocation.state?.from === "edit") {
       // edit
       dispatch(
         editPostAction(formData, post.id, () =>
