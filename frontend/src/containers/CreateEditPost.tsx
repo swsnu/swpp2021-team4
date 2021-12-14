@@ -121,10 +121,10 @@ function CreateEditPost(props: PropsType) {
       const convertedPathList: PathListType = {};
       post.pathList?.forEach(
         (path: ServerPathType) =>
-          (convertedPathList[path.from_place_id] = {
-            to: path.to_place_id.toString(),
-            transportation: path.transportation,
-          })
+        (convertedPathList[path.from_place_id] = {
+          to: path.to_place_id.toString(),
+          transportation: path.transportation,
+        })
       );
 
       setPathList(convertedPathList);
@@ -265,10 +265,10 @@ function CreateEditPost(props: PropsType) {
           const convertedPathList: PathListType = {};
           response.data.pathList.forEach(
             (path: ServerPathType) =>
-              (convertedPathList[path.from_place_id] = {
-                to: path.to_place_id.toString(),
-                transportation: path.transportation,
-              })
+            (convertedPathList[path.from_place_id] = {
+              to: path.to_place_id.toString(),
+              transportation: path.transportation,
+            })
           );
           setPathList(convertedPathList);
           setRoutePlaces(placeList);
@@ -461,7 +461,7 @@ function CreateEditPost(props: PropsType) {
       !countModalClick &&
       !(pageLocation.state?.from === "edit")
     ) {
-      if (confirm("자동으로 빈 루트가 생성됩니다.")) {
+      if (window.confirm("자동으로 빈 루트가 생성됩니다.")) {
         setRouteModalVisible(false);
       } else {
         setRouteModalVisible(true);
