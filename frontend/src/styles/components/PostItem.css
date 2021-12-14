@@ -43,7 +43,7 @@
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
-  margin: 5px 0 10px 0;
+  margin: 10px 0 15px 0;
 }
 
 .postitem-container .title-container .title {
@@ -54,6 +54,7 @@
   color: #000000;
   padding: 7px 10px;
   border-radius: 10px;
+  width: 100%;
 }
 
 .postitem-container .title-container .title:hover {
@@ -64,6 +65,7 @@
   width: 32px;
   height: 32px;
   border-radius: 16px;
+  margin-right: 10px;
 }
 
 .postitem-container .title-container .post-in-cart-delete img {

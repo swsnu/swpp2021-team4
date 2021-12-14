@@ -30,7 +30,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin: 5px 0 10px 0;
+    margin: 10px 0 15px 0;
 
     .title {
       font-family: $koreanFont;
@@ -40,6 +40,7 @@
       color: $blackColor;
       padding: 7px 10px;
       border-radius: 10px;
+      width: 100%;
       &:hover {
         background-color: $whiteColor;
       }
@@ -49,6 +50,7 @@
       width: 32px;
       height: 32px;
       border-radius: 16px;
+      margin-right:10px;
       img {
         width: 20px;
       }

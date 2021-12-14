@@ -232,12 +232,12 @@ function MyPage(props: PropType) {
         </div>
 
         <div className="right">
-          <div className="posts-container">
-            <div className="folder-my-posts">
-              <div className="folder-title">내가 작성한 루트</div>
-              <div className="folder-items">
-                {selected === 0 &&
-                  folderInfo.my_posts?.map((post) => {
+          {selected === 0 && (
+            <div className="posts-container">
+              <div className="folder-my-posts">
+                <div className="folder-title">내가 작성한 루트</div>
+                <div className="folder-items">
+                  {folderInfo.my_posts?.map((post) => {
                     return (
                       <PostItem
                         key={post.id}
@@ -253,13 +253,12 @@ function MyPage(props: PropType) {
                       />
                     );
                   })}
+                </div>
               </div>
-            </div>
-            <div className="folder-posts">
-              <div className="folder-title">카트에 담은 루트</div>
-              <div className="folder-items">
-                {selected === 0 &&
-                  folderInfo.posts?.map((post) => {
+              <div className="folder-posts">
+                <div className="folder-title">카트에 담은 루트</div>
+                <div className="folder-items">
+                  {folderInfo.posts?.map((post) => {
                     return (
                       <PostItem
                         key={post.id}
@@ -275,56 +274,62 @@ function MyPage(props: PropType) {
                       />
                     );
                   })}
+                </div>
               </div>
-            </div>
-            <div className="folder-places">
-              <div className="folder-title">카트에 담은 장소</div>
-              <div className="folder-items">
-                {selected === 0 &&
-                  folderInfo.places?.map((place) => {
+              <div className="folder-places">
+                <div className="folder-title">카트에 담은 장소</div>
+                <div className="folder-items">
+                  {folderInfo.places?.map((place) => {
                     return <PlaceItem
                       key={place.id}
                       place={place}
                       onClickUncartPlace={onClickUncartPlace}
                     />;
                   })}
+                </div>
               </div>
             </div>
-            {selected === 1 &&
-              likedPosts &&
-              likedPosts.map((post) => {
-                return (
-                  <PostItem
-                    key={post.id}
-                    id={post.id}
-                    thumbnail_image={post.thumbnail_image}
-                    title={post.title}
-                    author_name={post.author_name}
-                    author_id={post.author_id}
-                    like_count={post.like_count}
-                    comment_count={post.comment_count}
-                    is_shared={post.is_shared}
-                  />
-                );
-              })}
-            {selected === 2 &&
-              sharedPosts &&
-              sharedPosts.map((post) => {
-                return (
-                  <PostItem
-                    key={post.id}
-                    id={post.id}
-                    thumbnail_image={post.thumbnail_image}
-                    title={post.title}
-                    author_name={post.author_name}
-                    author_id={post.author_id}
-                    like_count={post.like_count}
-                    comment_count={post.comment_count}
-                    is_shared={post.is_shared}
-                  />
-                );
-              })}
-          </div>
+          )}
+          {selected === 1 && (
+            <div className="posts-container">
+              {likedPosts &&
+                likedPosts.map((post) => {
+                  return (
+                    <PostItem
+                      key={post.id}
+                      id={post.id}
+                      thumbnail_image={post.thumbnail_image}
+                      title={post.title}
+                      author_name={post.author_name}
+                      author_id={post.author_id}
+                      like_count={post.like_count}
+                      comment_count={post.comment_count}
+                      is_shared={post.is_shared}
+                    />
+                  );
+                })}
+            </div>
+          )}
+          {selected === 2 && (
+            <div className="posts-container">
+              {sharedPosts &&
+                sharedPosts.map((post) => {
+                  return (
+                    <PostItem
+                      key={post.id}
+                      id={post.id}
+                      thumbnail_image={post.thumbnail_image}
+                      title={post.title}
+                      author_name={post.author_name}
+                      author_id={post.author_id}
+                      like_count={post.like_count}
+                      comment_count={post.comment_count}
+                      is_shared={post.is_shared}
+                    />
+                  );
+                })}
+            </div>
+          )}
         </div>
       </div>
     </div>

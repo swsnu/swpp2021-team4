@@ -31,6 +31,12 @@
   font-weight: bold;
   margin-bottom: 30px;
   width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
 }
 
 .select-route-modal-container img,
@@ -112,7 +118,7 @@
   font: "Noto Sans CJK KR", Monospace;
   font-weight: bold;
   font-size: 22px;
-  color: #57ceb9;
+  color: #a7a9af;
 }
 
 .select-route-modal-container .route-list-container .route-container .route-header-author {
@@ -121,7 +127,7 @@
   font-family: "Montserrat", Monospace;
   font-weight: bold;
   font-size: 15px;
-  color: #95ecdc;
+  color: #a7a9af;
 }
 
 .select-route-modal-container .route-list-container .blank-route {
@@ -137,6 +143,10 @@
 
 .select-route-modal-container .route-list-container .selected {
   background-color: #c7eee7;
+}
+
+.select-route-modal-container .route-list-container .selected:hover {
+  background-color: #95ecdc;
 }
 
 .select-route-modal-container .route-list-container .false {
