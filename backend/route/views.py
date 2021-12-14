@@ -201,7 +201,7 @@ def search(request):
             'is_shared': post.is_shared
             })
     return JsonResponse({'ordinary':postlist, 'like':sorted(postlist, key=(lambda x:-x['like_count'])), 'date': sorted(postlist, key=(lambda x: x['created_at']),reverse=True)}, safe=False)
-
+    
 @require_GET
 def post_spec_get(request, post_id):
     post = Post.objects.get(id=post_id)

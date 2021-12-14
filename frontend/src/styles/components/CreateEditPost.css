@@ -20,7 +20,7 @@
   -webkit-box-direction: normal;
       -ms-flex-direction: row;
           flex-direction: row;
-  background-color: #FFFFFF;
+  background-color: #ffffff;
   margin-right: 1.97vw;
   padding: 0.885vw 1.5vw 4.6vw 1.5vw;
   -webkit-box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
@@ -31,9 +31,27 @@
   margin-bottom: 1.145vw;
   font-family: "Noto Sans CJK KR", Monospace;
   font-weight: 600;
-  font-size: 2rem;
+  font-size: 1.5rem;
   line-height: 2.437rem;
   color: #000000;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+}
+
+.create-edit-content-container .my-routes-title .select-route-button button {
+  margin-left: 1vw;
+  margin-top: 0;
+  cursor: pointer;
+  background-color: #57ceb9;
+  font-size: 13px;
+  color: #ffffff;
+  font-weight: 700;
+  border-radius: 6px;
+  padding: 5px;
 }
 
 .create-edit-content-container .create-edit-routes-section {

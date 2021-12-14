@@ -1,0 +1,149 @@
+.select-route-modal-container {
+  background-color: #ffffff;
+  position: fixed;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  left: 50%;
+  top: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  -webkit-box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.15);
+          box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.15);
+  border-radius: 6px;
+  height: 600px;
+  width: 350px;
+  padding: 25px;
+  overflow-y: auto;
+}
+
+.select-route-modal-container .modal-title {
+  font-family: "Montserrat", Monospace;
+  font-size: 25px;
+  color: #57ceb9;
+  font-weight: bold;
+  margin-bottom: 30px;
+  width: 100%;
+}
+
+.select-route-modal-container img,
+.select-route-modal-container button {
+  cursor: pointer;
+}
+
+.select-route-modal-container .select-route-modal-select-btn {
+  position: absolute;
+  bottom: 30px;
+  background-color: #95ecdc;
+  border-radius: 4px;
+  padding: 10px 80px;
+  font-family: "Montserrat", Monospace;
+  font-style: normal;
+  color: #ffffff;
+  cursor: pointer;
+  font-size: 100%;
+}
+
+.select-route-modal-container .select-route-modal-select-btn:hover {
+  background-color: #57ceb9;
+}
+
+.select-route-modal-container .route-list-container {
+  width: 100%;
+}
+
+.select-route-modal-container .route-list-container .route-container {
+  background-color: #f8f8f8;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: 100%;
+  height: 80px;
+  cursor: pointer;
+  font-family: "Montserrat", Monospace;
+  font-size: 18px;
+  text-overflow: ellipsis;
+}
+
+.select-route-modal-container .route-list-container .route-container:hover {
+  background-color: #d9d9d9;
+}
+
+.select-route-modal-container .route-list-container .route-container .icon {
+  -webkit-filter: invert(0%) sepia(94%) saturate(13%) hue-rotate(327deg) brightness(89%) contrast(100%);
+          filter: invert(0%) sepia(94%) saturate(13%) hue-rotate(327deg) brightness(89%) contrast(100%);
+  width: 20px;
+}
+
+.select-route-modal-container .route-list-container .route-container .route-header-image {
+  display: inline-block;
+  width: 28%;
+}
+
+.select-route-modal-container .route-list-container .route-container .route-header-image img {
+  width: 100%;
+  height: 80px;
+}
+
+.select-route-modal-container .route-list-container .route-container .route-header-info {
+  width: 70%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.select-route-modal-container .route-list-container .route-container .route-header-title {
+  margin-top: 2vh;
+  margin-left: 1vh;
+  font: "Noto Sans CJK KR", Monospace;
+  font-weight: bold;
+  font-size: 22px;
+  color: #57ceb9;
+}
+
+.select-route-modal-container .route-list-container .route-container .route-header-author {
+  margin-bottom: 1.5vh;
+  text-align: right;
+  font-family: "Montserrat", Monospace;
+  font-weight: bold;
+  font-size: 15px;
+  color: #95ecdc;
+}
+
+.select-route-modal-container .route-list-container .blank-route {
+  display: block;
+  line-height: 4;
+  padding-left: 10px;
+  text-align: left;
+  font-family: "Noto Sans CJK KR", Monospace;
+  color: #a7a9af;
+  font-weight: 400;
+  font-size: 20px;
+}
+
+.select-route-modal-container .route-list-container .selected {
+  background-color: #c7eee7;
+}
+
+.select-route-modal-container .route-list-container .false {
+  display: none;
+}
+
+.false {
+  display: none;
+}
+/*# sourceMappingURL=SelectRouteModal.css.map */

@@ -87,10 +87,10 @@
           line-height: 80%;
           overflow: hidden;
         }
-        .post-tag.filled{
+        .post-tag.filled {
           border: 0.8px solid black;
         }
-        .post-tag.empty{
+        .post-tag.empty {
           border: 0.8px solid $darkGrayColor;
           color: $darkGrayColor;
         }
@@ -106,7 +106,7 @@
     flex-direction: column;
     margin-left: auto;
     padding-right: 2vw;
-    
+
     .header-top {
       width: 100%;
 
@@ -141,7 +141,7 @@
           margin-left: 15px;
         }
       }
-      
+
       .post-created-at-container {
         display: flex;
         flex-direction: row-reverse;
@@ -156,7 +156,7 @@
         }
       }
     }
-    
+
     .header-bottom {
       display: flex;
       align-items: center;

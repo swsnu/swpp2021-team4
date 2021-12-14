@@ -1,5 +1,4 @@
-@import '../../Variables/Variables.scss';
-
+@import "../../Variables/Variables.scss";
 
 .create-edit-content-container {
   display: flex;
@@ -12,19 +11,32 @@
   .create-edit-place-section {
     display: flex;
     flex-direction: row;
-    background-color: #FFFFFF;
+    background-color: #ffffff;
     margin-right: 1.97vw;
     padding: 0.885vw 1.5vw 4.6vw 1.5vw;
     box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
   }
-  
+
   .my-routes-title {
     margin-bottom: 1.145vw;
     font-family: $koreanFont;
     font-weight: 600;
-    font-size: 2rem;
+    font-size: 1.5rem;
     line-height: 2.437rem;
     color: #000000;
+    display: flex;
+    align-items: flex-start;
+    .select-route-button button {
+      margin-left: 1vw;
+      margin-top: 0;
+      cursor: pointer;
+      background-color: $darkMintColor;
+      font-size: 13px;
+      color: #ffffff;
+      font-weight: 700;
+      border-radius: 6px;
+      padding: 5px;
+    }
   }
 
   .create-edit-routes-section {
@@ -35,5 +47,4 @@
     width: 10px;
     margin-left: 10px;
   }
-  
 }

@@ -2,8 +2,8 @@ import React, { useEffect, useState, useCallback } from "react";
 import "../styles/components/MyRoutesSection.scss";
 import addIcon from "../static/add_day_icon.svg";
 import removeIcon from "../static/remove.svg";
-import deleteDayIcon from '../static/delete_day_icon.svg';
-import whiteDeleteDayIcon from '../static/white_delete_day_icon.svg';
+import deleteDayIcon from "../static/delete_day_icon.svg";
+import whiteDeleteDayIcon from "../static/white_delete_day_icon.svg";
 import {
   PathListType,
   PlaceDayType,
@@ -21,7 +21,10 @@ interface PropType {
   routePlaces: any[];
   pathList: PathListType;
   setPathList: (value: React.SetStateAction<PathListType>) => void;
-  onClickDeleteDay: (e: React.MouseEvent<HTMLElement>, deletedDay: number) => void;
+  onClickDeleteDay: (
+    e: React.MouseEvent<HTMLElement>,
+    deletedDay: number
+  ) => void;
   onChangePath: (
     e: React.ChangeEvent<HTMLSelectElement>,
     origin: PlaceType,
@@ -152,6 +155,7 @@ function MyRoutesSection(props: PropType) {
               {index !== todayPlaceList.length - 1 && (
                 <Path
                   key={index}
+                  selectedDay={selectedDay}
                   pathList={props.pathList}
                   onChangePath={props.onChangePath}
                   from={place}
