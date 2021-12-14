@@ -2,9 +2,21 @@
 
 .search-container {
   font-family: $mainFont;
-
+  
+  .middle-container{
+    flex-direction: column;
+    display: flex;
+    align-items: center;
+    margin-left: 15%;
+    margin-right: 15%;
+    border-radius: 10px;
+    margin-top: 2%;
+    padding-bottom: 4%;
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
+  }
+  
   .search {
-    margin: 50px auto;
+    margin: 30px auto;
     width: 50vw;
     padding: 13px;
     background: #ffffff;
@@ -24,6 +36,7 @@
       width: 100%;
     }
     .search-button {
+      cursor: pointer;
       background-color: $darkMintColor;
       border-radius: 4px;
       padding: 10px 20px;
@@ -33,18 +46,16 @@
       color: #ffffff;
     }
   }
-  
+
   .filter {
-    margin: 80px 20vw;
+    width: 70%;
     background-color: #ffffff;
-    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
     border-radius: 6px;
-    padding: 13px 30px;
-  
+
     button {
       background-color: #ffffff;
     }
-  
+
     .location {
       display: flex;
       flex-direction: row;
@@ -68,7 +79,7 @@
         }
       }
     }
-  
+
     select.selected {
       color: $blackColor;
       font-family: $koreanFont;
@@ -97,7 +108,8 @@
     .transportation {
       display: flex;
       flex-direction: row;
-      .season-clicked, .theme-clicked{
+      .season-clicked,
+      .theme-clicked {
         font-family: $koreanFont;
         font-style: normal;
         font-weight: 400;
@@ -115,8 +127,9 @@
         background-color: #f3f4f5;
       }
     }
-  
-    .season, .location {
+
+    .season,
+    .location {
       font-family: $mainFont;
     }
     .theme {
@@ -124,7 +137,7 @@
     }
 
     .season,
-    .theme{
+    .theme {
       font-style: normal;
       font-weight: 400;
       font-size: 14px;
@@ -167,7 +180,8 @@
       .search-result-sorting {
         display: flex;
 
-        .sorting, .sorting-clicked{
+        .sorting,
+        .sorting-clicked {
           margin-left: 10px;
           border-radius: 6px;
           font-family: $koreanFont;
@@ -175,11 +189,11 @@
           align-items: flex-end;
           background-color: white;
           padding: 8px 20px;
-          &:hover{
-            background-color:#f3f4f5;
+          &:hover {
+            background-color: #f3f4f5;
           }
         }
-        
+
         .sorting-clicked {
           color: $darkMintColor;
         }
@@ -191,5 +205,4 @@
       flex-wrap: wrap;
     }
   }
-  
 }

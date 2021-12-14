@@ -197,7 +197,7 @@ function CreatePlaceCard(props: PropsType) {
         {props.type === "place" && props.isPlaceInRoute && props.isPlaceInRoute(props.place) && (
           <div className="place-cart-button-container">
             <button
-              className={`place-cart-button add disabled ${props.type}`}
+              className={`place-cart-button add ${props.type}`}
             >
               <img className="post-icon" src={add} />
             </button>

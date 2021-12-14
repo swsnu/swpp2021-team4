@@ -103,7 +103,7 @@ function PostDetail() {
           >
             Day{day}
             {places
-              .filter((place: any) => place.day == day)
+              .filter((place: PlaceType) => place.day == day)
               .map((dayPlace: PlaceType, index: number, array: PlaceType[]) => {
                 const pathFromCurrentPlace = post.pathList?.find(
                   (path: any) => {
@@ -114,7 +114,7 @@ function PostDetail() {
                     );
                   }
                 );
-
+ 
                 return (
                   <>
                     <Place
