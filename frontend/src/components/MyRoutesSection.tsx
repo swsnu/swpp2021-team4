@@ -18,7 +18,7 @@ import CreatePlaceCard from "./CreatePlaceCard";
 interface PropType {
   days: number;
   selectedDay: number;
-  routePlaces: any[];
+  routePlaces: PlaceDayType[];
   pathList: PathListType;
   setPathList: (value: React.SetStateAction<PathListType>) => void;
   onClickDeleteDay: (
@@ -58,6 +58,7 @@ function MyRoutesSection(props: PropType) {
     );
   }, [selectedDay, routePlaces]);
 
+  const [dragged, setDragged] = useState(false);
   const movePlace = useCallback(
     (dragIndex: number, hoverIndex: number) => {
       const dragCard = todayPlaceList[dragIndex];
@@ -70,10 +71,19 @@ function MyRoutesSection(props: PropType) {
             ],
           })
         );
+        setDragged(!dragged);
       }
     },
     [todayPlaceList]
   );
+
+  useEffect(() => {
+    const otherDaysRoutePlaces = routePlaces.filter(
+      (dayPlace: PlaceDayType) => dayPlace.day !== selectedDay
+    );
+    const newRoute = otherDaysRoutePlaces.concat(todayPlaceList);
+    props.setRoutePlaces(newRoute);
+  }, [dragged]);
 
   const renderDayButtons = () => {
     const results = [];
