@@ -22,6 +22,8 @@
     font-weight: bold;
     margin-bottom: 30px;
     width: 100%;
+    display: flex;
+    justify-content: space-between;
   }
   img,
   button {
@@ -87,7 +89,7 @@
         font: $koreanFont;
         font-weight: bold;
         font-size: 22px;
-        color: $darkMintColor;
+        color: $darkGrayColor;
       }
       .route-header-author {
         margin-bottom: 1.5vh;
@@ -95,7 +97,7 @@
         font-family: $mainFont;
         font-weight: bold;
         font-size: 15px;
-        color: $regularMintColor;
+        color: $darkGrayColor;
       }
     }
     .blank-route {
@@ -110,6 +112,9 @@
     }
     .selected {
       background-color: $lightMintColor;
+      &:hover {
+        background-color: $regularMintColor;
+      }
     }
     .false {
       display: none;
