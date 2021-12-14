@@ -2,8 +2,28 @@
   font-family: "Montserrat", Monospace;
 }
 
+.search-container .middle-container {
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin-left: 15%;
+  margin-right: 15%;
+  border-radius: 10px;
+  margin-top: 2%;
+  padding-bottom: 4%;
+  -webkit-box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
+          box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
+}
+
 .search-container .search {
-  margin: 50px auto;
+  margin: 30px auto;
   width: 50vw;
   padding: 13px;
   background: #ffffff;
@@ -31,6 +51,7 @@
 }
 
 .search-container .search .search-button {
+  cursor: pointer;
   background-color: #57ceb9;
   border-radius: 4px;
   padding: 10px 20px;
@@ -41,12 +62,9 @@
 }
 
 .search-container .filter {
-  margin: 80px 20vw;
+  width: 70%;
   background-color: #ffffff;
-  -webkit-box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
-          box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
   border-radius: 6px;
-  padding: 13px 30px;
 }
 
 .search-container .filter button {
@@ -122,7 +140,8 @@
           flex-direction: row;
 }
 
-.search-container .filter .seasons .season-clicked, .search-container .filter .seasons .theme-clicked,
+.search-container .filter .seasons .season-clicked,
+.search-container .filter .seasons .theme-clicked,
 .search-container .filter .themes .season-clicked,
 .search-container .filter .themes .theme-clicked,
 .search-container .filter .transportation .season-clicked,
@@ -153,7 +172,8 @@
   background-color: #f3f4f5;
 }
 
-.search-container .filter .season, .search-container .filter .location {
+.search-container .filter .season,
+.search-container .filter .location {
   font-family: "Montserrat", Monospace;
 }
 
@@ -218,7 +238,8 @@
   display: flex;
 }
 
-.search-container .search-result-container .search-result-header .search-result-sorting .sorting, .search-container .search-result-container .search-result-header .search-result-sorting .sorting-clicked {
+.search-container .search-result-container .search-result-header .search-result-sorting .sorting,
+.search-container .search-result-container .search-result-header .search-result-sorting .sorting-clicked {
   margin-left: 10px;
   border-radius: 6px;
   font-family: "Noto Sans CJK KR", Monospace;
@@ -230,7 +251,8 @@
   padding: 8px 20px;
 }
 
-.search-container .search-result-container .search-result-header .search-result-sorting .sorting:hover, .search-container .search-result-container .search-result-header .search-result-sorting .sorting-clicked:hover {
+.search-container .search-result-container .search-result-header .search-result-sorting .sorting:hover,
+.search-container .search-result-container .search-result-header .search-result-sorting .sorting-clicked:hover {
   background-color: #f3f4f5;
 }
 
