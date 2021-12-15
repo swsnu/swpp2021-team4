@@ -32,82 +32,83 @@ export const getMockStore = (initialState: any) => {
   return mockStore;
 };
 
-// export const getMockStore = (initialState: any) => {
-//   const userReducer = getMockUserReducer(
-//     initialState
-//       ? initialState
-//       : {
-//           loggedUser: {
-//             id: 0,
-//             email: "",
-//             username: "",
-//             profile_image: "",
-//             folders: [],
-//           },
-//         }
-//   );
-
-//   const postReducer = getMockPostReducer(
-//     initialState
-//       ? initialState
-//       : {
-//           posts: [],
-//           detailedPost: {
-//             id: 0,
-//             header_image: "",
-//             thumbnail_image: "",
-//             // created_at: "",
-//             // updated_at: "",
-//             author_id: 0,
-//             author_name: "",
-//             availableWithoutCar: false,
-//             comments: [],
-//             days: 0,
-//             folder_id: 0,
-//             folder_name: "",
-//             is_shared: false,
-//             location: "",
-//             places: [],
-//             season: "",
-//             theme: "",
-//             title: "",
-//             like_counts: 0,
-//             liked: false,
-//           },
-//           selectedFolder: {
-//             id: 0,
-//             name: "",
-//           },
-
-//           search: [
-//             {
-//               author_id: 4,
-//               author_name: "username",
-//               comment_count: 0,
-//               created_at: "2021-11-10T20:43:42Z",
-//               id: 9,
-//               is_shared: true,
-//               like_count: 2,
-//               thumbnail_image:
-//                 "/media/thumbnail_image/2021/11/10/28493cc3a2ba4eadb4fd0d10c28957ef.jpg",
-//               title: "겨울강릉",
-//             },
-//           ],
-//           likeSorted: [],
-//           dateSorted: [],
-//         }
-//   );
-
-// const rootReducer = combineReducers({
-//   user: userReducer,
-//   post: postReducer,
-//   router: connectRouter(history),
-// });
-// const composeEnhancers =
-//   window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-
-// const mockStore = createStore(
-//   rootReducer,
-//   composeEnhancers(applyMiddleware(...middlewares))
-// );
-// return mockStore;
+export const stubInitialState = {
+  user: {
+      loggedUser: {
+          id: 1,
+          email: "email",
+          username: "username",
+          profile_image: "",
+          folders: [],
+      }
+  },
+  post: {
+      posts: [
+          {
+              id: 1,
+              header_image: "ex1",
+              thumbnail_image: "ex1",
+              author_id: 1,
+              author_name: "ex1",
+              availableWithoutCar: true,
+              comments: [
+                  {
+                      username: "ex1",
+                      content: "ex1",
+                      profile_image: "ex1",
+                      id: 1,
+                      created_at: "ex1",
+                      author_id: "1,",
+                  },
+              ],
+              days: 1,
+              folder_id: 1,
+              folder_name: "ex1",
+              is_shared: true,
+              location: "ex1",
+              places: [],
+              season: "ex1",
+              theme: "ex1",
+              title: "ex1",
+              like_counts: 1,
+              liked: true,
+          },
+      ],
+      detailedPost: {
+          id: 1,
+          header_image: "ex1",
+          thumbnail_image: "ex1",
+          author_id: 1,
+          author_name: "ex1",
+          availableWithoutCar: true,
+          comments: [
+              {
+                  username: "ex1",
+                  content: "ex1",
+                  profile_image: "ex1",
+                  id: 1,
+                  created_at: "ex1",
+                  author_id: "1,",
+              },
+          ],
+          days: 1,
+          folder_id: 1,
+          folder_name: "ex1",
+          is_shared: true,
+          location: "ex1",
+          places: [],
+          season: "ex1",
+          theme: "ex1",
+          title: "ex1",
+          like_counts: 1,
+          liked: true,
+      },
+      selectedFolder: {
+          id: 1,
+          name: "ex1",
+      },
+      search: [],
+      likeSorted: [],
+      dateSorted: [],
+  },
+};
