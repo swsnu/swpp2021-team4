@@ -216,7 +216,7 @@
 }
 
 .comment-input {
-  width: 30vh;
+  width: 300px;
   background: #F5F6F9;
   border: none;
   border-radius: 6px;
@@ -228,14 +228,16 @@
 }
 
 .comment-submit {
+  padding: 5px 10px;
+  border-radius: 5px;
   font-family: "Noto Sans CJK KR", Monospace;
   color: #57ceb9;
   font-weight: bold;
-  height: 20px;
   background-color: transparent;
 }
 
 .comment-submit:hover {
+  background-color: #F5F6F9;
   cursor: pointer;
 }
 

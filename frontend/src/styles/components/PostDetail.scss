@@ -163,7 +163,7 @@
   margin: 10px auto;
 }
 .comment-input {
-  width: 30vh;
+  width: 300px;
   background: $whiteColor;
   border: none;
   border-radius: 6px;
@@ -175,12 +175,14 @@
 }
 
 .comment-submit {
+  padding: 5px 10px;
+  border-radius: 5px;
   font-family: $koreanFont;
   color: $darkMintColor;
   font-weight: bold;
-  height: 20px;
   background-color: transparent;
   &:hover {
+    background-color: $whiteColor;
     cursor: pointer;
   }
 }
