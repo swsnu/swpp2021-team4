@@ -329,25 +329,24 @@ function Search() {
           <>
             <div className="search-result-header">
               <div className="search-result-title">Recent posts</div>
-              </div>
-              <div className="search-result-content">
-                {true &&
-                  postsAll.map((post: SimplePostType) => {
-                    return (
-                      <PostItem
-                        key={post.id}
-                        id={post.id}
-                        thumbnail_image={post.thumbnail_image}
-                        title={post.title}
-                        author_name={post.author_name}
-                        author_id={post.author_id}
-                        like_count={post.like_count}
-                        comment_count={post.comment_count}
-                        is_shared={post.is_shared}
-                      />
-                    );
-                  })}
-             
+            </div>
+            <div className="search-result-content">
+              {true &&
+                postsAll.map((post: SimplePostType) => {
+                  return (
+                    <PostItem
+                      key={post.id}
+                      id={post.id}
+                      thumbnail_image={post.thumbnail_image}
+                      title={post.title}
+                      author_name={post.author_name}
+                      author_id={post.author_id}
+                      like_count={post.like_count}
+                      comment_count={post.comment_count}
+                      is_shared={post.is_shared}
+                    />
+                  );
+                })}
             </div>
           </>
         )}
