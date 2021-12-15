@@ -112,3 +112,47 @@ export const stubInitialState = {
       dateSorted: [],
   },
 };
+
+export const stubPlaceList = [
+  {
+    id: 1,
+    kakao_id: 9999,
+    name: 'stubPlace',
+    post_id: '1',
+    description: 'stubPlace',
+    day: 1,
+    folder_id: 1,
+    latitude: '33',
+    longitude: '33',
+    lat: '33',
+    lon: '33',
+    homepage: 'homepage',
+    phone_number: '01',
+    address: 'address',
+    category: 'stub',
+    index: 1
+  }
+]
+
+export const stubPostList = [
+  {
+    id: 1,
+    thumbnail_image: "ex1",
+    title: "ex1",
+    author_name: "ex1",
+    author_id: 1,
+    like_count: 1,
+    comment_count: 1,
+    is_shared: true,
+  },
+  {
+    id: 2,
+    thumbnail_image: "ex1",
+    title: "ex1",
+    author_name: "ex1",
+    author_id: 1,
+    like_count: 1,
+    comment_count: 1,
+    is_shared: true,
+  }
+]
