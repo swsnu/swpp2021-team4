@@ -80,23 +80,6 @@ function SelectFolderModal(props: PropsType) {
     []
   );
 
-  const onEditFolderComplete = useCallback(
-    () => {
-      if (!editingFolder) return;
-
-      dispatch(editFolderAction(
-        loggedUser.id,
-        editingFolder.id,
-        { folder_name: editText },
-        () => {
-          setSelectedFolder(editingFolder);
-          setEditingFolder(null);
-        }
-      ));
-    },
-    [loggedUser.id, editingFolder, editText]
-  );
-
   const onPressEnterEditFolder = useCallback(
     (e: React.KeyboardEvent) => {
       if (e.key !== "Enter" || !editingFolder) return;
@@ -145,7 +128,6 @@ function SelectFolderModal(props: PropsType) {
         onClickFolder={onClickFolder}
         onClickEditFolder={onClickEditFolder}
         onChangeEditFolder={onChangeEditFolder}
-        onEditFolderComplete={onEditFolderComplete}
         onPressEnterEditFolder={onPressEnterEditFolder}
       />
 
