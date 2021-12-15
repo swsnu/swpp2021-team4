@@ -179,8 +179,9 @@
   color: $darkMintColor;
   font-weight: bold;
   height: 20px;
+  background-color: transparent;
   &:hover {
-    background-color: transparent;
+    cursor: pointer;
   }
 }
 
@@ -192,12 +193,13 @@ input:focus::-webkit-input-placeholder {
   img {
     width: 15px;
     height: 15px;
+    background-color: transparent;
+    cursor: pointer;
   }
   img:last-child {
     display: none;
   }
   &:hover {
-    background-color: transparent;
     img:first-child {
       display: none;
     }

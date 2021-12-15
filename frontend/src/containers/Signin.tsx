@@ -1,17 +1,16 @@
 import React, { useEffect, useState } from "react";
-import '../styles/components/Signin.scss';
-import logo from '../static/logo_vertical.svg';
+import "../styles/components/Signin.scss";
+import logo from "../static/logo_vertical.svg";
 import { useDispatch } from "react-redux";
 import { signinAction } from "../store/User/userAction";
 import { useHistory } from "react-router-dom";
-
 
 function Signin() {
   const dispatch = useDispatch();
   const history = useHistory();
   const [userInputs, setUserInputs] = useState({
-    userEmail: '',
-    userPassword: ''
+    userEmail: "",
+    userPassword: "",
   });
   const [isSigned, setIsSigned] = useState(false);
 
@@ -19,19 +18,30 @@ function Signin() {
     if (isSigned) {
       history.goBack();
     }
-  }, [isSigned])
+  }, [isSigned]);
 
   const onChangeInputs = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
     setUserInputs({
       ...userInputs,
-      [e.target.id]: e.target.value
+      [e.target.id]: e.target.value,
     });
-  }
+  };
 
   const onClickSigninButton = () => {
-    dispatch(signinAction({ email: userInputs.userEmail, password: userInputs.userPassword }, (value) => setIsSigned(value)));
-  }
+    dispatch(
+      signinAction(
+        { email: userInputs.userEmail, password: userInputs.userPassword },
+        (value) => setIsSigned(value)
+      )
+    );
+  };
+
+  const onPressEnterKey = (e: React.KeyboardEvent) => {
+    if (e.key== 'Enter') {
+      onClickSigninButton();
+    }
+  };
 
   return (
     <div className="signin-container">
@@ -45,6 +55,7 @@ function Signin() {
           value={userInputs.userEmail}
           onChange={onChangeInputs}
           placeholder="아이디를 입력해 주세요."
+          onKeyDown={onPressEnterKey}
         />
         <input
           id="userPassword"
@@ -52,6 +63,7 @@ function Signin() {
           value={userInputs.userPassword}
           onChange={onChangeInputs}
           placeholder="비밀번호를 입력해 주세요."
+          onKeyDown={onPressEnterKey}
         />
         <button
           onClick={onClickSigninButton}
@@ -62,6 +74,6 @@ function Signin() {
         </button>
       </div>
     </div>
-  )
+  );
 }
 export default Signin;
