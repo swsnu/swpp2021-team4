@@ -57,10 +57,17 @@ function Signup() {
     if (!validateForm(userEmail, userName, userPassword, checkUserPassword)) return;
     
     const response = await signup({ email: userEmail, username: userName, password: userPassword });
-    if (response?.status === 201) {
-      dispatch(signinAction({ email: userInputs.userEmail, password: userInputs.userPassword }, (value) => setIsSigned(value)));
-    } else {
+    if (response.status === 201) {
+      dispatch(signinAction(
+        { email: userInputs.userEmail, password: userInputs.userPassword },
+        (value) => setIsSigned(value)
+      ));
+    } else if (response.status === 400 && response.data) {
+      alert(`${response.data}`);
+    } else if (response.status === 500) {
       alert('서버에러 발생! 트리픽에 문의해주세요');
+    } else {
+      alert('회원가입에 실패했습니다');
     }
   }
 
@@ -100,7 +107,10 @@ function Signup() {
           onChange={onChangeInputs}
         />
 
-        <div className="signup-btn" onClick={onClickSignupButton}>
+        <div
+          className="signup-btn"
+          onClick={onClickSignupButton}
+        >
           Sign Up
         </div>
       </div>

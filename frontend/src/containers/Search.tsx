@@ -41,6 +41,11 @@ function Search() {
   };
 
   const onClickSearch = () => {
+    if (!userInputs.keyword) {
+      alert('검색어를 입력해주세요!');
+      return;
+    }
+    
     dispatch(
       searchAction(
         {
@@ -55,6 +60,11 @@ function Search() {
       )
     );
   };
+
+  const onPressEnterSearch = (e: React.KeyboardEvent) => {
+    if (e.key !== "Enter") return;
+    onClickSearch();
+  }
 
   const [regionIdx, setRegionIdx] = useState<number>(0);
   const [cityIdx, setCityIdx] = useState<number>(0);
@@ -91,13 +101,12 @@ function Search() {
             type="text"
             value={userInputs.keyword}
             onChange={onChangeInputs}
+            onKeyPress={onPressEnterSearch}
             placeholder="원하는 여행을 검색해보세요"
           />
           <button
             className="search-button"
-            onClick={() => {
-              onClickSearch();
-            }}
+            onClick={onClickSearch}
           >
             Search
           </button>
