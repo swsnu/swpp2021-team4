@@ -484,7 +484,7 @@ function CreateEditPost(props: PropsType) {
   };
 
   return (
-    <div>
+    <div className="create-edit-post-container">
       <SelectRouteModal
         onClickCloseModal={onClickCloseModal}
         onClickRoute={onClickRoute}
@@ -521,7 +521,7 @@ function CreateEditPost(props: PropsType) {
             <div className="my-routes-title">
               My Routes
               <div className="select-route-button">
-                <button onClick={() => setRouteModalVisible(true)}>
+                <button id="route-change-button" onClick={() => setRouteModalVisible(true)}>
                   루트 바꾸기
                 </button>
               </div>
