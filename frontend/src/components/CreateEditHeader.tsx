@@ -36,10 +36,15 @@ function CreateEditHeader(props: PropType) {
     }
   }, [postInfoData]);
 
+  useEffect(() => {
+    console.log('바뀜', regionIdx);
+  });
+
   const onChangeRegion = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    console.log(e.target);
     setRegionIdx(e.target.selectedIndex);
     setCityIdx(0);
-    setLocation(e.target[e.target.selectedIndex].textContent);
+    setLocation(e.target[e.target.selectedIndex || 1]?.textContent || '경기도');
   }
 
   const onChangeCity = (e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -48,7 +53,6 @@ function CreateEditHeader(props: PropType) {
   }
 
   useEffect(() => {
-    
     props.changeLocationQuery(location);
   }, [location]);
 
@@ -88,6 +92,7 @@ function CreateEditHeader(props: PropType) {
                 <option value="">시, 군</option>
                 {Cities[regionIdx - 1].map((city: string) => {
                   return (<option
+                    className="city-option"
                     key={city}
                     value={city}
                     selected={Cities[regionIdx - 1].indexOf(city) === cityIdx - 1}

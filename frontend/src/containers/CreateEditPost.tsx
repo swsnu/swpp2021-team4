@@ -35,7 +35,7 @@ export interface PostInfoDataType {
   folderId: number;
   isShared: false;
 }
-const initialPostData: PostInfoDataType = {
+export const initialPostData: PostInfoDataType = {
   title: "",
   location: "",
   days: 3,
