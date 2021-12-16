@@ -2,7 +2,6 @@ import React from "react";
 import NavBar from "../components/NavBar";
 import Signup from "../containers/Signup";
 import "../styles/components/Signup.scss";
-import backgroundImage from "../static/png/signup_page.png";
 import Footer from "../components/Footer";
 
 interface PropType {
@@ -14,7 +13,7 @@ interface PropType {
 function SignupPage(props: PropType) {
   return (
     <div>
-      <img className="signup-background" src={backgroundImage} />
+      <img className="signup-background" src={"https://tripick.s3.ap-northeast-2.amazonaws.com/signup_page.png"} />
       <NavBar location={props.location} />
       <Signup />
       <Footer />
