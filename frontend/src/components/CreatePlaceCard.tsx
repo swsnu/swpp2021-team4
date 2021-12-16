@@ -245,7 +245,7 @@ function CreatePlaceCard(props: PropsType) {
           )}
         {props.type === "route" && (
           <img
-            className="post-icon"
+            className="post-icon edit"
             src={edit_btn}
             onClick={() => {
               if (props.onEditPlace) props.onEditPlace(props.place);
@@ -256,7 +256,7 @@ function CreatePlaceCard(props: PropsType) {
           <div className="place-description">{props.place.address}</div>
         )}
         <img
-          className="post-icon"
+          className="post-icon expand"
           src={isExpanded ? buttonUp : buttonDown}
           onClick={() => setIsExpanded(!isExpanded)}
         />
