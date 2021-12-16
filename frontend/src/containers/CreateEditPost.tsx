@@ -23,6 +23,7 @@ import "../styles/components/CreateEditPost.css";
 import { useUserState } from "../hooks/useUserState";
 import axios from "axios";
 
+
 export interface PostInfoDataType {
   title: string;
   location: string;
@@ -77,6 +78,7 @@ function CreateEditPost(props: PropsType) {
   }, [isPostCreated, createdPostId]);
 
   const [cartRouteList, setCartRouteList] = useState<SimplePostType[]>([]);
+  const [countModalClick, setCountModalClick] = useState<number>(0);
   //render places saved in the cart
   useEffect(() => {
     if (props.folder.id) {
@@ -97,10 +99,14 @@ function CreateEditPost(props: PropsType) {
           response.data.posts.forEach((route: SimplePostType) => {
             routeList = [...routeList, route];
           });
-          
+
           if (routeList.length > 0) {
             setCartRouteList(routeList);
-            setRouteModalVisible(true);
+            if (pageLocation.state?.from !== "edit") {
+              setRouteModalVisible(true);
+            }
+          } else {
+            setCountModalClick((prev) => prev + 1);
           }
         })
         .catch((err) => err.response);
@@ -244,7 +250,6 @@ function CreateEditPost(props: PropsType) {
   };
 
   const [selectedTab, setSelectedTab] = useState<"place" | "search">("place");
-  const [countModalClick, setCountModalClick] = useState<number>(0);
 
   const onClickRouteSubmitButton = (routeId: number) => {
     //when the user clicks existing route
@@ -261,7 +266,7 @@ function CreateEditPost(props: PropsType) {
           // render places in my routes section
           const placeList: PlaceDayType[] = response.data.places.map(
             (place: PlaceType) => ({
-              place: {...place, id: place.id + Date.now()},
+              place: { ...place, id: place.id + Date.now() },
               day: place.day,
             })
           );
@@ -301,7 +306,7 @@ function CreateEditPost(props: PropsType) {
       window.alert("게시물 정보를 모두 채워주세요!");
       return;
     } else if (routePlaces.length < 1) {
-      alert('하나 이상의 장소를 추가해주세요!');
+      alert("하나 이상의 장소를 추가해주세요!");
       return;
     }
 
@@ -521,12 +526,15 @@ function CreateEditPost(props: PropsType) {
             <div className="my-routes-title">
               My Routes
               <div className="select-route-button">
-                <button id="route-change-button" onClick={() => setRouteModalVisible(true)}>
+                <button
+                  id="route-change-button"
+                  onClick={() => setRouteModalVisible(true)}
+                >
                   루트 바꾸기
                 </button>
               </div>
             </div>
-            
+
             <MyRoutesSection
               days={postInfoData.days}
               selectedDay={selectedDay}

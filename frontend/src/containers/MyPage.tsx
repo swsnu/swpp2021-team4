@@ -159,14 +159,14 @@ function MyPage(props: PropType) {
             Folders
             {toggle && (
               <img
-                className="icon"
+                className="icon button_up"
                 src={button_up}
                 onClick={() => setToggle(!toggle)}
               />
             )}
             {!toggle && (
               <img
-                className="icon"
+                className="icon button_down"
                 src={button_down}
                 onClick={() => setToggle(!toggle)}
               />
@@ -205,12 +205,12 @@ function MyPage(props: PropType) {
                     <div className="folder-name">{fold.name} </div>
                     <div>
                       <img
-                        className="icon"
+                        className="icon edit-folder-icon"
                         src={edit_btn}
                         onClick={() => onClickEditFolder(fold.id, fold.name)}
                       />
                       <img
-                        className="icon"
+                        className="icon  delete-folder-icon"
                         src={delete_btn}
                         onClick={() => onDeleteFolder(fold.id)}
                       />
