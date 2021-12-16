@@ -13,7 +13,7 @@ function EditProfile() {
     username: loggedUser.username,
     password: "",
     password2: "",
-    profile_image_url: loggedUser.profile_image ? loggedUser.profile_image : ""
+    profile_image_url: loggedUser.profile_image ? loggedUser.profile_image : "",
   });
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [isEdited, setIsEdited] = useState(false);
@@ -42,11 +42,10 @@ function EditProfile() {
       setSelectedFile(file);
       setUserInputs({
         ...userInputs,
-        profile_image_url: reader.result
+        profile_image_url: reader.result,
       });
     };
     reader.readAsDataURL(file);
-
   };
 
   const onClickEditProfileButton = () => {
@@ -57,6 +56,10 @@ function EditProfile() {
     } else if (!password || !password2) {
       alert("비밀번호를 입력하세요!");
       return;
+    } else if (!/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/.test(password)) {
+      alert(
+        `비밀번호 형식이 잘못되었습니다!\n최소 하나의 문자 및 하나의 숫자가 포함된 8자 이상의 비밀번호를 입력해주세요.`
+      );
     } else if (password !== password2) {
       alert("입력한 비밀번호가 서로 다릅니다!");
       return;
@@ -80,14 +83,19 @@ function EditProfile() {
       <div className="edit-profile-title">Profile</div>
       <div className="edit-profile-content">
         <div className="edit-profile-image">
-          {userInputs.profile_image_url &&
-            <img className="profile-image-preview" src={userInputs.profile_image_url} />}
+          {userInputs.profile_image_url && (
+            <img
+              className="profile-image-preview"
+              src={userInputs.profile_image_url}
+            />
+          )}
           <input
             id="profile-image"
             type="file"
             accept="image/*"
             onChange={onChangeFile}
-            placeholder="프로필 사진" />
+            placeholder="프로필 사진"
+          />
           <label className="upload-image-button" htmlFor="profile-image">
             Change Image
           </label>
