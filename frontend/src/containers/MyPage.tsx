@@ -292,6 +292,7 @@ function MyPage(props: PropType) {
           )}
           {selected === 1 && (
             <div className="posts-container">
+              
               {likedPosts &&
                 likedPosts.map((post) => {
                   return (

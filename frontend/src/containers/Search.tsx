@@ -336,7 +336,7 @@ function Search() {
               <div className="search-result-title">Recent posts</div>
             </div>
             <div className="search-result-content">
-              {postsAll.map((post: SimplePostType, index: number) => {
+              {postsAll.filter((post: { is_shared: any; })=> post.is_shared).map((post: SimplePostType, index: number) => {
                 if (index >= 0 && index <= 5) {
                   return (
                     <PostItem
