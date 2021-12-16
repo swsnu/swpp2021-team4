@@ -2,8 +2,8 @@
 
 .search-container {
   font-family: $mainFont;
-  
-  .middle-container{
+
+  .middle-container {
     flex-direction: column;
     display: flex;
     align-items: center;
@@ -14,7 +14,7 @@
     padding-bottom: 4%;
     box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
   }
-  
+
   .search {
     margin: 30px auto;
     width: 50vw;
@@ -168,7 +168,7 @@
     .search-result-header {
       display: flex;
       justify-content: space-between;
-      margin: 10px 15px;
+      margin: 20px 15px;
 
       .search-result-title {
         font-family: $mainFont;
@@ -200,8 +200,24 @@
       }
     }
     .search-result-content {
+      .no-result {
+        border-radius: 6px;
+        font-family: $koreanFont;
+        margin-top: 40px;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        font-size: 18px;
+        background-color: #f5f6f9;
+        width: 85%;
+        padding-top: 5%;
+        padding-bottom: 5%;
+        font-weight: 400;
+      }
       display: flex;
-      justify-content: space-between;
+      align-items: center;
+      justify-content: center;
       flex-wrap: wrap;
     }
   }

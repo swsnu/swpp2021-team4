@@ -9,7 +9,6 @@ interface FolderPropsType {
   onClickFolder: (folder: FolderType) => void
   onClickEditFolder: (folder: FolderType) => void
   onChangeEditFolder: (e: React.ChangeEvent<HTMLInputElement>) => void
-  onEditFolderComplete: () => void
 }
 
 interface FolderListPropsType {
@@ -20,7 +19,6 @@ interface FolderListPropsType {
   onClickFolder: (folder: FolderType) => void
   onClickEditFolder: (folder: FolderType) => void
   onChangeEditFolder: (e: React.ChangeEvent<HTMLInputElement>) => void
-  onEditFolderComplete: () => void
   onPressEnterEditFolder: (e: React.KeyboardEvent) => void
 }
 
@@ -60,7 +58,6 @@ function FolderList(props: FolderListPropsType) {
     onClickFolder,
     onClickEditFolder,
     onChangeEditFolder,
-    onEditFolderComplete,
     onPressEnterEditFolder
   } = props;
 
@@ -91,7 +88,6 @@ function FolderList(props: FolderListPropsType) {
               onClickFolder={onClickFolder}
               onClickEditFolder={onClickEditFolder}
               onChangeEditFolder={onChangeEditFolder}
-              onEditFolderComplete={onEditFolderComplete}
             />
           )
         })
