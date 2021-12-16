@@ -40,7 +40,7 @@ function Signup() {
       alert('닉네임을 입력해주세요!');
     } else if (!userPassword) {
       alert('패스워드를 입력해주세요!')
-    } else if (userPassword.length < 9) {
+    } else if (userPassword.length < 8) {
       alert(`비밀번호 형식이 잘못되었습니다!\n최소 하나의 문자 및 하나의 숫자가 포함된 8자 이상의 비밀번호를 입력해주세요.`)
     } else if (!checkUserPassword) {
       alert('비밀번호를 다시 한 번 입력해주세요!')
