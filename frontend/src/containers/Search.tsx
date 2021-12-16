@@ -331,8 +331,8 @@ function Search() {
               <div className="search-result-title">Recent posts</div>
             </div>
             <div className="search-result-content">
-              {true &&
-                postsAll.map((post: SimplePostType) => {
+              {postsAll.map((post: SimplePostType, index: number) => {
+                if (index >= 0 && index <= 5) {
                   return (
                     <PostItem
                       key={post.id}
@@ -346,7 +346,8 @@ function Search() {
                       is_shared={post.is_shared}
                     />
                   );
-                })}
+                }
+              })}
             </div>
           </>
         )}
