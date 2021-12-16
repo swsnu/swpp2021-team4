@@ -34,7 +34,7 @@ function Signup() {
     let isValid: boolean = false;
     if (!userEmail) {
       alert('이메일을 입력해주세요!');
-    } else if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(userEmail)) {
+    } else if (!/^\w{1,15}@\w{1,15}(\.\w{2,3})+$/.test(userEmail)) {
       alert(`이메일 형식이 잘못되었습니다!\nex)tripick@tripick.com`);
     } else if (!userName) {
       alert('닉네임을 입력해주세요!');
@@ -55,7 +55,7 @@ function Signup() {
   const onClickSignupButton = async () => {
     const { userEmail, userName, userPassword, checkUserPassword } = userInputs;
     if (!validateForm(userEmail, userName, userPassword, checkUserPassword)) return;
-    
+
     const response = await signup({ email: userEmail, username: userName, password: userPassword });
     if (response.status === 201) {
       dispatch(signinAction(
