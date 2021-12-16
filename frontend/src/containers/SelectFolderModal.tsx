@@ -76,6 +76,29 @@ function SelectFolderModal(props: PropsType) {
     []
   );
 
+  const onCompleteEditFolder = useCallback(
+    () => {
+      if (!editText) {
+        alert('폴더명을 입력해주세요!');
+        return;
+      }
+      if (!editingFolder) return;
+
+      dispatch(
+        editFolderAction(
+          loggedUser.id,
+          editingFolder.id,
+          { folder_name: editText },
+          () => {
+            setSelectedFolder(editingFolder);
+            setEditingFolder(null);
+          }
+        )
+      );
+    },
+    [loggedUser.id, editingFolder, editText]
+  )
+
   const onPressEnterEditFolder = useCallback(
     (e: React.KeyboardEvent) => {
       if (e.key !== "Enter" || !editingFolder) return;
@@ -141,6 +164,7 @@ function SelectFolderModal(props: PropsType) {
         onClickEditFolder={onClickEditFolder}
         onChangeEditFolder={onChangeEditFolder}
         onPressEnterEditFolder={onPressEnterEditFolder}
+        onCompleteEditFolder={onCompleteEditFolder}
       />
 
       <div className="make-folder-container">
