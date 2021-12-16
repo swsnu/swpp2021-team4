@@ -76,6 +76,7 @@
 }
 
 .select-folder-modal-container .folder-list-container .folder-container .folder-name {
+  max-height: 60px;
   max-width: 70%;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -128,6 +129,40 @@
   border-radius: 6px;
   padding: 10px 20px;
   font-size: 16px;
+}
+
+.select-folder-modal-container .make-folder-container .make-folder-input-container {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding: 16px 20px 16px 0px;
+}
+
+.select-folder-modal-container .make-folder-container .make-folder-input-container .make-folder-input {
+  -webkit-box-flex: 0.9;
+      -ms-flex: 0.9;
+          flex: 0.9;
+  border: none;
+  border-radius: 6px;
+  padding-top: 10px;
+  padding-left: 10px;
+  padding-bottom: 10px;
+  font-size: 16px;
+}
+
+.select-folder-modal-container .make-folder-container .make-folder-input-container .icon {
+  width: 20px;
 }
 
 .select-folder-modal-container .folder-container.selected {

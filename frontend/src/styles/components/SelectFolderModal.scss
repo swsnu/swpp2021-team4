@@ -57,6 +57,7 @@
       }
 
       .folder-name {
+        max-height: 60px;
         max-width: 70%;
         overflow: hidden;
         text-overflow: ellipsis;
@@ -103,6 +104,29 @@
       border-radius: 6px;
       padding: 10px 20px;
       font-size: 16px;
+    }
+
+    .make-folder-input-container {
+      width: 100%;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 20px 16px 0px;
+
+      .make-folder-input {
+        flex: 0.9;
+        border: none;
+        border-radius: 6px;
+        padding-top: 10px;
+        padding-left: 10px;
+        padding-bottom: 10px;
+        font-size: 16px;
+      }
+  
+      .icon {
+        width: 20px;
+      }
     }
   }
   
