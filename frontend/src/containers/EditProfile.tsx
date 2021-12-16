@@ -56,7 +56,7 @@ function EditProfile() {
     } else if (!password || !password2) {
       alert("비밀번호를 입력하세요!");
       return;
-    } else if (!/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/.test(password)) {
+    } else if (password.length < 8) {
       alert(
         `비밀번호 형식이 잘못되었습니다!\n최소 하나의 문자 및 하나의 숫자가 포함된 8자 이상의 비밀번호를 입력해주세요.`
       );

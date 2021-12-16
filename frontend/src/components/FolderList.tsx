@@ -20,6 +20,7 @@ interface FolderListPropsType {
   onClickEditFolder: (folder: FolderType) => void
   onChangeEditFolder: (e: React.ChangeEvent<HTMLInputElement>) => void
   onPressEnterEditFolder: (e: React.KeyboardEvent) => void
+  onCompleteEditFolder: () => void
 }
 
 function Folder(props: FolderPropsType) {
@@ -36,7 +37,7 @@ function Folder(props: FolderPropsType) {
       className={"folder-container".concat(folder.id == selectedFolder?.id ? ' selected' : '')}
       onClick={() => props.onClickFolder(folder)}
     >
-      {folder.name}
+      <span className="folder-name">{folder.name}</span>
       <img
         className="icon"
         src={editIcon}
@@ -58,8 +59,11 @@ function FolderList(props: FolderListPropsType) {
     onClickFolder,
     onClickEditFolder,
     onChangeEditFolder,
-    onPressEnterEditFolder
+    onPressEnterEditFolder,
+    onCompleteEditFolder,
   } = props;
+
+  const [editIcon, setEditIcon] = useState(edit_btn);
 
   return (
     <div className="folder-list-container">
@@ -69,12 +73,20 @@ function FolderList(props: FolderListPropsType) {
             return (
               <div className="edit-folder-container">
                 <input
-                  className="edit-folder-input"
+                  className="make-folder-input"
                   type="text"
                   value={editText}
                   placeholder={folder.name}
                   onChange={onChangeEditFolder}
                   onKeyPress={onPressEnterEditFolder}
+                />
+                <img
+                  className="icon"
+                  src={editIcon}
+                  style={{ fill: 'green' }}
+                  onClick={onCompleteEditFolder}
+                  onMouseOver={() => setEditIcon(edit_complete_btn)}
+                  onMouseLeave={() => setEditIcon(edit_btn)}
                 />
               </div>
             );

@@ -102,6 +102,9 @@
 
 .folder .left .eachItem .folder-name {
   padding: 10px;
+  max-width: 70%;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .folder .left .eachItem .icon {

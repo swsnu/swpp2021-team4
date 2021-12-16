@@ -80,6 +80,11 @@ function MyPage(props: PropType) {
     );
   };
 
+  const onPressEnterEditFolder = (e: React.KeyboardEvent, folder_id: number) => {
+    if (e.key !== 'Enter') return;
+    onEditFolder(folder_id);
+  }
+
   const onDeleteFolder = (folder_id: number) => {
     if (window.confirm("정말 삭제하시겠습니까?")) {
       dispatch(deleteFolderAction(props.loggedUser.id, folder_id));
@@ -183,6 +188,7 @@ function MyPage(props: PropType) {
                       type="text"
                       value={folderInputs.folderName}
                       onChange={onChangeEditFolder}
+                      onKeyPress={(e) => onPressEnterEditFolder(e, fold.id)}
                       placeholder="변경할 폴더 이름"
                     />
                     <img
@@ -207,7 +213,10 @@ function MyPage(props: PropType) {
                       <img
                         className="icon edit-folder-icon"
                         src={edit_btn}
-                        onClick={() => onClickEditFolder(fold.id, fold.name)}
+                        onClick={() => {
+                          setIsFolderEdited(false);
+                          onClickEditFolder(fold.id, fold.name);
+                        }}
                       />
                       <img
                         className="icon  delete-folder-icon"

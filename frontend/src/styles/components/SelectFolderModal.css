@@ -75,6 +75,12 @@
   background-color: #D9D9D9;
 }
 
+.select-folder-modal-container .folder-list-container .folder-container .folder-name {
+  max-width: 70%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 .select-folder-modal-container .folder-list-container .folder-container .icon {
   -webkit-filter: invert(0%) sepia(94%) saturate(13%) hue-rotate(327deg) brightness(89%) contrast(100%);
           filter: invert(0%) sepia(94%) saturate(13%) hue-rotate(327deg) brightness(89%) contrast(100%);
@@ -142,5 +148,39 @@
 
 .select-folder-modal-container .select-folder-modal-select-btn:hover {
   background-color: #57ceb9;
+}
+
+.select-folder-modal-container .edit-folder-container {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding: 16px 20px 16px 0px;
+}
+
+.select-folder-modal-container .edit-folder-container .make-folder-input {
+  -webkit-box-flex: 0.9;
+      -ms-flex: 0.9;
+          flex: 0.9;
+  border: none;
+  border-radius: 6px;
+  padding-top: 10px;
+  padding-left: 20px;
+  padding-bottom: 10px;
+  font-size: 16px;
+}
+
+.select-folder-modal-container .edit-folder-container .icon {
+  width: 22px;
 }
 /*# sourceMappingURL=SelectFolderModal.css.map */
