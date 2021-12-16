@@ -341,7 +341,7 @@ function CreateEditPost(props: PropsType) {
     const formData = new FormData();
     formData.append("title", title);
     formData.append("is_shared", isShared?.toString() || "false");
-    formData.append("thumbnail_image", thumbnailImage);
+    if (thumbnailImage) formData.append("thumbnail_image", thumbnailImage);
     formData.append("days", maxDay?.toString());
     formData.append("theme", theme);
     formData.append("season", seasonRecommendation);
