@@ -83,6 +83,10 @@ function SelectFolderModal(props: PropsType) {
   const onPressEnterEditFolder = useCallback(
     (e: React.KeyboardEvent) => {
       if (e.key !== "Enter" || !editingFolder) return;
+      if (!editText) {
+        alert('폴더명을 입력해주세요!');
+        return;
+      }
 
       dispatch(editFolderAction(
         loggedUser.id,
@@ -100,6 +104,10 @@ function SelectFolderModal(props: PropsType) {
   const onPressEnterMakeFolder = useCallback(
     (e: React.KeyboardEvent) => {
       if (e.key !== "Enter") return;
+      if (!newFolderText) {
+        alert('폴더명을 입력해주세요!');
+        return;
+      }
 
       dispatch(addFolderAction(
         loggedUser.id,
