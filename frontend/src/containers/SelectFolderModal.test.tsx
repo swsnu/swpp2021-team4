@@ -76,6 +76,7 @@ describe("<SelectFolderModal/>", () => {
         <SelectFolderModal
           isModalVisible={visible}
           onClickSelectButton={mockClickSelectButton}
+          onClickCloseModal={jest.fn()}
         />
       </Provider>
     );
@@ -165,6 +166,7 @@ describe("<SelectFolderModal/>", () => {
         <SelectFolderModal
           isModalVisible={false}
           onClickSelectButton={mockClickSelectButton}
+          onClickCloseModal={jest.fn()}
         />
       </Provider>
     );

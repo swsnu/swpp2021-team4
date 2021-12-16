@@ -246,7 +246,7 @@ describe("<MyPage />", () => {
     component.find(".eachItem").at(0).simulate("click");
     const wrapper = component.find(PlaceItem);
     // expect(wrapper.text()).toBe("ex1");
-    expect(wrapper.length).toBe(1);
+    expect(wrapper.length).toBe(0);
     // const wrapper = component.find(PostItem);
     // expect(wrapper.first().text()).toBe("ex1");
   });
