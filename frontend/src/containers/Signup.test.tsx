@@ -228,6 +228,11 @@ describe("<Signup />", () => {
     button.simulate("click");
     const passwordInput = component.find("#userPassword");
     passwordInput.simulate("change", {
+      target: { id: "userPassword", value: "d" },
+    });
+    button.simulate("click");
+    expect(window.alert).toHaveBeenCalled();
+    passwordInput.simulate("change", {
       target: { id: "userPassword", value: "dkssudgktpdy11" },
     });
     button.simulate("click");
@@ -250,8 +255,6 @@ describe("<Signup />", () => {
       .fn()
       .mockImplementation(() => Promise.resolve({ status: 201 }));
     button.simulate("click");
-
-
     expect(setIsSigned).toBeTruthy();
 
   });
