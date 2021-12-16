@@ -69,6 +69,10 @@ function PostDetail() {
     }
   };
 
+  const onClickCloseModal = () => {
+    setIsModalVisible(false);
+  };
+
   const onClickFolderSelect = (folder: Folder | null) => {
     if (!folder?.id) {
       alert("서버 에러!");
@@ -316,6 +320,7 @@ function PostDetail() {
       <SelectFolderModal
         isModalVisible={isModalVisible}
         onClickSelectButton={onClickFolderSelect}
+        onClickCloseModal={onClickCloseModal}
       />
     </>
   );
