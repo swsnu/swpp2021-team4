@@ -325,7 +325,7 @@ def post_spec_edit(request, post_id):
 
             post.title=post_title
             post.header_image=post_header_image
-            if (post_thumbnail_image): post.thumbnail_image=post_thumbnail_image
+            if post.thumbnail_image: post.thumbnail_image=post_thumbnail_image
             post.days=post_days
             post.folder_id=post_folder_id
             post.is_shared=post_is_shared

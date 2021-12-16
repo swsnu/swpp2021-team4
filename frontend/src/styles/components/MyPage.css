@@ -102,6 +102,9 @@
 
 .folder .left .eachItem .folder-name {
   padding: 10px;
+  max-width: 70%;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .folder .left .eachItem .icon {
@@ -161,6 +164,18 @@
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
+}
+
+.folder .right .posts-container .liked-posts {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
 }
 
 .folder .right .posts-container .folder-my-posts,

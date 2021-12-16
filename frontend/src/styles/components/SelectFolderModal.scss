@@ -31,6 +31,8 @@
     font-weight: bold;
     margin-bottom: 30px;
     width: 100%;
+    display: flex;
+    justify-content: space-between;
   }
 
   .folder-list-container {
@@ -52,6 +54,12 @@
   
       &:hover {
         background-color: #D9D9D9;
+      }
+
+      .folder-name {
+        max-width: 70%;
+        overflow: hidden;
+        text-overflow: ellipsis;
       }
   
       .icon {
@@ -115,6 +123,29 @@
     cursor: pointer;
     &:hover {
       background-color: $darkMintColor;
+    }
+  }
+
+  .edit-folder-container {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 20px 16px 0px;
+
+    .make-folder-input {
+      flex: 0.9;
+      border: none;
+      border-radius: 6px;
+      padding-top: 10px;
+      padding-left: 20px;
+      padding-bottom: 10px;
+      font-size: 16px;
+    }
+
+    .icon {
+      width: 22px;
     }
   }
 }

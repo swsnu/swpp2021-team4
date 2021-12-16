@@ -52,14 +52,15 @@ function CreateEditPostPage() {
 
   return (
     <>
-      <div onClick={onClickBackground}>
+      <div>
         <NavBar />
-        <CreateEditPost folder={selectedFolder||{id: 0, name: ''}} />
+        <CreateEditPost folder={selectedFolder || { id: 0, name: "" }} />
         <Footer />
       </div>
       <SelectFolderModal
         isModalVisible={isModalVisible}
         onClickSelectButton={onClickSelectButton}
+        onClickCloseModal={onClickBackground}
       />
     </>
   );
