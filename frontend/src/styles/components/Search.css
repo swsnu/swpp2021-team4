@@ -222,7 +222,7 @@
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
-  margin: 10px 15px;
+  margin: 20px 15px;
 }
 
 .search-container .search-result-container .search-result-header .search-result-title {
@@ -264,10 +264,38 @@
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   -ms-flex-wrap: wrap;
       flex-wrap: wrap;
+}
+
+.search-container .search-result-container .search-result-content .no-result {
+  border-radius: 6px;
+  font-family: "Noto Sans CJK KR", Monospace;
+  margin-top: 40px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  font-size: 18px;
+  background-color: #f5f6f9;
+  width: 85%;
+  padding-top: 5%;
+  padding-bottom: 5%;
+  font-weight: 400;
 }
 /*# sourceMappingURL=Search.css.map */

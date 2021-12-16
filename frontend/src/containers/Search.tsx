@@ -9,6 +9,7 @@ import { Regions, Cities } from "../utils/locations";
 import {
   useDateSearchPostState,
   useLikeSearchPostState,
+  usePostsState,
   useSearchPostState,
 } from "../hooks/usePostsState";
 
@@ -31,7 +32,7 @@ function Search() {
   const searchedPosts = useSearchPostState();
   const likeSearchedPosts = useLikeSearchPostState();
   const dateSearchPosts = useDateSearchPostState();
-
+  const postsAll = usePostsState();
   const onChangeInputs = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
     setUserInputs({
@@ -333,6 +334,32 @@ function Search() {
         </div>
       </div>
       <div className="search-result-container">
+        {searched == false && (
+          <>
+            <div className="search-result-header">
+              <div className="search-result-title">Recent posts</div>
+            </div>
+            <div className="search-result-content">
+              {postsAll.map((post: SimplePostType, index: number) => {
+                if (index >= 0 && index <= 5) {
+                  return (
+                    <PostItem
+                      key={post.id}
+                      id={post.id}
+                      thumbnail_image={post.thumbnail_image}
+                      title={post.title}
+                      author_name={post.author_name}
+                      author_id={post.author_id}
+                      like_count={post.like_count}
+                      comment_count={post.comment_count}
+                      is_shared={post.is_shared}
+                    />
+                  );
+                }
+              })}
+            </div>
+          </>
+        )}
         {searched == true && (
           <>
             <div className="search-result-header">
@@ -355,6 +382,9 @@ function Search() {
               </div>
             </div>
             <div className="search-result-content">
+              {sorting == "" && searchedPosts.length == 0 && (
+                <div className="no-result">검색 결과가 존재하지 않습니다.</div>
+              )}
               {sorting == "" &&
                 searchedPosts.map((post: SimplePostType) => {
                   return (
@@ -371,6 +401,9 @@ function Search() {
                     />
                   );
                 })}
+              {sorting == "like" && searchedPosts.length == 0 && (
+                <div className="no-result">검색 결과가 존재하지 않습니다.</div>
+              )}
               {sorting == "like" &&
                 likeSearchedPosts.map((post: SimplePostType) => {
                   return (
@@ -387,6 +420,9 @@ function Search() {
                     />
                   );
                 })}
+              {sorting == "date" && searchedPosts.length == 0 && (
+                <div className="no-result">검색 결과가 존재하지 않습니다.</div>
+              )}
               {sorting == "date" &&
                 dateSearchPosts.map((post: SimplePostType) => {
                   return (
