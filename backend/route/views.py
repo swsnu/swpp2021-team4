@@ -445,6 +445,7 @@ def post_comment_get(request, post_id):
     return JsonResponse(comments, safe=False)
 
 @require_POST
+@csrf_exempt
 def post_comment_post(request, post_id):
     logged_user_id=request.session.get('user', None)
     if not logged_user_id:
