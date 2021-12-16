@@ -107,7 +107,7 @@ function MyPage(props: PropType) {
         onClickFolder(selectedFolderId);
       })
       .catch((err) => err.response);
-  }
+  };
 
   const onClickUncartPlace = (placeId: number) => {
     axios
@@ -116,7 +116,7 @@ function MyPage(props: PropType) {
         onClickFolder(selectedFolderId);
       })
       .catch((err) => err.response);
-  }
+  };
 
   const onClickLike = () => {
     axios
@@ -159,14 +159,14 @@ function MyPage(props: PropType) {
             Folders
             {toggle && (
               <img
-                className="icon"
+                className="icon button_up"
                 src={button_up}
                 onClick={() => setToggle(!toggle)}
               />
             )}
             {!toggle && (
               <img
-                className="icon"
+                className="icon button_down"
                 src={button_down}
                 onClick={() => setToggle(!toggle)}
               />
@@ -205,12 +205,12 @@ function MyPage(props: PropType) {
                     <div className="folder-name">{fold.name} </div>
                     <div>
                       <img
-                        className="icon"
+                        className="icon edit-folder-icon"
                         src={edit_btn}
                         onClick={() => onClickEditFolder(fold.id, fold.name)}
                       />
                       <img
-                        className="icon"
+                        className="icon  delete-folder-icon"
                         src={delete_btn}
                         onClick={() => onDeleteFolder(fold.id)}
                       />
@@ -280,11 +280,13 @@ function MyPage(props: PropType) {
                 <div className="folder-title">카트에 담은 장소</div>
                 <div className="folder-items">
                   {folderInfo.places?.map((place) => {
-                    return <PlaceItem
-                      key={place.id}
-                      place={place}
-                      onClickUncartPlace={onClickUncartPlace}
-                    />;
+                    return (
+                      <PlaceItem
+                        key={place.id}
+                        place={place}
+                        onClickUncartPlace={onClickUncartPlace}
+                      />
+                    );
                   })}
                 </div>
               </div>
