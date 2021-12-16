@@ -23,6 +23,7 @@ import "../styles/components/CreateEditPost.css";
 import { useUserState } from "../hooks/useUserState";
 import axios from "axios";
 
+
 export interface PostInfoDataType {
   title: string;
   location: string;
