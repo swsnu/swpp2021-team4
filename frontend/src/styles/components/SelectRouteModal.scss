@@ -15,6 +15,7 @@
   width: 350px;
   padding: 25px;
   overflow-y: auto;
+  z-index: 5;
   .modal-title {
     font-family: $mainFont;
     font-size: 25px;
