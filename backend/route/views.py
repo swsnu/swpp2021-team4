@@ -11,7 +11,7 @@ from .forms import PostForm
 @require_GET
 def posts(request):
     postlist=[]
-    for post in Post.objects.all():
+    for post in Post.objects.all().order_by("-created_at"):
         comments=[]
         for comment in post.comment_set.all():
             comments.append({'content': comment.content, 'username':comment.author.username})
