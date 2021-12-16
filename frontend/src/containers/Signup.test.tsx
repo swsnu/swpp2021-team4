@@ -217,6 +217,10 @@ describe("<Signup />", () => {
     button.simulate("click");
     expect(spyUseState).toBeTruthy();
     expect(window.alert).toHaveBeenCalled();
+    emailInput.simulate("change", {
+      target: { id: "userEmail", value: "email@test.com" },
+    });
+    button.simulate("click");
     const userNameInput = component.find("#userName");
     userNameInput.simulate("change", {
       target: { id: "userName", value: "s" },
@@ -224,22 +228,31 @@ describe("<Signup />", () => {
     button.simulate("click");
     const passwordInput = component.find("#userPassword");
     passwordInput.simulate("change", {
-      target: { id: "userPassword", value: "s" },
+      target: { id: "userPassword", value: "dkssudgktpdy11" },
     });
+    button.simulate("click");
+    expect(window.alert).toHaveBeenCalled();
     const passwordCheckInput = component.find("#checkUserPassword");
     passwordCheckInput.simulate("change", {
       target: { id: "checkUserPassword", value: "notS" },
     });
     button.simulate("click");
+    expect(window.alert).toHaveBeenCalled();
     passwordCheckInput.simulate("change", {
-      target: { id: "checkUserPassword", value: "s" },
+      target: { id: "checkUserPassword", value: "dkssudgktpdy11" },
     });
+
+
+
     const setIsSigned = jest.fn();
     spyUseState.mockImplementation((isSigned: any) => [isSigned, setIsSigned]);
     axios.post = jest
       .fn()
       .mockImplementation(() => Promise.resolve({ status: 201 }));
     button.simulate("click");
+
+
     expect(setIsSigned).toBeTruthy();
+
   });
 });
