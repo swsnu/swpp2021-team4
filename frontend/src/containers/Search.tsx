@@ -42,10 +42,6 @@ function Search() {
   };
 
   const onClickSearch = () => {
-    if (!userInputs.keyword) {
-      alert('검색어를 입력해주세요!');
-      return;
-    }
     
     dispatch(
       searchAction(
@@ -340,7 +336,7 @@ function Search() {
               <div className="search-result-title">Recent posts</div>
             </div>
             <div className="search-result-content">
-              {postsAll.map((post: SimplePostType, index: number) => {
+              {postsAll.filter((post: { is_shared: any; })=> post.is_shared).map((post: SimplePostType, index: number) => {
                 if (index >= 0 && index <= 5) {
                   return (
                     <PostItem

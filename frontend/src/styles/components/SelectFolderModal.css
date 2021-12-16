@@ -38,6 +38,12 @@
   font-weight: bold;
   margin-bottom: 30px;
   width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
 }
 
 .select-folder-modal-container .folder-list-container {

@@ -112,7 +112,7 @@ function MyPage(props: PropType) {
         onClickFolder(selectedFolderId);
       })
       .catch((err) => err.response);
-  }
+  };
 
   const onClickUncartPlace = (placeId: number) => {
     axios
@@ -121,7 +121,7 @@ function MyPage(props: PropType) {
         onClickFolder(selectedFolderId);
       })
       .catch((err) => err.response);
-  }
+  };
 
   const onClickLike = () => {
     axios
@@ -164,14 +164,14 @@ function MyPage(props: PropType) {
             Folders
             {toggle && (
               <img
-                className="icon"
+                className="icon button_up"
                 src={button_up}
                 onClick={() => setToggle(!toggle)}
               />
             )}
             {!toggle && (
               <img
-                className="icon"
+                className="icon button_down"
                 src={button_down}
                 onClick={() => setToggle(!toggle)}
               />
@@ -211,7 +211,7 @@ function MyPage(props: PropType) {
                     <div className="folder-name">{fold.name} </div>
                     <div>
                       <img
-                        className="icon"
+                        className="icon edit-folder-icon"
                         src={edit_btn}
                         onClick={() => {
                           setIsFolderEdited(false);
@@ -219,7 +219,7 @@ function MyPage(props: PropType) {
                         }}
                       />
                       <img
-                        className="icon"
+                        className="icon  delete-folder-icon"
                         src={delete_btn}
                         onClick={() => onDeleteFolder(fold.id)}
                       />
@@ -289,11 +289,13 @@ function MyPage(props: PropType) {
                 <div className="folder-title">카트에 담은 장소</div>
                 <div className="folder-items">
                   {folderInfo.places?.map((place) => {
-                    return <PlaceItem
-                      key={place.id}
-                      place={place}
-                      onClickUncartPlace={onClickUncartPlace}
-                    />;
+                    return (
+                      <PlaceItem
+                        key={place.id}
+                        place={place}
+                        onClickUncartPlace={onClickUncartPlace}
+                      />
+                    );
                   })}
                 </div>
               </div>
@@ -301,42 +303,46 @@ function MyPage(props: PropType) {
           )}
           {selected === 1 && (
             <div className="posts-container">
-              {likedPosts &&
-                likedPosts.map((post) => {
-                  return (
-                    <PostItem
-                      key={post.id}
-                      id={post.id}
-                      thumbnail_image={post.thumbnail_image}
-                      title={post.title}
-                      author_name={post.author_name}
-                      author_id={post.author_id}
-                      like_count={post.like_count}
-                      comment_count={post.comment_count}
-                      is_shared={post.is_shared}
-                    />
-                  );
-                })}
+              <div className="liked-posts">
+                {likedPosts &&
+                  likedPosts.map((post) => {
+                    return (
+                      <PostItem
+                        key={post.id}
+                        id={post.id}
+                        thumbnail_image={post.thumbnail_image}
+                        title={post.title}
+                        author_name={post.author_name}
+                        author_id={post.author_id}
+                        like_count={post.like_count}
+                        comment_count={post.comment_count}
+                        is_shared={post.is_shared}
+                      />
+                    );
+                  })}
+              </div>
             </div>
           )}
           {selected === 2 && (
             <div className="posts-container">
-              {sharedPosts &&
-                sharedPosts.map((post) => {
-                  return (
-                    <PostItem
-                      key={post.id}
-                      id={post.id}
-                      thumbnail_image={post.thumbnail_image}
-                      title={post.title}
-                      author_name={post.author_name}
-                      author_id={post.author_id}
-                      like_count={post.like_count}
-                      comment_count={post.comment_count}
-                      is_shared={post.is_shared}
-                    />
-                  );
-                })}
+              <div className="shared-posts">
+                {sharedPosts &&
+                  sharedPosts.map((post) => {
+                    return (
+                      <PostItem
+                        key={post.id}
+                        id={post.id}
+                        thumbnail_image={post.thumbnail_image}
+                        title={post.title}
+                        author_name={post.author_name}
+                        author_id={post.author_id}
+                        like_count={post.like_count}
+                        comment_count={post.comment_count}
+                        is_shared={post.is_shared}
+                      />
+                    );
+                  })}
+              </div>
             </div>
           )}
         </div>

@@ -5,223 +5,249 @@ import { ConnectedRouter } from "connected-react-router";
 import MyPage from "./MyPage";
 import { getMockStore } from "../test-utils/mocks";
 import { history } from "../store/store";
-import * as reactRedux from "react-redux";
-// import axios from "axios";
+import { BrowserRouter } from "react-router-dom";
+import axios from "axios";
+import * as userAction from "../store/User/userAction";
+import PlaceItem from "../components/PlaceItem";
 
 const stubInitialState = {
-    user: {
-        loggedUser: {
-            id: 1,
-            email: "ex1",
-            username: "ex1",
-            profile_image: "ex1",
-            folders: [],
-        },
+  user: {
+    loggedUser: {
+      id: 1,
+      email: "ex1",
+      username: "ex1",
+      profile_image: "ex1",
+      folders: [
+        { id: 1, name: "ex1" },
+        { id: 2, name: "ex2" },
+      ],
     },
-    post: {
-        posts: [
-            {
-                id: 1,
-                header_image: "ex1",
-                thumbnail_image: "ex1",
-                author_id: 1,
-                author_name: "ex1",
-                availableWithoutCar: true,
-                comments: [
-                    {
-                        username: "ex1",
-                        content: "ex1",
-                        profile_image: "ex1",
-                        id: 1,
-                        created_at: "ex1",
-                        author_id: "1,",
-                    },
-                ],
-                days: 1,
-                folder_id: 1,
-                folder_name: "ex1",
-                is_shared: true,
-                location: "ex1",
-                places: [
-                    {
-                        id: 1,
-                        name: "ex1",
-                        post_id: 1,
-                        description: "ex1",
-                        day: 1,
-                        folder_id: 1,
-                        latitude: "1",
-                        longitude: "1",
-                        lat: "1",
-                        lon: "1",
-                        homepage: "ex1",
-                        phone_number: "ex1",
-                        address: "ex1",
-                        category: "ex1",
-                        index: 1,
-                    },
-                    {
-                        id: 2,
-                        name: "ex2",
-                        post_id: 1,
-                        description: "ex2",
-                        day: 1,
-                        folder_id: 1,
-                        latitude: "1",
-                        longitude: "1",
-                        lat: "1",
-                        lon: "1",
-                        homepage: "ex2",
-                        phone_number: "ex2",
-                        address: "ex2",
-                        category: "ex2",
-                        index: 2,
-                    },
-                ],
-                season: "ex1",
-                theme: "ex1",
-                title: "ex1",
-                like_counts: 1,
-                liked: true,
-            },
-        ],
-        detailedPost: {
-            id: 1,
-            header_image: "ex1",
-            thumbnail_image: "ex1",
-            author_id: 1,
-            author_name: "ex1",
-            availableWithoutCar: true,
-            comments: [
-                {
-                    username: "ex1",
-                    content: "ex1",
-                    profile_image: "ex1",
-                    id: 1,
-                    created_at: "ex1",
-                    author_id: 1,
-                },
-            ],
-            comment_counts: 1,
-            days: 1,
-            // folder_id: 1,
-            folder_name: "ex1",
-            is_shared: true,
-            location: "ex1",
-            places: [
-                {
-                    id: 1,
-                    name: "ex1",
-                    post_id: 1,
-                    description: "ex1",
-                    day: 1,
-                    folder_id: 1,
-                    latitude: "1",
-                    longitude: "1",
-                    lat: "1",
-                    lon: "1",
-                    homepage: "ex1",
-                    phone_number: "ex1",
-                    address: "ex1",
-                    category: "ex1",
-                    index: 1,
-                },
-                {
-                    id: 2,
-                    name: "ex2",
-                    post_id: 1,
-                    description: "ex2",
-                    day: 1,
-                    folder_id: 1,
-                    latitude: "1",
-                    longitude: "1",
-                    lat: "1",
-                    lon: "1",
-                    homepage: "ex2",
-                    phone_number: "ex2",
-                    address: "ex2",
-                    category: "ex2",
-                    index: 2,
-                },
-            ],
-            season: "ex1",
-            theme: "ex1",
-            title: "ex1",
-            like_counts: 1,
-            liked: true,
-            created_at: "ex1",
-            pathList: [
-                {
-                    from_place_id: 1,
-                    id: 1,
-                    post_id: 1,
-                    to_place_id: 2,
-                    transportation: "car",
-                },
-            ],
-        },
-        selectedFolder: {
-            id: 1,
-            name: "ex1",
-        },
-        search: [],
-        likeSorted: [],
-        dateSorted: [],
-    },
+  },
 };
 
 const mockStore = getMockStore(stubInitialState);
 
-jest.mock("../components/BasicUserInfo", () => {
-    return jest.fn((props) => {
-        return (
-            <div className="spyBasicUserInfo">
-                <div className="spyUsername">{props.username}</div>
-            </div>
-        );
-    });
-});
-
 jest.mock("../components/PostItem", () => {
-    return jest.fn((props) => {
-        return (
-            <div className="spyPostItem">
-                <div className="spyPostTitle">{props.title}</div>
-            </div>
-        );
-    });
+  return jest.fn((props) => {
+    return <div className="spy-post-title">{props.title}</div>;
+  });
+});
+jest.mock("../components/BasicUserInfo", () => {
+  return jest.fn((props) => {
+    return (
+      <div className="spy-basic-user-info">
+        <div className="image">
+          {!props.profile_image && <img className="profileImage" src="" />}
+          {props.profile_image && (
+            <img className="profileImage" src={props.profile_image} />
+          )}
+        </div>
+        <div className="basicInfo">
+          <div className="email">
+            <div className="field">E-mail</div>
+            <div className="value">{props.email}</div>
+          </div>
+          <div className="line"></div>
+          <div className="name">
+            <div className="field">username</div>
+            <div className="value">{props.username}</div>
+          </div>
+          <div className="line"></div>
+          {props.loggedUserId === props.id && (
+            <button className="edit-btn" onClick={props.onEditProfile}>
+              Edit
+            </button>
+          )}
+        </div>
+      </div>
+    );
+  });
 });
 
-describe('<MyPage />', () => {
-    let mypage: JSX.Element;
+describe("<MyPage />", () => {
+  let mypage: any;
 
-    beforeEach(() => {
-        mypage = (
-            <Provider store={mockStore}>
-                <ConnectedRouter history={history}>
-                    <MyPage loggedUser={{
-                        id: 1,
-                        email: "ex1",
-                        username: "ex1",
-                        profile_image: "ex1",
-                        folders: [],
-                    }} id={1} />
-                </ConnectedRouter>
-            </Provider>
-        );
+  beforeEach(() => {
+    mypage = (
+      <Provider store={mockStore}>
+        <ConnectedRouter history={history}>
+          <BrowserRouter>
+            <MyPage
+              loggedUser={{
+                id: 1,
+                email: "ex1",
+                username: "ex1",
+                profile_image: "ex1",
+                folders: [
+                  { id: 1, name: "ex1" },
+                  { id: 2, name: "ex2" },
+                ],
+              }}
+              id={1}
+            />
+          </BrowserRouter>
+        </ConnectedRouter>
+      </Provider>
+    );
+  });
+
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
+
+  it("should render without errors", () => {
+    const component = mount(mypage);
+    const wrapper = component.find(".userinfo-container");
+    expect(wrapper.length).toBe(1);
+  });
+
+  it("should toggle up and down the folderList", () => {
+    const component = mount(mypage);
+    const wrapper = component.find(".button_up");
+    wrapper.simulate("click");
+    expect(component.find(".button_down").length).toBe(1);
+    component.find(".button_down").simulate("click");
+    expect(wrapper.length).toBe(1);
+  });
+
+  it("should navigate to edit profile", () => {
+    const component = mount(mypage);
+    component.find(".edit-btn").simulate("click");
+    expect(history.location.pathname).toEqual("/");
+  });
+  it("should render folder item", () => {
+    let spyEditFolderAction: any;
+    spyEditFolderAction = jest.spyOn(userAction, "editFolderAction");
+    jest.spyOn(window, "confirm").mockReturnValue(true);
+    let spyDeleteFolderAction: any;
+    spyDeleteFolderAction = jest.spyOn(userAction, "deleteFolderAction");
+    axios.get = jest.fn().mockResolvedValue({
+      my_posts: [
+        {
+          id: 1,
+          thumbnail_image: "ex1",
+          title: "ex1",
+          author_name: "ex1",
+          author_id: 1,
+          like_count: 1,
+          comment_count: 1,
+          is_shared: true,
+        },
+      ],
+      posts: [
+        {
+          id: 2,
+          thumbnail_image: "ex2",
+          title: "ex2",
+          author_name: "ex2",
+          author_id: 2,
+          like_count: 2,
+          comment_count: 2,
+          is_shared: true,
+        },
+      ],
+      places: [
+        {
+          id: 1,
+          kakao_id: 1,
+          name: "ex1",
+          post_id: 1,
+          description: "ex1",
+          day: 1,
+          index: 1,
+          folder_id: 1,
+          latitude: 1,
+          longitude: 1,
+          homepage: "ex1",
+          phone_number: "ex1",
+          address: "ex1",
+          category: "ex1",
+        },
+      ],
     });
+    const component = mount(mypage);
+    const wrapper = component.find(".eachItem");
+    expect(wrapper.length).toBe(2);
+    wrapper.at(0).simulate("click");
+    expect(axios.get).toHaveBeenCalled();
+    const editImage = component.find(".edit-folder-icon").at(0);
+    editImage.simulate("click");
+    const editInput = component.find("#edit_folder_input");
+    expect(editInput.length).toBe(1);
+    editInput.simulate("change", { target: { value: "ex3" } });
+    const inputImg = component.find(".folder_input_container img");
+    inputImg.simulate("click");
+    expect(spyEditFolderAction).toHaveBeenCalled();
+    const deleteIcon = component.find(".delete-folder-icon").at(0);
+    deleteIcon.simulate("click");
+    expect(spyDeleteFolderAction).toHaveBeenCalled();
+  });
 
-    afterEach(() => {
-        jest.clearAllMocks();
+  it("should render my posts correctly", async () => {
+    let postList: any;
+    postList = {
+      my_posts: [
+        {
+          id: 1,
+          thumbnail_image: "ex1",
+          title: "ex1",
+          author_name: "ex1",
+          author_id: 1,
+          like_count: 1,
+          comment_count: 1,
+          is_shared: true,
+        },
+      ],
+      posts: [
+        {
+          id: 2,
+          thumbnail_image: "ex2",
+          title: "ex2",
+          author_name: "ex2",
+          author_id: 2,
+          like_count: 2,
+          comment_count: 2,
+          is_shared: true,
+        },
+      ],
+      places: [
+        {
+          id: 1,
+          kakao_id: 1,
+          name: "ex1",
+          post_id: 1,
+          description: "ex1",
+          day: 1,
+          index: 1,
+          folder_id: 1,
+          latitude: "1",
+          longitude: "1",
+          lat: "1",
+          lon: "1",
+          homepage: "ex1",
+          phone_number: "ex1",
+          address: "ex1",
+          category: "ex1",
+        },
+      ],
+    };
+
+    axios.get = jest.fn(() => {
+      return new Promise((resolve) => {
+        const result = {
+          status: 200,
+          data: postList,
+        };
+        resolve(result);
+      });
     });
-
-    it('should render without errors', () => {
-        jest
-            .spyOn(reactRedux, "useSelector")
-            .mockImplementation((callback) => callback(stubInitialState));
-        const component = mount(mypage);
-        const wrapper = component.find('.userinfo-container');
-        expect(wrapper.length).toBe(1);
-    });
-
-})
+    const component = mount(mypage);
+    console.log(component.debug());
+    component.find(".eachItem").at(0).simulate("click");
+    const wrapper = component.find(PlaceItem);
+    // expect(wrapper.text()).toBe("ex1");
+    expect(wrapper.length).toBe(1);
+    // const wrapper = component.find(PostItem);
+    // expect(wrapper.first().text()).toBe("ex1");
+  });
+});
