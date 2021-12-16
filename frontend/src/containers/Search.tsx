@@ -9,6 +9,7 @@ import { Regions, Cities } from "../utils/locations";
 import {
   useDateSearchPostState,
   useLikeSearchPostState,
+  usePostsState,
   useSearchPostState,
 } from "../hooks/usePostsState";
 
@@ -31,6 +32,7 @@ function Search() {
   const searchedPosts = useSearchPostState();
   const likeSearchedPosts = useLikeSearchPostState();
   const dateSearchPosts = useDateSearchPostState();
+  const postsAll = usePostsState();
   const onChangeInputs = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
     setUserInputs({
@@ -40,6 +42,11 @@ function Search() {
   };
 
   const onClickSearch = () => {
+    if (!userInputs.keyword) {
+      alert('검색어를 입력해주세요!');
+      return;
+    }
+
     dispatch(
       searchAction(
         {
@@ -55,6 +62,11 @@ function Search() {
     );
   };
 
+  const onPressEnterSearch = (e: React.KeyboardEvent) => {
+    if (e.key !== "Enter") return;
+    onClickSearch();
+  }
+
   const [regionIdx, setRegionIdx] = useState<number>(0);
   const [cityIdx, setCityIdx] = useState<number>(0);
   const [location, setLocation] = useState<string | null>("");
@@ -68,8 +80,7 @@ function Search() {
   const onChangeCity = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setCityIdx(e.target.selectedIndex - 1);
     setLocation(
-      `${Regions[regionIdx - 1]} ${
-        Cities[regionIdx - 1][e.target.selectedIndex - 1]
+      `${Regions[regionIdx - 1]} ${Cities[regionIdx - 1][e.target.selectedIndex - 1]
       }`
     );
   };
@@ -90,13 +101,12 @@ function Search() {
             type="text"
             value={userInputs.keyword}
             onChange={onChangeInputs}
+            onKeyPress={onPressEnterSearch}
             placeholder="원하는 여행을 검색해보세요"
           />
           <button
             className="search-button"
-            onClick={() => {
-              onClickSearch();
-            }}
+            onClick={onClickSearch}
           >
             Search
           </button>
@@ -140,15 +150,14 @@ function Search() {
             <div className="category">Season</div>
             <button
               id="season"
-              className={`season${
-                userInputs.season === "spr" ? "-clicked" : ""
-              }`}
+              className={`season${userInputs.season === "spr" ? "-clicked" : ""
+                }`}
               onClick={() =>
                 userInputs.season != "spr"
                   ? setUserInputs({
-                      ...userInputs,
-                      season: "spr",
-                    })
+                    ...userInputs,
+                    season: "spr",
+                  })
                   : setUserInputs({ ...userInputs, season: "" })
               }
             >
@@ -156,15 +165,14 @@ function Search() {
             </button>
             <button
               id="season"
-              className={`season${
-                userInputs.season === "sum" ? "-clicked" : ""
-              }`}
+              className={`season${userInputs.season === "sum" ? "-clicked" : ""
+                }`}
               onClick={() =>
                 userInputs.season != "sum"
                   ? setUserInputs({
-                      ...userInputs,
-                      season: "sum",
-                    })
+                    ...userInputs,
+                    season: "sum",
+                  })
                   : setUserInputs({ ...userInputs, season: "" })
               }
             >
@@ -172,15 +180,14 @@ function Search() {
             </button>
             <button
               id="season"
-              className={`season${
-                userInputs.season === "aut" ? "-clicked" : ""
-              }`}
+              className={`season${userInputs.season === "aut" ? "-clicked" : ""
+                }`}
               onClick={() =>
                 userInputs.season != "aut"
                   ? setUserInputs({
-                      ...userInputs,
-                      season: "aut",
-                    })
+                    ...userInputs,
+                    season: "aut",
+                  })
                   : setUserInputs({ ...userInputs, season: "" })
               }
             >
@@ -188,15 +195,14 @@ function Search() {
             </button>
             <button
               id="season"
-              className={`season${
-                userInputs.season === "win" ? "-clicked" : ""
-              }`}
+              className={`season${userInputs.season === "win" ? "-clicked" : ""
+                }`}
               onClick={() =>
                 userInputs.season != "win"
                   ? setUserInputs({
-                      ...userInputs,
-                      season: "win",
-                    })
+                    ...userInputs,
+                    season: "win",
+                  })
                   : setUserInputs({ ...userInputs, season: "" })
               }
             >
@@ -221,76 +227,72 @@ function Search() {
             <div className="category">Theme</div>
             <button
               id="theme"
-              className={`theme${
-                userInputs.theme === "lover" ? "-clicked" : ""
-              }`}
+              className={`theme${userInputs.theme === "lover" ? "-clicked" : ""
+                }`}
               onClick={() =>
                 userInputs.theme != "lover"
                   ? setUserInputs({
-                      ...userInputs,
-                      theme: "lover",
-                    })
+                    ...userInputs,
+                    theme: "lover",
+                  })
                   : setUserInputs({
-                      ...userInputs,
-                      theme: "",
-                    })
+                    ...userInputs,
+                    theme: "",
+                  })
               }
             >
               연인과 함께
             </button>
             <button
               id="theme"
-              className={`theme${
-                userInputs.theme === "family" ? "-clicked" : ""
-              }`}
+              className={`theme${userInputs.theme === "family" ? "-clicked" : ""
+                }`}
               onClick={() =>
                 userInputs.theme != "family"
                   ? setUserInputs({
-                      ...userInputs,
-                      theme: "family",
-                    })
+                    ...userInputs,
+                    theme: "family",
+                  })
                   : setUserInputs({
-                      ...userInputs,
-                      theme: "",
-                    })
+                    ...userInputs,
+                    theme: "",
+                  })
               }
             >
               가족과 함께
             </button>
             <button
               id="theme"
-              className={`theme${
-                userInputs.theme === "friends" ? "-clicked" : ""
-              }`}
+              className={`theme${userInputs.theme === "friends" ? "-clicked" : ""
+                }`}
               onClick={() =>
                 userInputs.theme != "friends"
                   ? setUserInputs({
-                      ...userInputs,
-                      theme: "friends",
-                    })
+                    ...userInputs,
+                    theme: "friends",
+                  })
                   : setUserInputs({
-                      ...userInputs,
-                      theme: "",
-                    })
+                    ...userInputs,
+                    theme: "",
+                  })
               }
             >
               친구와 함께
             </button>
             <button
               id="theme"
-              className={`theme${
-                userInputs.theme === "alone" ? "-clicked" : ""
-              }`}
+              className={`theme${userInputs.theme === "alone" ? "-clicked" : ""
+                }`}
               onClick={() =>
                 userInputs.theme != "alone"
                   ? setUserInputs({
-                      ...userInputs,
-                      theme: "alone",
-                    })
+                    ...userInputs,
+                    theme: "alone",
+                  })
                   : setUserInputs({
-                      ...userInputs,
-                      theme: "",
-                    })
+                    ...userInputs,
+                    theme: "",
+                  })
               }
             >
               나홀로 여행
@@ -301,20 +303,19 @@ function Search() {
             <div className="category">Transportation</div>
             <button
               id="transportation"
-              className={`theme${
-                userInputs.transportation === "True" ? "-clicked" : ""
-              }`}
+              className={`theme${userInputs.transportation === "True" ? "-clicked" : ""
+                }`}
               onClick={() =>
                 userInputs.transportation === "False" ||
-                userInputs.transportation === ""
+                  userInputs.transportation === ""
                   ? setUserInputs({
-                      ...userInputs,
-                      transportation: "True",
-                    })
+                    ...userInputs,
+                    transportation: "True",
+                  })
                   : setUserInputs({
-                      ...userInputs,
-                      transportation: "False",
-                    })
+                    ...userInputs,
+                    transportation: "False",
+                  })
               }
             >
               뚜벅이 여행 가능
@@ -323,6 +324,32 @@ function Search() {
         </div>
       </div>
       <div className="search-result-container">
+        {searched == false && (
+          <>
+            <div className="search-result-header">
+              <div className="search-result-title">Recent posts</div>
+            </div>
+            <div className="search-result-content">
+              {postsAll.map((post: SimplePostType, index: number) => {
+                if (index >= 0 && index <= 5) {
+                  return (
+                    <PostItem
+                      key={post.id}
+                      id={post.id}
+                      thumbnail_image={post.thumbnail_image}
+                      title={post.title}
+                      author_name={post.author_name}
+                      author_id={post.author_id}
+                      like_count={post.like_count}
+                      comment_count={post.comment_count}
+                      is_shared={post.is_shared}
+                    />
+                  );
+                }
+              })}
+            </div>
+          </>
+        )}
         {searched == true && (
           <>
             <div className="search-result-header">
@@ -345,6 +372,9 @@ function Search() {
               </div>
             </div>
             <div className="search-result-content">
+              {sorting == "" && searchedPosts.length == 0 && (
+                <div className="no-result">검색 결과가 존재하지 않습니다.</div>
+              )}
               {sorting == "" &&
                 searchedPosts.map((post: SimplePostType) => {
                   return (
@@ -361,6 +391,9 @@ function Search() {
                     />
                   );
                 })}
+              {sorting == "like" && searchedPosts.length == 0 && (
+                <div className="no-result">검색 결과가 존재하지 않습니다.</div>
+              )}
               {sorting == "like" &&
                 likeSearchedPosts.map((post: SimplePostType) => {
                   return (
@@ -377,6 +410,9 @@ function Search() {
                     />
                   );
                 })}
+              {sorting == "date" && searchedPosts.length == 0 && (
+                <div className="no-result">검색 결과가 존재하지 않습니다.</div>
+              )}
               {sorting == "date" &&
                 dateSearchPosts.map((post: SimplePostType) => {
                   return (

@@ -22,7 +22,7 @@ def signup(request):
 
         if User.objects.filter(email=email).exists():
             return HttpResponseBadRequest("이미 존재하는 이메일입니다! 다른 이메일을 사용해주세요.")
-        elif User.objects.filter(username=username).exists():
+        if User.objects.filter(username=username).exists():
             return HttpResponseBadRequest("이미 존재하는 닉네임입니다! 다른 닉네임을 사용해주세요.")
 
         user = User.objects.create_user(email=email, username=username)

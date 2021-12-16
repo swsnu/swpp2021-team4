@@ -30,13 +30,13 @@ function Signup() {
     });
   }
 
-  const onClickSignupButton = async () => {
-    const { userEmail, userName, userPassword, checkUserPassword } = userInputs;
+  const validateForm = (userEmail: string, userName: string, userPassword: string, checkUserPassword: string) => {
+    let isValid: boolean = false;
     if (!userEmail) {
       alert('이메일을 입력해주세요!');
     } else if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(userEmail)) {
       alert(`이메일 형식이 잘못되었습니다!\nex)tripick@tripick.com`);
-    }else if (!userName) {
+    } else if (!userName) {
       alert('닉네임을 입력해주세요!');
     } else if (!userPassword) {
       alert('패스워드를 입력해주세요!')
@@ -47,16 +47,27 @@ function Signup() {
     } else if (userPassword !== checkUserPassword) {
       alert('두 패스워드가 서로 다릅니다!');
     } else {
-      const response = await signup({ email: userEmail, username: userName, password: userPassword });
-      if (response.status === 201) {
-        dispatch(signinAction({ email: userInputs.userEmail, password: userInputs.userPassword }, (value) => setIsSigned(value)));
-      } else if (response.status === 400 && response.data) {
-        alert(`${response.data}`);
-      } else if (response.status === 500) {
-        alert('서버에러 발생! 트리픽에 문의해주세요');
-      } else {
-        alert('회원가입에 실패했습니다');
-      }
+      isValid = true;
+    }
+    return isValid;
+  }
+
+  const onClickSignupButton = async () => {
+    const { userEmail, userName, userPassword, checkUserPassword } = userInputs;
+    if (!validateForm(userEmail, userName, userPassword, checkUserPassword)) return;
+    
+    const response = await signup({ email: userEmail, username: userName, password: userPassword });
+    if (response.status === 201) {
+      dispatch(signinAction(
+        { email: userInputs.userEmail, password: userInputs.userPassword },
+        (value) => setIsSigned(value)
+      ));
+    } else if (response.status === 400 && response.data) {
+      alert(`${response.data}`);
+    } else if (response.status === 500) {
+      alert('서버에러 발생! 트리픽에 문의해주세요');
+    } else {
+      alert('회원가입에 실패했습니다');
     }
   }
 
@@ -84,7 +95,7 @@ function Signup() {
         <input
           id="userPassword"
           type="password"
-          placeholder="비밀번호를 입력해 주세요."
+          placeholder="비밀번호를 입력해 주세요 (8자리 이상의 영문+숫자)"
           value={userInputs.userPassword}
           onChange={onChangeInputs}
         />
@@ -96,7 +107,10 @@ function Signup() {
           onChange={onChangeInputs}
         />
 
-        <div className="signup-btn" onClick={onClickSignupButton}>
+        <div
+          className="signup-btn"
+          onClick={onClickSignupButton}
+        >
           Sign Up
         </div>
       </div>

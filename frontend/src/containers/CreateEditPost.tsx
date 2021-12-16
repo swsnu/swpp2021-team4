@@ -68,7 +68,7 @@ function CreateEditPost(props: PropsType) {
   const [createdPostId, setCreatedPostId] = useState<number>(0);
   const [pathList, setPathList] = useState<PathListType>({});
   //should choose a base route when the user visits create page
-  const [routeModalVisible, setRouteModalVisible] = useState<boolean>(true);
+  const [routeModalVisible, setRouteModalVisible] = useState<boolean>(false);
 
   useEffect(() => {
     if (isPostCreated && createdPostId) {
@@ -92,11 +92,16 @@ function CreateEditPost(props: PropsType) {
             placeList = [...placeList, { place: place, day: selectedDay }];
           });
           setCartPlaceList(placeList);
+
           let routeList = [...cartRouteList];
           response.data.posts.forEach((route: SimplePostType) => {
             routeList = [...routeList, route];
           });
-          setCartRouteList(routeList);
+          
+          if (routeList.length > 0) {
+            setCartRouteList(routeList);
+            setRouteModalVisible(true);
+          }
         })
         .catch((err) => err.response);
     }
@@ -166,7 +171,6 @@ function CreateEditPost(props: PropsType) {
       description: e.target.value,
     });
   };
-
   const onAddPlace = (place: PlaceType) => {
     setRoutePlaces((prevState: any) => {
       return [
@@ -257,7 +261,7 @@ function CreateEditPost(props: PropsType) {
           // render places in my routes section
           const placeList: PlaceDayType[] = response.data.places.map(
             (place: PlaceType) => ({
-              place: place,
+              place: {...place, id: place.id + Date.now()},
               day: place.day,
             })
           );
@@ -293,10 +297,20 @@ function CreateEditPost(props: PropsType) {
       location,
     } = postInfoData;
 
+    if (!(title && theme && seasonRecommendation && location && days)) {
+      window.alert("게시물 정보를 모두 채워주세요!");
+      return;
+    } else if (routePlaces.length < 1) {
+      alert('하나 이상의 장소를 추가해주세요!');
+      return;
+    }
+
+    let maxDay: number = 0;
     const placeListData = routePlaces
       .filter((p: PlaceDayType) => p.day)
       .map((p: PlaceDayType, index: number) => {
         const { day, place } = p;
+        if (day > maxDay) maxDay = day;
 
         return {
           day,
@@ -322,16 +336,13 @@ function CreateEditPost(props: PropsType) {
     const formData = new FormData();
     formData.append("title", title);
     formData.append("is_shared", isShared?.toString() || "false");
-    if (thumbnailImage) formData.append("thumbnail_image", thumbnailImage);
-    formData.append("days", days?.toString());
+    formData.append("thumbnail_image", thumbnailImage);
+    formData.append("days", maxDay?.toString());
     formData.append("theme", theme);
     formData.append("season", seasonRecommendation);
     formData.append("location", location);
     formData.append("availableWithoutCar", isAvailableWithoutCar.toString());
-    formData.append(
-      "folder_id",
-      folderId ? folderId.toString() : "172637238622223"
-    );
+    formData.append("folder_id", folderId?.toString() ?? "");
     formData.append("places", JSON.stringify(placeListData));
     formData.append("path_list", JSON.stringify(pathListData));
     formData.append("enctype", "multipart/form-data");
@@ -473,7 +484,7 @@ function CreateEditPost(props: PropsType) {
   };
 
   return (
-    <div>
+    <div className="create-edit-post-container">
       <SelectRouteModal
         onClickCloseModal={onClickCloseModal}
         onClickRoute={onClickRoute}
@@ -510,20 +521,12 @@ function CreateEditPost(props: PropsType) {
             <div className="my-routes-title">
               My Routes
               <div className="select-route-button">
-                <button onClick={() => setRouteModalVisible(true)}>
+                <button id="route-change-button" onClick={() => setRouteModalVisible(true)}>
                   루트 바꾸기
                 </button>
               </div>
             </div>
-            <SelectRouteModal
-              onClickCloseModal={onClickCloseModal}
-              onClickRoute={onClickRoute}
-              clickedRoute={clickedRoute}
-              cartRouteList={cartRouteList}
-              isModalVisible={routeModalVisible}
-              onClickRouteSubmitButton={onClickRouteSubmitButton}
-              countModalClick={countModalClick}
-            />
+            
             <MyRoutesSection
               days={postInfoData.days}
               selectedDay={selectedDay}
