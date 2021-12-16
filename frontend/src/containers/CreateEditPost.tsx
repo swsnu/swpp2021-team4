@@ -88,7 +88,7 @@ function CreateEditPost(props: PropsType) {
         }>(`/user/${loggedUser.id}/folder/${props.folder.id}`)
         .then(function (response) {
           let placeList = [...initialCartPlaceList];
-          response.data.places.map((place: PlaceType) => {
+          response.data.places.forEach((place: PlaceType) => {
             placeList = [...placeList, { place: place, day: selectedDay }];
           });
           setCartPlaceList(placeList);

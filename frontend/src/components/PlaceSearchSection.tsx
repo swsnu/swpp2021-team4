@@ -39,7 +39,7 @@ function PlaceSearchSection(props: PropType) {
   useEffect(() => {
     const placeList: any = [];
     if (initialCartPlaceList) {
-      initialCartPlaceList.map((placeDay: PlaceDayType) => {
+      initialCartPlaceList.forEach((placeDay: PlaceDayType) => {
         placeList.push(placeDay);
       });
     }
