@@ -53,6 +53,12 @@
       &:hover {
         background-color: #D9D9D9;
       }
+
+      .folder-name {
+        max-width: 70%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
   
       .icon {
         filter: invert(0%) sepia(94%) saturate(13%) hue-rotate(327deg) brightness(89%) contrast(100%);

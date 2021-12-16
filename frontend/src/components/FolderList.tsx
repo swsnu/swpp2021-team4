@@ -36,7 +36,7 @@ function Folder(props: FolderPropsType) {
       className={"folder-container".concat(folder.id == selectedFolder?.id ? ' selected' : '')}
       onClick={() => props.onClickFolder(folder)}
     >
-      {folder.name}
+      <span className="folder-name">{folder.name}</span>
       <img
         className="icon"
         src={editIcon}
