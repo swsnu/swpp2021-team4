@@ -22,6 +22,7 @@
   width: 350px;
   padding: 25px;
   overflow-y: auto;
+  z-index: 5;
 }
 
 .select-route-modal-container .modal-title {

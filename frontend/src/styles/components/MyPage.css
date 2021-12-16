@@ -166,7 +166,7 @@
           flex-direction: column;
 }
 
-.folder .right .posts-container .liked-posts {
+.folder .right .posts-container .liked-posts, .folder .right .posts-container .shared-posts {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
