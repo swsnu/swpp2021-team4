@@ -7,6 +7,7 @@ import { Folder } from "../store/User/userInterfaces";
 import "../styles/components/SelectFolderModal.css";
 import add_icon from "../static/add_day_icon.svg";
 import close_modal_icon from "../static/close-modal-icon.svg";
+import edit_btn from "../static/edit-icon.svg";
 
 interface PropsType {
   isModalVisible: boolean;
@@ -140,6 +141,23 @@ function SelectFolderModal(props: PropsType) {
     [loggedUser.id, newFolderText]
   );
 
+  const onCompleteMakeFolder = useCallback(
+    () => {
+      if (!newFolderText) {
+        alert('폴더명을 입력해주세요!');
+        return;
+      }
+
+      dispatch(
+        addFolderAction(loggedUser.id, newFolderText, () => {
+          setIsMakeFolderBtnClicked(false);
+          setNewFolderText("");
+        })
+      );
+    },
+    [loggedUser.id, newFolderText]
+  );
+
   if (!props.isModalVisible) {
     return <div />;
   }
@@ -174,13 +192,19 @@ function SelectFolderModal(props: PropsType) {
             <div className="make-folder-title">Add Folder</div>
           </div>
         ) : (
-          <div>
+          <div className="make-folder-input-container">
             <input
               className="make-folder-input"
               value={newFolderText}
               onChange={onChangeMakeFolder}
               onKeyPress={onPressEnterMakeFolder}
               placeholder="새로운 폴더 이름을 입력해주세요"
+            />
+            <img
+              className="icon"
+              src={edit_btn}
+              style={{ fill: 'green' }}
+              onClick={onCompleteMakeFolder}
             />
           </div>
         )}
