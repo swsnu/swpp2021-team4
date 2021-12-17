@@ -8,7 +8,6 @@ import { history } from "../store/store";
 import { BrowserRouter } from "react-router-dom";
 import axios from "axios";
 import * as userAction from "../store/User/userAction";
-import PlaceItem from "../components/PlaceItem";
 
 const stubInitialState = {
   user: {
