@@ -39,7 +39,7 @@ function PostHeader(props: PropType) {
     else if (props.post.theme === "alone") return "나홀로 여행!";
   };
 
-  const onClick = () => {
+  const onClickEdit = () => {
     history.push(`/post/${props.post.id}/edit/`, { from: 'edit', postId: props.post.id });
   }
 
@@ -120,7 +120,7 @@ function PostHeader(props: PropType) {
             )}
             {props.loggedUserId === props.post.author_id && (
               <div className="header-top-icons">
-                <img className="icon" src={edit_btn} onClick={onClick} />
+                <img className="icon" src={edit_btn} onClick={onClickEdit} />
                 <img className="icon" src={delete_btn} onClick={props.onClickPostDeleteButton} />
               </div>
             )}
